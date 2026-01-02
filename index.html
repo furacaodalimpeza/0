@@ -3,182 +3,238 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Furacão da Limpeza</title>
 
 <style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: #e9f3ff;
-}
+body{font-family:Arial,sans-serif;margin:0;background:#e9f3ff}
+header{background:url("img/fundo-limpeza.jpg") center/cover;height:220px}
 
-/* TOPO */
-header {
-  background-image: url("img/fundo-limpeza.jpg");
-  background-size: cover;
-  background-position: center;
-  height: 220px;
+/* BOTÃO CARRINHO */
+.carrinho-btn{
+ position:fixed;top:20px;right:20px;
+ background:#0a7cff;color:#fff;
+ padding:12px 18px;border-radius:50px;
+ display:flex;gap:8px;cursor:pointer;
+ box-shadow:0 4px 10px rgba(0,0,0,.3);
+ z-index:3000;transition:.2s
+}
+.carrinho-btn.animar{transform:scale(1.15)}
+.carrinho-btn span{
+ background:#ff3d00;border-radius:50%;
+ padding:4px 8px;font-size:12px
 }
 
 /* ABAS */
-.abas {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 20px;
+.abas{display:flex;justify-content:center;gap:10px;margin:20px;z-index:10;position:relative}
+.abas button{
+ background:#fff;color:#0a7cff;
+ border:none;padding:10px 18px;
+ border-radius:20px;font-weight:bold;cursor:pointer
 }
+.abas button.ativa{background:#0a7cff;color:#fff}
 
-.abas button {
-  background: #fff;
-  color: #0a7cff;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 20px;
-  font-weight: bold;
-  cursor: pointer;
-}
+.categoria{display:none}
+.categoria.ativa{display:block}
 
-.abas button.ativa {
-  background: #0a7cff;
-  color: #fff;
-}
-
-/* CATEGORIAS */
-.categoria {
-  display: none;
-}
-
-.categoria.ativa {
-  display: block;
-}
-
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 15px;
-}
-
-h2 {
-  color: #0a7cff;
-  text-align: center;
-}
+.container{max-width:1100px;margin:auto;padding:15px}
+h2{text-align:center;color:#0a7cff}
 
 /* PRODUTOS */
-.produtos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-}
+.produtos{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.produto{background:#fff;padding:15px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.2);text-align:center}
+.produto img{width:100%;height:200px;object-fit:cover;border-radius:8px}
 
-.produto {
-  background: #fff;
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.2);
-  text-align: center;
-}
-
-.produto img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.produto button {
-  background: #25d366;
-  border: none;
-  color: #fff;
-  padding: 10px;
-  width: 100%;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-top: 5px;
+.linha{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.linha button{
+ background:#25d366;color:#fff;border:none;
+ padding:6px 12px;border-radius:6px;cursor:pointer;font-weight:bold
 }
 
 /* CARRINHO */
-#carrinho {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #fff;
-  border-top: 3px solid #0a7cff;
-  padding: 10px;
-  box-shadow: 0 -2px 10px rgba(0,0,0,.2);
+#carrinho{
+ position:fixed;top:0;right:-360px;
+ width:320px;height:100%;
+ background:#fff;padding:15px;
+ box-shadow:-4px 0 15px rgba(0,0,0,.3);
+ transition:.3s;z-index:2500;overflow-y:auto
 }
+#carrinho.aberto{right:0}
 
-#carrinho ul {
-  list-style: none;
-  padding: 0;
-  margin: 5px 0;
+.item-carrinho{
+ display:flex;justify-content:space-between;align-items:center;margin-bottom:10px
 }
-
-#carrinho button {
-  background: #0a7cff;
-  color: #fff;
-  border: none;
-  padding: 10px;
-  width: 100%;
-  border-radius: 6px;
+.item-carrinho button{
+ background:#0a7cff;color:#fff;border:none;
+ padding:6px;border-radius:6px;cursor:pointer
 }
+.item-carrinho .lixeira{background:#ff3d00}
 
-/* RODAPÉ */
-footer {
-  background: #0a7cff;
-  color: #fff;
-  text-align: center;
-  padding: 20px;
-  margin-bottom: 120px;
+.finalizar{
+ background:#0a7cff;color:#fff;
+ border:none;padding:12px;width:100%;
+ border-radius:8px;font-size:16px
+}
+.continuar{
+ background:#25d366;color:#fff;
+ border:none;padding:10px;width:100%;
+ border-radius:8px;margin-top:6px;font-weight:bold
 }
 </style>
 </head>
 
 <body>
 
+<audio id="somAdd" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3"></audio>
+
 <header></header>
 
-<!-- ABAS -->
+<div id="btnCarrinho" class="carrinho-btn" onclick="toggleCarrinho()">
+🛒 Carrinho <span id="contador">0</span>
+</div>
+
 <div class="abas">
-  <button class="ativa" onclick="mostrarCategoria('banheiro', this)">Banheiro</button>
-  <button onclick="mostrarCategoria('limpeza', this)">Limpeza Geral</button>
-  <button onclick="mostrarCategoria('casa', this)">Casa</button>
+<button class="ativa" onclick="mostrarCategoria('banheiro',this)">Banheiro</button>
+<button onclick="mostrarCategoria('limpeza',this)">Produtos de Limpeza</button>
+<button onclick="mostrarCategoria('casa',this)">Casa</button>
 </div>
 
 <div class="container">
 
-<!-- BANHEIRO -->
 <div id="banheiro" class="categoria ativa">
-<h2>Produtos para Banheiro</h2>
+<h2>Banheiro</h2>
 <div class="produtos">
 
-<div class="produto">
-<img src="img/desinfetante-banheiro.jpg">
-<h3>Desinfetante Banheiro</h3>
-<p>R$ 10,00</p>
-<button onclick="adicionar('Desinfetante Banheiro', 10)">Adicionar</button>
+<!-- produtos banheiro -->
+  <div class="produto">
+<img src="img/sabonete-liquido-dove.jpg">
+<h3>Sabonete Líquido Dove</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>1L — R$ 12,00</span>
+    <button onclick="addProduto('Sabonete Dove 1L',12)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 35,00</span>
+    <button onclick="addProduto('Sabonete Dove 5L',35)">Adicionar</button>
+  </div>
+</div>
+</div>
+ 
+ <div class="produto">
+<img src="img/sabonete-liquido-erva-doce.jpg">
+<h3>Sabonete Erva Doce</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>1L — R$ 12,00</span>
+    <button onclick="addProduto('Sabonete Erva Doce 1L',12)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 35,00</span>
+    <button onclick="addProduto('Sabonete Erva Doce 5L',35)">Adicionar</button>
+  </div>
+</div>
+</div>
+ 
+</div>
 </div>
 
-</div>
-</div>
-
-<!-- LIMPEZA GERAL -->
+<!-- PRODUTOS DE LIMPEZA -->
 <div id="limpeza" class="categoria">
-<h2>Limpeza Geral</h2>
+<h2>Produtos de Limpeza</h2>
 <div class="produtos">
-
-<div class="produto">
-<img src="img/sabao-liquido-bonrruque.jpg">
-<h3>Sabão Líquido 2L</h3>
-<p>R$ 12,00</p>
-<button onclick="adicionar('Sabão Líquido 2L', 12)">Adicionar</button>
-
-<h3>Sabão Líquido 5L</h3>
-<p>R$ 25,00</p>
-<button onclick="adicionar('Sabão Líquido 5L', 25)">Adicionar</button>
+ 
+<!-- produtos limpeza -->
+ <div class="produto">
+<img src="img/sabonete-liquido-dove.jpg">
+<h3>Sabonete Líquido Dove</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>1L — R$ 12,00</span>
+    <button onclick="addProduto('Sabonete Dove 1L',12)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 35,00</span>
+    <button onclick="addProduto('Sabonete Dove 5L',35)">Adicionar</button>
+  </div>
 </div>
-
+</div>
+ 
+ <div class="produto">
+<img src="img/sabonete-liquido-erva-doce.jpg">
+<h3>Sabonete Líquido Erva Doce</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>1L — R$ 12,00</span>
+    <button onclick="addProduto('Sabonete Liquido Erva Doce 1L',12)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 35,00</span>
+    <button onclick="addProduto('Sabonete Liquido Erva Doce 5L',35)">Adicionar</button>
+  </div>
+</div>
+</div>
+ 
+ <div class="produto">
+<img src="img/sabao-liquido-bonrruque.jpg">
+<h3>Sabão Líquido Bonrruque</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 12,00</span>
+    <button onclick="addProduto('Sabão Bonrruque 2L',12)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 25,00</span>
+    <button onclick="addProduto('Sabão Bonrruque 5L',25)">Adicionar</button>
+  </div>
+</div>
+</div>
+ 
+ 
+<div class="produto">
+<img src="img/sabao-de-coco.jpg">
+<h3>Sabão de Coco</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 12,00</span>
+    <button onclick="addProduto('Sabão de Coco 2L',12)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 25,00</span>
+    <button onclick="addProduto('Sabão de Coco 5L',25)">Adicionar</button>
+  </div>
+</div>
+</div>
+ 
+ <div class="produto">
+<img src="img/detergente-concentrado.jpg">
+<h3>Detergente Concentrado</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 12,00</span>
+    <button onclick="addProduto('Detergente 2L',12)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 25,00</span>
+    <button onclick="addProduto('Detergente 5L',25)">Adicionar</button>
+  </div>
+</div>
+</div>
+ 
+ <div class="produto">
+<img src="img/amaciante.jpg">
+<h3>Amaciante</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 10,00</span>
+    <button onclick="addProduto('Amaciante 2L',10)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 20,00</span>
+    <button onclick="addProduto('Amaciante 5L',20)">Adicionar</button>
+  </div>
+</div>
+</div>
+ 
 </div>
 </div>
 
@@ -186,68 +242,121 @@ footer {
 <div id="casa" class="categoria">
 <h2>Casa</h2>
 <div class="produtos">
-
-<div class="produto">
-<img src="img/vassoura-de-canto.jpg">
-<h3>Vassoura de Canto</h3>
-<p>R$ 19,00</p>
-<button onclick="adicionar('Vassoura de Canto', 19)">Adicionar</button>
+ 
+<!-- produtos casa -->
+ <div class="produto">
+<img src="img/detergente-concentrado.jpg">
+<h3>Detergente Concentrado</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 12,00</span>
+    <button onclick="addProduto('Detergente 2L',12)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 25,00</span>
+    <button onclick="addProduto('Detergente 5L',25)">Adicionar</button>
+  </div>
+</div>
+</div>
+ 
+ <div class="produto">
+<img src="img/amaciante.jpg">
+<h3>Amaciante</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 10,00</span>
+    <button onclick="addProduto('Amaciante 2L',10)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 20,00</span>
+    <button onclick="addProduto('Amaciante 5L',20)">Adicionar</button>
+  </div>
+</div>
+</div>
+ 
+</div>
 </div>
 
 </div>
-</div>
-
-</div>
-
-<!-- CARRINHO -->
 <div id="carrinho">
-<strong>Carrinho</strong>
+<h3>🛒 Seu Carrinho</h3>
 <ul id="lista"></ul>
-<p><strong>Total: R$ <span id="total">0</span></strong></p>
-<button onclick="finalizar()">Finalizar no WhatsApp</button>
+<p><strong>Total: R$ <span id="total">0.00</span></strong></p>
+<button class="finalizar" onclick="finalizar()">Finalizar no WhatsApp</button>
+<button class="continuar" onclick="toggleCarrinho()">Continuar comprando</button>
 </div>
-
-<footer>
-<p>📞 Encomendas pelo WhatsApp</p>
-<p>📧 Também aceitamos pedidos pelo e-mail:</p>
-<strong>furacaodalimpeza027@gmail.com</strong>
-<p>© 2026 Furacão da Limpeza</p>
-</footer>
 
 <script>
-let carrinho = [];
-let total = 0;
+let carrinho=[];
 
-function mostrarCategoria(id, btn) {
-  document.querySelectorAll('.categoria').forEach(c => c.classList.remove('ativa'));
-  document.querySelectorAll('.abas button').forEach(b => b.classList.remove('ativa'));
-  document.getElementById(id).classList.add('ativa');
-  btn.classList.add('ativa');
+function addProduto(nome,preco){
+ let item=carrinho.find(p=>p.nome===nome);
+ if(item) item.qtd++;
+ else carrinho.push({nome,preco,qtd:1});
+
+ let som=document.getElementById("somAdd");
+ som.currentTime=0;
+ som.play().catch(()=>{});
+
+ let btn=document.getElementById("btnCarrinho");
+ btn.classList.add("animar");
+ setTimeout(()=>btn.classList.remove("animar"),200);
+
+ atualizar();
 }
 
-function adicionar(nome, preco) {
-  carrinho.push({nome, preco});
-  total += preco;
-  atualizarCarrinho();
+function atualizar(){
+ let lista=document.getElementById("lista");
+ let totalEl=document.getElementById("total");
+ let contador=document.getElementById("contador");
+ lista.innerHTML="";
+ let total=0,itens=0;
+
+ carrinho.forEach((p,i)=>{
+  total+=p.preco*p.qtd;itens+=p.qtd;
+  lista.innerHTML+=`
+  <li class="item-carrinho">
+   <div><strong>${p.nome}</strong><br>R$ ${(p.preco*p.qtd).toFixed(2)}</div>
+   <div>
+    <button onclick="alterarQtd(${i},-1)">➖</button>
+    <button onclick="alterarQtd(${i},1)">➕</button>
+    <button class="lixeira" onclick="remover(${i})">🗑️</button>
+   </div>
+  </li>`;
+ });
+
+ totalEl.innerText=total.toFixed(2);
+ contador.innerText=itens;
 }
 
-function atualizarCarrinho() {
-  const lista = document.getElementById('lista');
-  lista.innerHTML = '';
-  carrinho.forEach(item => {
-    const li = document.createElement('li');
-    li.textContent = `${item.nome} - R$ ${item.preco}`;
-    lista.appendChild(li);
-  });
-  document.getElementById('total').textContent = total.toFixed(2);
+function alterarQtd(i,v){
+ carrinho[i].qtd+=v;
+ if(carrinho[i].qtd<=0) carrinho.splice(i,1);
+ atualizar();
 }
 
-function finalizar() {
-  let msg = 'Olá! Gostaria de encomendar:%0A';
-  carrinho.forEach(i => msg += `- ${i.nome} (R$ ${i.preco})%0A`);
-  msg += `Total: R$ ${total.toFixed(2)}`;
+function remover(i){
+ carrinho.splice(i,1);
+ atualizar();
+}
 
-  window.open(`https://wa.me/5515996585967?text=${msg}`, '_blank');
+function toggleCarrinho(){
+ document.getElementById("carrinho").classList.toggle("aberto");
+}
+
+function finalizar(){
+ let msg="Ola! Gostaria de encomendar:%0A";
+ carrinho.forEach(p=>msg+=`- ${p.nome} (${p.qtd}x)%0A`);
+ msg+=`Total: R$ ${document.getElementById("total").innerText}`;
+ window.open("https://wa.me/5515996585967?text="+msg);
+}
+
+function mostrarCategoria(id,btn){
+ document.querySelectorAll(".categoria").forEach(c=>c.classList.remove("ativa"));
+ document.querySelectorAll(".abas button").forEach(b=>b.classList.remove("ativa"));
+ document.getElementById(id).classList.add("ativa");
+ btn.classList.add("ativa");
+ document.getElementById("carrinho").classList.remove("aberto");
 }
 </script>
 
