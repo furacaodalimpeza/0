@@ -801,7 +801,7 @@ h2 { text-align: center; color: #0a7cff; }
 <div class="variacoes">
   <div class="linha">
     <span> R$ 40,00</span>
-    <button onclick="addProduto('Lixeira com Suporte para Pendurar',50)">Adicionar</button>
+    <button onclick="addProduto('Lixeira com Suporte para Pendurar',40)">Adicionar</button>
   </div>
 </div>
 </div>
@@ -1100,8 +1100,8 @@ function enviarWhatsApp() {
   });
 
   msg += `%0A💰 *Total:* R$ ${totalGeral.toFixed(2)}%0A%0A`;
-  msg += "📍 📍 Assim que confirmar, preparamos tudo com carinho para você 🙏🏼✨
-";
+  msg += "📍 Assim que confirmar, preparamos tudo com carinho para você 🙏🏼✨";
+
 
   const telefone = "5515996585967";
   window.open(`https://wa.me/${telefone}?text=${msg}`,"_blank");
