@@ -1803,12 +1803,29 @@ window.onload = () => {
 };
 
 function filtrarProdutos() {
-  const texto = document.getElementById("pesquisaProduto").value.toLowerCase();
+  const texto = document
+    .getElementById("pesquisaProduto")
+    .value
+    .toLowerCase()
+    .trim();
+
   const produtos = document.querySelectorAll(".produto");
 
   produtos.forEach(produto => {
-    const nome = produto.querySelector("h3").innerText.toLowerCase();
-    produto.style.display = nome.includes(texto) ? "block" : "none";
+    const nomeProduto = produto
+      .querySelector("h3")
+      .innerText
+      .toLowerCase();
+
+    // separa o texto digitado em palavras
+    const palavrasBusca = texto.split(" ");
+
+    // verifica se TODAS as palavras existem no nome do produto
+    const encontrado = palavrasBusca.every(p =>
+      nomeProduto.includes(p)
+    );
+
+    produto.style.display = encontrado ? "block" : "none";
   });
 }
 
