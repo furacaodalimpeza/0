@@ -6,89 +6,219 @@
 <title>Furacão da Limpeza</title>
 
 <style>
-body{font-family:Arial,sans-serif;margin:0;background:#e9f3ff}
-header{background:url("img/fundo-limpeza.jpg") center/cover;height:220px}
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #e9f3ff;
+}
+header {
+  background: url("img/fundo-limpeza.jpg") center/cover;
+  height: 220px;
+}
 
 /* BOTÃO CARRINHO */
-.carrinho-btn{
- position:fixed;top:20px;right:20px;
- background:#0a7cff;color:#fff;
- padding:12px 18px;border-radius:50px;
- display:flex;gap:8px;cursor:pointer;
- box-shadow:0 4px 10px rgba(0,0,0,.3);
- z-index:3000;transition:.2s
+.carrinho-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #0a7cff;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 50px;
+  display: flex;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,.3);
+  z-index: 3000;
+  transition: .2s;
 }
-.carrinho-btn.animar{transform:scale(1.15)}
-.carrinho-btn span{
- background:#ff3d00;border-radius:50%;
- padding:4px 8px;font-size:12px
+.carrinho-btn.animar { transform: scale(1.15); }
+.carrinho-btn span {
+  background: #ff3d00;
+  border-radius: 50%;
+  padding: 4px 8px;
+  font-size: 12px;
 }
 
 /* ABAS */
-.abas{display:flex;justify-content:center;gap:10px;margin:20px;z-index:10;position:relative}
-.abas button{
- background:#fff;color:#0a7cff;
- border:none;padding:10px 18px;
- border-radius:20px;font-weight:bold;cursor:pointer
+.abas {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px;
+  z-index: 10;
+  position: relative;
 }
-.abas button.ativa{background:#0a7cff;color:#fff}
+.abas button {
+  background: #fff;
+  color: #0a7cff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.abas button.ativa {
+  background: #0a7cff;
+  color: #fff;
+}
 
-.categoria{display:none}
-.categoria.ativa{display:block}
+.categoria { display: none; }
+.categoria.ativa { display: block; }
 
-.container{max-width:1100px;margin:auto;padding:15px}
-h2{text-align:center;color:#0a7cff}
+.container { max-width: 1100px; margin: auto; padding: 15px; }
+h2 { text-align: center; color: #0a7cff; }
 
 /* PRODUTOS */
-.produtos{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
-.produto{background:#fff;padding:15px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.2);text-align:center}
-.produto img{
-    width:100%;
-    height:auto;        /* MUITO IMPORTANTE */
-    object-fit:contain;
-    border-radius:8px;
-    display:block;
+.produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  gap: 20px;
 }
- 
-.linha{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.linha button{
- background:#25d366;color:#fff;border:none;
- padding:6px 12px;border-radius:6px;cursor:pointer;font-weight:bold
+.produto {
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.2);
+  text-align: center;
+}
+.produto img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  display: block;
+}
+
+.linha {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.linha button {
+  background: #25d366;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 /* CARRINHO */
-#carrinho{
- position:fixed;top:0;right:-360px;
- width:320px;height:100%;
- background:#fff;padding:15px;
- box-shadow:-4px 0 15px rgba(0,0,0,.3);
- transition:.3s;z-index:2500;overflow-y:auto
+#carrinho {
+  position: fixed;
+  top: 0;
+  right: -360px;
+  width: 320px;
+  height: 100%;
+  background: #fff;
+  padding: 15px;
+  box-shadow: -4px 0 15px rgba(0,0,0,.3);
+  transition: .3s;
+  z-index: 2500;
+  overflow-y: auto;
 }
-#carrinho.aberto{right:0}
+#carrinho.aberto { right: 0; }
 
-.item-carrinho{
- display:flex;justify-content:space-between;align-items:center;margin-bottom:10px
+.item-carrinho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
-.item-carrinho button{
- background:#0a7cff;color:#fff;border:none;
- padding:6px;border-radius:6px;cursor:pointer
+.item-carrinho button {
+  background: #0a7cff;
+  color: #fff;
+  border: none;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
 }
-.item-carrinho .lixeira{background:#ff3d00}
+.item-carrinho .lixeira { background: #ff3d00; }
 
-.finalizar{
- background:#0a7cff;
- color:#fff;
- border:none;
- padding:12px;
- width:100%;
- border-radius:8px;
- font-size:16px;
+.finalizar {
+  background: #0a7cff;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  border-radius: 8px;
+  font-size: 16px;
 }
-  
-.continuar{
- background:#25d366;color:#fff;
- border:none;padding:10px;width:100%;
- border-radius:8px;margin-top:6px;font-weight:bold
+
+.continuar {
+  background: #25d366;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 6px;
+  font-weight: bold;
+}
+
+/* BOTÃO WHATSAPP ANIMADO */
+.btn-whatsapp {
+  background: #25D366;
+  color: white;
+  border: none;
+  padding: 14px;
+  width: 100%;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  animation: pulse 1.5s infinite;
+  margin-top: 10px;
+}
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+.btn-whatsapp.liberado { animation: liberar 0.4s ease; }
+@keyframes liberar {
+  0% { transform: scale(0.9); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+.btn-whatsapp:disabled {
+  background: #bdbdbd;
+  cursor: not-allowed;
+  animation: none;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+/* BOTÃO TROCAR NOME */
+.btn-trocar-nome {
+  background: #f1f1f1;
+  color: #333;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  border-radius: 10px;
+  font-size: 14px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+/* CARD DO CLIENTE */
+.card-cliente {
+  background: #f0f6ff;
+  border-left: 5px solid #0a7cff;
+  padding: 12px;
+  border-radius: 8px;
+  margin: 10px 0;
+  font-weight: bold;
+  color: #0a7cff;
+  text-align: center;
+}
+#cardClienteTopo {
+  max-width: 1100px;
+  margin: 15px auto 5px auto;
 }
 </style>
 </head>
@@ -98,6 +228,10 @@ h2{text-align:center;color:#0a7cff}
 <audio id="somAdd" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3"></audio>
 
 <header></header>
+
+<div id="cardClienteTopo" class="card-cliente">
+  👤 Cliente: <span id="nomeClienteTopo">não informado</span>
+</div>
 
 <div id="btnCarrinho" class="carrinho-btn" onclick="toggleCarrinho()">
 🛒 Carrinho <span id="contador">0</span>
@@ -722,7 +856,7 @@ h2{text-align:center;color:#0a7cff}
 <div class="variacoes">
   <div class="linha">
     <span> R$ 40,00</span>
-    <button onclick="addProduto('Lixeira com Suporte para Pendurar',50)">Adicionar</button>
+    <button onclick="addProduto('Lixeira com Suporte para Pendurar',40)">Adicionar</button>
   </div>
 </div>
 </div>
@@ -838,98 +972,148 @@ h2{text-align:center;color:#0a7cff}
 </div>
 </div>
 
- 
-</div>
 <div id="carrinho">
 <h3>🛒 Seu Carrinho</h3>
+<div id="cardCliente" class="card-cliente">
+  <span id="nomeClienteExibido">👤 Cliente: não informado</span>
+</div>
+
 <ul id="lista"></ul>
 <p><strong>Total: R$ <span id="total">0.00</span></strong></p>
-<button class="finalizar" onclick="finalizar()">Finalizar no WhatsApp</button>
+
+<button id="btnWhatsapp" class="btn-whatsapp" onclick="enviarWhatsApp()">
+  Enviar pelo WhatsApp
+</button>
+
+<button class="btn-trocar-nome" onclick="trocarNome()">
+  Trocar nome da cliente
+</button>
+
 <button class="continuar" onclick="toggleCarrinho()">Continuar comprando</button>
 </div>
 
 <script>
-let carrinho=[];
+let carrinho = [];
+let totalGeral = 0;
 
-function addProduto(nome,preco){
- let item=carrinho.find(p=>p.nome===nome);
- if(item) item.qtd++;
- else carrinho.push({nome,preco,qtd:1});
+// FUNÇÃO PARA ADICIONAR PRODUTO
+function addProduto(nome, preco) {
+  let item = carrinho.find(p => p.nome === nome);
+  if(item) item.qtd++;
+  else carrinho.push({nome, preco, qtd:1});
 
- let som=document.getElementById("somAdd");
- som.currentTime=0;
- som.play().catch(()=>{});
+  const som = document.getElementById("somAdd");
+  som.currentTime = 0;
+  som.play().catch(()=>{});
 
- let btn=document.getElementById("btnCarrinho");
- btn.classList.add("animar");
- setTimeout(()=>btn.classList.remove("animar"),200);
+  const btn = document.getElementById("btnCarrinho");
+  btn.classList.add("animar");
+  setTimeout(()=>btn.classList.remove("animar"),200);
 
- atualizar();
+  atualizar();
 }
 
-function atualizar(){
- let lista=document.getElementById("lista");
- let totalEl=document.getElementById("total");
- let contador=document.getElementById("contador");
- lista.innerHTML="";
- let total=0,itens=0;
+// FUNÇÃO PARA ATUALIZAR CARRINHO
+function atualizar() {
+  const lista = document.getElementById("lista");
+  const totalEl = document.getElementById("total");
+  const contador = document.getElementById("contador");
+  const btnWhatsapp = document.getElementById("btnWhatsapp");
 
- carrinho.forEach((p,i)=>{
-  total+=p.preco*p.qtd;itens+=p.qtd;
-  lista.innerHTML+=`
-  <li class="item-carrinho">
-   <div><strong>${p.nome}</strong><br>R$ ${(p.preco*p.qtd).toFixed(2)}</div>
-   <div>
-    <button onclick="alterarQtd(${i},-1)">➖</button>
-    <button onclick="alterarQtd(${i},1)">➕</button>
-    <button class="lixeira" onclick="remover(${i})">🗑️</button>
-   </div>
-  </li>`;
- });
+  lista.innerHTML = "";
+  totalGeral = 0;
+  let itens = 0;
 
- totalEl.innerText=total.toFixed(2);
- contador.innerText=itens;
-}
+  carrinho.forEach((p,i)=>{
+    totalGeral += p.preco * p.qtd;
+    itens += p.qtd;
 
-function alterarQtd(i,v){
- carrinho[i].qtd+=v;
- if(carrinho[i].qtd<=0) carrinho.splice(i,1);
- atualizar();
-}
-
-function remover(i){
- carrinho.splice(i,1);
- atualizar();
-}
-
-function toggleCarrinho(){
- document.getElementById("carrinho").classList.toggle("aberto");
-}
-
-function enviarWhatsApp() {
-  let msg = "🛒 *Pedido – Furacão da Limpeza*%0A%0A";
-  msg += "Olá! Gostaria de fazer um pedido:%0A%0A";
-
-  carrinho.forEach(p => {
-    msg += `• ${p.nome} — ${p.qtd}x%0A`;
+    lista.innerHTML += `
+      <li class="item-carrinho">
+        <div>
+          <strong>${p.nome}</strong><br>
+          R$ ${(p.preco * p.qtd).toFixed(2)}
+        </div>
+        <div>
+          <button onclick="alterarQtd(${i},-1)">➖</button>
+          <button onclick="alterarQtd(${i},1)">➕</button>
+          <button class="lixeira" onclick="remover(${i})">🗑️</button>
+        </div>
+      </li>
+    `;
   });
 
-  msg += `%0A💰 *Total:* R$ ${total.toFixed(2)}%0A`;
-  msg += `%0A📍 Aguardo retorno. Obrigado!`;
+  totalEl.innerText = totalGeral.toFixed(2);
+  contador.innerText = itens;
 
-  const telefone = "5511999999999"; // COLOQUE SEU NÚMERO AQUI
-  const url = `https://wa.me/${telefone}?text=${msg}`;
+  const nome = localStorage.getItem("nomeCliente") || "não informado";
+  document.getElementById("nomeClienteTopo").innerText = nome;
+  document.getElementById("nomeClienteExibido").innerText = "👤 Cliente: " + nome;
 
-  window.open(url, "_blank");
+  btnWhatsapp.disabled = carrinho.length === 0 || !localStorage.getItem("nomeCliente");
+  if(!btnWhatsapp.disabled) {
+    btnWhatsapp.classList.add("liberado");
+    setTimeout(()=>btnWhatsapp.classList.remove("liberado"),400);
+  }
 }
 
+// FUNÇÕES DO CARRINHO
+function alterarQtd(i,v){
+  carrinho[i].qtd += v;
+  if(carrinho[i].qtd <= 0) carrinho.splice(i,1);
+  atualizar();
+}
+function remover(i){ carrinho.splice(i,1); atualizar(); }
+function toggleCarrinho(){ document.getElementById("carrinho").classList.toggle("aberto"); }
+
+// WHATSAPP
+function enviarWhatsApp() {
+  if(carrinho.length===0) return alert("🛒 Seu carrinho está vazio.");
+  let nomeCliente = localStorage.getItem("nomeCliente");
+  if(!nomeCliente || nomeCliente.trim()==="") {
+    const novoNome = prompt("Digite o nome da cliente:");
+    if(!novoNome || novoNome.trim()==="") return alert("Pedido cancelado. Nome obrigatório.");
+    localStorage.setItem("nomeCliente", novoNome);
+    atualizar();
+    nomeCliente = novoNome;
+  }
+
+  let msg = "🛒 *Pedido – Furacão da Limpeza*%0A%0A";
+  msg += `👤 *Cliente:* ${nomeCliente}%0A%0A`;
+  msg += "Olá! Gostaria de fazer um pedido:%0A%0A";
+  carrinho.forEach(p => msg += `• ${p.nome} — ${p.qtd}x%0A`);
+  msg += `%0A💰 *Total:* R$ ${totalGeral.toFixed(2)}%0A%0A📍 Aguardo retorno. Obrigado!`;
+
+  const telefone = "5515996585967";
+  window.open(`https://wa.me/${telefone}?text=${msg}`,"_blank");
+}
+
+// TROCAR NOME
+function trocarNome() {
+  const novoNome = prompt("Digite o novo nome da cliente:");
+  if(!novoNome || novoNome.trim()==="") return alert("Nome não alterado.");
+  localStorage.setItem("nomeCliente", novoNome);
+  alert("Nome da cliente atualizado com sucesso!");
+  atualizar();
+}
+
+// ABAS
 function mostrarCategoria(id,btn){
- document.querySelectorAll(".categoria").forEach(c=>c.classList.remove("ativa"));
- document.querySelectorAll(".abas button").forEach(b=>b.classList.remove("ativa"));
- document.getElementById(id).classList.add("ativa");
- btn.classList.add("ativa");
- document.getElementById("carrinho").classList.remove("aberto");
+  document.querySelectorAll(".categoria").forEach(c=>c.classList.remove("ativa"));
+  document.querySelectorAll(".abas button").forEach(b=>b.classList.remove("ativa"));
+  document.getElementById(id).classList.add("ativa");
+  btn.classList.add("ativa");
+  document.getElementById("carrinho").classList.remove("aberto");
 }
+
+// CARREGAR NOME CLIENTE AO ABRIR
+window.onload = () => {
+  if(!localStorage.getItem("nomeCliente")) {
+    const novoNome = prompt("Digite o nome da cliente:");
+    if(novoNome) localStorage.setItem("nomeCliente", novoNome);
+  }
+  atualizar();
+};
 </script>
 
 </body>
