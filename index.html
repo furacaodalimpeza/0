@@ -536,6 +536,20 @@ body {
   }
 }
 
+  .barra-pesquisa {
+  max-width: 1100px;
+  margin: 10px auto 20px auto;
+  padding: 0 15px;
+}
+
+.barra-pesquisa input {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 30px;
+  border: 2px solid #0a7cff;
+  font-size: 16px;
+}
+
 </style>
 </head>
 
@@ -581,7 +595,15 @@ body {
   </div>
 </div>
 
-
+<div class="barra-pesquisa">
+  <input 
+    type="text" 
+    id="pesquisaProduto" 
+    placeholder="🔍 Pesquise um produto"
+    onkeyup="filtrarProdutos()"
+  >
+</div>
+  
 <div class="container">
   
 <div id="limpeza" class="categoria ativa">
@@ -589,6 +611,171 @@ body {
 <div class="produtos">
   
 <!-- produtos limpeza -->
+  <div class="produto">
+<img src="img/desinfetante-cha.jpg">
+<h3>Desinfetante Chá Branco</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 10,00</span>
+    <button onclick="addProduto('Desinfetante Chá Branco 2L',10)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 24,00</span>
+    <button onclick="addProduto('Desinfetante Chá Branco 5L',24)">Adicionar</button>
+  </div>
+</div>
+</div>
+  
+<div class="produto">
+<img src="img/desinfetante-top.jpg">
+<h3>Desinfetante Top Flour</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 6,00</span>
+    <button onclick="addProduto('Desinfetante Top Flour 2L',6)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 15,00</span>
+    <button onclick="addProduto('Desinfetante Top Flour 5L',15)">Adicionar</button>
+  </div>
+</div>
+</div>
+
+<div class="produto">
+<img src="img/jorge-tadeu.jpg">
+<h3>Jorge Tadeu</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 6,00</span>
+    <button onclick="addProduto('Jorge Tadeu 2L',6)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 15,00</span>
+    <button onclick="addProduto('Jorge Tadeu 5L',15)">Adicionar</button>
+  </div>
+</div>
+</div>
+  
+  <div class="produto">
+<img src="img/desinfetante-amazon.jpg">
+<h3>Desinfetante Amazon</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 6,00</span>
+    <button onclick="addProduto('Desinfetante Amazon 2L',6)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 15,00</span>
+    <button onclick="addProduto('Desinfetante Amazon 5L',15)">Adicionar</button>
+  </div>
+</div>
+</div>
+
+<div class="produto">
+<img src="img/desinfetante-bambu.jpg">
+  <h3>Desinfetante Bambu</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 6,00</span>
+    <button onclick="addProduto('Desinfetante Bambu 2L',6)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 15,00</span>
+    <button onclick="addProduto('Desinfetante Bambu 5L',15)">Adicionar</button>
+  </div>
+</div>
+</div>
+  
+<div class="produto">
+<img src="img/desinfetante-casa.jpg">
+<h3>Desinfetante Casa Limpa</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 6,00</span>
+    <button onclick="addProduto('Desinfetante Casa Limpa 2L',6)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 15,00</span>
+    <button onclick="addProduto('Desinfetante Casa Limpa 5L',15)">Adicionar</button>
+  </div>
+</div>
+</div>
+
+<div class="produto">
+<img src="img/desinfetante-dove.jpg">
+<h3>Desinfetante Dove</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 6,00</span>
+    <button onclick="addProduto('Desinfetante Dove 2L',6)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 15,00</span>
+    <button onclick="addProduto('Desinfetante Dove 5L',15)">Adicionar</button>
+  </div>
+</div>
+</div>
+
+<div class="produto">
+<img src="img/desinfetante-eucalipto.jpg">
+<h3>Desinfetante Eucalipto</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 6,00</span>
+    <button onclick="addProduto('Desinfetante Eucalipto 2L',6)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 15,00</span>
+    <button onclick="addProduto('Desinfetante Eucalipto 5L',15)">Adicionar</button>
+  </div>
+</div>
+</div>
+
+<div class="produto">
+<img src="img/desinfetante-jasmin.jpg">
+<h3>Desinfetante Jasmin</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 6,00</span>
+    <button onclick="addProduto('Desinfetante Jasmin 2L',6)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 15,00</span>
+    <button onclick="addProduto('Desinfetante Jasmin 5L',15)">Adicionar</button>
+  </div>
+</div>
+</div>
+
+<div class="produto">
+<img src="img/desinfetante-lavanda.jpg">
+<h3>Desinfetante Lavanda</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 6,00</span>
+    <button onclick="addProduto('Desinfetante Lavanda 2L',6)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 15,00</span>
+    <button onclick="addProduto('Desinfetante Lavanda 5L',15)">Adicionar</button>
+  </div>
+</div>
+</div>
+
+<div class="produto">
+<img src="img/desinfetante-talco.jpg">
+<h3>Desinfetante Talco</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 6,00</span>
+    <button onclick="addProduto('Desinfetante Talco 2L',6)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 15,00</span>
+    <button onclick="addProduto('Desinfetante Talco 5L',15)">Adicionar</button>
+  </div>
+</div>
+</div>
+  
  <div class="produto">
 <img src="img/sabonete-liquido-dove.jpg">
 <h3>Sabonete Líquido Dove</h3>
@@ -633,7 +820,22 @@ body {
   </div>
 </div>
 </div>
- 
+
+<div class="produto">
+<img src="img/candida-colorida.jpg">
+<h3>Cândida Colorida</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 6,00</span>
+    <button onclick="addProduto('Cândidad Colorida 2L',6)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 15,00</span>
+    <button onclick="addProduto('Cândida Colorida 5L',15)">Adicionar</button>
+  </div>
+</div>
+</div>
+  
  <div class="produto">
 <img src="img/sabao-liquido-bonrruque.jpg">
 <h3>Sabão Líquido Bonrruque</h3>
@@ -678,7 +880,22 @@ body {
   </div>
 </div>
 </div>
- 
+
+<div class="produto">
+<img src="img/detergente-neutro.jpg">
+<h3>Detergente Neutro</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 10,00</span>
+    <button onclick="addProduto('Detergente Neutro 2L',10)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 20,00</span>
+    <button onclick="addProduto('Detergente Neutro 5L',20)">Adicionar</button>
+  </div>
+</div>
+</div>
+  
  <div class="produto">
 <img src="img/detergente-concentrado.jpg">
 <h3>Detergente Concentrado</h3>
@@ -695,16 +912,16 @@ body {
 </div>
 
 <div class="produto">
-<img src="img/detergente-neutro.jpg">
-<h3>Detergente Neutro</h3>
+<img src="img/detergentes.jpg">
+<h3>Detergentes</h3>
 <div class="variacoes">
   <div class="linha">
-    <span>2L — R$ 10,00</span>
-    <button onclick="addProduto('Detergente Neutro 2L',10)">Adicionar</button>
+    <span> Maçã 2L — R$ 10,00</span>
+    <button onclick="addProduto('Detergente Maçã 2L',10)">Adicionar</button>
   </div>
   <div class="linha">
-    <span>5L — R$ 20,00</span>
-    <button onclick="addProduto('Detergente Neutro 5L',20)">Adicionar</button>
+    <span>Limão 2L — R$ 20,00</span>
+    <button onclick="addProduto('Detergente Limão 2L',20)">Adicionar</button>
   </div>
 </div>
 </div>
@@ -724,6 +941,36 @@ body {
 </div>
 </div>
 
+<div class="produto">
+<img src="img/amaciante-concentrado.jpg">
+<h3>Amaciante Concentrado</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>Downy 2L — R$ 6,00</span>
+    <button onclick="addProduto('Amaciante Downy 2L',6)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>Amac. Branco 2L — R$ 15,00</span>
+    <button onclick="addProduto('Amaciante Branco 2L',15)">Adicionar</button>
+  </div>
+</div>
+</div>
+
+<div class="produto">
+<img src="img/amaciante-clineza.jpg">
+<h3>Amaciante Clineza</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>Amac. Blue Iris 2L — R$ 6,00</span>
+    <button onclick="addProduto('Amaciante Blue Iris 2L',6)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>Amac. Pink Sky 2L — R$ 15,00</span>
+    <button onclick="addProduto('Amaciante Pink Sky 2L',15)">Adicionar</button>
+  </div>
+</div>
+</div>
+  
 <div class="produto">
 <img src="img/lava-canil.jpg">
 <h3>Lava Canil</h3>
@@ -753,7 +1000,37 @@ body {
   </div>
 </div>
 </div>
- 
+
+<div class="produto">
+<img src="img/veja-multiuso.jpg">
+<h3>Veja Multiuso</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 6,00</span>
+    <button onclick="addProduto('Veja Multiuso 2L',6)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 15,00</span>
+    <button onclick="addProduto('Veja Multiuso 5L',15)">Adicionar</button>
+  </div>
+</div>
+</div>
+
+<div class="produto">
+<img src="img/pinho-gel.jpg">
+<h3>Pinho em Gel</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 6,00</span>
+    <button onclick="addProduto('Pinho em Gel 2L',6)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 15,00</span>
+    <button onclick="addProduto('Pinho em Gel 5L',15)">Adicionar</button>
+  </div>
+</div>
+</div>
+  
 <div class="produto">
   <img src="img/cloro-em-gel.jpg">
   <h3>Cloro em Gel</h3>
@@ -822,7 +1099,22 @@ body {
     </div>
   </div>
 </div>
- 
+
+<div class="produto">
+<img src="img/alcool-concentrado.jpg">
+<h3>Álcool Perf. Concentrado</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 6,00</span>
+    <button onclick="addProduto('Álcool Perf. Concentrado 2L',6)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 15,00</span>
+    <button onclick="addProduto('Álcool Perf. Concentrado 5L',15)">Adicionar</button>
+  </div>
+</div>
+</div>
+  
 <div class="produto">
 <img src="img/percabonato.jpg">
 <h3>Percabonato</h3>
@@ -1255,6 +1547,21 @@ body {
 <div class="produtos">
 
 <div class="produto">
+<img src="img/shampoo.jpg">
+<h3>Shampoo Automotivo</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>1L — R$ 10,00</span>
+    <button onclick="addProduto('Shampoo Automotivo 1L',10)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>Shampoo com Cera 2L — R$ 20,00</span>
+    <button onclick="addProduto('Shampoo com Cera 2L',20)">Adicionar</button>
+  </div>
+</div>
+</div>
+  
+<div class="produto">
 <img src="img/cheirinho-uva.jpg">
 <h3>Cheirinho de Uva</h3>
 <div class="variacoes">
@@ -1347,6 +1654,12 @@ body {
       <option value="Cartão de Débito">Cartão de Débito</option>
       <option value="Cartão de Crédito">Cartão de Crédito</option>
     </select>
+
+    <button class="btn-confirmar" onclick="confirmarPedido()">Confirmar Pedido</button>
+    <button class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
+
+  </div>
+  </div>
 
     <button class="btn-confirmar" onclick="confirmarPedido()">
       Enviar Pedido no WhatsApp
@@ -1473,14 +1786,31 @@ function mostrarCategoria(id,btn){
 }
 
 window.onload = () => {
-  if(!localStorage.getItem("nomeCliente")) {
-    const novoNome = prompt("Digite o nome da cliente:");
-    if(novoNome && novoNome.trim() !== "") {
-      localStorage.setItem("nomeCliente", novoNome);
+  if (!localStorage.getItem("nomeCliente")) {
+    const nome = prompt("Digite o nome da cliente:");
+    if (nome && nome.trim() !== "") {
+      localStorage.setItem("nomeCliente", nome);
     }
   }
+
+  const nome = localStorage.getItem("nomeCliente");
+  if (nome) {
+    document.getElementById("nomeClienteTopo").innerText = nome;
+    document.getElementById("nomeClienteExibido").innerText = "👤 Cliente: " + nome;
+  }
+
   atualizar();
 };
+
+function filtrarProdutos() {
+  const texto = document.getElementById("pesquisaProduto").value.toLowerCase();
+  const produtos = document.querySelectorAll(".produto");
+
+  produtos.forEach(produto => {
+    const nome = produto.querySelector("h3").innerText.toLowerCase();
+    produto.style.display = nome.includes(texto) ? "block" : "none";
+  });
+}
 
   // ABRIR / FECHAR CARRINHO
 function toggleCarrinho() {
@@ -1565,6 +1895,21 @@ function confirmarPedido() {
   mostrarCategoria("limpeza", document.querySelector(".abas button"));
 }
 
+  function filtrarProdutos() {
+  const texto = document.getElementById("pesquisaProduto").value.toLowerCase();
+  const produtos = document.querySelectorAll(".produto");
+
+  produtos.forEach(produto => {
+    const nome = produto.querySelector("h3").innerText.toLowerCase();
+
+    if (nome.includes(texto)) {
+      produto.style.display = "block";
+    } else {
+      produto.style.display = "none";
+    }
+  });
+}
+  
 </script>
 
   <!-- TELA DE SUCESSO -->
