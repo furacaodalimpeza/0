@@ -550,6 +550,23 @@ body {
   font-size: 16px;
 }
 
+  #limparBusca {
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+  color: #0a7cff;
+  display: none;
+}
+
+mark {
+  background: #ffeb3b;
+  padding: 0 4px;
+  border-radius: 4px;
+}
+
 </style>
 </head>
 
@@ -595,13 +612,14 @@ body {
   </div>
 </div>
 
-<div class="barra-pesquisa">
+<div class="barra-pesquisa" style="position:relative;">
   <input 
     type="text" 
     id="pesquisaProduto" 
     placeholder="🔍 Pesquise um produto"
     onkeyup="filtrarProdutos()"
   >
+  <span id="limparBusca" onclick="limparBusca()">✖</span>
 </div>
   
 <div class="container">
@@ -1803,29 +1821,36 @@ window.onload = () => {
 };
 
 function filtrarProdutos() {
-  const texto = document
-    .getElementById("pesquisaProduto")
-    .value
-    .toLowerCase()
-    .trim();
-
+  const input = document.getElementById("pesquisaProduto");
+  const texto = input.value.toLowerCase().trim();
   const produtos = document.querySelectorAll(".produto");
 
   produtos.forEach(produto => {
-    const nomeProduto = produto
-      .querySelector("h3")
-      .innerText
-      .toLowerCase();
+    const h3 = produto.querySelector("h3");
+    const nomeOriginal = h3.dataset.nome || h3.innerText;
+    h3.dataset.nome = nomeOriginal;
 
-    // separa o texto digitado em palavras
-    const palavrasBusca = texto.split(" ");
+    const nomeLower = nomeOriginal.toLowerCase();
 
-    // verifica se TODAS as palavras existem no nome do produto
-    const encontrado = palavrasBusca.every(p =>
-      nomeProduto.includes(p)
-    );
+    if (texto === "") {
+      produto.style.display = "block";
+      h3.innerHTML = nomeOriginal;
+      return;
+    }
 
-    produto.style.display = encontrado ? "block" : "none";
+    if (nomeLower.includes(texto)) {
+      produto.style.display = "block";
+
+      // 🔹 DESTACAR TEXTO
+      const regex = new RegExp(`(${texto})`, "gi");
+      h3.innerHTML = nomeOriginal.replace(
+        regex,
+        `<span class="destaque">$1</span>`
+      );
+    } else {
+      produto.style.display = "none";
+      h3.innerHTML = nomeOriginal;
+    }
   });
 }
 
@@ -1912,21 +1937,51 @@ function confirmarPedido() {
   mostrarCategoria("limpeza", document.querySelector(".abas button"));
 }
 
-  function filtrarProdutos() {
+window.onload = () => {
+  const nome = localStorage.getItem("nomeCliente");
+  if (nome) {
+    document.getElementById("nomeClienteTopo").innerText = nome;
+    document.getElementById("nomeClienteExibido").innerText = "👤 Cliente: " + nome;
+  }
+};
+
+function filtrarProdutos() {
   const texto = document.getElementById("pesquisaProduto").value.toLowerCase();
   const produtos = document.querySelectorAll(".produto");
+  const limpar = document.getElementById("limparBusca");
+
+  limpar.style.display = texto ? "block" : "none";
 
   produtos.forEach(produto => {
-    const nome = produto.querySelector("h3").innerText.toLowerCase();
+    const h3 = produto.querySelector("h3");
+    const nomeOriginal = h3.textContent;
+    const nome = nomeOriginal.toLowerCase();
 
     if (nome.includes(texto)) {
       produto.style.display = "block";
+
+      if (texto) {
+        const regex = new RegExp(`(${texto})`, "gi");
+        h3.innerHTML = nomeOriginal.replace(regex, "<mark>$1</mark>");
+      }
+
     } else {
       produto.style.display = "none";
     }
   });
 }
-  
+
+function limparBusca() {
+  document.getElementById("pesquisaProduto").value = "";
+  document.getElementById("limparBusca").style.display = "none";
+
+  document.querySelectorAll(".produto").forEach(produto => {
+    produto.style.display = "block";
+    const h3 = produto.querySelector("h3");
+    h3.innerHTML = h3.textContent;
+  });
+}
+ 
 </script>
 
   <!-- TELA DE SUCESSO -->
