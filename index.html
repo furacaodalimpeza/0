@@ -1,3 +1,4 @@
+AGR meu site ficou assim
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -220,114 +221,6 @@ h2 { text-align: center; color: #0a7cff; }
   max-width: 1100px;
   margin: 15px auto 5px auto;
 }
-  /* --- Correção para aba de Essências --- */
-.categoria {
-  display: none;
-  max-width: 1100px;
-  margin: auto;
-}
-
-.categoria.ativa {
-  display: block;
-}
-
-.produtos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-.produto img {
-  width: 100%;
-  height: 200px; /* altura fixa */
-  object-fit: contain;
-  border-radius: 8px;
-  display: block;
-}
-
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 15px;
-  overflow: hidden;
-  box-sizing: border-box;
-}
-/* Evitar barra branca no site */
-html, body {
-  overflow-x: hidden;  /* previne scroll horizontal */
-  box-sizing: border-box;
-}
-
-.categoria {
-  display: none;
-  max-width: 1100px;
-  margin: auto;
-  padding: 0 15px; /* garante espaço interno */
-}
-
-.categoria.ativa {
-  display: block;
-}
-
-.produtos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  width: 100%;
-}
-
-.produto img {
-  width: 100%;
-  max-width: 100%;
-  height: 200px; /* altura fixa para manter alinhamento */
-  object-fit: contain;
-  border-radius: 8px;
-  display: block;
-}
-/* Evitar barra branca e corte de abas */
-html, body {
-  overflow-x: hidden; /* previne scroll horizontal */
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-.categoria {
-  display: none;
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto 30px auto;
-  padding: 0 15px;
-}
-
-.categoria.ativa {
-  display: block;
-}
-
-.produtos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  width: 100%;
-}
-
-.produto {
-  background: #fff;
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.2);
-  text-align: center;
-  word-wrap: break-word; /* evita que textos muito longos quebrem layout */
-}
-
-.produto img {
-  width: 100%;
-  height: 180px; /* altura consistente para todas as abas */
-  object-fit: contain;
-  border-radius: 8px;
-  display: block;
-}
-
 </style>
 </head>
 
@@ -354,80 +247,6 @@ html, body {
 </div>
 
 <div class="container">
-
-<div id="banheiro" class="categoria ativa">
-<h2>Banheiro</h2>
-<div class="produtos">
-
-<!-- produtos banheiro -->
-  <div class="produto">
-<img src="img/papel-higienico.jpg">
-<h3>Papel Higiênico</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 30,00</span>
-    <button onclick="addProduto('Papel Higiênico',30)">Adicionar</button>
-  </div>
-</div>
-</div>
-
-<div class="produto">
-<img src="img/pedra-sanitaria.jpg">
-<h3>Pedra Sanitária</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 3,00</span>
-    <button onclick="addProduto('Pedra Sanitária',3)">Adicionar</button>
-  </div>
-</div>
-</div>
- 
-<div class="produto">
-<img src="img/vassoura-de-vaso.jpg">
-<h3>Vassoura de Vaso</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>R$ 12,00</span>
-    <button onclick="addProduto('Vassoura de Vaso ',12)">Adicionar</button>
-  </div>
-</div>
-</div>
-
-<div class="produto">
-<img src="img/saco-de-lixo-banheiro.jpg">
-<h3>Saco de Lixo de Banheiro</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>R$ 19,00</span>
-    <button onclick="addProduto('Saco de Lixo de Banheiro ',19)">Adicionar</button>
-  </div>
-</div>
-</div>
-
-<div class="produto">
-<img src="img/kit-pano-de-banheiro-branco.jpg">
-<h3>Kit Pano de Banheiro Branco</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>R$ 60,00</span>
-    <button onclick="addProduto('Kit Pano de Banheiro Branco ',60)">Adicionar</button>
-  </div>
-</div>
-</div>
-
-<div class="produto">
-<img src="img/kit-pano-de-banheiro-preto.jpg">
-<h3>Kit Pano de Banheiro Preto</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>R$ 60,00</span>
-    <button onclick="addProduto('Kit Pano de Banheiro Preto ',60)">Adicionar</button>
-  </div>
-</div>
-</div>
- 
-</div>
-</div>
 
 <!-- PRODUTOS DE LIMPEZA -->
 <div id="limpeza" class="categoria">
@@ -964,7 +783,7 @@ html, body {
 <div class="variacoes">
   <div class="linha">
     <span> R$ 40,00</span>
-    <button onclick="addProduto('Lixeira com Suporte para Pendurar',40)">Adicionar</button>
+    <button onclick="addProduto('Lixeira com Suporte para Pendurar',50)">Adicionar</button>
   </div>
 </div>
 </div>
@@ -983,11 +802,87 @@ html, body {
 </div>
 </div>
 
-<div id="essencias" class="categoria">
+  <div id="banheiro" class="categoria ativa">
+<h2>Banheiro</h2>
+<div class="produtos">
+
+<!-- produtos banheiro -->
+  <div class="produto">
+<img src="img/papel-higienico.jpg">
+<h3>Papel Higiênico</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span> R$ 30,00</span>
+    <button onclick="addProduto('Papel Higiênico',30)">Adicionar</button>
+  </div>
+</div>
+</div>
+
+<div class="produto">
+<img src="img/pedra-sanitaria.jpg">
+<h3>Pedra Sanitária</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span> R$ 3,00</span>
+    <button onclick="addProduto('Pedra Sanitária',3)">Adicionar</button>
+  </div>
+</div>
+</div>
+ 
+<div class="produto">
+<img src="img/vassoura-de-vaso.jpg">
+<h3>Vassoura de Vaso</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>R$ 12,00</span>
+    <button onclick="addProduto('Vassoura de Vaso ',12)">Adicionar</button>
+  </div>
+</div>
+</div>
+
+<div class="produto">
+<img src="img/saco-de-lixo-banheiro.jpg">
+<h3>Saco de Lixo de Banheiro</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>R$ 19,00</span>
+    <button onclick="addProduto('Saco de Lixo de Banheiro ',19)">Adicionar</button>
+  </div>
+</div>
+</div>
+
+<div class="produto">
+<img src="img/kit-pano-de-banheiro-branco.jpg">
+<h3>Kit Pano de Banheiro Branco</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>R$ 60,00</span>
+    <button onclick="addProduto('Kit Pano de Banheiro Branco ',60)">Adicionar</button>
+  </div>
+</div>
+</div>
+
+<div class="produto">
+<img src="img/kit-pano-de-banheiro-preto.jpg">
+<h3>Kit Pano de Banheiro Preto</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>R$ 60,00</span>
+    <button onclick="addProduto('Kit Pano de Banheiro Preto ',60)">Adicionar</button>
+  </div>
+</div>
+</div>
+ 
+</div>
+</div>
+  
+<div class="categoria" id="essencias">
   <h2>Essências</h2>
+
   <div class="produtos">
+
     <div class="produto">
-      <img src="img/essencia-lavanda.jpg" alt="Essência Lavanda">
+      <img src="img/essencia-lavanda.jpg">
       <h3>Essência Lavanda</h3>
       <div class="variacoes">
         <div class="linha">
@@ -1002,7 +897,7 @@ html, body {
     </div>
 
     <div class="produto">
-      <img src="img/essencia-eucalipto.jpg" alt="Essência Eucalipto">
+      <img src="img/essencia-eucalipto.jpg">
       <h3>Essência Eucalipto</h3>
       <div class="variacoes">
         <div class="linha">
@@ -1015,7 +910,7 @@ html, body {
         </div>
       </div>
     </div>
-    
+
   </div>
 </div>
  
