@@ -267,8 +267,7 @@ h2 { text-align: center; color: #0a7cff; }
 
 <div class="container">
   
-
-<div id="Produtos de Limpeza" class="categoria ativa">
+<div id="limpeza" class="categoria ativa">
 <h2>Produtos de Limpeza</h2>
 <div class="produtos">
   
@@ -822,7 +821,7 @@ h2 { text-align: center; color: #0a7cff; }
 </div>
 
   <!-- BANHEIRO -->
-<div id="Banheiro" class="categoria">
+<div id="banheiro" class="categoria">
 <h2>Banheiro</h2>
 <div class="produtos">
   
@@ -1077,19 +1076,10 @@ function atualizar() {
     setTimeout(()=>btnWhatsapp.classList.remove("liberado"),400);
   }
 }
-
-// FUNÇÕES DO CARRINHO
-function alterarQtd(i,v){
-  carrinho[i].qtd += v;
-  if(carrinho[i].qtd <= 0) carrinho.splice(i,1);
-  atualizar();
-}
-function remover(i){ carrinho.splice(i,1); atualizar(); }
-function toggleCarrinho(){ document.getElementById("carrinho").classList.toggle("aberto"); }
-
-// WHATSAPP
+  
 function enviarWhatsApp() {
   if(carrinho.length===0) return alert("🛒 Seu carrinho está vazio.");
+
   let nomeCliente = localStorage.getItem("nomeCliente");
   if(!nomeCliente || nomeCliente.trim()==="") {
     const novoNome = prompt("Digite o nome da cliente:");
@@ -1099,14 +1089,26 @@ function enviarWhatsApp() {
     nomeCliente = novoNome;
   }
 
-  let msg = "🛒 *Pedido – Furacão da Limpeza*%0A%0A";
-  msg += `👤 *Cliente:* ${nomeCliente}%0A%0A`;
-  msg += "Olá! Gostaria de fazer um pedido:%0A%0A";
-  carrinho.forEach(p => msg += `• ${p.nome} — ${p.qtd}x%0A`);
-  msg += `%0A💰 *Total:* R$ ${totalGeral.toFixed(2)}%0A%0A📍 Aguardo retorno. Obrigado!`;
+  const numeroPedido = gerarNumeroPedido();
+
+  let msg = "🧾 *Pedido Nº " + numeroPedido + " – Furacão da Limpeza*%0A%0A";
+  msg += `👤 *Cliente:* ${nomeCliente}%0A`;
+  msg += `📦 *Posição na fila:* Pedido Nº ${numeroPedido}%0A%0A`;
+  msg += "🛒 *Itens do pedido:*%0A";
+
+  carrinho.forEach(p => {
+    msg += `• ${p.nome} — ${p.qtd}x%0A`;
+  });
+
+  msg += `%0A💰 *Total:* R$ ${totalGeral.toFixed(2)}%0A%0A`;
+  msg += "📍 Aguardo confirmação. Obrigado!";
 
   const telefone = "5515996585967";
   window.open(`https://wa.me/${telefone}?text=${msg}`,"_blank");
+
+  // Limpa carrinho após envio
+  carrinho = [];
+  atualizar();
 }
 
 // TROCAR NOME
@@ -1131,8 +1133,10 @@ function mostrarCategoria(id,btn){
 window.onload = () => {
   if(!localStorage.getItem("nomeCliente")) {
     const novoNome = prompt("Digite o nome da cliente:");
-    if(novoNome) localStorage.setItem("nomeCliente", novoNome);
-  }
+    if(novoNome && novoNome.trim() !== "") {
+  localStorage.setItem("nomeCliente", novoNome);
+}
+
   atualizar();
 };
 </script>
