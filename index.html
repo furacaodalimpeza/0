@@ -1119,6 +1119,21 @@ function trocarNome() {
   alert("Nome da cliente atualizado com sucesso!");
   atualizar();
 }
+// GERAR NÚMERO DO PEDIDO
+function gerarNumeroPedido() {
+  let ultimoPedido = localStorage.getItem("numeroPedido");
+
+  if (!ultimoPedido) {
+    ultimoPedido = 1;
+  } else {
+    ultimoPedido = parseInt(ultimoPedido) + 1;
+  }
+
+  localStorage.setItem("numeroPedido", ultimoPedido);
+
+  // Formata tipo 001, 002, 003
+  return ultimoPedido.toString().padStart(3, "0");
+}
 
 // ABAS
 function mostrarCategoria(id,btn){
