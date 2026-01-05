@@ -964,12 +964,12 @@ mark {
 <h3>Amaciante Concentrado</h3>
 <div class="variacoes">
   <div class="linha">
-    <span>Downy 2L — R$ 6,00</span>
-    <button onclick="addProduto('Amaciante Downy 2L',6)">Adicionar</button>
+    <span>Downy 2L — R$ 15,00</span>
+    <button onclick="addProduto('Amaciante Downy 2L',15)">Adicionar</button>
   </div>
   <div class="linha">
-    <span>Amac. Branco 2L — R$ 15,00</span>
-    <button onclick="addProduto('Amaciante Branco 2L',15)">Adicionar</button>
+    <span>Amac. Branco 2L — R$ 16,00</span>
+    <button onclick="addProduto('Amaciante Branco 2L',16)">Adicionar</button>
   </div>
 </div>
 </div>
@@ -1772,12 +1772,13 @@ if (totalGeral !== ultimoTotal) {
 
 // TROCAR NOME
 function trocarNome() {
-  const novoNome = prompt("Digite o novo nome da cliente:");
-  if(!novoNome || novoNome.trim()==="") return alert("Nome não alterado.");
-  localStorage.setItem("nomeCliente", novoNome);
-  alert("Nome da cliente atualizado com sucesso!");
-  atualizar();
+  const novoNome = prompt("Digite o nome da cliente:");
+  if (novoNome && novoNome.trim() !== "") {
+    localStorage.setItem("nomeCliente", novoNome);
+    atualizar();
+  }
 }
+
 // GERAR NÚMERO DO PEDIDO
 function gerarNumeroPedido() {
   let ultimoPedido = localStorage.getItem("numeroPedido");
@@ -1946,28 +1947,29 @@ window.onload = () => {
 };
 
 function filtrarProdutos() {
-  const texto = document.getElementById("pesquisaProduto").value.toLowerCase();
+  const termo = document.getElementById("pesquisaProduto").value.toLowerCase();
   const produtos = document.querySelectorAll(".produto");
   const limpar = document.getElementById("limparBusca");
 
-  limpar.style.display = texto ? "block" : "none";
+  let encontrou = false;
 
   produtos.forEach(produto => {
-    const h3 = produto.querySelector("h3");
-    const nomeOriginal = h3.textContent;
-    const nome = nomeOriginal.toLowerCase();
+    const texto = produto.innerText.toLowerCase();
 
-    if (nome.includes(texto)) {
+    if (texto.includes(termo)) {
       produto.style.display = "block";
-
-      if (texto) {
-        const regex = new RegExp(`(${texto})`, "gi");
-        h3.innerHTML = nomeOriginal.replace(regex, "<mark>$1</mark>");
-      }
-
+      encontrou = true;
     } else {
       produto.style.display = "none";
     }
+  });
+
+  // mostra botão limpar
+  limpar.style.display = termo ? "block" : "none";
+
+  // mostra todas as abas quando pesquisa
+  document.querySelectorAll(".categoria").forEach(cat => {
+    cat.style.display = termo ? "block" : "";
   });
 }
 
@@ -1975,13 +1977,38 @@ function limparBusca() {
   document.getElementById("pesquisaProduto").value = "";
   document.getElementById("limparBusca").style.display = "none";
 
-  document.querySelectorAll(".produto").forEach(produto => {
-    produto.style.display = "block";
-    const h3 = produto.querySelector("h3");
-    h3.innerHTML = h3.textContent;
+  document.querySelectorAll(".produto").forEach(p => {
+    p.style.display = "block";
   });
+
+  // volta só para a aba ativa
+  document.querySelectorAll(".categoria").forEach(cat => {
+    cat.style.display = "none";
+    cat.classList.remove("ativa");
+  });
+
+  document.getElementById("limpeza").style.display = "block";
+  document.getElementById("limpeza").classList.add("ativa");
 }
- 
+
+function limparBusca() {
+  document.getElementById("pesquisaProduto").value = "";
+  filtrarProdutos();
+}
+
+function restaurarBusca() {
+  document.querySelectorAll(".categoria").forEach((cat, index) => {
+    cat.style.display = index === 0 ? "block" : "none";
+    cat.classList.toggle("ativa", index === 0);
+  });
+
+  document.querySelectorAll(".produto").forEach(p => {
+    p.style.display = "block";
+  });
+
+  document.getElementById("limparBusca").style.display = "none";
+}
+
 </script>
 
   <!-- TELA DE SUCESSO -->
