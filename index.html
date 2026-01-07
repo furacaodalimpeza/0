@@ -2457,8 +2457,7 @@ function confirmarPedido() {
   msg += "🛒 *Itens do pedido:*%0A";
 
   carrinho.forEach(p => {
-  const subtotal = p.preco * p.qtd;
-  msg += `• ${p.nome} — ${p.qtd}x (R$ ${p.preco.toFixed(2)}) = R$ ${subtotal.toFixed(2)}%0A`;
+  msg += `• ${p.nome} — ${p.qtd}x (R$ ${p.preco.toFixed(2)})%0A`;
 });
 
   msg += `%0A💰 *Total:* R$ ${totalGeral.toFixed(2)}%0A%0A`;
