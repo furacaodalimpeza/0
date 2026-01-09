@@ -2644,6 +2644,22 @@ function voltarTopo() {
   });
 }
 
+  function irTopo() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+window.addEventListener("scroll", () => {
+  const botao = document.getElementById("voltarTopo");
+  if (window.scrollY > 400) {
+    botao.style.display = "flex";
+  } else {
+    botao.style.display = "none";
+  }
+});
+
 </script>
 
   <!-- TELA DE SUCESSO -->
@@ -2663,7 +2679,10 @@ function voltarTopo() {
 </div>
 
   <!-- BOTÃO VOLTAR AO TOPO -->
-<button id="btnTopo" onclick="voltarTopo()">⬆️</button>
+<div id="voltarTopo" onclick="irTopo()">
+  <button>⬆️</button>
+  <span>Voltar ao topo</span>
+</div>
   
 </body>
 </html>
