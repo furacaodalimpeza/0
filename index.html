@@ -567,61 +567,45 @@ mark {
   border-radius: 4px;
 }
 
-  /* BOTÃO VOLTAR AO TOPO – DESTAQUE */
+  /* BOTÃO VOLTAR AO TOPO – AJUSTADO */
 #voltarTopo {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 100px; /* desce o botão */
+  right: 16px;
   display: none;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: linear-gradient(180deg, #25d366, #1ebe5d);
   color: #fff;
-  padding: 14px 18px;
-  border-radius: 40px;
-  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.6);
+  padding: 10px 14px; /* menor */
+  border-radius: 28px;
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.45);
   cursor: pointer;
   z-index: 3000;
-  animation: pulseTopo 1.6s infinite;
+  animation: pulseTopo 2.2s infinite;
 }
 
 #voltarTopo button {
   background: #fff;
   color: #25d366;
   border: none;
-  width: 40px;
-  height: 40px;
+  width: 34px;   /* menor */
+  height: 34px;
   border-radius: 50%;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
   cursor: pointer;
 }
 
 #voltarTopo span {
   font-weight: bold;
-  font-size: 15px;
-}
-
-/* ANIMAÇÃO CHAMATIVA */
-@keyframes pulseTopo {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
-  }
-  70% {
-    transform: scale(1.08);
-    box-shadow: 0 0 0 14px rgba(37, 211, 102, 0);
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
-  }
+  font-size: 13px; /* menor */
 }
 
   @media (max-width: 600px) {
   #voltarTopo {
-    bottom: 80px;
-    right: 15px;
+    bottom: 120px; /* evita conflito com botões */
+    right: 12px;
   }
 }
 
