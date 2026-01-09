@@ -612,27 +612,50 @@ mark {
   /* BOTÃO VOLTAR AO TOPO */
 #btnTopo {
   position: fixed;
-  bottom: 110px;   /* fica acima do botão WhatsApp */
-  right: 18px;
+  bottom: 20px;   /* 👈 BEM MAIS BAIXO */
+  right: 15px;
   background: linear-gradient(180deg, #25d366, #1ebe5d);
   color: #fff;
   border: none;
-  padding: 10px 14px;
+  padding: 12px 14px;
   border-radius: 30px;
-  font-size: 13px;
-  display: none;
+  display: flex;
   align-items: center;
   gap: 6px;
-  cursor: pointer;
+  font-size: 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.25);
   z-index: 2000;
-  box-shadow: 0 6px 16px rgba(0,0,0,.3);
-  animation: pulseTopo 1.6s infinite;
 }
 
 @keyframes pulseTopo {
   0% { transform: scale(1); }
   50% { transform: scale(1.12); }
   100% { transform: scale(1); }
+}
+
+  .rodape {
+  margin-top: 40px;
+  padding: 30px 15px 80px;
+  background: linear-gradient(180deg, #f4f8ff, #e9f3ff);
+  text-align: center;
+  border-top: 2px solid #eef2ff;
+}
+
+.rodape p {
+  margin: 6px 0;
+  color: #555;
+  font-size: 14px;
+}
+
+.rodape p:first-child {
+  font-weight: bold;
+  color: #0a7cff;
+  font-size: 16px;
+}
+
+.rodape .copy {
+  font-size: 12px;
+  opacity: 0.8;
 }
 
 </style>
@@ -2337,18 +2360,7 @@ mark {
     <button class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
 
   </div>
-  </div>
-
-    <button class="btn-confirmar" onclick="confirmarPedido()">
-      Enviar Pedido no WhatsApp
-    </button>
-
-    <button class="btn-cancelar" onclick="fecharModal()">
-      Cancelar
-    </button>
-
-  </div>
-</div>
+  </div> 
   
 <script>
 let carrinho = [];
@@ -2375,7 +2387,7 @@ function addProduto(nome, preco) {
 // FUNÇÃO PARA ATUALIZAR CARRINHO
 function atualizar() {
   const lista = document.getElementById("lista");
-  const totalEl = document.getElementById("total");
+  const totalEl = documnt.getElementById("total");
   const contador = document.getElementById("contador");
   const btnWhatsapp = document.getElementById("btnWhatsapp");
 
@@ -2714,6 +2726,12 @@ window.addEventListener("scroll", () => {
 });
 
 </script>
+
+  <footer class="rodape">
+  <p>🌪️ Furacão da Limpeza</p>
+  <p>Produtos de qualidade para cuidar do seu lar 💙</p>
+  <p class="copy">© 2026 – Todos os direitos reservados</p>
+</footer>
 
   <!-- BOTÃO VOLTAR AO TOPO -->
 <button id="btnTopo" onclick="voltarTopo()">
