@@ -658,6 +658,33 @@ mark {
   opacity: 0.8;
 }
 
+  #btnTopo {
+  position: fixed;
+  bottom: 20px;          /* MAIS BAIXO */
+  right: 16px;
+  background: linear-gradient(180deg, #25d366, #1ebe5d);
+  color: #fff;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: bold;
+  display: none;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,.3);
+  z-index: 4000;
+  animation: topoPulse 1.6s infinite;
+}
+
+/* ANIMAÇÃO */
+@keyframes topoPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
 </style>
 </head>
 
@@ -2725,12 +2752,31 @@ window.addEventListener("scroll", () => {
   btn.style.display = window.scrollY > 400 ? "flex" : "none";
 });
 
+  // MOSTRAR / ESCONDER BOTÃO TOPO
+window.addEventListener("scroll", () => {
+  const btn = document.getElementById("btnTopo");
+  btn.style.display = window.scrollY > 400 ? "flex" : "none";
+});
+
+function voltarTopo() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 </script>
 
   <footer class="rodape">
-  <p>🌪️ Furacão da Limpeza</p>
-  <p>Produtos de qualidade para cuidar do seu lar 💙</p>
-  <p class="copy">© 2026 – Todos os direitos reservados</p>
+  <p><strong>🌪️ Furacão da Limpeza</strong></p>
+
+  <p>
+    Fazemos entregas em <strong>toda Sorocaba</strong> 🚚💙<br>
+    Os pedidos podem ser feitos pelo nosso site ou pelo e-mail:
+  </p>
+
+  <p class="email">📧 furacaodalimpeza027@gmail.com</p>
+
+  <p class="copy">
+    © 2026 Furacão da Limpeza • Todos os direitos reservados
+  </p>
 </footer>
 
   <!-- BOTÃO VOLTAR AO TOPO -->
