@@ -2609,21 +2609,6 @@ function limparBusca() {
   filtrarProdutos();
 }
 
-  // volta só para a aba ativa
-  document.querySelectorAll(".categoria").forEach(cat => {
-    cat.style.display = "none";
-    cat.classList.remove("ativa");
-  });
-
-  document.getElementById("limpeza").style.display = "block";
-  document.getElementById("limpeza").classList.add("ativa");
-}
-
-function limparBusca() {
-  document.getElementById("pesquisaProduto").value = "";
-  filtrarProdutos();
-}
-
 function restaurarBusca() {
   document.querySelectorAll(".categoria").forEach((cat, index) => {
     cat.style.display = index === 0 ? "block" : "none";
@@ -2636,13 +2621,6 @@ function restaurarBusca() {
 
   document.getElementById("limparBusca").style.display = "none";
 }
-
-// MOSTRAR / ESCONDER BOTÃO VOLTAR AO TOPO
-window.addEventListener("scroll", () => {
-  const btn = document.getElementById("btnTopo");
-  if (!btn) return;
-  btn.style.display = window.scrollY > 400 ? "flex" : "none";
-});
 
 // VOLTAR AO TOPO
 function voltarTopo() {
