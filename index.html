@@ -609,6 +609,32 @@ mark {
   }
 }
 
+  /* BOTÃO VOLTAR AO TOPO */
+#btnTopo {
+  position: fixed;
+  bottom: 110px;   /* fica acima do botão WhatsApp */
+  right: 18px;
+  background: linear-gradient(180deg, #25d366, #1ebe5d);
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 30px;
+  font-size: 13px;
+  display: none;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  z-index: 2000;
+  box-shadow: 0 6px 16px rgba(0,0,0,.3);
+  animation: pulseTopo 1.6s infinite;
+}
+
+@keyframes pulseTopo {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
 </style>
 </head>
 
@@ -2573,14 +2599,6 @@ function confirmarPedido() {
   mostrarCategoria("limpeza", document.querySelector(".abas button"));
 }
 
-window.onload = () => {
-  const nome = localStorage.getItem("nomeCliente");
-  if (nome) {
-    document.getElementById("nomeClienteTopo").innerText = nome;
-    document.getElementById("nomeClienteExibido").innerText = "👤 Cliente: " + nome;
-  }
-};
-
 function filtrarProdutos() {
   const termo = document.getElementById("pesquisaProduto").value.toLowerCase();
   const produtos = document.querySelectorAll(".produto");
@@ -2680,7 +2698,27 @@ window.addEventListener("scroll", () => {
   }
 });
 
+  // FUNÇÃO VOLTAR AO TOPO
+function voltarTopo() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+// MOSTRA / ESCONDE BOTÃO AO ROLAR
+window.addEventListener("scroll", () => {
+  const btn = document.getElementById("btnTopo");
+  if (!btn) return;
+  btn.style.display = window.scrollY > 400 ? "flex" : "none";
+});
+
 </script>
+
+  <!-- BOTÃO VOLTAR AO TOPO -->
+<button id="btnTopo" onclick="voltarTopo()">
+  ⬆️ <span>Voltar ao topo</span>
+</button>
 
   <!-- TELA DE SUCESSO -->
 <div id="telaSucesso" class="tela-sucesso">
@@ -2696,12 +2734,6 @@ window.addEventListener("scroll", () => {
 
     <button onclick="voltarComprar()">Voltar às compras</button>
   </div>
-</div>
-
-  <!-- BOTÃO VOLTAR AO TOPO -->
-<div id="voltarTopo" onclick="irTopo()">
-  <button>⬆️</button>
-  <span>Voltar ao topo</span>
 </div>
   
 </body>
