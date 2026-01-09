@@ -567,6 +567,29 @@ mark {
   border-radius: 4px;
 }
 
+  /* BOTÃO VOLTAR AO TOPO */
+#btnTopo {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #0a7cff;
+  color: #fff;
+  border: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0,0,0,.3);
+  display: none;
+  z-index: 4000;
+  transition: transform .2s, opacity .2s;
+}
+
+#btnTopo:hover {
+  transform: scale(1.1);
+}
+
 </style>
 </head>
 
@@ -2601,6 +2624,26 @@ function restaurarBusca() {
   document.getElementById("limparBusca").style.display = "none";
 }
 
+  // MOSTRAR / ESCONDER BOTÃO VOLTAR AO TOPO
+window.addEventListener("scroll", () => {
+  const btn = document.getElementById("btnTopo");
+  if (!btn) return;
+
+  if (window.scrollY > 400) {
+    btn.style.display = "block";
+  } else {
+    btn.style.display = "none";
+  }
+});
+
+// FUNÇÃO VOLTAR AO TOPO
+function voltarTopo() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
 </script>
 
   <!-- TELA DE SUCESSO -->
@@ -2618,6 +2661,9 @@ function restaurarBusca() {
     <button onclick="voltarComprar()">Voltar às compras</button>
   </div>
 </div>
+
+  <!-- BOTÃO VOLTAR AO TOPO -->
+<button id="btnTopo" onclick="voltarTopo()">⬆️</button>
   
 </body>
 </html>
