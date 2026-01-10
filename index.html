@@ -186,18 +186,29 @@ h2 { text-align: center; color: #0a7cff; }
 
 /* BOTÃO WHATSAPP ANIMADO */
 .btn-whatsapp {
-  background: #25D366;
-  color: white;
-  border: none;
+  background: #ccc;
+  color: #666;
   padding: 14px;
-  width: 100%;
   border-radius: 10px;
+  border: none;
+  width: 100%;
   font-size: 16px;
   font-weight: bold;
-  cursor: pointer;
-  animation: pulse 1.5s infinite;
-  margin-top: 10px;
+  cursor: not-allowed;
+  transition: 0.3s;
 }
+
+.btn-whatsapp.ativo {
+  background: #25D366;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-whatsapp.ativo:hover {
+  background: #1ebe5d;
+  transform: scale(1.03);
+}
+
 @keyframes pulse {
   0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
   70% { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
@@ -637,6 +648,306 @@ mark {
   100% { transform: scale(1); }
 }
 
+  .rodape {
+  background: linear-gradient(135deg, #0d47a1, #1976d2);
+  color: #fff;
+  padding: 40px 20px;
+  text-align: center;
+  margin-top: 60px;
+}
+
+.rodape-conteudo {
+  max-width: 900px;
+  margin: auto;
+}
+
+.rodape h3 {
+  font-size: 26px;
+  margin-bottom: 15px;
+}
+
+.rodape p {
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+.rodape .entrega {
+  font-size: 17px;
+}
+
+.rodape .contato a {
+  color: #ffeb3b;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.rodape .contato a:hover {
+  text-decoration: underline;
+}
+
+.divisor {
+  width: 80px;
+  height: 3px;
+  background: #ffeb3b;
+  margin: 20px auto;
+  border-radius: 5px;
+}
+
+.copy {
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+  .barra-confianca {
+  display: flex;
+  justify-content: space-around;
+  background: #f5f5f5;
+  padding: 12px;
+  font-weight: bold;
+  font-size: 14px;
+  flex-wrap: wrap;
+}
+
+  .avaliacoes {
+  background: #f9fafc;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.avaliacoes h2 {
+  font-size: 26px;
+  margin-bottom: 30px;
+  color: #0d47a1;
+}
+
+.avaliacoes-box {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.avaliacao {
+  background: #fff;
+  padding: 20px;
+  border-radius: 14px;
+  max-width: 260px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.avaliacao p {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.avaliacao span {
+  font-weight: bold;
+  color: #333;
+}
+
+  @media (max-width: 600px) {
+  .avaliacoes-box {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+  .media {
+  margin: 5px 0 10px;
+  font-weight: bold;
+  color: #f5a623;
+}
+
+.avaliar-loja {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.estrelas span {
+  font-size: 26px;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.estrelas span:hover {
+  transform: scale(1.2);
+}
+
+.msg-avaliacao {
+  margin-top: 6px;
+  color: #1b7f3b;
+  font-weight: bold;
+}
+
+  .avaliar-loja textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-top: 8px;
+}
+
+.avaliar-loja button {
+  margin-top: 8px;
+  background: #25d366;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.avaliacoes-publicas {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 15px;
+}
+
+  /* ANIMAÇÃO DA MÉDIA */
+.resumo-avaliacao {
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.animar-media {
+  animation: pulseMedia 0.6s ease;
+}
+
+@keyframes pulseMedia {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* ANIMAÇÃO DAS AVALIAÇÕES */
+.avaliacao-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 10px;
+  animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ESTRELAS */
+/* ANIMAÇÃO DA MÉDIA */
+.resumo-avaliacao {
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.animar-media {
+  animation: pulseMedia 0.6s ease;
+}
+
+@keyframes pulseMedia {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ESTRELAS */
+.avaliar-loja .estrelas span {
+  font-size: 28px;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.avaliar-loja .estrelas span:hover {
+  transform: scale(1.2);
+}
+
+  .btn-remover {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+  margin-top: 6px;
+  font-size: 12px;
+}
+
+.btn-remover:hover {
+  background: #d93636;
+}
+
+  .resumo-avaliacao {
+  margin: 10px 0 20px;
+  font-size: 18px;
+  font-weight: bold;
+  background: #f3f7ff;
+  padding: 10px 14px;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+/* ANIMAÇÃO DA MÉDIA */
+.animar-media {
+  animation: pulse 0.4s ease;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    background-color: #f3f7ff;
+  }
+  50% {
+    transform: scale(1.08);
+    background-color: #dbe7ff;
+  }
+  100% {
+    transform: scale(1);
+    background-color: #f3f7ff;
+  }
+}
+
+  #btnWhatsapp,
+.botao-whatsapp {
+  background-color: #25D366;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: 0.3s;
+  width: 100%;
+}
+
+#btnWhatsapp:hover,
+.botao-whatsapp:hover {
+  background-color: #1ebe5d;
+  transform: scale(1.03);
+}
+
 </style>
 </head>
 
@@ -652,11 +963,18 @@ mark {
 
   <div class="header-conteudo">
     <h1>🌪️ Furacão da Limpeza 🛒</h1>
-    <p><p>Sinta-se em casa 💙 Tudo para cuidar do seu lar com carinho</p>
+    <p>Sinta-se em casa 💙 Tudo para cuidar do seu lar com carinho</p>
   </div>
 
 </header>
 
+<section class="barra-confianca">
+  <div>🚚 Entrega rápida em Sorocaba</div>
+  <div>💳 Pix • Débito • Crédito</div>
+  <div>🧾 Nota fiscal</div>
+  <div>⭐ Qualidade garantida</div>
+</section>
+  
 <div id="cardClienteTopo" class="card-cliente">
   👤 Cliente: <span id="nomeClienteTopo">não informado</span>
 </div>
@@ -736,11 +1054,11 @@ mark {
 <div class="variacoes">
   <div class="linha">
     <span>2L — R$ 6,00</span>
-    <button onclick="addProduto('Desifetante Jorge Tadeu 2L',6)">Adicionar</button>
+    <button onclick="addProduto('Desinfetante Jorge Tadeu 2L',6)">Adicionar</button>
   </div>
   <div class="linha">
     <span>5L — R$ 15,00</span>
-    <button onclick="addProduto('Desifetante Jorge Tadeu 5L',15)">Adicionar</button>
+    <button onclick="addProduto('Desinfetante Jorge Tadeu 5L',15)">Adicionar</button>
   </div>
 </div>
 </div>
@@ -991,7 +1309,7 @@ mark {
 <div class="variacoes">
   <div class="linha">
     <span> Candura 500ML — R$ 3,50</span>
-    <button onclick="addProduto('Dtergente Candura 350ML',3,50)">Adicionar</button>
+    <button onclick="addProduto('Detergente Candura 350ML',3.5)">Adicionar</button>
   </div>
   <div class="linha">
     <span> Ypê 500ML — R$ 4,00</span>
@@ -1699,7 +2017,7 @@ mark {
 <h3>Varal Intimo</h3>
 <div class="variacoes">
   <div class="linha">
-    <span>R$ 17,00</span>//
+    <span>R$ 17,00</span>
     <button onclick="addProduto('Varal Intimo ',17)">Adicionar</button>
   </div>
 </div>
@@ -1779,7 +2097,7 @@ mark {
 <div class="variacoes">
   <div class="linha">
     <span> Rodo Pequeno 30 CM R$ 13,00</span>
-    <button onclick="addProduto('Rodo Pequeno 30 CM,13)">Adicionar</button>
+   <button onclick="addProduto('Rodo Pequeno 30 CM',13)">Adicionar</button>
   </div>
   <div class="linha">
     <span> Rodo Médio 40 CM R$ 16,00</span>
@@ -2305,7 +2623,12 @@ mark {
 <ul id="lista"></ul>
 <p><strong>Total: R$ <span id="total">0.00</span></strong></p>
 
-<button id="btnWhatsapp" class="btn-whatsapp" onclick="abrirModal()">
+<button
+  id="btnWhatsapp"
+  class="btn-whatsapp"
+  onclick="abrirModal()"
+  disabled
+>
   Enviar pelo WhatsApp
 </button>
 
@@ -2349,16 +2672,20 @@ let ultimoTotal = 0;
 // FUNÇÃO PARA ADICIONAR PRODUTO
 function addProduto(nome, preco) {
   let item = carrinho.find(p => p.nome === nome);
-  if(item) item.qtd++;
-  else carrinho.push({nome, preco, qtd:1});
+  if (item) item.qtd++;
+  else carrinho.push({ nome, preco, qtd: 1 });
 
   const som = document.getElementById("somAdd");
-  som.currentTime = 0;
-  som.play().catch(()=>{});
+  if (som) {
+    som.currentTime = 0;
+    som.play().catch(() => {});
+  }
 
   const btn = document.getElementById("btnCarrinho");
-  btn.classList.add("animar");
-  setTimeout(()=>btn.classList.remove("animar"),200);
+  if (btn) {
+    btn.classList.add("animar");
+    setTimeout(() => btn.classList.remove("animar"), 200);
+  }
 
   atualizar();
 }
@@ -2394,33 +2721,37 @@ function atualizar() {
   });
 
   totalEl.innerText = totalGeral.toFixed(2);
-  contador.innerText = itens;
+  if (contador) contador.innerText = itens;
 
   const nome = localStorage.getItem("nomeCliente") || "não informado";
-  document.getElementById("nomeClienteTopo").innerText = nome;
+  const topo = document.getElementById("nomeClienteTopo");
+if (topo) topo.innerText = nome;
   document.getElementById("nomeClienteExibido").innerText = "👤 Cliente: " + nome;
 
-  btnWhatsapp.disabled = carrinho.length === 0;
-  if(!btnWhatsapp.disabled) {
-    btnWhatsapp.classList.add("liberado");
-    setTimeout(()=>btnWhatsapp.classList.remove("liberado"),400);
+  if (carrinho.length > 0) {
+  btnWhatsapp.disabled = false;
+  btnWhatsapp.classList.add("ativo");
+} else {
+  btnWhatsapp.disabled = true;
+  btnWhatsapp.classList.remove("ativo");
+}
 
     const totalFlutuante = document.getElementById("totalFlutuante");
 const totalFlutuanteValor = document.getElementById("totalFlutuanteValor");
 
-totalFlutuanteValor.innerText = totalGeral.toFixed(2);
-totalFlutuante.style.display = carrinho.length ? "flex" : "none";
+if (totalFlutuante && totalFlutuanteValor) {
+  totalFlutuanteValor.innerText = totalGeral.toFixed(2);
+  totalFlutuante.style.display = carrinho.length ? "flex" : "none";
 
-if (totalGeral !== ultimoTotal) {
-  totalFlutuante.classList.remove("animar");
-  void totalFlutuante.offsetWidth;
-  totalFlutuante.classList.add("animar");
-  ultimoTotal = totalGeral;
-}
-
+  if (totalGeral !== ultimoTotal) {
+    totalFlutuante.classList.remove("animar");
+    void totalFlutuante.offsetWidth;
+    totalFlutuante.classList.add("animar");
+    ultimoTotal = totalGeral;
   }
 }
-
+}
+  
 // TROCAR NOME
 function trocarNome() {
   const novoNome = prompt("Digite o nome da cliente:");
@@ -2497,7 +2828,7 @@ function filtrarProdutos() {
       const regex = new RegExp(`(${texto})`, "gi");
       h3.innerHTML = nomeOriginal.replace(
         regex,
-        `<span class="destaque">$1</span>`
+        `<mark>$1</mark>`
       );
     } else {
       produto.style.display = "none";
@@ -2590,20 +2921,6 @@ function confirmarPedido() {
   mostrarCategoria("limpeza", document.querySelector(".abas button"));
 }
 
-function filtrarProdutos() {
-  const termo = document.getElementById("pesquisaProduto").value.toLowerCase();
-  const produtos = document.querySelectorAll(".produto");
-  const limpar = document.getElementById("limparBusca");
-
-  produtos.forEach(produto => {
-    produto.style.display = produto.innerText.toLowerCase().includes(termo)
-      ? "block"
-      : "none";
-  });
-
-  limpar.style.display = termo ? "block" : "none";
-}
-
 function limparBusca() {
   document.getElementById("pesquisaProduto").value = "";
   filtrarProdutos();
@@ -2622,34 +2939,180 @@ function restaurarBusca() {
   document.getElementById("limparBusca").style.display = "none";
 }
 
-// VOLTAR AO TOPO
-function voltarTopo() {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-
-// MOSTRA / ESCONDE BOTÃO AO ROLAR
+// MOSTRAR / ESCONDER BOTÃO VOLTAR AO TOPO
 window.addEventListener("scroll", () => {
   const btn = document.getElementById("btnTopo");
   if (!btn) return;
   btn.style.display = window.scrollY > 400 ? "flex" : "none";
 });
 
+// VOLTAR AO TOPO
+function voltarTopo() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+let estrelaSelecionada = 0;
+
+// SELECIONAR ESTRELAS
+function selecionarEstrela(nota) {
+  estrelaSelecionada = nota;
+
+  document.querySelectorAll(".avaliar-loja .estrelas span").forEach((e, i) => {
+    e.style.opacity = i < nota ? "1" : "0.3";
+  });
+}
+
+// ENVIAR AVALIAÇÃO
+function enviarAvaliacao() {
+  if (estrelaSelecionada === 0) {
+    alert("Selecione uma quantidade de estrelas ⭐");
+    return;
+  }
+
+  const nome = document.getElementById("nomeCliente").value.trim();
+const comentario = document.getElementById("textoAvaliacao").value.trim();
+
+if (!nome) {
+  alert("Por favor, informe seu nome 😊");
+  return;
+}
+
+  let avaliacoes = JSON.parse(localStorage.getItem("avaliacoes")) || [];
+
+ avaliacoes.push({
+  nome: nome,
+  nota: estrelaSelecionada,
+  comentario: comentario
+});
+
+  localStorage.setItem("avaliacoes", JSON.stringify(avaliacoes));
+
+  document.getElementById("textoAvaliacao").value = "";
+  document.getElementById("nomeCliente").value = "";
+  estrelaSelecionada = 0;
+
+  atualizarMedia();
+  mostrarAvaliacoes();
+
+  const estrelas = document.querySelectorAll(".avaliar-loja .estrelas span");
+estrelas.forEach(e => e.style.opacity = "0.3");
+
+  document.getElementById("msgAvaliacao").innerText =
+    "Obrigado pela sua avaliação 💙";
+}
+
+// CALCULAR MÉDIA
+function atualizarMedia() {
+  const avaliacoes = JSON.parse(localStorage.getItem("avaliacoes")) || [];
+  const total = avaliacoes.length;
+
+  const mediaEl = document.getElementById("mediaAvaliacao");
+  const totalEl = document.getElementById("totalAvaliacoes");
+
+  if (total === 0) {
+    if (mediaEl) mediaEl.innerText = "0.0";
+    if (totalEl) totalEl.innerText = "0";
+    return;
+  }
+
+  let soma = 0;
+  avaliacoes.forEach(a => soma += Number(a.nota));
+
+  const media = soma / total;
+
+  if (mediaEl) mediaEl.innerText = media.toFixed(1);
+  if (totalEl) totalEl.innerText = total;
+
+  const box = document.querySelector(".resumo-avaliacao");
+  if (box) {
+    box.classList.remove("animar-media");
+    void box.offsetWidth;
+    box.classList.add("animar-media");
+  }
+}
+
+// MOSTRAR AVALIAÇÕES
+function mostrarAvaliacoes() {
+  const avaliacoes = JSON.parse(localStorage.getItem("avaliacoes")) || [];
+  const lista = document.getElementById("listaAvaliacoes");
+  if (!lista) return;
+
+  lista.innerHTML = "";
+
+  avaliacoes.slice().reverse().forEach((a, index) => {
+    const realIndex = avaliacoes.length - 1 - index;
+
+    lista.innerHTML += `
+      <div class="avaliacao-card">
+        <div class="estrelas">${"⭐".repeat(a.nota)}</div>
+        <p>${a.comentario || "Sem comentário"}</p>
+        <strong>— ${a.nome || "Cliente"}</strong>
+
+        <button class="btn-remover" onclick="removerAvaliacao(${realIndex})">
+          ❌ Remover
+        </button>
+      </div>
+    `;
+  });
+}
+
+function removerAvaliacao(index) {
+  let avaliacoes = JSON.parse(localStorage.getItem("avaliacoes")) || [];
+
+  if (!confirm("Deseja remover esta avaliação?")) return;
+
+  avaliacoes.splice(index, 1);
+  localStorage.setItem("avaliacoes", JSON.stringify(avaliacoes));
+
+  atualizarMedia();
+  mostrarAvaliacoes();
+}
+
+// AO ABRIR O SITE
+document.addEventListener("DOMContentLoaded", () => {
+  atualizarMedia();
+  mostrarAvaliacoes();
+});
+
 </script>
 
+  <section class="avaliacoes-publicas">
+
+  <h2>⭐ Avaliações dos clientes</h2>
+
+  <!-- RESUMO DA AVALIAÇÃO (OPÇÃO 2 AQUI) -->
+  <div class="resumo-avaliacao">
+    ⭐ <span id="mediaAvaliacao">0.0</span>
+    (<span id="totalAvaliacoes">0</span> avaliações)
+  </div>
+
+  <div id="listaAvaliacoes"></div>
+
+</section>
+
   <footer class="rodape">
-  <p><strong>🌪️🛒 Furacão da Limpeza</strong></p>
+  <div class="rodape-conteudo">
 
-  <p>
-    Fazemos entregas por <strong>todo Sorocaba</strong> 🚚💙<br>
-    Os pedidos podem ser feitos pelo nosso site ou pelo e-mail:
-  </p>
+    <h3>🛒 Furacão da Limpeza</h3>
 
-  <p class="email">📧 furacaodalimpeza027@gmail.com</p>
+    <p class="entrega">
+      🚚 Fazemos entregas por todo <strong>Sorocaba</strong>
+    </p>
 
-  <p class="copy">
-    © 2026 Furacão da Limpeza • Todos os direitos reservados
-  </p>
+    <p class="contato">
+      📧 Pedidos pelo site ou e-mail:<br>
+      <a href="mailto:furacaodalimpieza027@gmail.com">
+        furacaodalimpieza027@gmail.com
+      </a>
+    </p>
+
+    <div class="divisor"></div>
+
+    <p class="copy">
+      © 2026 Furacão da Limpeza • Todos os direitos reservados
+    </p>
+
+  </div>
 </footer>
 
   <!-- BOTÃO VOLTAR AO TOPO -->
@@ -2669,6 +3132,37 @@ window.addEventListener("scroll", () => {
     
 <br>
 
+    <!-- AVALIAÇÃO DA LOJA -->
+<div class="avaliar-loja">
+
+  <h3>⭐ Avalie nossa loja</h3>
+
+  <div class="estrelas">
+    <span onclick="selecionarEstrela(1)">⭐</span>
+    <span onclick="selecionarEstrela(2)">⭐</span>
+    <span onclick="selecionarEstrela(3)">⭐</span>
+    <span onclick="selecionarEstrela(4)">⭐</span>
+    <span onclick="selecionarEstrela(5)">⭐</span>
+  </div>
+
+  <input
+  type="text"
+  id="nomeCliente"
+  placeholder="Seu nome"
+>
+
+  <textarea
+    id="textoAvaliacao"
+    placeholder="Escreva sua avaliação (opcional)"
+  ></textarea>
+
+  <button type="button" onclick="enviarAvaliacao()">
+  Enviar avaliação
+</button>
+
+  <p id="msgAvaliacao"></p>
+</div>
+    
     <button onclick="voltarComprar()">Voltar às compras</button>
   </div>
 </div>
