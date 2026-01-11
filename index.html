@@ -948,6 +948,57 @@ mark {
   transform: scale(1.03);
 }
 
+  html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* impede mexer para os lados */
+}
+
+  .avaliacao-admin {
+  border: 2px solid #1e88e5;
+  background: #f1f8ff;
+}
+
+.topo-avaliacao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.selo-admin {
+  background: #1e88e5;
+  color: #fff;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.btn-remover {
+  margin-top: 8px;
+  background: #ff5252;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+  #seloVerificado {
+  position: fixed;
+  bottom: 12px;
+  left: 12px;
+  background: #1e88e5;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,.3);
+  z-index: 9999;
+  display: none;
+}
+
 </style>
 </head>
 
@@ -969,9 +1020,8 @@ mark {
 </header>
 
 <section class="barra-confianca">
-  <div>🚚 Entrega rápida em Sorocaba</div>
-  <div>💳 Pix • Débito • Crédito</div>
-  <div>🧾 Nota fiscal</div>
+  <div>🚚 Entrega em todo Sorocaba</div>
+  <div>💳 Pix • Débito • Crédito • Dinheiro</div>
   <div>⭐ Qualidade garantida</div>
 </section>
   
@@ -1309,7 +1359,7 @@ mark {
 <div class="variacoes">
   <div class="linha">
     <span> Candura 500ML — R$ 3,50</span>
-    <button onclick="addProduto('Detergente Candura 350ML',3.5)">Adicionar</button>
+    <button onclick="addProduto('Detergente Candura 500ML',3.5)">Adicionar</button>
   </div>
   <div class="linha">
     <span> Ypê 500ML — R$ 4,00</span>
@@ -1339,11 +1389,11 @@ mark {
 <div class="variacoes">
   <div class="linha">
     <span>2L — R$ 12,00</span>
-    <button onclick="addProduto('Detergente 2L',12)">Adicionar</button>
+    <button onclick="addProduto('Detergente Concentrado 2L',12)">Adicionar</button>
   </div>
   <div class="linha">
     <span>5L — R$ 25,00</span>
-    <button onclick="addProduto('Detergente 5L',25)">Adicionar</button>
+    <button onclick="addProduto('Detergente Concentrado 5L',25)">Adicionar</button>
   </div>
 </div>
 </div>
@@ -1399,7 +1449,7 @@ mark {
 <div class="variacoes">
   <div class="linha">
     <span>Amac. Blue Iris 2L — R$ 10,00</span>
-    <button onclick="addProduto('Amaciante Blue Iris 2L',6)">Adicionar</button>
+    <button onclick="addProduto('Amaciante Blue Iris 2L',10)">Adicionar</button>
   </div>
   <div class="linha">
     <span>Amac. Pink Sky 2L — R$ 10,00</span>
@@ -1428,19 +1478,19 @@ mark {
 <h3>Veja Multiuso</h3>
 <div class="variacoes">
   <div class="linha">
-    <span>Verde: Controle de Odor 500ML — R$ 6,00</span>
-    <button onclick="addProduto('Verde Controle de Odor 500ML',6)">Adicionar</button>
+    <span>Veja Verde Controle de Odor 500ML — R$ 6,00</span>
+    <button onclick="addProduto('Veja Verde Controle de Odor 500ML',6)">Adicionar</button>
   </div>
   <div class="linha">
-    <span> Azul: Desengordurante 500ML — R$ 6,00</span>
-    <button onclick="addProduto('Azul Desengordurante 500ML',6)">Adicionar</button>
+    <span>Veja Azul: Desengordurante 500ML — R$ 6,00</span>
+    <button onclick="addProduto('Veja Azul Desengordurante 500ML',6)">Adicionar</button>
   </div>
 </div>
 </div>
   
 <div class="produto">
 <img src="img/veja.jpg">
-<h3>Veja MultiusocBonrruque</h3>
+<h3>Veja Multiuso Bonrruque</h3>
 <div class="variacoes">
   <div class="linha">
     <span>2L — R$ 13,00</span>
@@ -1866,11 +1916,11 @@ mark {
 <div class="variacoes">
   <div class="linha">
     <span>Scotch Brite 4 Unid. R$ 11,00</span>
-    <button onclick="addProduto('Buchinha Scotch Brite 4 Unid.,',11)">Adicionar</button>
+    <button onclick="addProduto('Buchinha Scotch Brite 4 Unid.',11)">Adicionar</button>
   </div>
   <div class="linha">
     <span>Alklin R$ 1,50</span>
-    <button onclick="addProduto('Buchinha Alklin.,',1.5)">Adicionar</button>
+    <button onclick="addProduto('Buchinha Alklin',1.5)">Adicionar</button>
   </div>
 </div>
 </div>
@@ -2376,23 +2426,23 @@ mark {
       <div class="variacoes">
         <div class="linha">
           <span>Essen. SenaMax Orquídea Negra — R$ 16,00</span>
-          <button onclick="addProduto('Orquídea Negra',16)">Adicionar</button>
+          <button onclick="addProduto('Essen. SenaMax Orquídea Negra',16)">Adicionar</button>
         </div>
         <div class="linha">
           <span>Essen. SenaMax Chá Branco — R$ 16,00</span>
-          <button onclick="addProduto('Chá Branco',16)">Adicionar</button>
+          <button onclick="addProduto('Essen. SenaMax Chá Branco',16)">Adicionar</button>
         </div>
          <div class="linha">
           <span>Essen. SenaMax Óleo de Eucalipto — R$ 16,00</span>
-          <button onclick="addProduto('Essência Lavanda Senamax',16)">Adicionar</button>
+          <button onclick="addProduto('Essen. SenaMax Lavanda',16)">Adicionar</button>
         </div>
          <div class="linha">
           <span>Essen. SenaMax Lavanda — R$ 16,00</span>
-          <button onclick="addProduto('Lavanda',16)">Adicionar</button>
+          <button onclick="addProduto('Essen. SenaMax Lavanda',16)">Adicionar</button>
         </div>
          <div class="linha">
           <span>Essen. SenaMax Flores de Algodão — R$ 16,00</span>
-          <button onclick="addProduto('Flores de Algodão',16)">Adicionar</button>
+          <button onclick="addProduto('Essen. SenaMax Flores de Algodão',16)">Adicionar</button>
         </div>
       </div>
     </div>
@@ -2405,51 +2455,51 @@ mark {
 
     <div class="linha">
       <span>Essen. Nogueira Cereja e Avelã — R$ 10,00</span>
-      <button onclick="addProduto('Cereja e Avelã',10)">Adicionar</button>
+      <button onclick="addProduto('Essen. Nogueira Cereja e Avelã',10)">Adicionar</button>
     </div>
 
     <div class="linha">
       <span>Essen. Nogueira Lavanda — R$ 10,00</span>
-      <button onclick="addProduto('Lavanda',10)">Adicionar</button>
+      <button onclick="addProduto('Essen. Nogueira Lavanda',10)">Adicionar</button>
     </div>
 
     <div class="linha">
       <span>Essen. Nogueira Óleo de Eucalipto — R$ 10,00</span>
-      <button onclick="addProduto('Óleo de Eucalipto',10)">Adicionar</button>
+      <button onclick="addProduto('Essen. Nogueira Óleo de Eucalipto',10)">Adicionar</button>
     </div>
 
     <div class="linha">
       <span>Essen. Nogueira Broto de Bambu — R$ 10,00</span>
-      <button onclick="addProduto('Broto de Bambu',10)">Adicionar</button>
+      <button onclick="addProduto('Essen. Nogueira Broto de Bambu',10)">Adicionar</button>
     </div>
 
     <div class="linha">
       <span>Essen. Nogueira Jasmin — R$ 10,00</span>
-      <button onclick="addProduto('Jasmin',10)">Adicionar</button>
+      <button onclick="addProduto('Essen. Nogueira Jasmin',10)">Adicionar</button>
     </div>
 
     <div class="linha">
       <span>Essen. Nogueira Aurora — R$ 10,00</span>
-      <button onclick="addProduto('Aurora',10)">Adicionar</button>
+      <button onclick="addProduto('Essen. Nogueira Aurora',10)">Adicionar</button>
     </div>
 
     <div class="linha">
       <span>Essen. Nogueira Citronela — R$ 10,00</span>
-      <button onclick="addProduto('Citronela',10)">Adicionar</button>
+      <button onclick="addProduto('Essen. Nogueira Citronela',10)">Adicionar</button>
     </div>
 
     <div class="linha">
       <span>Essen. Nogueira Alfazema — R$ 10,00</span>
-      <button onclick="addProduto('Alfazema',10)">Adicionar</button>
+      <button onclick="addProduto('Essen. Nogueira Alfazema',10)">Adicionar</button>
     </div>
 
     <div class="linha">
       <span>Essen. Nogueira Talco — R$ 10,00</span>
-      <button onclick="addProduto('Talco',10)">Adicionar</button>
+      <button onclick="addProduto('Essen. Nogueira Talco',10)">Adicionar</button>
     </div>
     <div class="linha">
       <span>Essen. Nogueira Orquídea Negra — R$ 10,00</span>
-      <button onclick="addProduto('Orquídea Negra',10)">Adicionar</button>
+      <button onclick="addProduto('Essen. Nogueira Orquídea Negra',10)">Adicionar</button>
     </div>
   </div>
 </div>
@@ -2460,23 +2510,23 @@ mark {
       <div class="variacoes">
         <div class="linha">
           <span>Difusor SenaMax Orquídea Negra — R$ 22,00</span>
-          <button onclick="addProduto('Orquídea Negra',22)">Adicionar</button>
+          <button onclick="addProduto('Difusor SenaMax Orquídea Negra',22)">Adicionar</button>
         </div>
         <div class="linha">
           <span>Difusor SenaMax Chá Branco — R$ 22,00</span>
-          <button onclick="addProduto('Chá Branco',22)">Adicionar</button>
+          <button onclick="addProduto('Difusor SenaMax Chá Branco',22)">Adicionar</button>
         </div>
          <div class="linha">
           <span>Difusor SenaMax Pitaya — R$ 22,00</span>
-          <button onclick="addProduto('Pitaya',22)">Adicionar</button>
+          <button onclick="addProduto('Difusor SenaMax Pitaya',22)">Adicionar</button>
         </div>
          <div class="linha">
           <span>Difusor SenaMax Pistache — R$ 22,00</span>
-          <button onclick="addProduto('Pistache',22)">Adicionar</button>
+          <button onclick="addProduto('Difusor SenaMax Pistache',22)">Adicionar</button>
         </div>
          <div class="linha">
           <span>Difusor SenaMax Lavanda — R$ 22,00</span>
-          <button onclick="addProduto('Lavanda',22)">Adicionar</button>
+          <button onclick="addProduto('Difusor SenaMax Lavanda',22)">Adicionar</button>
         </div>
       </div>
     </div>
@@ -2487,19 +2537,19 @@ mark {
       <div class="variacoes">
         <div class="linha">
           <span>Difusor SenaLar Orquídea — R$ 15,00</span>
-          <button onclick="addProduto('Orquídea',15)">Adicionar</button>
+          <button onclick="addProduto('Difusor SenaLar Orquídea',15)">Adicionar</button>
         </div>
         <div class="linha">
           <span>Difusor SenaLar Chá Branco — R$ 15,00</span>
-          <button onclick="addProduto('Chá Branco',15)">Adicionar</button>
+          <button onclick="addProduto('Difusor SenaLar Chá Branco',15)">Adicionar</button>
         </div>
          <div class="linha">
           <span>Disusor SenaLar Bambu — R$ 15,00</span>
-          <button onclick="addProduto('Bambu',15)">Adicionar</button>
+          <button onclick="addProduto('Difusor SenaLar Bambu',15)">Adicionar</button>
       </div>
          <div class="linha">
           <span>Difusor SenaLar Lavanda — R$ 15,00</span>
-          <button onclick="addProduto('Lavanda',15)">Adicionar</button>
+          <button onclick="addProduto('Difusor SenaLar Lavanda',15)">Adicionar</button>
         </div>
       </div>
     </div>
@@ -2510,15 +2560,15 @@ mark {
       <div class="variacoes">
         <div class="linha">
           <span>Água Tecidos Bambu — R$ 23,00</span>
-          <button onclick="addProduto('Bambu',23)">Adicionar</button>
+          <button onclick="addProduto('Agua Tecidos Bambu',23)">Adicionar</button>
         </div>
         <div class="linha">
           <span>Água Tecidos Chá Branco — R$ 23,00</span>
-          <button onclick="addProduto('Chá Branco',23)">Adicionar</button>
+          <button onclick="addProduto('Agua Tecidos Chá Branco',23)">Adicionar</button>
         </div>
         <div class="linha">
           <span>Água Tecidos Flores de Algodão — R$ 23,00</span>
-          <button onclick="addProduto('Flores de Algodão',23)">Adicionar</button>
+          <button onclick="addProduto('Agua Tecidos Flores de Algodão',23)">Adicionar</button>
         </div>
       </div>
     </div>
@@ -2665,6 +2715,26 @@ mark {
   </div> 
   
 <script>
+
+/* 🔐 ATIVAR ADMIN PELO LINK */
+const params = new URLSearchParams(window.location.search);
+if (params.get("admin") === "0000") {
+  localStorage.setItem("adminFuracao", "true");
+}
+
+  function getUserId() {
+  let id = localStorage.getItem("userId");
+  if (!id) {
+    id = "user_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
+    localStorage.setItem("userId", id);
+  }
+  return id;
+}
+
+  function isAdmin() {
+  return localStorage.getItem("adminFuracao") === "true";
+}
+
 let carrinho = [];
 let totalGeral = 0;
 let ultimoTotal = 0;
@@ -2864,10 +2934,13 @@ function abrirModal() {
     alert("🛒 Seu carrinho está vazio.");
     return;
   }
+
+  document.body.style.overflow = "hidden"; // TRAVA A TELA
   document.getElementById("modalCliente").style.display = "flex";
 }
 
 function fecharModal() {
+  document.body.style.overflow = "auto"; // LIBERA A TELA
   document.getElementById("modalCliente").style.display = "none";
 }
 
@@ -2883,6 +2956,7 @@ function confirmarPedido() {
   }
 
   const numeroPedido = gerarNumeroPedido();
+  localStorage.setItem("pedidoAtual", numeroPedido);
 
   let msg = "";
   msg += "🧾 *Pedido Nº " + numeroPedido + " – 🌪️🛒Furacão da Limpeza*%0A%0A";
@@ -2964,6 +3038,19 @@ function selecionarEstrela(nota) {
 
 // ENVIAR AVALIAÇÃO
 function enviarAvaliacao() {
+  
+  const pedidoAtual = localStorage.getItem("pedidoAtual");
+
+if (!pedidoAtual) {
+  alert("Avaliação disponível apenas após um pedido 😊");
+  return;
+}
+
+if (localStorage.getItem("avaliado_" + pedidoAtual)) {
+  alert("Este pedido já foi avaliado ⭐");
+  return;
+}
+
   if (estrelaSelecionada === 0) {
     alert("Selecione uma quantidade de estrelas ⭐");
     return;
@@ -2980,12 +3067,16 @@ if (!nome) {
   let avaliacoes = JSON.parse(localStorage.getItem("avaliacoes")) || [];
 
  avaliacoes.push({
+  id: Date.now(),
+  userId: getUserId(),
   nome: nome,
   nota: estrelaSelecionada,
-  comentario: comentario
+  comentario: comentario,
+  admin: isAdmin()
 });
 
   localStorage.setItem("avaliacoes", JSON.stringify(avaliacoes));
+  localStorage.setItem("avaliado_" + pedidoAtual, "true");
 
   document.getElementById("textoAvaliacao").value = "";
   document.getElementById("nomeCliente").value = "";
@@ -2999,6 +3090,10 @@ estrelas.forEach(e => e.style.opacity = "0.3");
 
   document.getElementById("msgAvaliacao").innerText =
     "Obrigado pela sua avaliação 💙";
+  
+  document.getElementById("boxAvaliacao").style.display = "none";
+document.getElementById("msgObrigadoAvaliacao").style.display = "block";
+
 }
 
 // CALCULAR MÉDIA
@@ -3037,20 +3132,32 @@ function mostrarAvaliacoes() {
   const lista = document.getElementById("listaAvaliacoes");
   if (!lista) return;
 
+  const meuId = getUserId();
   lista.innerHTML = "";
 
   avaliacoes.slice().reverse().forEach((a, index) => {
     const realIndex = avaliacoes.length - 1 - index;
 
+    const classeAdmin = a.admin ? "avaliacao-admin" : "";
+    const seloAdmin = a.admin ? `<span class="selo-admin">ADMIN</span>` : "";
+
     lista.innerHTML += `
-      <div class="avaliacao-card">
-        <div class="estrelas">${"⭐".repeat(a.nota)}</div>
+      <div class="avaliacao-card ${classeAdmin}">
+        <div class="topo-avaliacao">
+          <div class="estrelas">${"⭐".repeat(a.nota)}</div>
+          ${seloAdmin}
+        </div>
+
         <p>${a.comentario || "Sem comentário"}</p>
         <strong>— ${a.nome || "Cliente"}</strong>
 
-        <button class="btn-remover" onclick="removerAvaliacao(${realIndex})">
-          ❌ Remover
-        </button>
+        ${
+          (isAdmin() || a.userId === meuId)
+            ? `<button class="btn-remover" onclick="removerAvaliacao(${realIndex})">
+                ❌ Remover
+              </button>`
+            : ""
+        }
       </div>
     `;
   });
@@ -3058,6 +3165,15 @@ function mostrarAvaliacoes() {
 
 function removerAvaliacao(index) {
   let avaliacoes = JSON.parse(localStorage.getItem("avaliacoes")) || [];
+  const meuId = getUserId();
+
+  if (!avaliacoes[index]) return;
+
+  // 🔒 VERIFICA PERMISSÃO
+  if (!isAdmin() && avaliacoes[index].userId !== meuId) {
+    alert("Você não tem permissão para remover este comentário.");
+    return;
+  }
 
   if (!confirm("Deseja remover esta avaliação?")) return;
 
@@ -3072,6 +3188,13 @@ function removerAvaliacao(index) {
 document.addEventListener("DOMContentLoaded", () => {
   atualizarMedia();
   mostrarAvaliacoes();
+});
+
+  document.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("adminFuracao") === "true") {
+    const selo = document.getElementById("seloVerificado");
+    if (selo) selo.style.display = "block";
+  }
 });
 
 </script>
@@ -3101,8 +3224,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     <p class="contato">
       📧 Pedidos pelo site ou e-mail:<br>
-      <a href="mailto:furacaodalimpieza027@gmail.com">
-        furacaodalimpieza027@gmail.com
+      <a href="mailto:furacaodalimpeza027@gmail.com">
+        furacaodalimpeza027@gmail.com
       </a>
     </p>
 
@@ -3133,7 +3256,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <br>
 
     <!-- AVALIAÇÃO DA LOJA -->
-<div class="avaliar-loja">
+<div class="avaliar-loja" id="boxAvaliacao">
 
   <h3>⭐ Avalie nossa loja</h3>
 
@@ -3145,6 +3268,11 @@ document.addEventListener("DOMContentLoaded", () => {
     <span onclick="selecionarEstrela(5)">⭐</span>
   </div>
 
+  <p id="msgObrigadoAvaliacao" style="display:none; font-size:16px; color:#1e88e5; margin-top:15px;">
+  💙 Obrigado por avaliar o nosso site do <strong>Furacão da Limpeza</strong>!  
+  Sua avaliação nos inspira a melhorar todos os dias e entregar sempre o melhor para você 🚀💙
+</p>
+  
   <input
   type="text"
   id="nomeCliente"
@@ -3166,6 +3294,8 @@ document.addEventListener("DOMContentLoaded", () => {
     <button onclick="voltarComprar()">Voltar às compras</button>
   </div>
 </div>
-  
+
+  <div id="seloVerificado">✔️ Verificado</div>
+
 </body>
 </html>
