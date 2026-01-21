@@ -111,8 +111,6 @@ h2 { text-align: center; color: #0a7cff; }
   width: 100%;
   height: auto;
   object-fit: contain;
-  border-radius: 8px;
-  display: block;
 }
 
 .linha {
@@ -209,11 +207,21 @@ h2 { text-align: center; color: #0a7cff; }
   transform: scale(1.03);
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-  70% { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
-  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+@keyframes pulseWhatsapp {
+  0% { 
+    transform: scale(1); 
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); 
+  }
+  70% { 
+    transform: scale(1.05); 
+    box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); 
+  }
+  100% { 
+    transform: scale(1); 
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); 
+  }
 }
+
 .btn-whatsapp.liberado { animation: liberar 0.4s ease; }
 @keyframes liberar {
   0% { transform: scale(0.9); }
@@ -547,77 +555,41 @@ body {
   }
 }
 
-  .barra-pesquisa {
-  max-width: 1100px;
-  margin: 10px auto 20px auto;
-  padding: 0 15px;
+.barra-pesquisa {
+  position: relative;
+  width: 100%;
+  padding: 0 12px;
+  box-sizing: border-box;
 }
 
 .barra-pesquisa input {
   width: 100%;
-  padding: 14px 18px;
-  border-radius: 30px;
-  border: 2px solid #0a7cff;
+  padding: 12px 44px 12px 16px;
+  border-radius: 30px;       /* 🔥 arredondado */
+  border: 1px solid #d0d0d0;
   font-size: 16px;
+  outline: none;
 }
 
-  #limparBusca {
+.barra-pesquisa input:focus {
+  border-color: #1e88e5;
+}
+
+#limparBusca {
   position: absolute;
-  right: 25px;
+  right: 26px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  font-size: 18px;
-  color: #0a7cff;
   display: none;
+  font-size: 16px;
+  color: #888;
 }
 
 mark {
   background: #ffeb3b;
   padding: 0 4px;
   border-radius: 4px;
-}
-
-  /* BOTÃO VOLTAR AO TOPO – AJUSTADO */
-#voltarTopo {
-  position: fixed;
-  bottom: 100px; /* desce o botão */
-  right: 16px;
-  display: none;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(180deg, #25d366, #1ebe5d);
-  color: #fff;
-  padding: 10px 14px; /* menor */
-  border-radius: 28px;
-  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.45);
-  cursor: pointer;
-  z-index: 3000;
-  animation: pulseTopo 2.2s infinite;
-}
-
-#voltarTopo button {
-  background: #fff;
-  color: #25d366;
-  border: none;
-  width: 34px;   /* menor */
-  height: 34px;
-  border-radius: 50%;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-#voltarTopo span {
-  font-weight: bold;
-  font-size: 13px; /* menor */
-}
-
-  @media (max-width: 600px) {
-  #voltarTopo {
-    bottom: 120px; /* evita conflito com botões */
-    right: 12px;
-  }
 }
 
   /* BOTÃO VOLTAR AO TOPO */
@@ -810,10 +782,6 @@ mark {
   margin: 10px 0;
 }
 
-.animar-media {
-  animation: pulseMedia 0.6s ease;
-}
-
 @keyframes pulseMedia {
   0% { transform: scale(1); }
   50% { transform: scale(1.15); }
@@ -909,21 +877,6 @@ mark {
   animation: pulse 0.4s ease;
 }
 
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    background-color: #f3f7ff;
-  }
-  50% {
-    transform: scale(1.08);
-    background-color: #dbe7ff;
-  }
-  100% {
-    transform: scale(1);
-    background-color: #f3f7ff;
-  }
-}
-
   #btnWhatsapp,
 .botao-whatsapp {
   background-color: #25D366;
@@ -999,6 +952,162 @@ mark {
   display: none;
 }
 
+  .avaliar-loja .estrelas {
+  display: flex;
+  gap: 6px;
+}
+
+.avaliar-loja .estrelas span {
+  position: relative;
+  font-size: 32px;
+  cursor: pointer;
+  color: #ccc; /* base cinza */
+}
+
+/* estrela cheia */
+.avaliar-loja .estrelas span.ativa {
+  color: gold;
+}
+
+/* meia estrela REAL */
+.avaliar-loja .estrelas span.meia::before {
+  content: "★";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%;
+  overflow: hidden;
+  color: gold;
+}
+
+  .estrela {
+  font-size: 20px;
+  margin-right: 2px;
+}
+
+.estrela.cheia {
+  color: gold;
+}
+
+.estrela.vazia {
+  color: #ccc;
+}
+
+.estrela.meia {
+  background: linear-gradient(90deg, gold 50%, #ccc 50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+  .resposta-admin {
+  background: #f1f8ff;
+  border-left: 4px solid #1e88e5;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.avaliacao-card textarea {
+  width: 100%;
+  margin-top: 8px;
+  padding: 6px;
+  font-size: 14px;
+}
+
+.avaliacao-card button {
+  margin-top: 5px;
+}
+
+  /* CENTRALIZAR AVALIAÇÃO DENTRO DA TELA DE SUCESSO */
+.sucesso-box .avaliar-loja {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* CENTRALIZAR AS ESTRELAS */
+.sucesso-box .avaliar-loja .estrelas {
+  display: flex;
+  justify-content: center;
+}
+
+  @keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#mensagemBusca {
+  animation: aparecer 0.4s ease;
+}
+
+  .produto {
+  position: relative;
+}
+
+.icone-busca {
+  display: none;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #ff6600;
+  color: #fff;
+  font-size: 14px;
+  padding: 4px 6px;
+  border-radius: 50%;
+  animation: aparecer 0.4s ease;
+}
+
+  #resultadosBusca {
+  margin-bottom: 20px;
+}
+
+#resultadosBusca h2 {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #ff6600;
+}
+
+  .produto {
+  position: relative;
+}
+
+.icone-busca {
+  display: none;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #ff6600;
+  color: white;
+  font-size: 14px;
+  padding: 4px 6px;
+  border-radius: 50%;
+}
+
+  @keyframes lupaPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+.produto.encontrado .icone-busca {
+  display: block;
+  animation: lupaPulse 0.6s ease;
+}
+
+  /* remove o X nativo do input search */
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
 </style>
 </head>
 
@@ -1044,32 +1153,51 @@ mark {
     <button onclick="mostrarCategoria('casa',this)">Casa</button>
     <button onclick="mostrarCategoria('automotivo',this)">Automotivo</button>
   </div>
+
   <div class="linha-abas">
-  <button onclick="mostrarCategoria('banheiro',this)">Banheiro</button>
-  <button onclick="mostrarCategoria('essencias',this)">Essências</button>
-  <button onclick="mostrarCategoria('kits',this)">🧼 Kits de Limpeza</button>
-</div>
+    <button onclick="mostrarCategoria('banheiro',this)">Banheiro</button>
+    <button onclick="mostrarCategoria('essencias',this)">Essências</button>
+    <button onclick="mostrarCategoria('kits',this)">🧼 Kits de Limpeza</button>
+  </div>
+
+  <div class="linha-abas">
+    <button onclick="mostrarCategoria('perfumes',this)">Perfumes</button>
+  </div>
 </div>
 
 <div class="barra-pesquisa" style="position:relative;">
-  <input 
-    type="text" 
-    id="pesquisaProduto" 
-    placeholder="🔍 Pesquise um produto"
-    onkeyup="filtrarProdutos()"
-  >
+ <input 
+  type="search"
+  id="pesquisaProduto" 
+  placeholder="🔍 Pesquise um produto"
+  oninput="filtrarProdutos()"
+>
   <span id="limparBusca" onclick="limparBusca()">✖</span>
 </div>
-  
+
+<p id="mensagemBusca" style="
+  display: none;
+  text-align: center;
+  font-size: 20px;
+  color: #ff6600;
+  margin-top: 30px;
+  font-weight: bold;
+">
+  Nenhum produto encontrado
+</p>
+
 <div class="container">
   
 <div id="limpeza" class="categoria ativa">
-<h2>Produtos de Limpeza</h2>
-<div class="produtos">
+  <h2>Produtos de Limpeza</h2>
+  <div class="produtos">
   
 <!-- produtos limpeza -->
-  <div class="produto">
-<img src="img/desinfetante-cha.jpg">
+<div class="produto limpeza"
+     data-nomes="desinfetante cha branco, desinfetante chá branco, cha branco concentrado, chá branco concentrado, desinfetante concentrado, desinfetante perfumado">
+  
+  <img src="img/desinfetante-cha.jpg" alt="Desinfetante Chá Branco">
+  <span class="icone-busca">🔍</span>
 <h3>Desinfetante Concentrado Chá Branco</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1082,9 +1210,12 @@ mark {
   </div>
 </div>
 </div>
+    
+  <div class="produto limpeza"
+data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, top flour">
   
-<div class="produto">
-<img src="img/desinfetante-top.jpg">
+   <img src="img/desinfetante-top.jpg" alt="Desinfetante Top Flour">
+  <span class="icone-busca">🔍</span>
 <h3>Desinfetante Top Flour</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1098,8 +1229,11 @@ mark {
 </div>
 </div>
 
-<div class="produto">
-<img src="img/jorge-tadeu.jpg">
+<div class="produto limpeza"
+data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, jorge tadeu">
+  
+ <img src="img/jorge-tadeu.jpg" alt="Desinfetante Jorge Tadeu">
+  <span class="icone-busca">🔍</span>
 <h3>Desinfetante Jorge Tadeu</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1113,8 +1247,11 @@ mark {
 </div>
 </div>
   
-  <div class="produto">
-<img src="img/desinfetante-amazon.jpg">
+<div class="produto limpeza"
+data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, amazon">
+
+   <img src="img/desinfetante-amazon.jpg" alt="Desinfetante Amazon">
+  <span class="icone-busca">🔍</span>
 <h3>Desinfetante Amazon</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1128,8 +1265,11 @@ mark {
 </div>
 </div>
 
-<div class="produto">
-<img src="img/desinfetante-bambu.jpg">
+<div class="produto limpeza"
+data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, bambu">
+
+  <img src="img/desinfetante-bambu.jpg" alt="Desinfetante Bambu">
+  <span class="icone-busca">🔍</span>
   <h3>Desinfetante Bambu</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1143,8 +1283,11 @@ mark {
 </div>
 </div>
   
-<div class="produto">
-<img src="img/desinfetante-casa.jpg">
+<div class="produto limpeza"
+data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, casa limpa">
+  
+  <img src="img/desinfetante-casa.jpg" alt="Desinfetante Casa limpa">
+  <span class="icone-busca">🔍</span>
 <h3>Desinfetante Casa Limpa</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1158,8 +1301,11 @@ mark {
 </div>
 </div>
 
-<div class="produto">
-<img src="img/desinfetante-dove.jpg">
+<div class="produto limpeza"
+data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, dove">
+
+  <img src="img/desinfetante-dove.jpg" alt="Desinfetante Dove">
+  <span class="icone-busca">🔍</span>
 <h3>Desinfetante Dove</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1173,8 +1319,11 @@ mark {
 </div>
 </div>
 
-<div class="produto">
-<img src="img/desinfetante-eucalipto.jpg">
+<div class="produto limpeza"
+data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, eucalipto">
+  
+  <img src="img/desinfetante-eucalipto.jpg" alt="Desinfetante Eucalipto">
+  <span class="icone-busca">🔍</span>
 <h3>Desinfetante Eucalipto</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1188,8 +1337,11 @@ mark {
 </div>
 </div>
 
-<div class="produto">
-<img src="img/desinfetante-jasmin.jpg">
+<div class="produto limpeza"
+data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, jasmin">
+  
+  <img src="img/desinfetante-jasmin.jpg" alt="Desinfetante Jasmin">
+  <span class="icone-busca">🔍</span>
 <h3>Desinfetante Jasmin</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1203,8 +1355,11 @@ mark {
 </div>
 </div>
 
-<div class="produto">
-<img src="img/desinfetante-lavanda.jpg">
+<div class="produto limpeza"
+data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, lavanda">
+  
+  <img src="img/desinfetante-lavanda.jpg" alt="Desinfetante Lavanda">
+  <span class="icone-busca">🔍</span>
 <h3>Desinfetante Lavanda</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1218,8 +1373,11 @@ mark {
 </div>
 </div>
 
-<div class="produto">
-<img src="img/desinfetante-talco.jpg">
+<div class="produto limpeza"
+   data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, talco">
+  
+  <img src="img/desinfetante-talco.jpg" alt="Desinfetante Talco">
+  <span class="icone-busca">🔍</span>
 <h3>Desinfetante Talco</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1232,54 +1390,48 @@ mark {
   </div>
 </div>
 </div>
-  
- <div class="produto">
-<img src="img/sabonete-liquido-dove.jpg">
-<h3>Sabonete Líquido Dove</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>1L — R$ 12,00</span>
-    <button onclick="addProduto('Sabonete Dove 1L',12)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>5L — R$ 35,00</span>
-    <button onclick="addProduto('Sabonete Dove 5L',35)">Adicionar</button>
-  </div>
-</div>
-</div>
- 
- <div class="produto">
-<img src="img/sabonete-liquido-erva-doce.jpg">
-<h3>Sabonete Líquido Erva Doce</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>1L — R$ 12,00</span>
-    <button onclick="addProduto('Sabonete Liquido Erva Doce 1L',12)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>5L — R$ 35,00</span>
-    <button onclick="addProduto('Sabonete Liquido Erva Doce 5L',35)">Adicionar</button>
-  </div>
-</div>
-</div>
 
-<div class="produto">
-<img src="img/candida.jpg">
+<div class="produto limpeza"
+     data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, algas">
+  
+  <img src="img/desinfetante-algas.jpg" alt="Desinfetante Algas">
+  <span class="icone-busca">🔍</span>
+<h3>Desinfetante Algas</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 6,00</span>
+    <button onclick="addProduto('Desinfetante Algas 2L',6)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 15,00</span>
+    <button onclick="addProduto('Desinfetante Algas 5L',15)">Adicionar</button>
+  </div>
+</div>
+</div>
+  
+<div class="produto limpeza"
+     data-nomes="candida, cândida, agua sanitaria, água sanitária, cloro, limpeza pesada, branqueador, limpeza">
+  
+  <img src="img/candida.jpg" alt="Candida">
+  <span class="icone-busca">🔍</span>
 <h3>Candida</h3>
 <div class="variacoes">
   <div class="linha">
     <span>2L — R$ 6,00</span>
-    <button onclick="addProduto('Cândida 2L',6)">Adicionar</button>
+    <button onclick="addProduto('Candida 2L',6)">Adicionar</button>
   </div>
   <div class="linha">
-    <span>5L — R$ 13,00</span>
-    <button onclick="addProduto('Candida 5L',13)">Adicionar</button>
+    <span>5L — R$ 12,00</span>
+    <button onclick="addProduto('Candida 5L',12)">Adicionar</button>
   </div>
 </div>
 </div>
 
-<div class="produto">
-<img src="img/candida-colorida.jpg">
+<div class="produto limpeza"
+     data-nomes="candida colorida, cândida colorida, sem cloro, roupas coloridas, limpeza leve, branqueador sem cloro, limpeza">
+  
+ <img src="img/candida-colorida.jpg" alt="Candida Colorida">
+  <span class="icone-busca">🔍</span>
 <h3>Candida Colorida</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1293,8 +1445,11 @@ mark {
 </div>
 </div>
 
-<div class="produto">
-<img src="img/candida-azul.jpg">
+<div class="produto limpeza"
+     data-nomes="candida colorida azul, cândida colorida azul, azul, sem cloro, roupas coloridas, limpeza leve, branqueador sem cloro, limpeza">
+
+ <img src="img/candida-azul.jpg" alt="Candida Colorida Azul">
+  <span class="icone-busca">🔍</span>
 <h3>Candida Colorida Azul</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1308,8 +1463,11 @@ mark {
 </div>
 </div>
   
- <div class="produto">
-<img src="img/sabao-liquido-bonrruque.jpg">
+<div class="produto limpeza"
+     data-nomes="sabao liquido bonrruque, sabão líquido bonrruque, bonrruque, lava roupas, branqueador, limpeza pesada">
+
+ <img src="img/sabao-liquido-bonrruque.jpg" alt="Sabao liquido Bonrruque">
+  <span class="icone-busca">🔍</span>
 <h3>Sabão Líquido Bonrruque</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1323,8 +1481,11 @@ mark {
 </div>
 </div>
 
- <div class="produto">
-<img src="img/sabao-liquido-clineza.jpg">
+ <div class="produto limpeza"
+     data-nomes="sabao liquido clineza, sabão líquido clineza, clineza, lava roupas, limpeza, uso diario">
+
+ <img src="img/sabao-liquido-clineza.jpg" alt="Sabao Liquido Clineza">
+   <span class="icone-busca">🔍</span>
 <h3>Sabão Liquido Clineza</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1336,10 +1497,14 @@ mark {
     <button onclick="addProduto('Sabao Liquido Clineza 5L',27)">Adicionar</button>
   </div>
 </div>
+     
 </div>
  
-<div class="produto">
-<img src="img/sabao-de-coco.jpg">
+<div class="produto limpeza"
+     data-nomes="sabao de coco, sabão de coco, sabao coco, sabão coco, lava roupas, limpeza, uso diario, roupas brancas, roupas delicadas">
+
+<img src="img/sabao-de-coco.jpg" alt="Sabao de Coco">
+  <span class="icone-busca">🔍</span>
 <h3>Sabão de Coco</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1351,10 +1516,14 @@ mark {
     <button onclick="addProduto('Sabão de Coco 5L',25)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/detergente-pequeno.jpg">
+<div class="produto limpeza"
+     data-nomes="detergente pequeno, detergente 500ml, detergente econômico, detergente cozinha, detergente louça, limpeza diaria">
+
+<img src="img/detergente-pequeno.jpg" alt="Detergente Pequeno">
+  <span class="icone-busca">🔍</span>
 <h3>Detergente Pequeno</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1366,10 +1535,14 @@ mark {
     <button onclick="addProduto('Detergente Ypê 500ML',4)">Adicionar</button>
   </div>
 </div>
+    
 </div>
   
-<div class="produto">
-<img src="img/detergente-neutro.jpg">
+<div class="produto limpeza"
+     data-nomes="detergente neutro, detergente sem perfume, detergente suave, detergente louça, limpeza, uso diario">
+
+<img src="img/detergente-neutro.jpg" alt="Detergente Neutro">
+  <span class="icone-busca">🔍</span>
 <h3>Detergente Neutro</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1381,10 +1554,14 @@ mark {
     <button onclick="addProduto('Detergente Neutro 5L',20)">Adicionar</button>
   </div>
 </div>
+    
 </div>
   
- <div class="produto">
-<img src="img/detergente-concentrado.jpg">
+<div class="produto limpeza"
+     data-nomes="detergente concentrado, detergente rendimento, detergente forte, detergente louça, limpeza pesada, uso profissional">
+
+<img src="img/detergente-concentrado.jpg" alt="Detergente Concentrado">
+  <span class="icone-busca">🔍</span>
 <h3>Detergente Concentrado</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1396,10 +1573,14 @@ mark {
     <button onclick="addProduto('Detergente Concentrado 5L',25)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/detergentes.jpg">
+<div class="produto limpeza"
+     data-nomes="detergente com fragrancia, detergente perfumado, detergente sabor limão, detergente sabor maçã, detergente louça, limpeza">
+
+<img src="img/detergentes.jpg" alt="Detergente">
+  <span class="icone-busca">🔍</span>
 <h3>Detergente</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1411,10 +1592,33 @@ mark {
     <button onclick="addProduto('Detergente Limão 2L',10)">Adicionar</button>
   </div>
 </div>
+    
 </div>
- 
- <div class="produto">
-<img src="img/amaciante.jpg">
+
+<div class="produto limpeza"
+     data-nomes="detergente amoniaco, detergente com amoníaco, limpa tudo, detergente limpa tudo, limpeza pesada, cozinha, banheiro, uso profissional">
+
+<img src="img/limpa-tudo.jpg" alt="Detergente Amoníaco">
+  <span class="icone-busca">🔍</span>
+<h3>Detergente Amoniaco</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 15,00</span>
+    <button onclick="addProduto('Detergente Amoniaco 2L',15)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 32,00</span>
+    <button onclick="addProduto('Detergente Amoniaco 5L',32)">Adicionar</button>
+  </div>
+</div>
+    
+</div>
+  
+<div class="produto limpeza"
+     data-nomes="amaciante, amaciante roupas, perfume para roupas, maciez, uso diario">
+
+<img src="img/amaciante.jpg" alt="Amaciante">
+  <span class="icone-busca">🔍</span>
 <h3>Amaciante</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1426,10 +1630,14 @@ mark {
     <button onclick="addProduto('Amaciante 5L',20)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/amaciante-concentrado.jpg">
+<div class="produto limpeza"
+     data-nomes="amaciante concentrado, amaciante rendimento, perfume intenso, roupas, uso profissional">
+
+<img src="img/amaciante-concentrado.jpg" alt="Amaciante Concentrado">
+  <span class="icone-busca">🔍</span>
 <h3>Amaciante Concentrado</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1441,10 +1649,14 @@ mark {
     <button onclick="addProduto('Amaciante Branco 2L',16)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/amaciante-clineza.jpg">
+<div class="produto limpeza"
+     data-nomes="amaciante clineza, clineza, amaciante perfumado, roupas, limpeza">
+
+<img src="img/amaciante-clineza.jpg" alt="Amaciante Clineza">
+  <span class="icone-busca">🔍</span>
 <h3>Amaciante Clineza</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1456,10 +1668,14 @@ mark {
     <button onclick="addProduto('Amaciante Pink Sky 2L',10)">Adicionar</button>
   </div>
 </div>
+    
 </div>
   
-<div class="produto">
-<img src="img/lava-canil.jpg">
+<div class="produto limpeza"
+     data-nomes="lava canil, limpeza pesada, limpeza pet, desinfetante canil, quintal">
+
+<img src="img/lava-canil.jpg" alt="Lava Canil">
+  <span class="icone-busca">🔍</span>
 <h3>Lava Canil</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1471,11 +1687,15 @@ mark {
     <button onclick="addProduto('Lava Canil 5L',32)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/multiuso.jpg">
-<h3>Veja Multiuso</h3>
+<div class="produto limpeza"
+     data-nomes="veja multiuso pequeno, veja pequeno, multiuso, limpeza rapida, casa">
+
+<img src="img/multiuso.jpg" alt="Veja Multiuso Pequeno">
+  <span class="icone-busca">🔍</span>
+<h3>Veja Multiuso Pequeno</h3>
 <div class="variacoes">
   <div class="linha">
     <span>Veja Verde Controle de Odor 500ML — R$ 6,00</span>
@@ -1486,10 +1706,14 @@ mark {
     <button onclick="addProduto('Veja Azul Desengordurante 500ML',6)">Adicionar</button>
   </div>
 </div>
+    
 </div>
   
-<div class="produto">
-<img src="img/veja.jpg">
+<div class="produto limpeza"
+     data-nomes="veja multiuso bonrruque, veja bonrruque, multiuso forte, limpeza pesada">
+
+<img src="img/veja.jpg" alt="Veja Multiuso Bonrruque">
+  <span class="icone-busca">🔍</span>
 <h3>Veja Multiuso Bonrruque</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1501,10 +1725,14 @@ mark {
     <button onclick="addProduto('Veja Multiuso Bonrruque 5L',25)">Adicionar</button>
   </div>
 </div>
+    
 </div>
+      
+<div class="produto limpeza"
+     data-nomes="veja multiuso clineza, clineza, multiuso, limpeza geral, casa">
 
-<div class="produto">
-<img src="img/veja-multiuso.jpg">
+<img src="img/veja-multiuso.jpg" alt="Veja Multiuso Clineza">
+  <span class="icone-busca">🔍</span>
 <h3>Veja Multiuso Clineza</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1516,10 +1744,14 @@ mark {
     <button onclick="addProduto('Veja Multiuso Clineza 5L',25)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/pinho-gel.jpg">
+<div class="produto limpeza"
+     data-nomes="pinho em gel, limpeza pesada, banheiro, quintal">
+
+<img src="img/pinho-gel.jpg" alt="Pinho em Gel">
+  <span class="icone-busca">🔍</span>
 <h3>Pinho em Gel</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1531,10 +1763,14 @@ mark {
     <button onclick="addProduto('Pinho em Gel 5L',32)">Adicionar</button>
   </div>
 </div>
+    
 </div>
   
-<div class="produto">
-  <img src="img/cloro-em-gel.jpg">
+<div class="produto limpeza"
+     data-nomes="cloro em gel, cloro gel, limpeza pesada, banheiro">
+
+  <img src="img/cloro-em-gel.jpg" alt="Cloro em Gel">
+  <span class="icone-busca">🔍</span>
   <h3>Cloro em Gel</h3>
 
   <div class="variacoes">
@@ -1560,10 +1796,14 @@ mark {
       </button>
     </div>
   </div>
+      
 </div>
 
-  <div class="produto">
-  <img src="img/desengordurante.jpg">
+<div class="produto limpeza"
+     data-nomes="desengordurante, tira gordura, limpeza pesada, cozinha, limpa tudo">
+
+  <img src="img/desengordurante.jpg" alt="Desengordurante">
+  <span class="icone-busca">🔍</span>
   <h3>Desengordurante</h3>
 
   <div class="variacoes">
@@ -1580,10 +1820,33 @@ mark {
       <button onclick="addProduto('Desengordurante 5L',40)">Adicionar</button>
     </div>
   </div>
+      
 </div>
+      
+<div class="produto limpeza"
+     data-nomes="soda liquida, soda caustica, desentupidor, limpeza pesada, uso profissional">
 
-<div class="produto">
-<img src="img/querosene.jpg">
+<img src="img/soda.jpg" alt="Soda Liquida">
+  <span class="icone-busca">🔍</span>
+<h3>Soda Liquida</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>1L — R$ 17,00</span>
+    <button onclick="addProduto('Soda Liquida 1L',17)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>2L — R$ 34,00</span>
+    <button onclick="addProduto('Soda Liquida 2L',34)">Adicionar</button>
+  </div>
+</div>
+    
+</div>
+  
+<div class="produto limpeza"
+     data-nomes="sabao querosene, sabão querosene, limpeza pesada, manchas, roupa">
+
+<img src="img/querosene.jpg" alt="Sabão Querosene">
+  <span class="icone-busca">🔍</span>
 <h3>Sabão Querosene</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1595,10 +1858,14 @@ mark {
     <button onclick="addProduto('Sabão Querosene 5L',40)">Adicionar</button>
   </div>
 </div>
+    
 </div>
   
-  <div class="produto">
-  <img src="img/alcool-perfumado.jpg">
+<div class="produto limpeza"
+     data-nomes="alcool perfumado, álcool perfumado, limpeza, perfume, casa">
+
+  <img src="img/alcool-perfumado.jpg" alt="Alcool Perfumado">
+  <span class="icone-busca">🔍</span>
   <h3>Álcool Perfumado</h3>
 
   <div class="variacoes">
@@ -1615,10 +1882,14 @@ mark {
       <button onclick="addProduto('Álcool Perfumado 5L',23)">Adicionar</button>
     </div>
   </div>
+      
 </div>
 
-<div class="produto">
-<img src="img/alcool-concentrado.jpg">
+<div class="produto limpeza"
+     data-nomes="alcool perfumado concentrado, álcool concentrado, limpeza pesada, perfume forte">
+
+<img src="img/alcool-concentrado.jpg" alt="Álcool Perf. Concentrado">
+  <span class="icone-busca">🔍</span>
 <h3>Álcool Perf. Concentrado</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1630,10 +1901,14 @@ mark {
     <button onclick="addProduto('Álcool Perf. Concentrado 5L',30)">Adicionar</button>
   </div>
 </div>
+     
 </div>
 
-<div class="produto">
-<img src="img/alcool-70.jpg">
+<div class="produto limpeza"
+     data-nomes="alcool 70, álcool 70%, desinfecção, limpeza, uso diario">
+
+<img src="img/alcool-70.jpg" alt="Alcool 70%">
+  <span class="icone-busca">🔍</span>
 <h3>Álcool 70%</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1645,21 +1920,33 @@ mark {
     <button onclick="addProduto('Álcool 70% 5L',40)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/alcool-gel.jpg">
+<div class="produto limpeza"
+     data-nomes="alcool em gel, álcool gel, higiene, limpeza, uso diario">
+
+<img src="img/alcool-gel.jpg" alt="Alcool em Gel">
+  <span class="icone-busca">🔍</span>
 <h3>Álcool em Gel</h3>
 <div class="variacoes">
+  <div class="linha">
+    <span>500 ML — R$ 13,00</span>
+    <button onclick="addProduto('Álcool em Gel 500 ML',13)">Adicionar</button>
+  </div>
   <div class="linha">
     <span>5L — R$ 45,00</span>
     <button onclick="addProduto('Álcool em Gel 5L',45)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/limpa-aluminio.jpg">
+<div class="produto limpeza"
+     data-nomes="limpa aluminio, alumínio, brilho, panelas, limpeza pesada">
+
+<img src="img/limpa-aluminio.jpg" alt="Limpa Alumínio">
+  <span class="icone-busca">🔍</span>
 <h3>Limpa Alumínio</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1671,33 +1958,41 @@ mark {
     <button onclick="addProduto('Limpa Alumínio 2L',14)">Adicionar</button>
   </div>
   <div class="linha">
-    <span>5L — R$ 40,00</span>
-    <button onclick="addProduto('Limpa Alumínio 5L',40)">Adicionar</button>
+    <span>5L — R$ 30,00</span>
+    <button onclick="addProduto('Limpa Alumínio 5L',30)">Adicionar</button>
   </div>
 </div>
+    
 </div>
+      
+<div class="produto limpeza"
+     data-nomes="limpa pedra, limpeza externa, quintal, piso rustico">
 
-<div class="produto">
-<img src="img/limpa-pedra.jpg">
+<img src="img/limpa-pedra.jpg" alt="Limpa Pedra">
+  <span class="icone-busca">🔍</span>
 <h3>Limpa Pedra </h3>
 <div class="variacoes">
+ <div class="linha">
+  <span>Clineza 2L — R$ 18,00</span>
+  <button onclick="addProduto('Limpa Pedra Clineza 2L',18)">Adicionar</button>
+</div>
   <div class="linha">
-    <span> Clineza 2L — R$ 10,00</span>
-    <button onclick="addProduto('Limpa Pedra Clineza 2L',10)">Adicionar</button>
+    <span> Bonrruque 2L — R$ 18,00</span>
+    <button onclick="addProduto('Limpa Pedra Bonrruque 2L',18)">Adicionar</button>
   </div>
   <div class="linha">
-    <span> Bonrruque 2L — R$ 14,00</span>
-    <button onclick="addProduto('Limpa Pedra Bonrruque 2L',14)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span> Bonrruque 5L — R$ 40,00</span>
+    <span>Bonrruque 5L — R$ 40,00</span>
     <button onclick="addProduto('Limpa Pedra Bonrruque 5L',40)">Adicionar</button>
   </div>
 </div>
+    
 </div>
+      
+<div class="produto limpeza"
+     data-nomes="limpa piso, limpeza piso, ceramica, porcelanato, casa">
 
-<div class="produto">
-<img src="img/limpa-piso.jpg">
+<img src="img/limpa-piso.jpg" alt="Limpa Piso">
+  <span class="icone-busca">🔍</span>
 <h3>Limpa Piso</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1709,10 +2004,52 @@ mark {
     <button onclick="addProduto('Limpa Piso 5L',40)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/cera-incolor.jpg">
+<div class="produto limpeza"
+     data-nomes="maridão, limpa tudo, limpeza pesada, desengordurante, casa">
+
+    <img src="img/maridao.jpg" alt="Maridão">
+  <span class="icone-busca">🔍</span>
+    <h3>Maridao</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>1L R$ 9,00</span>
+      <button onclick="addProduto('Maridao 1L',9)">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>5L R$ 35,00</span>
+      <button onclick="addProduto('Maridao 5L',35)">Adicionar</button>
+    </div>
+  </div>
+     
+</div>
+
+ <div class="produto limpeza"
+     data-nomes="cera optimo, cera piso, brilho, proteção, limpeza">
+
+<img src="img/cera-optimo.jpg" alt="Cera Óptimo">
+   <span class="icone-busca">🔍</span>
+<h3>Cera Optimo</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>2L — R$ 15,00</span>
+    <button onclick="addProduto('Cera Optimo 2L',15)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 32,00</span>
+    <button onclick="addProduto('Cera Optimo 5L',32)">Adicionar</button>
+  </div>
+</div>
+      
+</div>
+    
+<div class="produto limpeza"
+     data-nomes="cera incolor, cera neutra, brilho piso, proteção">
+
+<img src="img/cera-incolor.jpg" alt="Cera Incolor">
+  <span class="icone-busca">🔍</span>
 <h3>Cera Incolor</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1724,11 +2061,15 @@ mark {
     <button onclick="addProduto('Cera Brilhante 5L',80)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/oleo-peroba.jpg">
-<h3>óleo de Peroba</h3>
+<div class="produto limpeza"
+     data-nomes="oleo de peroba, óleo peroba, madeira, brilho, lustra moveis">
+
+<img src="img/oleo-peroba.jpg" alt="Oleo de Peroba">
+  <span class="icone-busca">🔍</span>
+<h3>Óleo de Peroba</h3>
 <div class="variacoes">
   <div class="linha">
     <span>100ML — R$14,00</span>
@@ -1739,10 +2080,14 @@ mark {
     <button onclick="addProduto('Óleo de Peroba 200ML',20)">Adicionar</button>
   </div>
 </div>
+    
 </div>
   
-<div class="produto">
-<img src="img/lustra-moveis.jpg">
+<div class="produto limpeza"
+     data-nomes="lustra moveis, lustra móveis, brilho madeira, limpeza, casa">
+
+<img src="img/lustra-moveis.jpg" alt="Lustra Móveis">
+  <span class="icone-busca">🔍</span>
 <h3>Lustra Móveis</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1754,29 +2099,37 @@ mark {
     <button onclick="addProduto('Lustra Móveis 1L',13)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/removedor.jpg">
+<div class="produto limpeza"
+     data-nomes="removedor, tira manchas, removedor sujeira pesada, limpeza">
+
+<img src="img/removedor.jpg" alt="Removedor">
+  <span class="icone-busca">🔍</span>
 <h3>Removedor</h3>
 <div class="variacoes">
   <div class="linha">
-    <span>Clineza 500ML — R$ 20,00</span>
-    <button onclick="addProduto('Removedor Clineza 500ML',20)">Adicionar</button>
+    <span>Clineza 500ML — R$ 9,00</span>
+    <button onclick="addProduto('Removedor Clineza 500ML',9)">Adicionar</button>
   </div>
   <div class="linha">
-    <span>Búfalo 500ML — R$ 14,00</span>
-    <button onclick="addProduto('Removedor Búfalo 500ML',19)">Adicionar</button>
+    <span>Búfalo 500ML — R$ 20,00</span>
+    <button onclick="addProduto('Removedor Bufalo 500ML',20)">Adicionar</button>
   </div>
   <div class="linha">
     <span>Suprema 1L — R$ 14,00</span>
     <button onclick="addProduto('Removedor Suprema 1L',14)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/limpa-vidro.jpg">
+<div class="produto limpeza"
+     data-nomes="limpa vidro, vidro, espelho, limpeza, brilho">
+
+<img src="img/limpa-vidro.jpg" alt="Limpa Vidro">
+  <span class="icone-busca">🔍</span>
 <h3>Limpa Vidro</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1784,47 +2137,101 @@ mark {
     <button onclick="addProduto('Limpa Vidro 500ML',7)">Adicionar</button>
   </div>
 </div>
+    
 </div>
   
-<div class="produto">
-<img src="img/sapolio.jpg">
+<div class="produto limpeza"
+     data-nomes="sapolio cremoso, sapólio, limpeza pesada, inox, banheiro">
+
+<img src="img/sapolio.jpg" alt="Sapólio Cremoso">
+  <span class="icone-busca">🔍</span>
 <h3>Sapólio Cremoso</h3>
 <div class="variacoes">
   <div class="linha">
-    <span> YpÊ 300ML — R$ 13,00</span>
-    <button onclick="addProduto('Sapólio Ypê 300ML',13)">Adicionar</button>
+    <span> YpÊ 450ML — R$ 12,00</span>
+    <button onclick="addProduto('Sapólio Ypê 450ML',12)">Adicionar</button>
   </div>
   <div class="linha">
     <span> Cif 450ML — R$ 20,00</span>
     <button onclick="addProduto('Sapólio Cif 1L',20)">Adicionar</button>
   </div>
 </div>
+    
 </div>
-  
-<div class="produto">
-<img src="img/percabonato.jpg">
+
+<div class="produto limpeza"
+     data-nomes="sabonete liquido dove, dove, higiene pessoal, sabonete hidratante">
+
+<img src="img/sabonete-liquido-dove.jpg" alt="Sabonete Líquido Dove">
+  <span class="icone-busca">🔍</span>
+<h3>Sabonete Líquido Dove</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>1L — R$ 12,00</span>
+    <button onclick="addProduto('Sabonete Dove 1L',12)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 35,00</span>
+    <button onclick="addProduto('Sabonete Dove 5L',35)">Adicionar</button>
+  </div>
+</div>
+    
+</div>
+ 
+<div class="produto limpeza"
+     data-nomes="sabonete liquido erva doce, erva doce, higiene, sabonete suave">
+
+<img src="img/sabonete-liquido-erva-doce.jpg" alt="Sabonete Líquido Erva Doce">
+  <span class="icone-busca">🔍</span>
+<h3>Sabonete Liquido Erva Doce</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>1L — R$ 12,00</span>
+    <button onclick="addProduto('Sabonete Liquido Erva Doce 1L',12)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>5L — R$ 35,00</span>
+    <button onclick="addProduto('Sabonete Liquido Erva Doce 5L',35)">Adicionar</button>
+  </div>
+</div>
+    
+</div>
+    
+<div class="produto limpeza"
+     data-nomes="percarbonato, tira manchas, roupas brancas, limpeza pesada">
+
+<img src="img/percabonato.jpg" alt="Percabonato">
+  <span class="icone-busca">🔍</span>
 <h3>Percabonato</h3>
 <div class="variacoes">
   <div class="linha">
-    <span>R$ 25,00</span>
-    <button onclick="addProduto('Percabonato ',25)">Adicionar</button>
+    <span>500g R$ 25,00</span>
+    <button onclick="addProduto('Percabonato 500g',25)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/bircabonato.jpg">
-<h3>Bircabonato</h3>
+<div class="produto limpeza"
+     data-nomes="bicarbonato, bicarbonato sodio, limpeza, neutraliza odor">
+
+<img src="img/bircabonato.jpg" alt="bicarbonato">
+  <span class="icone-busca">🔍</span>
+<h3>Bicarbonato</h3>
 <div class="variacoes">
   <div class="linha">
-    <span>R$ 15,00</span>
-    <button onclick="addProduto('Bircabonato ',15)">Adicionar</button>
+    <span>500g R$ 15,00</span>
+    <button onclick="addProduto('Bircabonato 500g',15)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/dulbarmiga.jpg">
+<div class="produto limpeza"
+     data-nomes="dulbarmiga, inseticida formiga, veneno formiga, controle pragas">
+
+<img src="img/dulbarmiga.jpg" alt="Dulbarmiga Inseticida">
+  <span class="icone-busca">🔍</span>
 <h3>Dulbarmiga Inseticida</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1832,10 +2239,29 @@ mark {
     <button onclick="addProduto('Dulbarmiga Inseticida',35)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/kit-banho-cachorro.jpg">
+<div class="produto limpeza"
+     data-nomes="formixgel, veneno formiga, inseticida gel, controle formigas">
+
+<img src="img/formax.jpg" alt="FormixGel Veneno de Formiga">
+  <span class="icone-busca">🔍</span>
+<h3>FormixGel Veneno de Formiga</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span> R$ 10,00</span>
+    <button onclick="addProduto('Formax Veneno de Formiga',10)">Adicionar</button>
+</div>
+</div>
+    
+</div>
+    
+<div class="produto limpeza"
+     data-nomes="kit banho cachorro, banho pet, higiene pet, shampoo cachorro">
+
+<img src="img/kit-banho-cachorro.jpg" alt="Kit Banho para Cachorro">
+  <span class="icone-busca">🔍</span>
 <h3>Kit Banho Para Cachorro</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1843,11 +2269,11 @@ mark {
     <button onclick="addProduto('Kit Banho Para Cachorro',50)">Adicionar</button>
   </div>
 </div>
+    </div>
+    
 </div>
- 
 </div>
-</div>
-
+  
 <div id="kits" class="categoria">
 
   <h2>🧼 Kits de Limpeza</h2>
@@ -1865,7 +2291,7 @@ mark {
   <div style="text-align:center;">
     <img 
       src="img/reformas.jpg"
-      alt="Kits de Limpeza em reforma"
+      alt="Aba Kits de Limpeza em reforma"
       style="
         max-width:100%;
         width:320px;
@@ -1877,42 +2303,146 @@ mark {
 
 </div>
 
-  
 <!-- CASA -->
 <div id="casa" class="categoria">
-<h2>Casa</h2>
-<div class="produtos">
- 
+  <div class="produtos">
+
 <!-- produtos casa -->
-<div class="produto">
-<img src="img/sabao-em-po.jpg">
-<h3>Sabão em Pó</h3>
+<div class="produto casa"
+     data-nomes="saco de lixo, saco lixo, lixo, limpeza, cozinha, banheiro">
+
+<img src="img/saco-lixo.jpg" alt="Saco de Lixo">
+  <span class="icone-busca">🔍</span>
+<h3>Saco de Lixo</h3>
 <div class="variacoes">
   <div class="linha">
-    <span> Omo R$ 16,00</span>
-    <button onclick="addProduto('Sabão Omo',16)">Adicionar</button>
+    <span>20L 10 Unid. — R$ 8,00</span>
+    <button onclick="addProduto('Saco de Lixo 10 Unid. 20L',8)">Adicionar</button>
   </div>
   <div class="linha">
-    <span> Brilhante R$ 13,00</span>
-    <button onclick="addProduto('Sabão Brilhante',13)">Adicionar</button>
+    <span>30L 10 Unid. — R$ 8,00</span>
+    <button onclick="addProduto('Saco de Lixo 10 Unid.  30L',8)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>40L 10 Unid. — R$ 8,00</span>
+    <button onclick="addProduto('Saco de Lixo 10 Unid. 40L',8)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>50L 10 Unid. — R$ 8,00</span>
+    <button onclick="addProduto('Saco de Lixo 10 Unid. 50L',8)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>100L 5 Unid. — R$ 8,00</span>
+    <button onclick="addProduto('Saco de Lixo 5 Unid. 100L',8)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>60L Reforçado 10 Unid. — R$ 10,00</span>
+    <button onclick="addProduto('Saco de Lixo 10 Unid. 60L',10)">Adicionar</button>
   </div>
 </div>
+    
 </div>
- 
-<div class="produto">
-<img src="img/papel-toalha.jpg">
-<h3>Papel Toalha</h3>
+
+<div class="produto casa"
+     data-nomes="sabao em pedra, sabão pedra, lavar roupa, limpeza pesada">
+
+<img src="img/sabao-pedra.jpg" alt="Sabão em Pedra">
+  <span class="icone-busca">🔍</span>
+<h3>Sabao em Pedra</h3>
 <div class="variacoes">
   <div class="linha">
-    <span> R$ 18,00</span>
-    <button onclick="addProduto('Papel Toalha',18)">Adicionar</button>
+    <span>3 Unid. R$ 10,00</span>
+    <button onclick="addProduto('Sabao em Pedra 3 Unid.',10)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>em pote 500g R$ 8,00</span>
+    <button onclick="addProduto('Sabao pedra no pote 500g',8)">Adicionar</button>
   </div>
 </div>
+    
+</div>
+  
+<div class="produto casa" 
+     data-nomes="sabao em pedra, sabao pedra, sabao barra, sabao de barra, sabao azul, sabao limpeza">
+  
+  <img src="img/sabao-em-po.jpg" alt="Sabão em Pó">
+<span class="icone-busca">🔍</span>
+  <h3>Sabão em Pó</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>Omo — R$ 16,00</span>
+      <button onclick="addProduto('Sabão em Pó Omo',16)">Adicionar</button>
+    </div>
+
+    <div class="linha">
+      <span>Brilhante — R$ 13,00</span>
+      <button onclick="addProduto('Sabão em Pó Brilhante',13)">Adicionar</button>
+    </div>
+  </div>
+
+  
+</div>
+
+<div class="produto casa"
+     data-nomes="pasta de brilho, brilho metais, limpeza, polimento">
+
+<img src="img/pasta-brilho.jpg" alt="Pasta de Brilho">
+  <span class="icone-busca">🔍</span>
+<h3>Pasta de Brilho</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span> R$ 8,00</span>
+    <button onclick="addProduto('Pasta de Brilho',8)">Adicionar</button>
+  </div>
+</div>
+  
 </div> 
 
-<div class="produto">
-<img src="img/bucha-louca.jpg">
-<h3>Buchina de Louça</h3>
+<div class="produto casa"
+     data-nomes="bombril, esponja aço, limpeza pesada, panela, cozinha">
+
+<img src="img/bombril.jpg" alt="Bombril">
+  <span class="icone-busca">🔍</span>
+  <h3>Bombril</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span> R$ 4,50</span>
+    <button onclick="addProduto('Bombril',4.5)">Adicionar</button>
+  </div>
+</div>
+    
+</div>
+
+<div class="produto casa"
+     data-nomes="bucha banho, esponja banho, higiene pessoal">
+
+<img src="img/bucha-banho.jpg" alt="Bucha de Banho">
+  <span class="icone-busca">🔍</span>
+<h3>Bucha de Banho</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>Vegetal R$ 8,00</span>
+    <button onclick="addProduto('Bucha de Banho Vegetal',8)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>Dupla Face R$ 8,00</span>
+    <button onclick="addProduto('Bucha de Banho Dupla Face',8)">Adicionar</button>
+  </div>
+   <div class="linha">
+    <span>Leve Brisa R$ 8,00</span>
+    <button onclick="addProduto('Bucha de Banho Leve Brisa',8)">Adicionar</button>
+  </div>
+</div>
+    
+</div>
+  
+<div class="produto casa"
+     data-nomes="bucha louca, esponja louca, limpeza cozinha">
+
+<img src="img/bucha-louca.jpg" alt="Bucha de Louça">
+  <span class="icone-busca">🔍</span>
+<h3>Bucha de Louça</h3>
 <div class="variacoes">
   <div class="linha">
     <span>Scotch Brite 4 Unid. R$ 11,00</span>
@@ -1923,25 +2453,48 @@ mark {
     <button onclick="addProduto('Buchinha Alklin',1.5)">Adicionar</button>
   </div>
 </div>
+    
 </div>
+
+<div class="produto casa"
+     data-nomes="papel toalha, toalha papel, cozinha, limpeza">
+
+<img src="img/papel-toalha.jpg" alt="Papel Toalha">
+  <span class="icone-busca">🔍</span>
+<h3>Papel Toalha</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span> R$ 18,00</span>
+    <button onclick="addProduto('Papel Toalha',18)">Adicionar</button>
+  </div>
+</div>
+    
+</div> 
   
-<div class="produto">
-<img src="img/luvas-m.jpg">
-<h3>Luvas M</h3>
+<div class="produto casa"
+     data-nomes="luvas limpeza, luva borracha, proteção, limpeza pesada">
+
+<img src="img/luvas-m.jpg" alt="Luvas M">
+  <span class="icone-busca">🔍</span>
+<h3>Luvas</h3>
 <div class="variacoes">
   <div class="linha">
     <span> R$ 9,00</span>
-    <button onclick="addProduto('Luvas M,',9)">Adicionar</button>
+    <button onclick="addProduto('Luvas M',9)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/borrifadores.jpg">
+<div class="produto casa"
+     data-nomes="borrifador, borrifadores, spray limpeza">
+
+<img src="img/borrifadores.jpg" alt="Borrifadores">
+  <span class="icone-busca">🔍</span>
 <h3>Borrifadores</h3>
 <div class="variacoes">
   <div class="linha">
-    <span> Borrifador Rosa R$ 23,00</span>
+    <span> Borrifador Rosa R$ 13,00</span>
     <button onclick="addProduto('Borrifador Rosa ',13)">Adicionar</button>
   </div>
   <div class="linha">
@@ -1949,10 +2502,14 @@ mark {
     <button onclick="addProduto('Borrifador Transparente',13)">Adicionar</button>
   </div>
 </div>
+    
 </div>
   
-<div class="produto">
-<img src="img/diabo-verde.jpg">
+<div class="produto casa"
+     data-nomes="limpa forno diabo verde, diabo verde, limpeza pesada, forno">
+
+<img src="img/diabo-verde.jpg" alt="Limpa Forno Diabo Verde">
+  <span class="icone-busca">🔍</span>
 <h3>Limpa Forno Diabo Verde</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1960,10 +2517,14 @@ mark {
     <button onclick="addProduto('Limpa Forno Diabo Verde',23)">Adicionar</button>
   </div>
 </div>
+    
 </div>
  
-<div class="produto">
-<img src="img/limpa-forno-spray.jpg">
+<div class="produto casa"
+     data-nomes="limpa forno spray, limpeza forno, gordura pesada">
+
+<img src="img/limpa-forno-spray.jpg" alt="Limpa Forno Spray">
+  <span class="icone-busca">🔍</span>
 <h3>Limpa Forno Spray</h3>
 <div class="variacoes">
   <div class="linha">
@@ -1971,44 +2532,98 @@ mark {
     <button onclick="addProduto('Limpa Forno Spray',25)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/perflex-5.jpg">
-<h3>Perflex 5 Unidades</h3>
+<div class="produto casa"
+     data-nomes="pano de chao, pano chão, limpeza piso">
+
+<img src="img/pano-chao.jpg" alt="Pano de Chão">
+  <span class="icone-busca">🔍</span>
+<h3>Pano de Chão</h3>
 <div class="variacoes">
   <div class="linha">
-    <span> R$ 5,00</span>
-    <button onclick="addProduto('Perflex 5 Unidades',5)">Adicionar</button>
+    <span>Xadrex R$ 5,50</span>
+    <button onclick="addProduto('Pano de Chao Xadrex',5.5)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>Branco R$ 5,50</span>
+    <button onclick="addProduto('Pano de Chao Branco',5.5)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/perflex-25.jpg">
-<h3>Perflex 25 Unidades</h3>
+<div class="produto casa"
+     data-nomes="pano de prato, pano cozinha, limpeza">
+
+<img src="img/pano-prato.jpg" alt="Pano de Prato">
+  <span class="icone-busca">🔍</span>
+<h3>Pano de Prato</h3>
 <div class="variacoes">
   <div class="linha">
-    <span> R$ 18,00</span>
-    <button onclick="addProduto('Perflex 25 Unidades',18)">Adicionar</button>
+    <span> R$ 4,50</span>
+    <button onclick="addProduto('Pano de Prato',4.5)">Adicionar</button>
   </div>
 </div>
+    
+</div>
+  
+  <div class="produto casa"
+     data-nomes="flanela, pano flanela, brilho, limpeza">
+
+<img src="img/flanela.jpg" alt="Flanela">
+    <span class="icone-busca">🔍</span>
+<h3>Flanela</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span> R$ 4,00</span>
+    <button onclick="addProduto('Flanela',4)">Adicionar</button>
+  </div>
+</div>
+      
+</div>
+  
+<div class="produto casa"
+     data-nomes="pano perfex, pano descartavel, limpeza geral">
+
+<img src="img/perflex-25.jpg" alt="Pano Perflex">
+  <span class="icone-busca">🔍</span>
+<h3>Pano Perflex</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>5 Unid. R$ 5,00</span>
+    <button onclick="addProduto('Perflex 5 Unid.',5)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>25 Unid. R$ 18,00</span>
+    <button onclick="addProduto('Perflex 25 Unid.',18)">Adicionar</button>
+  </div>
+</div>
+    
 </div>
 
-<div class="produto">
-<img src="img/pano-multiuso.jpg">
-<h3>Panos Multiuso 2 Uni.</h3>
+<div class="produto casa"
+     data-nomes="pano multiuso, pano limpeza, 2 unidades">
+
+<img src="img/pano-multiuso.jpg" alt="Pano Multiuso 2 Unid.">
+  <span class="icone-busca">🔍</span>
+<h3>Panos Multiuso 2 Unid.</h3>
 <div class="variacoes">
   <div class="linha">
     <span> R$ 10,00</span>
-    <button onclick="addProduto('Panos Multiuso 2 Uni.',10)">Adicionar</button>
+    <button onclick="addProduto('Panos Multiuso 2 Unid.',10)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
 
-<div class="produto">
-<img src="img/porta-detergente.jpg">
+<div class="produto casa"
+     data-nomes="porta detergente, suporte detergente, cozinha">
+
+<img src="img/porta-detergente.jpg" alt="Porta Detergente">
+  <span class="icone-busca">🔍</span>
 <h3>Porta Detergente</h3>
 <div class="variacoes">
   <div class="linha">
@@ -2016,10 +2631,44 @@ mark {
     <button onclick="addProduto('Porta Detergente',15)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/panela-antiaderente.jpg">
+<div class="produto casa"
+     data-nomes="timer egg, timer cozinha, temporizador">
+
+<img src="img/timer-egg.jpg" alt="Timer Egg">
+  <span class="icone-busca">🔍</span>
+<h3>Timer Egg</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span> R$ 15,00</span>
+    <button onclick="addProduto('Timer Egg',15)">Adicionar</button>
+  </div>
+</div>
+    
+</div>
+
+<div class="produto casa"
+     data-nomes="chuveiro torneira, arejador, economia agua">
+
+<img src="img/chuveiro-torneira.jpg" alt="Chuveiro para Torneira">
+  <span class="icone-busca">🔍</span>
+<h3>Chuveiro Para Torneira</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span> R$ 13,00</span>
+    <button onclick="addProduto('Chuveiro para Torneira',13)">Adicionar</button>
+  </div>
+</div>
+      
+</div>
+  
+<div class="produto casa"
+     data-nomes="frigideira antiaderente, frigideira, cozinha">
+
+<img src="img/panela-antiaderente.jpg" alt="Frigideira Antiaderente">
+  <span class="icone-busca">🔍</span>
 <h3>Frigideira Antiaderente</h3>
 <div class="variacoes">
   <div class="linha">
@@ -2027,21 +2676,29 @@ mark {
     <button onclick="addProduto('Frigideira Antiaderente',55)">Adicionar</button>
   </div>
 </div>
+    
 </div>
  
- <div class="produto">
-<img src="img/porta-tempero.jpg">
-<h3>Porta Tempeiro 9 peças </h3>
+<div class="produto casa"
+     data-nomes="porta tempero, porta tempero 9 pecas, cozinha">
+
+<img src="img/porta-tempero.jpg" alt="Porta Tempeiro 9 Peças">
+  <span class="icone-busca">🔍</span>
+<h3>Porta Tempeiro 9 Peças </h3>
 <div class="variacoes">
   <div class="linha">
     <span> R$ 50,00</span>
     <button onclick="addProduto('Porta Tempeiro 9 Peças ',50)">Adicionar</button>
   </div>
 </div>
+     
 </div> 
  
-<div class="produto">
-<img src="img/chaleira.jpg">
+<div class="produto casa"
+     data-nomes="chaleira, chaleira cozinha, agua quente">
+
+<img src="img/chaleira.jpg" alt="Chaleira">
+  <span class="icone-busca">🔍</span>
 <h3>Chaleira</h3>
 <div class="variacoes">
   <div class="linha">
@@ -2049,10 +2706,14 @@ mark {
     <button onclick="addProduto('Chaleira ',90)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/sanduicheira.jpg">
+<div class="produto casa"
+     data-nomes="sanduicheira, sanduicheira eletrica, lancheira, cozinha">
+
+<img src="img/sanduicheira.jpg" alt="Sanduicheira">
+  <span class="icone-busca">🔍</span>
 <h3>Sanduicheira</h3>
 <div class="variacoes">
   <div class="linha">
@@ -2060,10 +2721,29 @@ mark {
     <button onclick="addProduto('Sanduicheira ',110)">Adicionar</button>
   </div>
 </div>
+    
 </div>
+  
+<div class="produto casa"
+     data-nomes="varal de chao com abas, varal roupa, lavanderia">
 
-<div class="produto">
-<img src="img/varal-intimo.jpg">
+<img src="img/varal-de-chao.jpg" alt="Varal de Chão com Abas">
+  <span class="icone-busca">🔍</span>
+<h3>Varal de Chão com Abas</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span> R$ 135,00</span>
+    <button onclick="addProduto('Varal de Chão com Abas',135)">Adicionar</button>
+  </div>
+</div>
+    
+</div>
+  
+<div class="produto casa"
+     data-nomes="varal intimo, varal roupas pequenas">
+
+<img src="img/varal-intimo.jpg" alt="Varal Íntimo">
+  <span class="icone-busca">🔍</span>
 <h3>Varal Intimo</h3>
 <div class="variacoes">
   <div class="linha">
@@ -2071,11 +2751,15 @@ mark {
     <button onclick="addProduto('Varal Intimo ',17)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/varals.jpg">
-<h3>Varal</h3>
+<div class="produto casa"
+     data-nomes="varal, varais, estender roupa">
+
+<img src="img/varals.jpg" alt="Varals">
+  <span class="icone-busca">🔍</span>
+<h3>Varais</h3>
 <div class="variacoes">
   <div class="linha">
     <span>Varal de Aço 20 MTS R$ 10,00</span>
@@ -2086,10 +2770,14 @@ mark {
     <button onclick="addProduto('Varal de Nylon 15 MTS',8)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/prendedores.jpg">
+<div class="produto casa"
+     data-nomes="prendedores roupa, pregador, varal">
+
+<img src="img/prendedores.jpg" alt="Prendedores">
+  <span class="icone-busca">🔍</span>
 <h3>Prendedores</h3>
 <div class="variacoes">
   <div class="linha">
@@ -2101,48 +2789,79 @@ mark {
     <button onclick="addProduto('Prendedor de Plástico',6.5)">Adicionar</button>
   </div>
 </div>
+    
 </div>
   
-<div class="produto">
-<img src="img/kit-para-crianca.jpg">
-<h3>Kit para Crianças Vassoura, Rodo e pá</h3>
+<div class="produto casa"
+     data-nomes="kit limpeza infantil, vassoura brinquedo, rodo, pa">
+
+<img src="img/kit-para-crianca.jpg" alt="Kit Limpeza Para crianças Vassoura, Rodo e Pá">
+  <span class="icone-busca">🔍</span>
+<h3>Kit Limpeza para Crianças Vassoura, Rodo e pá</h3>
 <div class="variacoes">
   <div class="linha">
     <span> R$ 30,00</span>
     <button onclick="addProduto('kit Para Criança Vassoura, Rodo e Pá',30)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/vassouras.jpg">
+<div class="produto casa"
+     data-nomes="vassoura, vassouras, limpeza casa">
+
+<img src="img/vassouras.jpg" alt="Vassouras">
+  <span class="icone-busca">🔍</span>
 <h3>Vassouras</h3>
 <div class="variacoes">
   <div class="linha">
-    <span> Olhe a foto R$ 24,00</span>
+    <span>Vassoura 1° R$ 24,00</span>
     <button onclick="addProduto('Vassoura Grande',24)">Adicionar</button>
   </div>
   <div class="linha">
-    <span>Vassoura de Canto(Verde e rosa) R$ 19,00</span>
+    <span>Vassoura 2°R$ 19,00</span>
     <button onclick="addProduto('Vassoura de Canto',19)">Adicionar</button>
   </div>
   <div class="linha">
-    <span> Olhe a foto R$ 19,00</span>
-    <button onclick="addProduto('Vassoura de ',19)">Adicionar</button>
+    <span>Vassoura 3° R$ 19,00</span>
+    <button onclick="addProduto('Vassoura Noviça',19)">Adicionar</button>
   </div>
   <div class="linha">
-    <span> Olhe a foto R$ 16,00</span>
+    <span>Vassoura 4° R$ 16,00</span>
     <button onclick="addProduto('Vassoura de Madeira',16)">Adicionar</button>
   </div>
   <div class="linha">
-    <span> Olhe a foto R$ 12,00</span>
-    <button onclick="addProduto('Vassoura barata',12)">Adicionar</button>
+    <span>Vassoura 5° R$ 12,00</span>
+    <button onclick="addProduto('Vassoura Condor',12)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/rodos.jpg">
+<div class="produto casa"
+     data-nomes="vassoura, piaçava, sperta, vassouras, limpeza casa">
+
+<img src="img/vassouras2.jpg" alt="Vassouras">
+    <span class="icone-busca">🔍</span>
+<h3>Vassouras</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>1 Piaçava R$ 25,00</span>
+    <button onclick="addProduto('Vassoura Piaçava',25)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>2 Sperta R$ 18,00</span>
+    <button onclick="addProduto('vassoura Sperta',18)">Adicionar</button>
+  </div>
+</div>
+    
+</div> 
+  
+<div class="produto casa"
+     data-nomes="rodo, rodo limpeza, piso">
+
+<img src="img/rodos.jpg" alt="Rodos">
+    <span class="icone-busca">🔍</span>
 <h3>Rodos</h3>
 <div class="variacoes">
   <div class="linha">
@@ -2158,10 +2877,14 @@ mark {
     <button onclick="addProduto('Rodo Grande 60 CM',25)">Adicionar</button>
   </div>
 </div>
+    
 </div>
   
-<div class="produto">
-<img src="img/vassoura-pelo-e-esfregao.jpg">
+<div class="produto casa"
+     data-nomes="vassoura pelo, esfregao, limpeza pesada">
+
+<img src="img/vassoura-pelo-e-esfregao.jpg" alt="Vassoura de Pelo e Esfregão">
+    <span class="icone-busca">🔍</span>
 <h3>Vassoura de Pelo e Esfregão</h3>
 <div class="variacoes">
   <div class="linha">
@@ -2173,10 +2896,14 @@ mark {
     <button onclick="addProduto('Esfregão',18)">Adicionar</button>
   </div>
 </div>
+    
 </div>
   
-<div class="produto">
-<img src="img/limpa-azulejo-e-passa-cera.jpg">
+<div class="produto casa"
+     data-nomes="limpa azulejo, passa cera, limpeza piso">
+
+<img src="img/limpa-azulejo-e-passa-cera.jpg" alt="Limpa Azulejo e Passa Cera">
+    <span class="icone-busca">🔍</span>
 <h3>Limpa Azulejo e Passa Cera</h3>
 <div class="variacoes">
   <div class="linha">
@@ -2188,10 +2915,44 @@ mark {
     <button onclick="addProduto('Passa Cera',16)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/mangueira.jpg">
+<div class="produto casa"
+     data-nomes="escova roupa, lavar roupa, limpeza">
+
+<img src="img/escova-de-roupa.jpg" alt="Escova de Roupa">
+    <span class="icone-busca">🔍</span>
+<h3>Escova de Roupa</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span> R$ 6,00</span>
+    <button onclick="addProduto('Escova de Roupa',6)">Adicionar</button>
+  </div>
+</div>
+    
+</div>
+  
+<div class="produto casa"
+     data-nomes="escova roupa cabo, escova longa, limpeza">
+
+<img src="img/escova-roupa.jpg" alt="Escova de Roupa com Cabo">
+    <span class="icone-busca">🔍</span>
+<h3>Escova de Roupa Com Cabo</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span> R$ 15,00</span>
+    <button onclick="addProduto('Escova de Roupa com Cabo',15)">Adicionar</button>
+  </div>
+</div>
+      
+</div>
+
+<div class="produto casa"
+     data-nomes="mangueira silicone, mangueira agua, limpeza">
+
+<img src="img/mangueira.jpg" alt="Mangueira de Silicone">
+    <span class="icone-busca">🔍</span>
 <h3>Mangueira de Silicone</h3>
 <div class="variacoes">
   <div class="linha">
@@ -2208,17 +2969,21 @@ mark {
   </div>
   <div class="linha">
     <span> 25 MTS R$ 130,00</span>
-    <button onclick="addProduto('Mangueira 25 MTS',105)">Adicionar</button>
+    <button onclick="addProduto('Mangueira 25 MTS',130)">Adicionar</button>
   </div>
   <div class="linha">
     <span> 30 MTS R$ 155,00</span>
     <button onclick="addProduto('Mangueira 30 MTS',155)">Adicionar</button>
   </div>
 </div>
+    
 </div>
   
-<div class="produto">
-<img src="img/carrinho-multiuso.jpg">
+<div class="produto casa"
+     data-nomes="carrinho multiuso, organizador, limpeza">
+
+<img src="img/carrinho-multiuso.jpg" alt="Carrinho Multiuso">
+    <span class="icone-busca">🔍</span>
 <h3>Carrinho Multiuso</h3>
 <div class="variacoes">
   <div class="linha">
@@ -2226,10 +2991,14 @@ mark {
     <button onclick="addProduto('Carrinho Multiuso',90)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/mop.jpg">
+<div class="produto casa"
+     data-nomes="mop giratorio, esfregao, limpeza piso">
+
+<img src="img/mop.jpg" alt="Mop Giratório">
+    <span class="icone-busca">🔍</span>
 <h3>Mop Giratorio</h3>
 <div class="variacoes">
   <div class="linha">
@@ -2237,21 +3006,33 @@ mark {
     <button onclick="addProduto('Mop Giratorio',75)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/varal-de-chao.jpg">
-<h3>Varal de Chão com Abas</h3>
+<div class="produto casa"
+     data-nomes="balde, baldes, limpeza casa">
+
+<img src="img/balde.jpg" alt="Baldes">
+    <span class="icone-busca">🔍</span>
+<h3>Baldes</h3>
 <div class="variacoes">
   <div class="linha">
-    <span> R$ 135,00</span>
-    <button onclick="addProduto('Varal de Chão com Abas',135)">Adicionar</button>
+    <span>8L — R$ 10,00</span>
+    <button onclick="addProduto('Balde 8L',10)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>10L — R$ 16,00</span>
+    <button onclick="addProduto('Balde 10L',16)">Adicionar</button>
   </div>
 </div>
+    
 </div>
+  
+<div class="produto casa"
+     data-nomes="cesto roupa 60 litros, cesto roupa, lavanderia">
 
-<div class="produto">
-<img src="img/cesto-60.jpg">
+<img src="img/cesto-60.jpg" alt="Cesto de Roupa 60 LTS">
+    <span class="icone-busca">🔍</span>
 <h3>Cesto de Roupa 60 LTS</h3>
 <div class="variacoes">
   <div class="linha">
@@ -2259,10 +3040,29 @@ mark {
     <button onclick="addProduto('Cesto de Roupa 60 LTS',40)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/lixeira-9.jpg">
+<div class="produto casa"
+     data-nomes="cesto roupa fechado 65 litros, cesto fechado">
+
+<img src="img/cesto-fechado.jpg" alt="Cesto de Roupa Fechado 65 LTS">
+    <span class="icone-busca">🔍</span>
+<h3>Cesto de Roupa Fechado 65 LTS</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span> R$ 65,00</span>
+    <button onclick="addProduto('Cesto de Roupa Fechado 65 LTS',65)">Adicionar</button>
+  </div>
+</div>
+    
+</div>
+  
+<div class="produto casa"
+     data-nomes="lixeira 9 litros, lixeira pequena, banheiro">
+
+<img src="img/lixeira-9.jpg" alt="Lixeira 9 LTS">
+    <span class="icone-busca">🔍</span>
 <h3>Lixeira 9 LTS</h3>
 <div class="variacoes">
   <div class="linha">
@@ -2270,10 +3070,14 @@ mark {
     <button onclick="addProduto('Lixeira 9 LTS',30)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/lixeira-suporte.jpg">
+<div class="produto casa"
+     data-nomes="lixeira pendurar, lixeira suporte, cozinha">
+
+<img src="img/lixeira-suporte.jpg" alt="Lixeira com Suporte para Pendurar">
+    <span class="icone-busca">🔍</span>
 <h3>lixeira com Suporte para Pendurar</h3>
 <div class="variacoes">
   <div class="linha">
@@ -2281,10 +3085,14 @@ mark {
     <button onclick="addProduto('Lixeira com Suporte para Pendurar',40)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/lixeira-12.jpg">
+<div class="produto casa"
+     data-nomes="lixeira 12 litros, lixeira media, cozinha">
+
+<img src="img/lixeira-12.jpg" alt="Lixeira 12 LTS">
+    <span class="icone-busca">🔍</span>
 <h3>Lixeira 12 LTS</h3>
 <div class="variacoes">
   <div class="linha">
@@ -2298,24 +3106,31 @@ mark {
 </div>
 
   <!-- BANHEIRO -->
-<div id="banheiro" class="categoria">
-<h2>Banheiro</h2>
-<div class="produtos">
+<div id="banheiro" class="categoria" data-nome="Banheiro">
+  <h2>Banheiro</h2>
+  <div class="produtos">
   
 <!-- produtos banheiro -->
-  <div class="produto">
-<img src="img/papel-higienico.jpg">
-<h3>Papel Higiênico</h3>
+ <div class="produto banheiro"
+     data-nomes="papel higienico, papel higiênico, papel banheiro, papel sanitário, papel toalete">
+
+ <img src="img/papel-higienico.jpg" alt="Papel Higiênico">
+     <span class="icone-busca">🔍</span>
+<h3>Papel Higienico</h3>
 <div class="variacoes">
   <div class="linha">
     <span> R$ 30,00</span>
-    <button onclick="addProduto('Papel Higiênico',30)">Adicionar</button>
+    <button onclick="addProduto('Papel Higiênico',30.00)">Adicionar</button>
   </div>
 </div>
+      
 </div>
 
-<div class="produto">
-<img src="img/pedra-sanitaria.jpg">
+<div class="produto banheiro"
+     data-nomes="pedra sanitaria, pedra sanitária, bloco sanitario, desodorizador vaso">
+
+ <img src="img/pedra-sanitaria.jpg" alt="Pedra Sanitaria">
+    <span class="icone-busca">🔍</span>
 <h3>Pedra Sanitária</h3>
 <div class="variacoes">
   <div class="linha">
@@ -2323,10 +3138,33 @@ mark {
     <button onclick="addProduto('Pedra Sanitária',3)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/aplik.jpg">
+<div class="produto banheiro"
+     data-nomes="bloco perfumado, caixa acoplada, bloco sanitario caixa, perfumador vaso">
+
+ <img src="img/bloco-perfumado.jpg" alt="Bloco Perfumado para Colocar em Caixa Acoplada">
+    <span class="icone-busca">🔍</span>
+<h3>Bloco Perfumado para Colocar em Caixa Acoplada</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>Bloco Perfumado 1 Unid. R$ 10,00</span>
+    <button onclick="addProduto('Bloco Perfumado 1 Unid.',10)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>Bloco Perfumado 3 Unid. R$ 24,00</span>
+    <button onclick="addProduto('Bloco Perfumado 3 Unid.',24)">Adicionar</button>
+  </div>
+</div>
+      
+</div>
+  
+<div class="produto banheiro"
+     data-nomes="pastilha aplik, aplik 3 unid, pastilha sanitaria aplik">
+
+ <img src="img/aplik.jpg" alt="Pastilha Aplik 3 Unid.">
+    <span class="icone-busca">🔍</span>
 <h3>Pastilha Aplik 3 Unid.</h3>
 <div class="variacoes">
   <div class="linha">
@@ -2335,7 +3173,7 @@ mark {
   </div>
   <div class="linha">
           <span>Aplik Roxo: Lavanda — R$ 10,00</span>
-          <button onclick="addProduto('Aplik Roxo; Lavanda',10)">Adicionar</button>
+          <button onclick="addProduto('Aplik Roxo: Lavanda',10)">Adicionar</button>
   </div>
   <div class="linha">
           <span>Aplik Azul: Marine — R$ 10,00</span>
@@ -2346,11 +3184,15 @@ mark {
           <button onclick="addProduto('Aplik Verde: Limão',10)">Adicionar</button>
         </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/gel-sanitario.jpg">
-<h3>Aplik Gel Sanitário</h3>
+<div class="produto banheiro"
+     data-nomes="aplik gel, gel sanitario, aplic gel vaso">
+
+ <img src="img/gel-sanitario.jpg" alt="Aplik Gel Sanitario">
+    <span class="icone-busca">🔍</span>
+<h3>Aplik Gel Sanitario</h3>
 <div class="variacoes">
   <div class="linha">
     <span>Aplik Gel Azul: Marine R$ 5,00</span>
@@ -2365,10 +3207,14 @@ mark {
           <button onclick="addProduto('Aplik Gel Verde: Limão',5)">Adicionar</button>
         </div>
 </div>
+    
 </div>
   
-<div class="produto">
-<img src="img/vassoura-de-vaso.jpg">
+<div class="produto banheiro" 
+     data-nomes="vassoura vaso, escova vaso, escova sanitaria">
+
+ <img src="img/vassoura-de-vaso.jpg" alt="Vassoura de Vaso">
+    <span class="icone-busca">🔍</span>
 <h3>Vassoura de Vaso</h3>
 <div class="variacoes">
   <div class="linha">
@@ -2376,33 +3222,45 @@ mark {
     <button onclick="addProduto('Vassoura de Vaso ',12)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/saco-de-lixo-banheiro.jpg">
+<div class="produto banheiro"
+     data-nomes="saco de lixo, lixo pia, lixo banheiro, saco pequeno">
+
+ <img src="img/saco-de-lixo-banheiro.jpg" alt="Saco de Lixo de Pia e Banheiro">
+    <span class="icone-busca">🔍</span>
 <h3>Saco de Lixo de Pia e Banheiro</h3>
 <div class="variacoes">
   <div class="linha">
     <span>R$ 19,00</span>
-    <button onclick="addProduto('Saco de Lixo de Pia e Banheiro ',19)">Adicionar</button>
+    <button onclick="addProduto('Saco de Lixo de Pia e Banheiro',19)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/kit-pano-de-banheiro-branco.jpg">
-<h3>Tapete Banheiro 3 Peças Antiderrapante Branco</h3>
+<div class="produto banheiro"
+     data-nomes="tapete banheiro, tapete antiderrapante, tapete branco, tapete banheiro 3 pecas">
+
+ <img src="img/kit-pano-de-banheiro-branco.jpg" alt="Tapete de Banheiro 3 Peças Antiderrapante Branco">
+    <span class="icone-busca">🔍</span>
+<h3>Tapete de Banheiro 3 Peças Antiderrapante Branco</h3>
 <div class="variacoes">
   <div class="linha">
     <span>R$ 60,00</span>
     <button onclick="addProduto('Tapete Banheiro 3 Peças Antiderrapante Branco ',60)">Adicionar</button>
   </div>
 </div>
+  
 </div>
 
-<div class="produto">
-<img src="img/kit-pano-de-banheiro-preto.jpg">
-<h3>Tapete Banheiro 3 Peças Antiderrapante Preto</h3>
+<div class="produto banheiro"
+     data-nomes="tapete banheiro, tapete antiderrapante, tapete preto, tapete banheiro 3 pecas">
+
+   <img src="img/kit-pano-de-banheiro-preto.jpg" alt="Tapete de Banheiro 3 Peças Antiderrapante Preto">
+    <span class="icone-busca">🔍</span>
+<h3>Tapete de Banheiro 3 Peças Antiderrapante Preto</h3>
 <div class="variacoes">
   <div class="linha">
     <span>R$ 60,00</span>
@@ -2414,14 +3272,15 @@ mark {
 </div>
 </div>
   
-
- 
  <div class="categoria" id="essencias">
   <h2>Essências</h2>
 <div class="produtos">
 
-    <div class="produto">
-      <img src="img/essencia-senamax.jpg">
+ <div class="produto essencias"
+     data-nomes="essencia senamax, fragrancia senamax, aroma senamax">
+
+      <img src="img/essencia-senamax.jpg" alt="Essência SenaMax 120ML">
+     <span class="icone-busca">🔍</span>
       <h3>Essência SenaMax 120ML</h3>
       <div class="variacoes">
         <div class="linha">
@@ -2434,7 +3293,7 @@ mark {
         </div>
          <div class="linha">
           <span>Essen. SenaMax Óleo de Eucalipto — R$ 16,00</span>
-          <button onclick="addProduto('Essen. SenaMax Lavanda',16)">Adicionar</button>
+         <button onclick="addProduto('Essen. SenaMax Óleo de Eucalipto',16)">Adicionar</button>
         </div>
          <div class="linha">
           <span>Essen. SenaMax Lavanda — R$ 16,00</span>
@@ -2445,11 +3304,15 @@ mark {
           <button onclick="addProduto('Essen. SenaMax Flores de Algodão',16)">Adicionar</button>
         </div>
       </div>
+       
     </div>
 
-    <div class="produto">
-  <img src="img/essencia-nogueira.jpg">
-  <h3>Essência Nogueira 125ML</h3>
+  <div class="produto essencias"
+     data-nomes="essencia nogueira, fragrancia nogueira, aroma nogueira">
+
+ <img src="img/essencia-nogueira.jpg" alt="Essência Nogueira 125ML">
+      <span class="icone-busca">🔍</span>
+  <h3>Essencia Nogueira 125ML</h3>
 
   <div class="variacoes">
 
@@ -2502,10 +3365,14 @@ mark {
       <button onclick="addProduto('Essen. Nogueira Orquídea Negra',10)">Adicionar</button>
     </div>
   </div>
+        
 </div>
 
-<div class="produto">
-      <img src="img/difusor-senamax.jpg">
+<div class="produto essencias"
+     data-nomes="difusor senamax, aromatizador senamax, difusor ambiente">
+
+     <img src="img/difusor-senamax.jpg" alt="Difusor SenaMax 250ML">
+    <span class="icone-busca">🔍</span>
       <h3>Difusor SenaMax 250ML</h3>
       <div class="variacoes">
         <div class="linha">
@@ -2529,10 +3396,14 @@ mark {
           <button onclick="addProduto('Difusor SenaMax Lavanda',22)">Adicionar</button>
         </div>
       </div>
+    
     </div>
     
-<div class="produto">
-      <img src="img/difusor-senalar.jpg">
+<div class="produto essencias"
+     data-nomes="difusor senalar, aromatizador senalar, difusor ambiente">
+
+      <img src="img/difusor-senalar.jpg" alt="Difusor SenaLar 250ML">
+    <span class="icone-busca">🔍</span>
       <h3>Difusor SenaLar 250ML</h3>
       <div class="variacoes">
         <div class="linha">
@@ -2552,10 +3423,14 @@ mark {
           <button onclick="addProduto('Difusor SenaLar Lavanda',15)">Adicionar</button>
         </div>
       </div>
+    
     </div>
 
-<div class="produto">
-      <img src="img/agua-tecido.jpg">
+<div class="produto essencias"
+     data-nomes="agua para tecidos, agua perfumada, perfume roupas">
+
+     <img src="img/agua-tecido.jpg" alt="Agua para Tecidos 500ML">
+    <span class="icone-busca">🔍</span>
       <h3>Água para Tecidos 500ML</h3>
       <div class="variacoes">
         <div class="linha">
@@ -2571,19 +3446,78 @@ mark {
           <button onclick="addProduto('Agua Tecidos Flores de Algodão',23)">Adicionar</button>
         </div>
       </div>
-    </div>
     
+    </div>
+
+<div class="produto essencias"
+     data-nomes="bom ar coala, aromatizador coala, cheirinho ambiente">
+
+ <img src="img/bom-ar-coala.jpg" alt="Bom Ar Coala">
+    <span class="icone-busca">🔍</span>
+<h3>Bom Ar Coala</h3>
+<div class="variacoes">
+  <div class="linha">
+    <span>Bom Ar Coala Orquídea Negra R$ 20,00</span>
+    <button onclick="addProduto('Bom Ar Coala Orquídea Negra',20)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>Bom Ar Coala Chá Branco R$ 20,00</span>
+    <button onclick="addProduto('Bom Ar Coala Chá Branco',20)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>Bom Ar Coala Flores de Cacto R$ 20,00</span>
+    <button onclick="addProduto('Bom Ar Coala Flores de Cacto',20)">Adicionar</button>
+  </div>
+  <div class="linha">
+    <span>Bom Ar Coala Ameixa Dourada R$ 20,00</span>
+    <button onclick="addProduto('Bom Ar Coala Ameixa Dourada',20)">Adicionar</button>
+  </div>
+</div>
+</div>
+  
   </div>
  </div>
 
-  <!-- AUTOMOTIVO -->
-<div id="automotivo" class="categoria">
-  <h2>Automotivo</h2>
+<div id="perfumes" class="categoria">
 
-  <div class="produtos">
+  <h2>Perfumes</h2>
+
+  <p style="
+    text-align:center;
+    font-size:18px;
+    font-weight:bold;
+    color:#ff9800;
+    margin-bottom:15px;
+  ">
+    🚧 Estamos em reforma 🚧
+  </p>
+
+  <div style="text-align:center;">
+    <img 
+      src="img/reformas.jpg"
+      alt="Aba Perfumes em reforma"
+      style="
+        max-width:100%;
+        width:320px;
+        border-radius:14px;
+        box-shadow:0 6px 16px rgba(0,0,0,.25);
+      "
+    >
+  </div>
+
+</div>
   
-    <<div class="produto">
-  <img src="img/shampoo.jpg">
+  
+  <!-- AUTOMOTIVO -->
+<div id="automotivo" class="categoria" data-nome="Automotivo">
+  <h2>Automotivo</h2>
+  <div class="produtos">
+
+<div class="produto automotivo"
+     data-nomes="shampoo automotivo, shampoo carro, lavagem automotiva">
+
+  <img src="img/shampoo.jpg" alt="Shampoo Automotivo">
+    <span class="icone-busca">🔍</span>
   <h3>Shampoo Automotivo</h3>
   <div class="variacoes">
     <div class="linha">
@@ -2591,14 +3525,18 @@ mark {
       <button onclick="addProduto('Shampoo Automotivo 1L',13)">Adicionar</button>
     </div>
     <div class="linha">
-      <span> Shampoo com Cera 2L — R$ 20,00</span>
-      <button onclick="addProduto('Shampoo com Cera 2L',20)">Adicionar</button>
+      <span> Shampoo com Cera 2L — R$ 18,00</span>
+      <button onclick="addProduto('Shampoo com Cera 2L',18)">Adicionar</button>
     </div>
   </div>
+        
 </div>
 
-<div class="produto">
-<img src="img/cherinho-carro-novo.jpg">
+<div class="produto automotivo"
+     data-nomes="cheirinho carro novo, aromatizador carro, perfume carro">
+
+ <img src="img/cherinho-carro-novo.jpg" alt="Cheirinho de Carro Novo">
+    <span class="icone-busca">🔍</span>
 <h3>Cheirinho de Carro Novo</h3>
 <div class="variacoes">
   <div class="linha">
@@ -2606,11 +3544,15 @@ mark {
     <button onclick="addProduto('Cheirinho de Carro Novo ',13)">Adicionar</button>
   </div>
 </div>
+    
 </div>
       
       
-<div class="produto">
-<img src="img/cheirinho-uva.jpg">
+<div class="produto automotivo"
+     data-nomes="cheirinho uva, aromatizador uva, perfume carro uva">
+
+ <img src="img/cheirinho-uva.jpg" alt="Cheirinho de Uva">
+    <span class="icone-busca">🔍</span>
 <h3>Cheirinho de Uva</h3>
 <div class="variacoes">
   <div class="linha">
@@ -2618,10 +3560,14 @@ mark {
     <button onclick="addProduto('Cheirinho de Uva ',18)">Adicionar</button>
   </div>
 </div>
+    
 </div>
 
-<div class="produto">
-  <img src="img/pneu-pretinho.jpg">
+<div class="produto automotivo"
+     data-nomes="pneu pretinho, brilho pneu, pretinho pneu">
+
+  <img src="img/pneu-pretinho.jpg" alt="Pneu Pretinho">
+    <span class="icone-busca">🔍</span>
   <h3>Pneu Pretinho</h3>
   <div class="variacoes">
     <div class="linha">
@@ -2633,10 +3579,14 @@ mark {
       <button onclick="addProduto('Pneu Pretinho 5L',40)">Adicionar</button>
     </div>
   </div>
+    
 </div>
 
-<div class="produto">
-  <img src="img/solupan.jpg">
+<div class="produto automotivo"
+     data-nomes="solupan, soluan, desengraxante, solupan desengraxante">
+
+ <img src="img/solupan.jpg" alt="Solupan">
+    <span class="icone-busca">🔍</span>
   <h3>Solupan</h3>
  <div class="variacoes">
     <div class="linha">
@@ -2648,15 +3598,19 @@ mark {
       <button onclick="addProduto('Solupan 5L',40)">Adicionar</button>
     </div>
   </div>
+    
 </div>
 
-<div class="produto">
-<img src="img/microfibra.jpg">
-<h3>Kit Pano Microfibra 4 Uni.</h3>
+<div class="produto automotivo" 
+     data-nomes="pano microfibra, kit microfibra, pano limpeza, pano automotivo">
+
+ <img src="img/microfibra.jpg" alt="Kit Pano de Microfibra 4 Unid.">
+    <span class="icone-busca">🔍</span>
+<h3>Kit de Pano Microfibra 4 Unid.</h3>
 <div class="variacoes">
   <div class="linha">
     <span> R$ 22,00</span>
-    <button onclick="addProduto('kit Pano Microfibra 4 Uni.',22)">Adicionar</button>
+    <button onclick="addProduto('kit Pano Microfibra 4 Unid.',22)">Adicionar</button>
   </div>
 </div>
 </div>
@@ -2713,8 +3667,26 @@ mark {
 
   </div>
   </div> 
-  
+
+  <!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
 <script>
+
+  // 🔥 CONFIG FIREBASE
+const firebaseConfig = {
+  apiKey: "AIzaSyA8-fpwjzmnJpNjyiPKadi7orolAZLZ0N8",
+  authDomain: "furacao-da-limpeza.firebaseapp.com",
+  projectId: "furacao-da-limpeza",
+  storageBucket: "furacao-da-limpeza.appspot.com",
+  messagingSenderId: "54403413522",
+  appId: "1:54403413522:web:4ffdf4e054d4ebdbcaccab"
+};
+
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
 /* 🔐 ATIVAR ADMIN PELO LINK */
 const params = new URLSearchParams(window.location.search);
@@ -2848,63 +3820,60 @@ function gerarNumeroPedido() {
 }
 
 // ABAS
-function mostrarCategoria(id,btn){
-  document.querySelectorAll(".categoria").forEach(c=>c.classList.remove("ativa"));
-  document.querySelectorAll(".abas button").forEach(b=>b.classList.remove("ativa"));
-  document.getElementById(id).classList.add("ativa");
-  btn.classList.add("ativa");
-  document.getElementById("carrinho").classList.remove("aberto");
+function mostrarCategoria(classe, btn) {
+  // troca abas
+  document.querySelectorAll(".categoria").forEach(c => {
+    c.classList.remove("ativa");
+  });
+
+  document.getElementById(classe).classList.add("ativa");
+
+  // botões ativos
+  document.querySelectorAll(".abas button").forEach(b => b.classList.remove("ativa"));
+  if (btn) btn.classList.add("ativa");
+
+  // limpa busca ao trocar aba
+  limparBusca();
 }
 
-window.onload = () => {
-  if (!localStorage.getItem("nomeCliente")) {
-    const nome = prompt("Digite o nome da cliente:");
-    if (nome && nome.trim() !== "") {
-      localStorage.setItem("nomeCliente", nome);
-    }
-  }
-
-  const nome = localStorage.getItem("nomeCliente");
-  if (nome) {
-    document.getElementById("nomeClienteTopo").innerText = nome;
-    document.getElementById("nomeClienteExibido").innerText = "👤 Cliente: " + nome;
-  }
-
-  atualizar();
-};
-
+function normalizarTexto(texto) {
+  return texto
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+}
+  
 function filtrarProdutos() {
   const input = document.getElementById("pesquisaProduto");
-  const texto = input.value.toLowerCase().trim();
+  const filtro = normalizarTexto(input.value);
+
   const produtos = document.querySelectorAll(".produto");
+  const mensagem = document.getElementById("mensagemBusca");
+  const limpar = document.getElementById("limparBusca");
+
+  let encontrou = false;
+
+  // 🔹 SE LIMPAR A BUSCA
+  if (filtro === "") {
+    limparBusca();
+    return;
+  }
 
   produtos.forEach(produto => {
-    const h3 = produto.querySelector("h3");
-    const nomeOriginal = h3.dataset.nome || h3.innerText;
-    h3.dataset.nome = nomeOriginal;
-
-    const nomeLower = nomeOriginal.toLowerCase();
-
-    if (texto === "") {
+    const nomes = normalizarTexto(produto.dataset.nomes || "");
+    if (nomes.includes(filtro)) {
       produto.style.display = "block";
-      h3.innerHTML = nomeOriginal;
-      return;
-    }
-
-    if (nomeLower.includes(texto)) {
-      produto.style.display = "block";
-
-      // 🔹 DESTACAR TEXTO
-      const regex = new RegExp(`(${texto})`, "gi");
-      h3.innerHTML = nomeOriginal.replace(
-        regex,
-        `<mark>$1</mark>`
-      );
+      produto.classList.add("encontrado");
+      encontrou = true;
     } else {
       produto.style.display = "none";
-      h3.innerHTML = nomeOriginal;
+      produto.classList.remove("encontrado");
     }
   });
+
+  mensagem.style.display = encontrou ? "none" : "block";
+  limpar.style.display = "block";
 }
 
   // ABRIR / FECHAR CARRINHO
@@ -2976,7 +3945,7 @@ function confirmarPedido() {
 
     // ABRE WHATSAPP EM OUTRA ABA (SEM SAIR DO SITE)
   window.open(
-    "https://wa.me/5515996585967?text=" + msg,
+    "https://wa.me/5515997647804?text=" + msg,
     "_blank"
   );
 
@@ -2992,48 +3961,37 @@ function confirmarPedido() {
   function voltarComprar() {
   document.getElementById("telaSucesso").style.display = "none";
   document.getElementById("carrinho").classList.remove("aberto");
+
   mostrarCategoria("limpeza", document.querySelector(".abas button"));
 }
 
-function limparBusca() {
-  document.getElementById("pesquisaProduto").value = "";
-  filtrarProdutos();
-}
+ function limparBusca() {
+  const input = document.getElementById("pesquisaProduto");
+  const produtos = document.querySelectorAll(".produto");
+  const limpar = document.getElementById("limparBusca");
+  const mensagem = document.getElementById("mensagemBusca");
 
-function restaurarBusca() {
-  document.querySelectorAll(".categoria").forEach((cat, index) => {
-    cat.style.display = index === 0 ? "block" : "none";
-    cat.classList.toggle("ativa", index === 0);
+  input.value = "";
+  limpar.style.display = "none";
+  mensagem.style.display = "none";
+
+  produtos.forEach(produto => {
+    produto.style.display = "block";
+    produto.classList.remove("encontrado");
   });
 
-  document.querySelectorAll(".produto").forEach(p => {
-    p.style.display = "block";
-  });
-
-  document.getElementById("limparBusca").style.display = "none";
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-// MOSTRAR / ESCONDER BOTÃO VOLTAR AO TOPO
-window.addEventListener("scroll", () => {
-  const btn = document.getElementById("btnTopo");
-  if (!btn) return;
-  btn.style.display = window.scrollY > 400 ? "flex" : "none";
+// 🔥 volta sempre para Produtos de Limpeza
+document.addEventListener("DOMContentLoaded", () => {
+  mostrarCategoria("limpeza", document.querySelector(".abas button"));
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
 // VOLTAR AO TOPO
 function voltarTopo() {
   window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-let estrelaSelecionada = 0;
-
-// SELECIONAR ESTRELAS
-function selecionarEstrela(nota) {
-  estrelaSelecionada = nota;
-
-  document.querySelectorAll(".avaliar-loja .estrelas span").forEach((e, i) => {
-    e.style.opacity = i < nota ? "1" : "0.3";
-  });
 }
 
 // ENVIAR AVALIAÇÃO
@@ -3064,29 +4022,25 @@ if (!nome) {
   return;
 }
 
-  let avaliacoes = JSON.parse(localStorage.getItem("avaliacoes")) || [];
-
- avaliacoes.push({
-  id: Date.now(),
+  db.collection("avaliacoes").add({
+  idPedido: localStorage.getItem("pedidoAtual"),
   userId: getUserId(),
   nome: nome,
   nota: estrelaSelecionada,
   comentario: comentario,
-  admin: isAdmin()
+  admin: isAdmin(),
+  data: new Date()
 });
 
-  localStorage.setItem("avaliacoes", JSON.stringify(avaliacoes));
   localStorage.setItem("avaliado_" + pedidoAtual, "true");
 
   document.getElementById("textoAvaliacao").value = "";
   document.getElementById("nomeCliente").value = "";
   estrelaSelecionada = 0;
 
-  atualizarMedia();
-  mostrarAvaliacoes();
-
   const estrelas = document.querySelectorAll(".avaliar-loja .estrelas span");
-estrelas.forEach(e => e.style.opacity = "0.3");
+document.querySelectorAll(".avaliar-loja .estrelas span")
+  .forEach(e => e.classList.remove("ativa", "meia"));
 
   document.getElementById("msgAvaliacao").innerText =
     "Obrigado pela sua avaliação 💙";
@@ -3094,106 +4048,166 @@ estrelas.forEach(e => e.style.opacity = "0.3");
   document.getElementById("boxAvaliacao").style.display = "none";
 document.getElementById("msgObrigadoAvaliacao").style.display = "block";
 
+  return;
 }
 
 // CALCULAR MÉDIA
 function atualizarMedia() {
-  const avaliacoes = JSON.parse(localStorage.getItem("avaliacoes")) || [];
-  const total = avaliacoes.length;
+  db.collection("avaliacoes").get().then(snapshot => {
+    let total = 0;
+    let soma = 0;
 
-  const mediaEl = document.getElementById("mediaAvaliacao");
-  const totalEl = document.getElementById("totalAvaliacoes");
+    snapshot.forEach(doc => {
+      soma += doc.data().nota;
+      total++;
+    });
 
-  if (total === 0) {
-    if (mediaEl) mediaEl.innerText = "0.0";
-    if (totalEl) totalEl.innerText = "0";
-    return;
-  }
+    if (total === 0) return;
 
-  let soma = 0;
-  avaliacoes.forEach(a => soma += Number(a.nota));
+    const media = (soma / total).toFixed(1);
 
-  const media = soma / total;
+    document.getElementById("mediaAvaliacao").innerHTML =
+      renderEstrelas(media) + ` <span>(${media})</span>`;
 
-  if (mediaEl) mediaEl.innerText = media.toFixed(1);
-  if (totalEl) totalEl.innerText = total;
-
-  const box = document.querySelector(".resumo-avaliacao");
-  if (box) {
-    box.classList.remove("animar-media");
-    void box.offsetWidth;
-    box.classList.add("animar-media");
-  }
+    document.getElementById("totalAvaliacoes").innerText = total;
+  });
 }
 
 // MOSTRAR AVALIAÇÕES
 function mostrarAvaliacoes() {
-  const avaliacoes = JSON.parse(localStorage.getItem("avaliacoes")) || [];
   const lista = document.getElementById("listaAvaliacoes");
   if (!lista) return;
 
   const meuId = getUserId();
-  lista.innerHTML = "";
+  const souAdmin = isAdmin();
 
-  avaliacoes.slice().reverse().forEach((a, index) => {
-    const realIndex = avaliacoes.length - 1 - index;
+  lista.innerHTML = "Carregando avaliações...";
 
-    const classeAdmin = a.admin ? "avaliacao-admin" : "";
-    const seloAdmin = a.admin ? `<span class="selo-admin">ADMIN</span>` : "";
+  db.collection("avaliacoes")
+    .orderBy("data", "desc")
+    .onSnapshot(snapshot => {
+      lista.innerHTML = "";
 
-    lista.innerHTML += `
-      <div class="avaliacao-card ${classeAdmin}">
-        <div class="topo-avaliacao">
-          <div class="estrelas">${"⭐".repeat(a.nota)}</div>
-          ${seloAdmin}
-        </div>
+      snapshot.forEach(doc => {
+        const a = doc.data();
+        const podeRemover = souAdmin || a.userId === meuId;
 
-        <p>${a.comentario || "Sem comentário"}</p>
-        <strong>— ${a.nome || "Cliente"}</strong>
+        lista.innerHTML += `
+          <div class="avaliacao-card ${a.admin ? "avaliacao-admin" : ""}">
+            
+            <div class="topo-avaliacao">
+              <div class="estrelas">
+                ${renderEstrelas(a.nota)}
+              </div>
+              ${a.admin ? `<span class="selo-admin">ADMIN</span>` : ""}
+            </div>
 
-        ${
-          (isAdmin() || a.userId === meuId)
-            ? `<button class="btn-remover" onclick="removerAvaliacao(${realIndex})">
-                ❌ Remover
-              </button>`
-            : ""
-        }
-      </div>
-    `;
-  });
+            <p>${a.comentario || "Sem comentário"}</p>
+            <strong>— ${a.nome}</strong>
+
+            ${
+              a.respostaAdmin
+                ? `<div class="resposta-admin">
+                     <strong>Resposta da loja:</strong>
+                     <p>${a.respostaAdmin}</p>
+                   </div>`
+                : ""
+            }
+
+            ${
+              souAdmin && !a.respostaAdmin
+                ? `
+                <textarea id="resp_${doc.id}"
+                  placeholder="Responder avaliação..."></textarea>
+
+                <button onclick="responderAvaliacao('${doc.id}')">
+                  Responder
+                </button>
+                `
+                : ""
+            }
+
+            ${
+              podeRemover
+                ? `
+                <button class="btn-remover"
+                  onclick="removerAvaliacao('${doc.id}', '${a.userId}')">
+                  🗑️ Remover
+                </button>
+                `
+                : ""
+            }
+          </div>
+        `;
+      });
+    });
 }
 
-function removerAvaliacao(index) {
-  let avaliacoes = JSON.parse(localStorage.getItem("avaliacoes")) || [];
+
+function removerAvaliacao(idDoc, donoId) {
   const meuId = getUserId();
 
-  if (!avaliacoes[index]) return;
-
-  // 🔒 VERIFICA PERMISSÃO
-  if (!isAdmin() && avaliacoes[index].userId !== meuId) {
-    alert("Você não tem permissão para remover este comentário.");
+  if (!isAdmin() && donoId !== meuId) {
+    alert("Você não pode remover este comentário.");
     return;
   }
 
-  if (!confirm("Deseja remover esta avaliação?")) return;
+  if (!confirm("Deseja remover este comentário?")) return;
 
-  avaliacoes.splice(index, 1);
-  localStorage.setItem("avaliacoes", JSON.stringify(avaliacoes));
-
-  atualizarMedia();
-  mostrarAvaliacoes();
+  db.collection("avaliacoes").doc(idDoc).delete()
+    .then(() => alert("Comentário removido"))
+    .catch(() => alert("Erro ao remover"));
 }
 
-// AO ABRIR O SITE
 document.addEventListener("DOMContentLoaded", () => {
-  atualizarMedia();
   mostrarAvaliacoes();
-});
+  atualizarMedia();
 
-  document.addEventListener("DOMContentLoaded", () => {
   if (localStorage.getItem("adminFuracao") === "true") {
     const selo = document.getElementById("seloVerificado");
     if (selo) selo.style.display = "block";
+  }
+});
+
+function responderAvaliacao(idDoc) {
+  const campo = document.getElementById("resp_" + idDoc);
+  if (!campo) return;
+
+  const texto = campo.value.trim();
+  if (!texto) {
+    alert("Digite uma resposta");
+    return;
+  }
+
+  db.collection("avaliacoes")
+    .doc(idDoc)
+    .update({ respostaAdmin: texto })
+    .then(() => alert("Resposta enviada ✅"));
+}
+
+        function renderEstrelas(nota) {
+  let html = "";
+  for (let i = 1; i <= 5; i++) {
+    if (nota >= i) {
+      html += `<span class="estrela cheia">★</span>`;
+    } else if (nota >= i - 0.5) {
+      html += `<span class="estrela meia">★</span>`;
+    } else {
+      html += `<span class="estrela vazia">★</span>`;
+    }
+  }
+  return html;
+}
+
+  // MOSTRAR / ESCONDER BOTÃO VOLTAR AO TOPO
+window.addEventListener("scroll", () => {
+  const btn = document.getElementById("btnTopo");
+  if (!btn) return;
+
+  if (window.scrollY > 300) {
+    btn.style.display = "flex";
+  } else {
+    btn.style.display = "none";
   }
 });
 
@@ -3260,13 +4274,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   <h3>⭐ Avalie nossa loja</h3>
 
-  <div class="estrelas">
-    <span onclick="selecionarEstrela(1)">⭐</span>
-    <span onclick="selecionarEstrela(2)">⭐</span>
-    <span onclick="selecionarEstrela(3)">⭐</span>
-    <span onclick="selecionarEstrela(4)">⭐</span>
-    <span onclick="selecionarEstrela(5)">⭐</span>
-  </div>
+  <div class="estrelas" id="estrelas">
+  <span data-index="1">★</span>
+  <span data-index="2">★</span>
+  <span data-index="3">★</span>
+  <span data-index="4">★</span>
+  <span data-index="5">★</span>
+</div>
 
   <p id="msgObrigadoAvaliacao" style="display:none; font-size:16px; color:#1e88e5; margin-top:15px;">
   💙 Obrigado por avaliar o nosso site do <strong>Furacão da Limpeza</strong>!  
@@ -3296,6 +4310,61 @@ document.addEventListener("DOMContentLoaded", () => {
 </div>
 
   <div id="seloVerificado">✔️ Verificado</div>
+
+  <script>
+let estrelaSelecionada = 0;
+const estrelas = document.querySelectorAll(".avaliar-loja .estrelas span");
+
+function atualizarEstrelas(nota) {
+  estrelas.forEach((estrela, i) => {
+    estrela.classList.remove("ativa", "meia");
+
+    const valor = i + 1;
+
+    if (nota >= valor) {
+      estrela.classList.add("ativa");
+    } else if (nota >= valor - 0.5) {
+      estrela.classList.add("meia");
+    }
+  });
+}
+
+// CLIQUE COM MEIA ESTRELA
+estrelas.forEach((estrela, i) => {
+  estrela.addEventListener("click", (e) => {
+    const largura = estrela.offsetWidth;
+    const pos = e.offsetX;
+
+    // metade esquerda = meia | direita = cheia
+    estrelaSelecionada =
+      pos < largura / 2 ? i + 0.5 : i + 1;
+
+    atualizarEstrelas(estrelaSelecionada);
+  });
+
+  // HOVER COM MEIA
+  estrela.addEventListener("mousemove", (e) => {
+    const largura = estrela.offsetWidth;
+    const pos = e.offsetX;
+
+    const preview =
+      pos < largura / 2 ? i + 0.5 : i + 1;
+
+    atualizarEstrelas(preview);
+  });
+});
+
+// VOLTA PARA A NOTA SALVA
+document
+  .querySelector(".avaliar-loja .estrelas")
+  .addEventListener("mouseleave", () => {
+    atualizarEstrelas(estrelaSelecionada);
+  });
+
+// inicia zerado
+atualizarEstrelas(0);
+</script>
+
 
 </body>
 </html>
