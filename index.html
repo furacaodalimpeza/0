@@ -2799,6 +2799,7 @@ Versátil, eficiente e fácil de usar em casa.
 <img src="img/porta-detergente.jpg" alt="Porta Detergente">
   <span class="icone-busca">🔍</span>
 <h3>Porta Detergente</h3>
+  <p class="estoque" id="estoque-Porta-Detergente"></p>
 <div class="variacoes">
   <div class="linha">
     <span> R$ 15,00</span>
@@ -2814,6 +2815,7 @@ Versátil, eficiente e fácil de usar em casa.
 <img src="img/timer-egg.jpg" alt="Timer Egg">
   <span class="icone-busca">🔍</span>
 <h3>Timer Egg</h3>
+  <p class="estoque" id="estoque-Timer-Egg"></p>
 <div class="variacoes">
   <div class="linha">
     <span> R$ 15,00</span>
@@ -2829,6 +2831,7 @@ Versátil, eficiente e fácil de usar em casa.
 <img src="img/chuveiro-torneira.jpg" alt="Chuveiro para Torneira">
   <span class="icone-busca">🔍</span>
 <h3>Chuveiro Para Torneira</h3>
+  <p class="estoque" id="estoque-Chuveiro-para-Torneira"></p>
 <div class="variacoes">
   <div class="linha">
     <span> R$ 13,00</span>
@@ -2844,6 +2847,7 @@ Versátil, eficiente e fácil de usar em casa.
 <img src="img/panela-antiaderente.jpg" alt="Frigideira Antiaderente">
   <span class="icone-busca">🔍</span>
 <h3>Frigideira Antiaderente</h3>
+  <p class="estoque" id="estoque-Frigideira-Antiaderente"></p>
 <div class="variacoes">
   <div class="linha">
     <span> R$ 55,00</span>
@@ -2859,6 +2863,7 @@ Versátil, eficiente e fácil de usar em casa.
 <img src="img/porta-tempero.jpg" alt="Porta Tempeiro 9 Peças">
   <span class="icone-busca">🔍</span>
 <h3>Porta Tempeiro 9 Peças </h3>
+  <p class="estoque" id="estoque-Porta-Tempeiro-9-Peças"></p>
 <div class="variacoes">
   <div class="linha">
     <span> R$ 50,00</span>
@@ -2874,6 +2879,7 @@ Versátil, eficiente e fácil de usar em casa.
 <img src="img/chaleira.jpg" alt="Chaleira">
   <span class="icone-busca">🔍</span>
 <h3>Chaleira</h3>
+  <p class="estoque" id="estoque-Chaleira"></p>
 <div class="variacoes">
   <div class="linha">
     <span>R$ 90,00</span>
@@ -2889,6 +2895,7 @@ Versátil, eficiente e fácil de usar em casa.
 <img src="img/sanduicheira.jpg" alt="Sanduicheira">
   <span class="icone-busca">🔍</span>
 <h3>Sanduicheira</h3>
+  <p class="estoque" id="estoque-Sanduicheira"></p>
 <div class="variacoes">
   <div class="linha">
     <span>R$ 110,00</span>
@@ -2904,6 +2911,7 @@ Versátil, eficiente e fácil de usar em casa.
 <img src="img/varal-de-chao.jpg" alt="Varal de Chão com Abas">
   <span class="icone-busca">🔍</span>
 <h3>Varal de Chão com Abas</h3>
+  <p class="estoque" id="estoque-Varal-de-Chão-com-Abas"></p>
 <div class="variacoes">
   <div class="linha">
     <span> R$ 135,00</span>
@@ -2972,6 +2980,7 @@ Versátil, eficiente e fácil de usar em casa.
 <img src="img/kit-para-crianca.jpg" alt="Kit Limpeza Para crianças Vassoura, Rodo e Pá">
   <span class="icone-busca">🔍</span>
 <h3>Kit Limpeza para Crianças Vassoura, Rodo e pá</h3>
+  <p class="estoque" id="estoque-kit-Para-Criança-Vassoura,-Rodo-e-Pá"></p>
 <div class="variacoes">
   <div class="linha">
     <span> R$ 30,00</span>
@@ -3175,6 +3184,7 @@ Versátil, eficiente e fácil de usar em casa.
 <img src="img/carrinho-multiuso.jpg" alt="Carrinho Multiuso">
     <span class="icone-busca">🔍</span>
 <h3>Carrinho Multiuso</h3>
+  <p class="estoque" id="estoque-Carrinho-Multiuso"></p>
 <div class="variacoes">
   <div class="linha">
     <span> R$ 90,00</span>
@@ -3190,6 +3200,7 @@ Versátil, eficiente e fácil de usar em casa.
 <img src="img/mop.jpg" alt="Mop Giratório">
     <span class="icone-busca">🔍</span>
 <h3>Mop Giratorio</h3>
+  <p class="estoque" id="estoque-Mop-Giratorio"></p>
 <div class="variacoes">
   <div class="linha">
     <span> R$ 75,00</span>
@@ -3904,9 +3915,60 @@ if (params.get("admin") === "0000") {
 let carrinho = [];
 let totalGeral = 0;
 let ultimoTotal = 0;
+
+  // ===== ESTOQUE =====
+let estoque = JSON.parse(localStorage.getItem("estoque")) || {
+  "Porta Detergente": 10,
+  "Timer Egg": 8,
+  "Chuveiro para Torneira": 12,
+  "Frigideira Antiaderente": 6,
+  "Porta Tempeiro 9 Peças": 5,
+  "Chaleira": 4,
+  "Sanduicheira": 3,
+  "Varal de Chão com Abas": 4,
+  "kit Para Criança Vassoura, Rodo e Pá": 6,
+  "Carrinho Multiuso": 5,
+  "Mop Giratorio": 7,
+  "Balde 8L": 20,
+  "Balde 10L": 15,
+  "Cesto de Roupa 60 LTS": 8,
+  "Cesto de Roupa Fechado 65 LTS": 6,
+  "Lixeira 9 LTS": 10,
+  "Lixeira com Suporte para Pendurar": 7,
+  "Lixeira 12 LTS": 9
+};
+
+function salvarEstoque() {
+  localStorage.setItem("estoque", JSON.stringify(estoque));
+}
   
 // FUNÇÃO PARA ADICIONAR PRODUTO
-function addProduto(nome, preco) {
+function atualizarEstoqueTela() {
+  for (let nome in estoque) {
+    const id = "estoque-" + nome.replaceAll(" ", "-");
+    const el = document.getElementById(id);
+    if (!el) continue;
+
+    el.innerText =
+      estoque[nome] > 0
+        ? `📦 Estoque: ${estoque[nome]}`
+        : "❌ Esgotado";
+  }
+}
+(nome, preco) {
+
+  // 🔒 CONTROLE DE ESTOQUE
+  if (estoque[nome] !== undefined) {
+    if (estoque[nome] <= 0) {
+      alert("❌ Produto esgotado!");
+      return;
+    }
+
+    estoque[nome]--;
+    salvarEstoque();
+    atualizarEstoqueTela();
+  }
+
   let item = carrinho.find(p => p.nome === nome);
   if (item) item.qtd++;
   else carrinho.push({ nome, preco, qtd: 1 });
@@ -3917,15 +3979,9 @@ function addProduto(nome, preco) {
     som.play().catch(() => {});
   }
 
-  const btn = document.getElementById("btnCarrinho");
-  if (btn) {
-    btn.classList.add("animar");
-    setTimeout(() => btn.classList.remove("animar"), 200);
-  }
-
   atualizar();
 }
-
+  
 // FUNÇÃO PARA ATUALIZAR CARRINHO
 function atualizar() {
   const lista = document.getElementById("lista");
@@ -4207,6 +4263,7 @@ fecharModal();
 // 🔥 volta sempre para Produtos de Limpeza
 document.addEventListener("DOMContentLoaded", () => {
   mostrarCategoria("limpeza", document.querySelector(".abas button"));
+  atualizarEstoqueTela();
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
