@@ -2792,18 +2792,23 @@ Versátil, eficiente e fácil de usar em casa.
     
 </div>
 
-
 <div class="produto casa"
      data-nomes="porta detergente, suporte detergente, cozinha">
 
 <img src="img/porta-detergente.jpg" alt="Porta Detergente">
   <span class="icone-busca">🔍</span>
 <h3>Porta Detergente</h3>
-  <p class="estoque" id="estoque-Porta-Detergente"></p>
+<p class="estoque" id="estoque-porta-detergente">
+  📦 Estoque: --
+</p>
 <div class="variacoes">
   <div class="linha">
     <span> R$ 15,00</span>
-    <button onclick="addProduto('Porta Detergente',15)">Adicionar</button>
+  <button
+  id="btn-porta-detergente"
+  onclick="addProduto('porta-detergente','Porta Detergente',15)">
+  Adicionar
+</button>
   </div>
 </div>
     
@@ -3873,111 +3878,96 @@ Versátil, eficiente e fácil de usar em casa.
   </div>
   </div> 
 
-  <!-- FIREBASE -->
+<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
 <script>
-
   // 🔥 CONFIG FIREBASE
-const firebaseConfig = {
-  apiKey: "AIzaSyA8-fpwjzmnJpNjyiPKadi7orolAZLZ0N8",
-  authDomain: "furacao-da-limpeza.firebaseapp.com",
-  projectId: "furacao-da-limpeza",
-  storageBucket: "furacao-da-limpeza.appspot.com",
-  messagingSenderId: "54403413522",
-  appId: "1:54403413522:web:4ffdf4e054d4ebdbcaccab"
-};
+  const firebaseConfig = {
+    apiKey: "AIzaSyA8-fpwjzmnJpNjyiPKadi7orolAZLZ0N8",
+    authDomain: "furacao-da-limpeza.firebaseapp.com",
+    projectId: "furacao-da-limpeza",
+    storageBucket: "furacao-da-limpeza.appspot.com",
+    messagingSenderId: "54403413522",
+    appId: "1:54403413522:web:4ffdf4e054d4ebdbcaccab"
+  };
 
+  firebase.initializeApp(firebaseConfig);
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+  const db = firebase.firestore();
+  const auth = firebase.auth();
 
-/* 🔐 ATIVAR ADMIN PELO LINK */
-const params = new URLSearchParams(window.location.search);
-if (params.get("admin") === "0000") {
-  localStorage.setItem("adminFuracao", "true");
-}
+  let adminLogado = false;
 
   function getUserId() {
-  let id = localStorage.getItem("userId");
-  if (!id) {
-    id = "user_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
-    localStorage.setItem("userId", id);
+    let id = localStorage.getItem("userId");
+    if (!id) {
+      id = "user_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
+      localStorage.setItem("userId", id);
+    }
+    return id;
   }
-  return id;
-}
 
   function isAdmin() {
-  return localStorage.getItem("adminFuracao") === "true";
-}
+    return adminLogado === true;
+  }
 
+  auth.onAuthStateChanged(user => {
+    if (user && user.email === "ffgustavo642@gmail.com") {
+      adminLogado = true;
+      console.log("ADMIN LOGADO");
+    } else {
+      adminLogado = false;
+    }
+  });
+
+let estoque = {};
+
+// 🔥 LER ESTOQUE EM TEMPO REAL
+db.collection("estoque").onSnapshot(snapshot => {
+  snapshot.forEach(doc => {
+    estoque[doc.id] = doc.data().quantidade;
+  });
+
+  atualizarEstoqueTela();
+  bloquearBotoesZerados();
+});
+  
 let carrinho = [];
 let totalGeral = 0;
 let ultimoTotal = 0;
-
-  // ===== ESTOQUE =====
-let estoque = JSON.parse(localStorage.getItem("estoque")) || {
-  "Porta Detergente": 10,
-  "Timer Egg": 8,
-  "Chuveiro para Torneira": 12,
-  "Frigideira Antiaderente": 6,
-  "Porta Tempeiro 9 Peças": 5,
-  "Chaleira": 4,
-  "Sanduicheira": 3,
-  "Varal de Chão com Abas": 4,
-  "kit Para Criança Vassoura, Rodo e Pá": 6,
-  "Carrinho Multiuso": 5,
-  "Mop Giratorio": 7,
-  "Balde 8L": 20,
-  "Balde 10L": 15,
-  "Cesto de Roupa 60 LTS": 8,
-  "Cesto de Roupa Fechado 65 LTS": 6,
-  "Lixeira 9 LTS": 10,
-  "Lixeira com Suporte para Pendurar": 7,
-  "Lixeira 12 LTS": 9
-};
-
-function salvarEstoque() {
-  localStorage.setItem("estoque", JSON.stringify(estoque));
-}
   
 // FUNÇÃO PARA ADICIONAR PRODUTO
-function atualizarEstoqueTela() {
-  for (let nome in estoque) {
-    const id = "estoque-" + nome.replaceAll(" ", "-");
-    const el = document.getElementById(id);
-    if (!el) continue;
+function bloquearBotoesZerados() {
+  for (let id in estoque) {
+    const btn = document.getElementById("btn-" + id);
+    if (!btn) continue;
 
-    el.innerText =
-      estoque[nome] > 0
-        ? `📦 Estoque: ${estoque[nome]}`
-        : "❌ Esgotado";
+    btn.disabled = estoque[id] <= 0;
+    btn.innerText = estoque[id] <= 0 ? "Esgotado" : "Adicionar";
   }
 }
-(nome, preco) {
 
-  // 🔒 CONTROLE DE ESTOQUE
-  if (estoque[nome] !== undefined) {
-    if (estoque[nome] <= 0) {
-      alert("❌ Produto esgotado!");
-      return;
-    }
+// FUNÇÃO PARA ADICIONAR PRODUTO
+function addProduto(id, nome, preco) {
 
-    estoque[nome]--;
-    salvarEstoque();
-    atualizarEstoqueTela();
+  if (estoque[id] <= 0) {
+    alert("Produto esgotado");
+    return;
+  }
+
+  // 🔒 SOMENTE ADMIN ALTERA ESTOQUE
+  if (isAdmin()) {
+    db.collection("estoque").doc(id).update({
+      quantidade: firebase.firestore.FieldValue.increment(-1)
+    });
   }
 
   let item = carrinho.find(p => p.nome === nome);
   if (item) item.qtd++;
   else carrinho.push({ nome, preco, qtd: 1 });
-
-  const som = document.getElementById("somAdd");
-  if (som) {
-    som.currentTime = 0;
-    som.play().catch(() => {});
-  }
 
   atualizar();
 }
