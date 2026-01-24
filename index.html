@@ -4014,19 +4014,25 @@ function gerarNumeroPedido() {
 }
 
 // ABAS
-function mostrarCategoria(classe, btn) {
-  // troca abas
+function mostrarCategoria(id, btn) {
   document.querySelectorAll(".categoria").forEach(c => {
     c.classList.remove("ativa");
   });
 
-  document.getElementById(classe).classList.add("ativa");
+  const categoria = document.getElementById(id);
+  if (!categoria) {
+    console.error("Categoria não encontrada:", id);
+    return;
+  }
 
-  // botões ativos
-  document.querySelectorAll(".abas button").forEach(b => b.classList.remove("ativa"));
+  categoria.classList.add("ativa");
+
+  document.querySelectorAll(".abas button").forEach(b =>
+    b.classList.remove("ativa")
+  );
+
   if (btn) btn.classList.add("ativa");
 
-  // limpa busca ao trocar aba
   limparBusca();
 }
 
