@@ -4041,7 +4041,7 @@ function normalizarTexto(texto) {
 function filtrarProdutos() {
   const input = document.getElementById("pesquisaProduto");
   const filtro = normalizarTexto(input.value);
-  const produtos = document.querySelectorAll(".produto");
+ const produtos = document.querySelectorAll(".categoria .produto");
   const mensagem = document.getElementById("mensagemBusca");
   const limpar = document.getElementById("limparBusca");
 
@@ -4131,27 +4131,35 @@ function confirmarPedido() {
   const numeroPedido = gerarNumeroPedido();
   localStorage.setItem("pedidoAtual", numeroPedido);
 
-  let msg = "";
-  msg += "🧾 *Pedido Nº " + numeroPedido + " – 🌪️🛒Furacão da Limpeza*%0A%0A";
-  msg += "👤 *Cliente:* " + nome + "%0A";
-  msg += "📞 *Telefone:* " + tel + "%0A";
-  msg += "📍 *Endereço:* " + end + "%0A";
-  msg += "💳 *Pagamento:* " + pag + "%0A%0A";
-  msg += "🛒 *Itens do pedido:*%0A";
+  let msg = `🧾 *Pedido Nº ${numeroPedido} – 🌪️🛒 Furacão da Limpeza*
+
+👤 *Cliente:* ${nome}
+📞 *Telefone:* ${tel}
+📍 *Endereço:* ${end}
+💳 *Pagamento:* ${pag}
+
+🛒 *Itens do pedido:*
+`;
 
   carrinho.forEach(p => {
-  const subtotal = p.preco * p.qtd;
-  msg += `• ${p.nome} — ${p.qtd}x (R$ ${subtotal.toFixed(2)})%0A`;
-});
+    const subtotal = p.preco * p.qtd;
+    msg += `• ${p.nome} — ${p.qtd}x (R$ ${subtotal.toFixed(2)})\n`;
+  });
 
-  msg += `%0A💰 *Total:* R$ ${totalGeral.toFixed(2)}%0A%0A`;
-  msg += "Assim que confirmarmos, preparamos tudo com carinho para você 🙏🏼✨";
+  msg += `
+💰 *Total:* R$ ${totalGeral.toFixed(2)}
 
-    // ABRE WHATSAPP EM OUTRA ABA (SEM SAIR DO SITE)
+Assim que confirmarmos, preparamos tudo com carinho para você 🙏✨
+`;
+
+  // ✅ CODIFICA A MENSAGEM (ESSENCIAL)
+  const msgFinal = encodeURIComponent(msg);
+
   window.open(
-    "https://wa.me/5515997647804?text=" + msg,
+    "https://wa.me/5515997647804?text=" + msgFinal,
     "_blank"
   );
+}
 
   // MOSTRA TELA DE SUCESSO IMEDIATAMENTE
   document.getElementById("telaSucesso").style.display = "flex";
@@ -4171,7 +4179,6 @@ function confirmarPedido() {
 
  function limparBusca() {
   const input = document.getElementById("pesquisaProduto");
-  const produtos = document.querySelectorAll(".produto");
   const limpar = document.getElementById("limparBusca");
   const mensagem = document.getElementById("mensagemBusca");
 
@@ -4179,7 +4186,11 @@ function confirmarPedido() {
   limpar.style.display = "none";
   mensagem.style.display = "none";
 
-  produtos.forEach(produto => {
+  // 🔥 MOSTRA APENAS OS PRODUTOS DA ABA ATIVA
+  const abaAtiva = document.querySelector(".categoria.ativa");
+  if (!abaAtiva) return;
+
+  abaAtiva.querySelectorAll(".produto").forEach(produto => {
     produto.style.display = "block";
     produto.classList.remove("encontrado");
   });
