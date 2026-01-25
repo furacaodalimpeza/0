@@ -3934,6 +3934,20 @@ db.collection("estoque").onSnapshot(snapshot => {
   atualizarEstoqueTela();
   bloquearBotoesZerados();
 });
+
+async function baixarEstoquePedido() {
+  const batch = db.batch();
+
+  carrinho.forEach(item => {
+    const ref = db.collection("estoque").doc(item.id);
+
+    batch.update(ref, {
+      quantidade: firebase.firestore.FieldValue.increment(-item.qtd)
+    });
+  });
+
+  await batch.commit();
+}
   
 let carrinho = [];
 let totalGeral = 0;
@@ -3950,7 +3964,6 @@ function bloquearBotoesZerados() {
   }
 }
 
-// FUNÇÃO PARA ADICIONAR PRODUTO
 function addProduto(id, nome, preco) {
 
   if (estoque[id] <= 0) {
@@ -3958,16 +3971,18 @@ function addProduto(id, nome, preco) {
     return;
   }
 
-  // 🔒 SOMENTE ADMIN ALTERA ESTOQUE
-  if (isAdmin()) {
-    db.collection("estoque").doc(id).update({
-      quantidade: firebase.firestore.FieldValue.increment(-1)
+  let item = carrinho.find(p => p.id === id);
+
+  if (item) {
+    item.qtd++;
+  } else {
+    carrinho.push({
+      id: id,
+      nome: nome,
+      preco: preco,
+      qtd: 1
     });
   }
-
-  let item = carrinho.find(p => p.nome === nome);
-  if (item) item.qtd++;
-  else carrinho.push({ nome, preco, qtd: 1 });
 
   atualizar();
 }
@@ -4169,7 +4184,7 @@ function fecharModal() {
   document.getElementById("modalCliente").style.display = "none";
 }
 
-function confirmarPedido() {
+async function confirmarPedido() {
   const nome = cliNome.value.trim();
   const tel = cliTel.value.trim();
   const end = cliEnd.value.trim();
@@ -4207,10 +4222,19 @@ Assim que confirmarmos, preparamos tudo com carinho para você 🙏✨
   // ✅ CODIFICA A MENSAGEM (ESSENCIAL)
   const msgFinal = encodeURIComponent(msg);
 
-  window.open(
-    "https://wa.me/5515997647804?text=" + msgFinal,
-    "_blank"
-  );
+ try {
+  await baixarEstoquePedido();
+  console.log("✅ Estoque baixado");
+} catch (err) {
+  alert("Erro ao atualizar estoque");
+  console.error(err);
+  return;
+}
+
+window.open(
+  "https://wa.me/5515996585967?text=" + msgFinal,
+  "_blank"
+);
 
   // MOSTRA TELA DE SUCESSO
 document.getElementById("telaSucesso").style.display = "flex";
@@ -4257,6 +4281,15 @@ document.addEventListener("DOMContentLoaded", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
+function atualizarEstoqueTela() {
+  for (let id in estoque) {
+    const el = document.getElementById("estoque-" + id);
+    if (el) {
+      el.innerText = "📦 Estoque: " + estoque[id];
+    }
+  }
+}
+  
 // VOLTAR AO TOPO
 function voltarTopo() {
   window.scrollTo({ top: 0, behavior: "smooth" });
