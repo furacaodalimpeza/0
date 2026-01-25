@@ -3959,16 +3959,31 @@ function bloquearBotoesZerados() {
     const btn = document.getElementById("btn-" + id);
     if (!btn) continue;
 
-    btn.disabled = estoque[id] <= 0;
-    btn.innerText = estoque[id] <= 0 ? "Esgotado" : "Adicionar";
+    if (estoque[id] <= 0) {
+      btn.disabled = true;
+      btn.innerText = "Esgotado";
+    } else {
+      btn.disabled = false;
+      btn.innerText = "Adicionar";
+    }
   }
 }
 
 function addProduto(id, nome, preco) {
 
-  if (estoque[id] <= 0) {
-    alert("Produto esgotado");
+  // 🔒 Garante que o preço é número
+  preco = Number(preco);
+  if (isNaN(preco)) {
+    alert("Erro no preço do produto");
     return;
+  }
+
+  // 🔥 SÓ valida estoque se existir
+  if (estoque.hasOwnProperty(id)) {
+    if (estoque[id] <= 0) {
+      alert("Produto esgotado");
+      return;
+    }
   }
 
   let item = carrinho.find(p => p.id === id);
@@ -3977,9 +3992,9 @@ function addProduto(id, nome, preco) {
     item.qtd++;
   } else {
     carrinho.push({
-      id: id,
-      nome: nome,
-      preco: preco,
+      id,
+      nome,
+      preco,
       qtd: 1
     });
   }
