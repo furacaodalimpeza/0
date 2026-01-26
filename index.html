@@ -3992,13 +3992,16 @@ Versátil, eficiente e fácil de usar em casa.
     return;
   }
 
-  auth.signInWithEmailAndPassword(email, senha)
-    .then(() => {
-      alert("Admin logado com sucesso");
-    })
-    .catch(() => {
-      alert("E-mail ou senha inválidos");
-    });
+ auth.signInWithEmailAndPassword(email, senha)
+ .then((cred) => {
+  console.log("Login OK:", cred.user.uid);
+  alert("Admin logado com sucesso");
+  toggleLoginAdmin(); // 👈 FECHA A TELA DE LOGIN
+})
+  .catch((error) => {
+    console.error("ERRO LOGIN:", error.code, error.message);
+    alert(error.message);
+  });
 }
 
   let adminLogado = false;
@@ -4048,7 +4051,10 @@ auth.onAuthStateChanged(user => {
 
 let estoque = {};
 
-db.collection("estoque").onSnapshot(snapshot => {
+if (!window._estoqueListener) {
+  window._estoqueListener = true;
+
+  db.collection("estoque").onSnapshot(snapshot => {
   snapshot.forEach(doc => {
     estoque[doc.id] = doc.data().quantidade;
   });
@@ -4071,19 +4077,28 @@ async function baixarEstoquePedido() {
 
   if (carrinho.length === 0) return;
 
-  const batch = db.batch();
+  await db.runTransaction(async (transaction) => {
 
-  carrinho.forEach(item => {
-    if (estoque.hasOwnProperty(item.id)) {
+    for (const item of carrinho) {
+
       const ref = db.collection("estoque").doc(item.id);
+      const doc = await transaction.get(ref);
 
-      batch.update(ref, {
-        quantidade: firebase.firestore.FieldValue.increment(-item.qtd)
+      if (!doc.exists) {
+        throw "Produto não existe";
+      }
+
+      const qtdAtual = doc.data().quantidade;
+
+      if (qtdAtual < item.qtd) {
+        throw `Estoque insuficiente para ${item.nome}`;
+      }
+
+      transaction.update(ref, {
+        quantidade: qtdAtual - item.qtd
       });
     }
   });
-
-  await batch.commit();
 }
 
 let carrinho = [];
@@ -4268,9 +4283,9 @@ function filtrarProdutos() {
     const nomes = normalizarTexto(produto.dataset.nomes || "");
     const categoria = produto.closest(".categoria"); // pega a aba do produto
 
-    if (nomes.includes(filtro)) {
-      produto.style.display = "none";
-      produto.classList.add("encontrado");
+   if (nomes.includes(filtro)) {
+  produto.style.display = "block"; // ✅ mostra
+  produto.classList.add("encontrado");
       encontrou = true;
 
       // Guarda a primeira aba que contém produto encontrado
@@ -4426,10 +4441,10 @@ fecharModal();
   const abaAtiva = document.querySelector(".categoria.ativa");
   if (!abaAtiva) return;
 
-  abaAtiva.querySelectorAll(".produto").forEach(produto => {
-    produto.style.display = "none";
-    produto.classList.remove("encontrado");
-  });
+abaAtiva.querySelectorAll(".produto").forEach(produto => {
+  produto.style.display = "block";
+  produto.classList.remove("encontrado");
+});
 
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -4437,6 +4452,7 @@ fecharModal();
 // 🔥 volta sempre para Produtos de Limpeza
 document.addEventListener("DOMContentLoaded", () => {
   mostrarCategoria("limpeza", document.querySelector(".abas button"));
+    mostrarProdutosAbaAtiva();
   atualizarEstoqueTela();
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
@@ -4674,6 +4690,8 @@ window.addEventListener("scroll", () => {
 });
 
   function mostrarPainelAdmin() {
+  if (!isAdmin()) return; // 🔒 BLINDAGEM AQUI
+
   const painel = document.getElementById("painelAdmin");
   if (painel) painel.style.display = "block";
 }
@@ -4734,6 +4752,16 @@ function esconderPainelAdmin() {
       document.body.style.overflow = "hidden";
     }
   }
+
+    function mostrarProdutosAbaAtiva() {
+  const abaAtiva = document.querySelector(".categoria.ativa");
+  if (!abaAtiva) return;
+
+  abaAtiva.querySelectorAll(".produto").forEach(p => {
+    p.style.display = "block";
+  });
+}
+
 </script>
 
 
