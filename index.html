@@ -3962,23 +3962,22 @@ Versátil, eficiente e fácil de usar em casa.
   </div>
   </div> 
 
-<!-- FIREBASE -->
+<!-- FIREBASE COMPAT -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
 <script>
-  // 🔥 CONFIG FIREBASE
-  const firebaseConfig = {
-    apiKey: "AIzaSyA8-fpwjzmnJpNjyiPKadi7orolAZLZ0N8",
-    authDomain: "furacao-da-limpeza.firebaseapp.com",
-    projectId: "furacao-da-limpeza",
-    storageBucket: "furacao-da-limpeza.appspot.com",
-    messagingSenderId: "54403413522",
-    appId: "1:54403413522:web:4ffdf4e054d4ebdbcaccab"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyA8-fpwjznmJpNjyjPKadi7oroLA7LZ0N8",
+  authDomain: "furacao-da-limpeza.firebaseapp.com",
+  projectId: "furacao-da-limpeza",
+  storageBucket: "furacao-da-limpeza.appspot.com",
+  messagingSenderId: "54403413522",
+  appId: "1:54403413522:web:4ffdffe054d4ebdbaccacb"
+};
 
-  firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
   const db = firebase.firestore();
   const auth = firebase.auth();
