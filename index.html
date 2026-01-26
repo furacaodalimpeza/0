@@ -3935,6 +3935,13 @@ db.collection("estoque").onSnapshot(snapshot => {
   bloquearBotoesZerados();
 });
 
+
+function estoqueDisponivel(id) {
+  const item = carrinho.find(p => p.id === id);
+  const reservado = item ? item.qtd : 0;
+  return (estoque[id] ?? 0) - reservado;
+}
+
 async function baixarEstoquePedido() {
   const batch = db.batch();
 
@@ -3950,7 +3957,7 @@ async function baixarEstoquePedido() {
 
   await batch.commit();
 }
-  
+
 let carrinho = [];
 let totalGeral = 0;
 let ultimoTotal = 0;
@@ -3976,10 +3983,9 @@ function addProduto(id, nome, preco) {
   preco = Number(preco);
   if (isNaN(preco)) return;
 
-  // 🔥 só controla estoque se existir
   if (estoque.hasOwnProperty(id)) {
-    if (estoque[id] <= 0) {
-      alert("Produto esgotado");
+    if (estoqueDisponivel(id) <= 0) {
+      alert("Quantidade máxima em estoque atingida");
       return;
     }
   }
@@ -3993,8 +3999,9 @@ function addProduto(id, nome, preco) {
   }
 
   atualizar();
+  atualizarEstoqueTela();
+  bloquearBotoesZerados();
 }
-
   
 // FUNÇÃO PARA ATUALIZAR CARRINHO
 function atualizar() {
@@ -4163,13 +4170,26 @@ function toggleCarrinho() {
 
 // ALTERAR QUANTIDADE
 function alterarQtd(index, valor) {
-  carrinho[index].qtd += valor;
 
-  if (carrinho[index].qtd <= 0) {
+  const item = carrinho[index];
+
+  // 🔒 BLOQUEIA SE TENTAR PASSAR DO ESTOQUE
+  if (valor > 0 && estoque.hasOwnProperty(item.id)) {
+    if (estoqueDisponivel(item.id) <= 0) {
+      alert("Quantidade máxima em estoque atingida");
+      return;
+    }
+  }
+
+  item.qtd += valor;
+
+  if (item.qtd <= 0) {
     carrinho.splice(index, 1);
   }
 
   atualizar();
+  atualizarEstoqueTela(); // ✅ nome correto
+  bloquearBotoesZerados();
 }
 
 // REMOVER ITEM
@@ -4231,19 +4251,33 @@ Assim que confirmarmos, preparamos tudo com carinho para você 🙏✨
   // ✅ CODIFICA A MENSAGEM (ESSENCIAL)
   const msgFinal = encodeURIComponent(msg);
 
+  // 🔒 VALIDA ESTOQUE ANTES DE CONFIRMAR
+for (let item of carrinho) {
+  if (estoqueDisponivel(item.id) < 0) {
+    alert(
+      "⚠️ O estoque de um produto mudou.\n" +
+      "Atualize a página e refaça o pedido."
+    );
+    return;
+  }
+}
+
  try {
+  // 1️⃣ baixa o estoque no Firebase
   await baixarEstoquePedido();
-  console.log("✅ Estoque baixado");
+
 } catch (err) {
   alert("Erro ao atualizar estoque");
   console.error(err);
   return;
 }
 
-window.open(
-  "https://wa.me/5515996585967?text=" + msgFinal,
-  "_blank"
-);
+  setTimeout(() => {
+  window.open(
+    "https://wa.me/5515996585967?text=" + msgFinal,
+    "_blank"
+  );
+}, 300);
 
   // MOSTRA TELA DE SUCESSO
 document.getElementById("telaSucesso").style.display = "flex";
@@ -4293,8 +4327,14 @@ document.addEventListener("DOMContentLoaded", () => {
 function atualizarEstoqueTela() {
   for (let id in estoque) {
     const el = document.getElementById("estoque-" + id);
-    if (el) {
-      el.innerText = "📦 Estoque: " + estoque[id];
+    if (!el) continue;
+
+    const disponivel = estoqueDisponivel(id);
+
+    if (disponivel <= 0) {
+      el.innerText = "📦 Esgotado";
+    } else {
+      el.innerText = "📦 Estoque: " + disponivel;
     }
   }
 }
