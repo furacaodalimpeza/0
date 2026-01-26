@@ -4021,12 +4021,13 @@ Versátil, eficiente e fácil de usar em casa.
 
 auth.onAuthStateChanged(user => {
 
-  if (!user) {
-    adminLogado = false;
-    esconderPainelAdmin();
-    document.getElementById("loginAdmin").style.display = "none";
-    return;
-  }
+ if (!user) {
+  adminLogado = false;
+  esconderPainelAdmin();
+  document.getElementById("loginAdmin").style.display = "none";
+  document.body.style.overflow = "auto"; // ✅ DESCONGELA
+  return;
+}
 
   db.collection("admins").doc(user.uid).get().then(doc => {
     if (doc.exists) {
@@ -4040,6 +4041,7 @@ auth.onAuthStateChanged(user => {
   adminLogado = false;
   esconderPainelAdmin();
   document.getElementById("loginAdmin").style.display = "none";
+      document.body.style.overflow = "auto"; // ✅ DESCONGELA
   alert("Este usuário não é administrador");
   auth.signOut(); // 🔴 ADICIONE ESTA LINHA
       document.getElementById("btnAdminFlutuante").style.display = "block";
@@ -4055,17 +4057,18 @@ if (!window._estoqueListener) {
   window._estoqueListener = true;
 
   db.collection("estoque").onSnapshot(snapshot => {
-  snapshot.forEach(doc => {
-    estoque[doc.id] = doc.data().quantidade;
+    snapshot.forEach(doc => {
+      estoque[doc.id] = doc.data().quantidade;
+    });
+
+    atualizarEstoqueTela();
+    bloquearBotoesZerados();
+
+    if (isAdmin()) {
+      carregarEstoqueAdmin();
+    }
   });
-
-  atualizarEstoqueTela();
-  bloquearBotoesZerados();
-
-  if (isAdmin()) {
-    carregarEstoqueAdmin();
-  }
-});
+} // 👈 FECHA O IF AQUI
 
 function estoqueDisponivel(id) {
   const item = carrinho.find(p => p.id === id);
