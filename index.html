@@ -1117,38 +1117,56 @@ input[type="search"]::-webkit-search-cancel-button {
   margin-bottom: 15px;
 }
 
-  /* 🔐 LOGIN ADMIN FLUTUANTE */
-.login-admin-flutuante {
+ /* 🔐 BOTÃO ADMIN FLUTUANTE */
+#btnAdminFlutuante {
   position: fixed;
-  bottom: 90px; /* fica acima do carrinho */
+  bottom: 90px;
   right: 20px;
-  background: #ffffff;
-  padding: 18px;
-  border-radius: 14px;
-  width: 260px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #1e88e5;
+  color: #fff;
+  font-size: 22px;
+  border: none;
+  cursor: pointer;
   z-index: 9999;
-  display: none;
 }
 
-/* inputs */
-.login-admin-flutuante input {
+/* 🔐 MODAL LOGIN ADMIN */
+.login-admin-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.login-admin-modal h2 {
+  text-align: center;
+}
+
+.login-admin-modal input {
   width: 100%;
-  padding: 8px;
-  margin-bottom: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
   border-radius: 8px;
   border: 1px solid #ccc;
 }
 
-/* botão */
-.login-admin-flutuante button {
-  width: 100%;
-  padding: 8px;
-  border-radius: 8px;
-  border: none;
-  background: #1e88e5;
-  color: #fff;
-  font-weight: bold;
+.login-admin-modal > * {
+  background: #fff;
+  padding: 20px;
+  border-radius: 14px;
+  width: 280px;
+}
+
+/* botão fechar */
+.login-admin-modal .fechar {
+  margin-top: 10px;
+  background: #ccc;
 }
 
 </style>
@@ -3971,7 +3989,7 @@ auth.onAuthStateChanged(user => {
   if (!user) {
     adminLogado = false;
     esconderPainelAdmin();
-    document.getElementById("loginAdmin").style.display = "block";
+    document.getElementById("loginAdmin").style.display = "none";
     return;
   }
 
@@ -3982,12 +4000,14 @@ auth.onAuthStateChanged(user => {
       carregarEstoqueAdmin();
       document.getElementById("loginAdmin").style.display = "none";
       console.log("ADMIN LOGADO");
+      document.getElementById("btnAdminFlutuante").style.display = "none";
   } else {
   adminLogado = false;
   esconderPainelAdmin();
-  document.getElementById("loginAdmin").style.display = "block";
+  document.getElementById("loginAdmin").style.display = "none";
   alert("Este usuário não é administrador");
   auth.signOut(); // 🔴 ADICIONE ESTA LINHA
+      document.getElementById("btnAdminFlutuante").style.display = "block";
 }
 
   });
@@ -4217,7 +4237,7 @@ function filtrarProdutos() {
     const categoria = produto.closest(".categoria"); // pega a aba do produto
 
     if (nomes.includes(filtro)) {
-      produto.style.display = "block";
+      produto.style.display = "none";
       produto.classList.add("encontrado");
       encontrou = true;
 
@@ -4236,7 +4256,7 @@ function filtrarProdutos() {
   }
 
   mensagem.style.display = encontrou ? "none" : "block";
-  limpar.style.display = "block";
+  limpar.style.display = "none";
 }
 
   // ABRIR / FECHAR CARRINHO
@@ -4375,7 +4395,7 @@ fecharModal();
   if (!abaAtiva) return;
 
   abaAtiva.querySelectorAll(".produto").forEach(produto => {
-    produto.style.display = "block";
+    produto.style.display = "none";
     produto.classList.remove("encontrado");
   });
 
@@ -4461,7 +4481,7 @@ document.querySelectorAll(".avaliar-loja .estrelas span")
     "Obrigado pela sua avaliação 💙";
   
   document.getElementById("boxAvaliacao").style.display = "none";
-document.getElementById("msgObrigadoAvaliacao").style.display = "block";
+document.getElementById("msgObrigadoAvaliacao").style.display = "none";
 
   return;
 }
@@ -4666,10 +4686,32 @@ function esconderPainelAdmin() {
 }
 
 </script>
+  <script>
+  function toggleLoginAdmin() {
+    const modal = document.getElementById("loginAdmin");
 
-  <!-- 🔐 LOGIN ADMIN -->
-<!-- 🔐 LOGIN ADMIN FLUTUANTE -->
-<div id="loginAdmin" class="login-admin-flutuante">
+    if (!modal) return;
+
+   if (modal.style.display === "flex") {
+  modal.style.display = "none";
+  document.body.style.overflow = "auto";
+  document.getElementById("emailAdmin").value = "";
+  document.getElementById("senhaAdmin").value = "";
+    } else {
+      modal.style.display = "flex";
+      document.body.style.overflow = "hidden";
+    }
+  }
+</script>
+
+
+ <!-- 🔐 BOTÃO ADMIN FLUTUANTE -->
+<button id="btnAdminFlutuante" onclick="toggleLoginAdmin()">
+  🔐
+</button>
+
+<!-- 🔐 LOGIN ADMIN (MODAL) -->
+<div id="loginAdmin" class="login-admin-modal">
 
   <h2>🔐 Login Admin</h2>
 
@@ -4677,19 +4719,17 @@ function esconderPainelAdmin() {
     type="email"
     id="emailAdmin"
     placeholder="E-mail"
-    style="width:100%; margin-bottom:10px;"
   >
 
   <input
     type="password"
     id="senhaAdmin"
     placeholder="Senha"
-    style="width:100%; margin-bottom:10px;"
   >
 
-  <button onclick="loginAdmin()">
-    Entrar
-  </button>
+  <button onclick="loginAdmin()">Entrar</button>
+
+  <button class="fechar" onclick="toggleLoginAdmin()">Fechar</button>
 
 </div>
 
