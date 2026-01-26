@@ -1117,56 +1117,88 @@ input[type="search"]::-webkit-search-cancel-button {
   margin-bottom: 15px;
 }
 
- /* 🔐 BOTÃO ADMIN FLUTUANTE */
 #btnAdminFlutuante {
   position: fixed;
-  bottom: 90px;
-  right: 20px;
-  width: 50px;
-  height: 50px;
+  bottom: 20px;
+  left: 20px; /* 👈 canto inferior esquerdo */
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
-  background: #1e88e5;
+  background: linear-gradient(135deg, #1e88e5, #42a5f5);
   color: #fff;
   font-size: 22px;
   border: none;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
   cursor: pointer;
   z-index: 9999;
 }
 
-/* 🔐 MODAL LOGIN ADMIN */
-.login-admin-modal {
+  .login-admin-modal {
+  display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.5);
-  display: none;
+  background: rgba(0,0,0,0.6);
+  z-index: 10000;
   align-items: center;
   justify-content: center;
-  z-index: 10000;
 }
 
-.login-admin-modal h2 {
+.login-admin-box {
+  background: #fff;
+  width: 90%;
+  max-width: 320px;
+  padding: 25px;
+  border-radius: 16px;
   text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  animation: aparecer 0.3s ease;
 }
 
-.login-admin-modal input {
+.login-header {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #1e88e5;
+}
+
+.login-admin-box input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+.btn-entrar {
+  width: 100%;
+  padding: 12px;
+  background: #1e88e5;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.btn-fechar {
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+  background: #eee;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
 }
 
-.login-admin-modal > * {
-  background: #fff;
-  padding: 20px;
-  border-radius: 14px;
-  width: 280px;
-}
-
-/* botão fechar */
-.login-admin-modal .fechar {
-  margin-top: 10px;
-  background: #ccc;
+@keyframes aparecer {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 </style>
@@ -4713,23 +4745,17 @@ function esconderPainelAdmin() {
 <!-- 🔐 LOGIN ADMIN (MODAL) -->
 <div id="loginAdmin" class="login-admin-modal">
 
-  <h2>🔐 Login Admin</h2>
+  <div class="login-admin-box">
+    <div class="login-header">
+      🔐 Login Admin
+    </div>
 
-  <input
-    type="email"
-    id="emailAdmin"
-    placeholder="E-mail"
-  >
+    <input type="email" id="emailAdmin" placeholder="📧 E-mail">
+    <input type="password" id="senhaAdmin" placeholder="🔑 Senha">
 
-  <input
-    type="password"
-    id="senhaAdmin"
-    placeholder="Senha"
-  >
-
-  <button onclick="loginAdmin()">Entrar</button>
-
-  <button class="fechar" onclick="toggleLoginAdmin()">Fechar</button>
+    <button class="btn-entrar" onclick="loginAdmin()">Entrar</button>
+    <button class="btn-fechar" onclick="toggleLoginAdmin()">Fechar</button>
+  </div>
 
 </div>
 
