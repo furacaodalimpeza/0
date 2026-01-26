@@ -3939,11 +3939,13 @@ async function baixarEstoquePedido() {
   const batch = db.batch();
 
   carrinho.forEach(item => {
-    const ref = db.collection("estoque").doc(item.id);
+    if (estoque.hasOwnProperty(item.id)) {
+      const ref = db.collection("estoque").doc(item.id);
 
-    batch.update(ref, {
-      quantidade: firebase.firestore.FieldValue.increment(-item.qtd)
-    });
+      batch.update(ref, {
+        quantidade: firebase.firestore.FieldValue.increment(-item.qtd)
+      });
+    }
   });
 
   await batch.commit();
@@ -3971,14 +3973,10 @@ function bloquearBotoesZerados() {
 
 function addProduto(id, nome, preco) {
 
-  // 🔒 Garante que o preço é número
   preco = Number(preco);
-  if (isNaN(preco)) {
-    alert("Erro no preço do produto");
-    return;
-  }
+  if (isNaN(preco)) return;
 
-  // 🔥 SÓ valida estoque se existir
+  // 🔥 só controla estoque se existir
   if (estoque.hasOwnProperty(id)) {
     if (estoque[id] <= 0) {
       alert("Produto esgotado");
@@ -3991,16 +3989,12 @@ function addProduto(id, nome, preco) {
   if (item) {
     item.qtd++;
   } else {
-    carrinho.push({
-      id,
-      nome,
-      preco,
-      qtd: 1
-    });
+    carrinho.push({ id, nome, preco, qtd: 1 });
   }
 
   atualizar();
 }
+
   
 // FUNÇÃO PARA ATUALIZAR CARRINHO
 function atualizar() {
