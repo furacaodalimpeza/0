@@ -4172,8 +4172,10 @@ async function baixarEstoquePedido() {
       const ref = db.collection("estoque").doc(item.id);
       const doc = await transaction.get(ref);
 
+      // 🔥 Se o produto NÃO tiver controle de estoque, ignora
       if (!doc.exists) {
-        throw `Produto ${item.id} não existe no estoque`;
+        console.log("Produto sem controle de estoque:", item.nome);
+        continue;
       }
 
       const qtdAtual = Number(doc.data().quantidade) || 0;
@@ -4186,6 +4188,7 @@ async function baixarEstoquePedido() {
         quantidade: qtdAtual - item.qtd
       });
     }
+
   });
 }
 
@@ -4486,9 +4489,9 @@ Assim que confirmarmos, preparamos tudo com carinho para você 🙏✨
   // 1️⃣ baixa o estoque no Firebase
   await baixarEstoquePedido();
 
-} catch (err) {
-  alert("Erro ao atualizar estoque");
-  console.error(err);
+catch (err) {
+  alert("ERRO: " + err);
+  console.error("ERRO COMPLETO:", err);
   return;
 }
 
