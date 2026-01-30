@@ -3052,7 +3052,7 @@ data-nomes="creolinha, desinfetante forte, limpeza pesada">
 </div>
     
 </div>
-  
+    
 <div class="produto casa"
      data-nomes="varal de chao com abas, varal roupa, lavanderia">
 
@@ -4173,10 +4173,10 @@ async function baixarEstoquePedido() {
       const doc = await transaction.get(ref);
 
       if (!doc.exists) {
-        throw "Produto não existe";
+        throw `Produto ${item.id} não existe no estoque`;
       }
 
-      const qtdAtual = doc.data().quantidade;
+      const qtdAtual = Number(doc.data().quantidade) || 0;
 
       if (qtdAtual < item.qtd) {
         throw `Estoque insuficiente para ${item.nome}`;
