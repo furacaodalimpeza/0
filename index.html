@@ -4485,11 +4485,10 @@ Assim que confirmarmos, preparamos tudo com carinho para você 🙏✨
   // ✅ CODIFICA A MENSAGEM (ESSENCIAL)
   const msgFinal = encodeURIComponent(msg);
 
- try {
+try {
   // 1️⃣ baixa o estoque no Firebase
   await baixarEstoquePedido();
-
-catch (err) {
+} catch (err) {
   alert("ERRO: " + err);
   console.error("ERRO COMPLETO:", err);
   return;
