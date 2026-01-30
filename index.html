@@ -4753,15 +4753,16 @@ function responderAvaliacao(idDoc) {
 
         function renderEstrelas(nota) {
   let html = "";
+  nota = Math.round(nota); // 🔥 força número inteiro
+
   for (let i = 1; i <= 5; i++) {
     if (nota >= i) {
       html += `<span class="estrela cheia">★</span>`;
-    } else if (nota >= i - 0.5) {
-      html += `<span class="estrela meia">★</span>`;
     } else {
       html += `<span class="estrela vazia">★</span>`;
     }
   }
+
   return html;
 }
 
@@ -4994,42 +4995,34 @@ const estrelas = document.querySelectorAll(".avaliar-loja .estrelas span");
 
 function atualizarEstrelas(nota) {
   estrelas.forEach((estrela, i) => {
-    estrela.classList.remove("ativa", "meia");
-
-    const valor = i + 1;
-
-    if (nota >= valor) {
+    estrela.classList.remove("ativa");
+    if (i < nota) {
       estrela.classList.add("ativa");
-    } else if (nota >= valor - 0.5) {
-      estrela.classList.add("meia");
     }
   });
 }
 
-// CLIQUE COM MEIA ESTRELA
+// clique normal (apenas inteiro)
 estrelas.forEach((estrela, i) => {
-  estrela.addEventListener("click", (e) => {
-    const largura = estrela.offsetWidth;
-    const pos = e.offsetX;
-
-    // metade esquerda = meia | direita = cheia
-    estrelaSelecionada =
-      pos < largura / 2 ? i + 0.5 : i + 1;
-
+  estrela.addEventListener("click", () => {
+    estrelaSelecionada = i + 1;
     atualizarEstrelas(estrelaSelecionada);
   });
 
-  // HOVER COM MEIA
-  estrela.addEventListener("mousemove", (e) => {
-    const largura = estrela.offsetWidth;
-    const pos = e.offsetX;
-
-    const preview =
-      pos < largura / 2 ? i + 0.5 : i + 1;
-
-    atualizarEstrelas(preview);
+  // efeito hover
+  estrela.addEventListener("mouseenter", () => {
+    atualizarEstrelas(i + 1);
   });
 });
+
+// volta para nota salva
+document
+  .querySelector(".avaliar-loja .estrelas")
+  .addEventListener("mouseleave", () => {
+    atualizarEstrelas(estrelaSelecionada);
+  });
+
+atualizarEstrelas(0);
 
 // VOLTA PARA A NOTA SALVA
 document
