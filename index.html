@@ -1201,12 +1201,23 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 }
 
-  #avaliacoesSeparadas > div {
-  background: #fff;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+ .filtro-avaliacoes {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+
+.filtro-avaliacoes span {
+  background: #f2f2f2;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.filtro-avaliacoes span:hover {
+  background: gold;
 }
 
   #sugestoesMaisVendidos {
@@ -1308,72 +1319,171 @@ input[type="search"]::-webkit-search-cancel-button {
 <!-- produtos limpeza -->
 <div class="produto limpeza"
      data-nomes="desinfetante cha branco, desinfetante chá branco, cha branco concentrado, chá branco concentrado, desinfetante concentrado, desinfetante perfumado">
-  
-  <img src="img/desinfetante-cha.jpg" alt="Desinfetante Chá Branco">
+
+  <img src="img/desinfetante-cha.jpg" alt="Desinfetante Concentrado Chá Branco">
   <span class="icone-busca">🔍</span>
-<h3>Desinfetante Concentrado Chá Branco</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 10,00</span>
-   <button onclick="addProduto('desinfetante-cha-2l','Desinfetante Chá Branco 2L',10)">Adicionar</button>
-  </div>
-  <div class="linha"> 
-    <span>5L — R$ 24,00</span>
-<button onclick="addProduto('desinfetante-cha-5l','Desinfetante Chá Branco 5L',24)">Adicionar</button>
+
+  <h3>Desinfetante Concentrado Chá Branco</h3>
+
+  <div class="variacoes">
+
+    <div class="linha">
+      <span>2L — R$ 10,00</span>
+      <button onclick="addProduto(
+        'desinfetante-cha-2l',
+        'Desinfetante Concentrado Chá Branco',
+        10,
+        'img/desinfetante-cha.jpg',
+        [
+          { tamanho: '2L', preco: 10 },
+          { tamanho: '5L', preco: 24 }
+        ],
+        '2L'
+      )">
+        Adicionar
+      </button>
+    </div>
+
+    <div class="linha">
+      <span>5L — R$ 24,00</span>
+      <button onclick="addProduto(
+        'desinfetante-cha-5l',
+        'Desinfetante Concentrado Chá Branco',
+        24,
+        'img/desinfetante-cha.jpg',
+        [
+          { tamanho: '2L', preco: 10 },
+          { tamanho: '5L', preco: 24 }
+        ],
+        '5L'
+      )">
+        Adicionar
+      </button>
+    </div>
+
   </div>
 </div>
-</div>
+
     
-  <div class="produto limpeza"
-data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, top flour">
-  
-   <img src="img/desinfetante-top.jpg" alt="Desinfetante Top Flour">
-  <span class="icone-busca">🔍</span>
+ <div class="produto limpeza"
+data-nomes="desinfetante, top flour, limpa tudo, limpeza">
+
+<img src="img/desinfetante-top.jpg" alt="Desinfetante Top Flour">
+<span class="icone-busca">🔍</span>
+
 <h3>Desinfetante Top Flour</h3>
+
 <div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 6,00</span>
-    <button onclick="addProduto('desinfetante-top-2l','Desinfetante Top Flour 2L',6)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>5L — R$ 15,00</span>
-    <button onclick="addProduto('desinfetante-top-5l','Desinfetante Top Flour 5L',15)">Adicionar</button>
-  </div>
+
+<div class="linha">
+<span>2L — R$ 6,00</span>
+<button onclick="addProduto(
+'desinfetante-top-2l',
+'Desinfetante Top Flour',
+6,
+'img/desinfetante-top.jpg',
+[
+{ tamanho: '2L', preco: 6 },
+{ tamanho: '5L', preco: 15 }
+],
+'2L'
+)">Adicionar</button>
+</div>
+
+<div class="linha">
+<span>5L — R$ 15,00</span>
+<button onclick="addProduto(
+'desinfetante-top-5l',
+'Desinfetante Top Flour',
+15,
+'img/desinfetante-top.jpg',
+[
+{ tamanho: '2L', preco: 6 },
+{ tamanho: '5L', preco: 15 }
+],
+'5L'
+)">Adicionar</button>
+</div>
+
 </div>
 </div>
 
 <div class="produto limpeza"
 data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, jorge tadeu">
-  
- <img src="img/jorge-tadeu.jpg" alt="Desinfetante Jorge Tadeu">
-  <span class="icone-busca">🔍</span>
+
+<img src="img/jorge-tadeu.jpg" alt="Desinfetante Jorge Tadeu">
+<span class="icone-busca">🔍</span>
+
 <h3>Desinfetante Jorge Tadeu</h3>
+
 <div class="variacoes">
   <div class="linha">
     <span>2L — R$ 6,00</span>
-  <button onclick="addProduto('desinfetante-jorge-tadeu-2l','Desinfetante Jorgew Tadeu 2L',6)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-jorge-tadeu-2l',
+      'Desinfetante Jorge Tadeu',
+      6,
+      'img/jorge-tadeu.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '2L'
+    )">Adicionar</button>
   </div>
   <div class="linha">
     <span>5L — R$ 15,00</span>
-    <button onclick="addProduto('desinfetante-jorge-tadeu-5l','Desinfetante Jorge Tadeu 5L',15)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-jorge-tadeu-5l',
+      'Desinfetante Jorge Tadeu',
+      15,
+      'img/jorge-tadeu.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '5L'
+    )">Adicionar</button>
   </div>
 </div>
 </div>
-  
+
 <div class="produto limpeza"
 data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, amazon">
 
-   <img src="img/desinfetante-amazon.jpg" alt="Desinfetante Amazon">
-  <span class="icone-busca">🔍</span>
+<img src="img/desinfetante-amazon.jpg" alt="Desinfetante Amazon">
+<span class="icone-busca">🔍</span>
+
 <h3>Desinfetante Amazon</h3>
+
 <div class="variacoes">
   <div class="linha">
     <span>2L — R$ 6,00</span>
-    <button onclick="addProduto('desinfetante-amazon-2l','Desinfetante Amazon 2L',6)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-amazon-2l',
+      'Desinfetante Amazon',
+      6,
+      'img/desinfetante-amazon.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '2L'
+    )">Adicionar</button>
   </div>
   <div class="linha">
     <span>5L — R$ 15,00</span>
-    <button onclick="addProduto('desinfetante-amazon-5l','Desinfetante Amazon 5L',15)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-amazon-5l',
+      'Desinfetante Amazon',
+      15,
+      'img/desinfetante-amazon.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '5L'
+    )">Adicionar</button>
   </div>
 </div>
 </div>
@@ -1381,53 +1491,119 @@ data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de 
 <div class="produto limpeza"
 data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, bambu">
 
-  <img src="img/desinfetante-bambu.jpg" alt="Desinfetante Bambu">
-  <span class="icone-busca">🔍</span>
-  <h3>Desinfetante Bambu</h3>
+<img src="img/desinfetante-bambu.jpg" alt="Desinfetante Bambu">
+<span class="icone-busca">🔍</span>
+
+<h3>Desinfetante Bambu</h3>
+
 <div class="variacoes">
   <div class="linha">
     <span>2L — R$ 6,00</span>
-      <button onclick="addProduto('desinfetante-bambu-2l','Desinfetante Bambu 2L',6)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-bambu-2l',
+      'Desinfetante Bambu',
+      6,
+      'img/desinfetante-bambu.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '2L'
+    )">Adicionar</button>
   </div>
   <div class="linha">
     <span>5L — R$ 15,00</span>
-      <button onclick="addProduto('desinfetante-bambu-5l','Desinfetante Bambu 5L',15)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-bambu-5l',
+      'Desinfetante Bambu',
+      15,
+      'img/desinfetante-bambu.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '5L'
+    )">Adicionar</button>
   </div>
 </div>
 </div>
 
 <div class="produto limpeza"
 data-nomes="desinfetante pinho sol, desinfetante, limpeza, cheiroso">
-  
-  <img src="img/desinfetante-pinho.jpg" alt="Desinfetante Pinho Sol">
-  <span class="icone-busca">🔍</span>
+
+<img src="img/desinfetante-pinho.jpg" alt="Desinfetante Pinho Sol">
+<span class="icone-busca">🔍</span>
+
 <h3>Desinfetante Pinho Sol</h3>
+
 <div class="variacoes">
   <div class="linha">
     <span>2L — R$ 6,00</span>
-    <button onclick="addProduto('desinfetante-pinho-sol-2l','Desinfetante Pinho Sol 2L',6)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-pinho-sol-2l',
+      'Desinfetante Pinho Sol',
+      6,
+      'img/desinfetante-pinho.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '2L'
+    )">Adicionar</button>
   </div>
   <div class="linha">
     <span>5L — R$ 15,00</span>
-    <button onclick="addProduto('desinfetante-pinho-sol-5l','Desinfetante Pinho Sol 5L',15)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-pinho-sol-5l',
+      'Desinfetante Pinho Sol',
+      15,
+      'img/desinfetante-pinho.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '5L'
+    )">Adicionar</button>
   </div>
 </div>
 </div>
     
 <div class="produto limpeza"
 data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, casa limpa">
-  
-  <img src="img/desinfetante-casa.jpg" alt="Desinfetante Casa limpa">
-  <span class="icone-busca">🔍</span>
+
+<img src="img/desinfetante-casa.jpg" alt="Desinfetante Casa Limpa">
+<span class="icone-busca">🔍</span>
+
 <h3>Desinfetante Casa Limpa</h3>
+
 <div class="variacoes">
   <div class="linha">
     <span>2L — R$ 6,00</span>
-    <button onclick="addProduto('desinfetante-casa-limpa-2l','Desinfetante Casa Limpa 2L',6)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-casa-limpa-2l',
+      'Desinfetante Casa Limpa',
+      6,
+      'img/desinfetante-casa.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '2L'
+    )">Adicionar</button>
   </div>
   <div class="linha">
     <span>5L — R$ 15,00</span>
-    <button onclick="addProduto('desinfetante-casa-limpa-5l','Desinfetante Casa Limpa 5L',15)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-casa-limpa-5l',
+      'Desinfetante Casa Limpa',
+      15,
+      'img/desinfetante-casa.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '5L'
+    )">Adicionar</button>
   </div>
 </div>
 </div>
@@ -1435,130 +1611,301 @@ data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de 
 <div class="produto limpeza"
 data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, dove">
 
-  <img src="img/desinfetante-dove.jpg" alt="Desinfetante Dove">
-  <span class="icone-busca">🔍</span>
+<img src="img/desinfetante-dove.jpg" alt="Desinfetante Dove">
+<span class="icone-busca">🔍</span>
+
 <h3>Desinfetante Dove</h3>
+
 <div class="variacoes">
   <div class="linha">
     <span>2L — R$ 6,00</span>
-   <button onclick="addProduto('desinfetante-dove-2l','Desinfetante Dove 2L',6)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-dove-2l',
+      'Desinfetante Dove',
+      6,
+      'img/desinfetante-dove.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '2L'
+    )">Adicionar</button>
   </div>
   <div class="linha">
     <span>5L — R$ 15,00</span>
-   <button onclick="addProduto('desinfetante-dove-5l','Desinfetante Dove 5L',15)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-dove-5l',
+      'Desinfetante Dove',
+      15,
+      'img/desinfetante-dove.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '5L'
+    )">Adicionar</button>
   </div>
 </div>
 </div>
 
 <div class="produto limpeza"
 data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, eucalipto">
-  
-  <img src="img/desinfetante-eucalipto.jpg" alt="Desinfetante Eucalipto">
-  <span class="icone-busca">🔍</span>
+
+<img src="img/desinfetante-eucalipto.jpg" alt="Desinfetante Eucalipto">
+<span class="icone-busca">🔍</span>
+
 <h3>Desinfetante Eucalipto</h3>
+
 <div class="variacoes">
   <div class="linha">
     <span>2L — R$ 6,00</span>
-<button onclick="addProduto('desinfetante-eucalipto-2l','Desinfetante Eucalipto 2L',6)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-eucalipto-2l',
+      'Desinfetante Eucalipto',
+      6,
+      'img/desinfetante-eucalipto.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '2L'
+    )">Adicionar</button>
   </div>
   <div class="linha">
     <span>5L — R$ 15,00</span>
-  <button onclick="addProduto('desinfetante-eucalipto-5l','Desinfetante Eucalipto 5L',15)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-eucalipto-5l',
+      'Desinfetante Eucalipto',
+      15,
+      'img/desinfetante-eucalipto.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '5L'
+    )">Adicionar</button>
   </div>
 </div>
 </div>
 
 <div class="produto limpeza"
 data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, jasmin">
-  
-  <img src="img/desinfetante-jasmin.jpg" alt="Desinfetante Jasmin">
-  <span class="icone-busca">🔍</span>
+
+<img src="img/desinfetante-jasmin.jpg" alt="Desinfetante Jasmin">
+<span class="icone-busca">🔍</span>
+
 <h3>Desinfetante Jasmin</h3>
+
 <div class="variacoes">
   <div class="linha">
     <span>2L — R$ 6,00</span>
-<button onclick="addProduto('desinfetante-jasmin-2l','Desinfetante Jasmin 2L',6)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-jasmin-2l',
+      'Desinfetante Jasmin',
+      6,
+      'img/desinfetante-jasmin.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '2L'
+    )">Adicionar</button>
   </div>
   <div class="linha">
     <span>5L — R$ 15,00</span>
-<button onclick="addProduto('desinfetante-jasmin-5l','Desinfetante Jasmin 5L',15)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-jasmin-5l',
+      'Desinfetante Jasmin',
+      15,
+      'img/desinfetante-jasmin.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '5L'
+    )">Adicionar</button>
   </div>
 </div>
 </div>
 
 <div class="produto limpeza"
 data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, lavanda">
-  
-  <img src="img/desinfetante-lavanda.jpg" alt="Desinfetante Lavanda">
-  <span class="icone-busca">🔍</span>
+
+<img src="img/desinfetante-lavanda.jpg" alt="Desinfetante Lavanda">
+<span class="icone-busca">🔍</span>
+
 <h3>Desinfetante Lavanda</h3>
+
 <div class="variacoes">
   <div class="linha">
     <span>2L — R$ 6,00</span>
-  <button onclick="addProduto('desinfetante-lavanda-2l','Desinfetante Lavanda 2L',6)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-lavanda-2l',
+      'Desinfetante Lavanda',
+      6,
+      'img/desinfetante-lavanda.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '2L'
+    )">Adicionar</button>
   </div>
   <div class="linha">
     <span>5L — R$ 15,00</span>
-     <button onclick="addProduto('desinfetante-lavanda-5l','Desinfetante Lavanda 5L',15)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-lavanda-5l',
+      'Desinfetante Lavanda',
+      15,
+      'img/desinfetante-lavanda.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '5L'
+    )">Adicionar</button>
   </div>
 </div>
 </div>
 
 <div class="produto limpeza"
-   data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, talco">
-  
-  <img src="img/desinfetante-talco.jpg" alt="Desinfetante Talco">
-  <span class="icone-busca">🔍</span>
+data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, talco">
+
+<img src="img/desinfetante-talco.jpg" alt="Desinfetante Talco">
+<span class="icone-busca">🔍</span>
+
 <h3>Desinfetante Talco</h3>
+
 <div class="variacoes">
   <div class="linha">
     <span>2L — R$ 6,00</span>
-<button onclick="addProduto('desinfetante-talco-2l','Desinfetante Talco 2L',6)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-talco-2l',
+      'Desinfetante Talco',
+      6,
+      'img/desinfetante-talco.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '2L'
+    )">Adicionar</button>
   </div>
   <div class="linha">
     <span>5L — R$ 15,00</span>
-<button onclick="addProduto('desinfetante-talco-5l','Desinfetante Talco 5L',15)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-talco-5l',
+      'Desinfetante Talco',
+      15,
+      'img/desinfetante-talco.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '5L'
+    )">Adicionar</button>
   </div>
 </div>
 </div>
 
 <div class="produto limpeza"
-     data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, algas">
-  
-  <img src="img/desinfetante-algas.jpg" alt="Desinfetante Algas">
-  <span class="icone-busca">🔍</span>
+data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, algas">
+
+<img src="img/desinfetante-algas.jpg" alt="Desinfetante Algas">
+<span class="icone-busca">🔍</span>
+
 <h3>Desinfetante Algas</h3>
+
 <div class="variacoes">
   <div class="linha">
     <span>2L — R$ 6,00</span>
-<button onclick="addProduto('desinfetante-algas-2l','Desinfetante Algas 2L',6)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-algas-2l',
+      'Desinfetante Algas',
+      6,
+      'img/desinfetante-algas.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '2L'
+    )">Adicionar</button>
   </div>
   <div class="linha">
     <span>5L — R$ 15,00</span>
-<button onclick="addProduto('desinfetante-algas-5l','Desinfetante Algas 5L',15)">Adicionar</button>
+    <button onclick="addProduto(
+      'desinfetante-algas-5l',
+      'Desinfetante Algas',
+      15,
+      'img/desinfetante-algas.jpg',
+      [
+        { tamanho: '2L', preco: 6 },
+        { tamanho: '5L', preco: 15 }
+      ],
+      '5L'
+    )">Adicionar</button>
   </div>
 </div>
 </div>
     
     <div class="produto casa"
-     data-nomes="lysoform, lisoform, desinfetante lisoform, desinfetante lysoform, desinfecção, limpeza, casa, banheiro">
-  
+data-nomes="lysoform, desinfetante lysoform, lisoform">
+
 <img src="img/lysoform.jpg" alt="Lysoform Desinfetante">
-  <span class="icone-busca">🔍</span>
+<span class="icone-busca">🔍</span>
+
 <h3>Lysoform Desinfetante</h3>
+
 <div class="variacoes">
-  <div class="linha">
-    <span>Original 1L — R$ 18,00</span>
-<button onclick="addProduto('lysoform-original-1l','Lysoform Original 1L',18)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>Lavanda 1L — R$ 18,00</span>
-<button onclick="addProduto('lysoform-lavanda-1l','Lysoform Lavanda 1L',22)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>Citrus 1L — R$ 18,00</span>
-<button onclick="addProduto('lysoform-citrus-1l','Lysoform Citrus 1L',18)">Adicionar</button>
-  </div>
+
+<div class="linha">
+<span>Original 1L — R$ 18,00</span>
+<button onclick="addProduto(
+'lysoform-original-1l',
+'Lysoform Desinfetante',
+18,
+'img/lysoform.jpg',
+[
+{ tamanho: 'Original 1L', preco: 18 },
+{ tamanho: 'Lavanda 1L', preco: 22 },
+{ tamanho: 'Citrus 1L', preco: 18 }
+],
+'Original 1L'
+)">Adicionar</button>
+</div>
+
+<div class="linha">
+<span>Lavanda 1L — R$ 22,00</span>
+<button onclick="addProduto(
+'lysoform-lavanda-1l',
+'Lysoform Desinfetante',
+22,
+'img/lysoform.jpg',
+[
+{ tamanho: 'Original 1L', preco: 18 },
+{ tamanho: 'Lavanda 1L', preco: 22 },
+{ tamanho: 'Citrus 1L', preco: 18 }
+],
+'Lavanda 1L'
+)">Adicionar</button>
+</div>
+
+<div class="linha">
+<span>Citrus 1L — R$ 18,00</span>
+<button onclick="addProduto(
+'lysoform-citrus-1l',
+'Lysoform Desinfetante',
+18,
+'img/lysoform.jpg',
+[
+{ tamanho: 'Original 1L', preco: 18 },
+{ tamanho: 'Lavanda 1L', preco: 22 },
+{ tamanho: 'Citrus 1L', preco: 18 }
+],
+'Citrus 1L'
+)">Adicionar</button>
+</div>
+
 </div>
 </div>
 
@@ -1609,374 +1956,765 @@ data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de 
 
 <div class="produto limpeza"
      data-nomes="candida, cândida, agua sanitaria, água sanitária, cloro, limpeza pesada, branqueador, limpeza">
-  
+
   <img src="img/candida.jpg" alt="Candida">
   <span class="icone-busca">🔍</span>
-<h3>Candida</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 6,00</span>
-<button onclick="addProduto('candida-2l','Candida 2L',6)">Adicionar</button>
+
+  <h3>Candida</h3>
+
+  <div class="variacoes">
+
+    <div class="linha">
+      <span>2L — R$ 6,00</span>
+      <button onclick="addProduto(
+        'candida-2l',
+        'Candida',
+        6,
+        'img/candida.jpg',
+        [
+          { tamanho: '2L', preco: 6 },
+          { tamanho: '5L', preco: 12 }
+        ],
+        '2L'
+      )">
+        Adicionar
+      </button>
+    </div>
+
+    <div class="linha">
+      <span>5L — R$ 12,00</span>
+      <button onclick="addProduto(
+        'candida-5l',
+        'Candida',
+        12,
+        'img/candida.jpg',
+        [
+          { tamanho: '2L', preco: 6 },
+          { tamanho: '5L', preco: 12 }
+        ],
+        '5L'
+      )">
+        Adicionar
+      </button>
+    </div>
+
   </div>
-  <div class="linha">
-    <span>5L — R$ 12,00</span>
-<button onclick="addProduto('candida-5l','Candida 5L',12)">Adicionar</button>
-  </div>
-</div>
 </div>
 
+<!-- Candida Colorida -->
 <div class="produto limpeza"
      data-nomes="candida colorida, cândida colorida, sem cloro, roupas coloridas, limpeza leve, branqueador sem cloro, limpeza">
-  
- <img src="img/candida-colorida.jpg" alt="Candida Colorida">
+
+  <img src="img/candida-colorida.jpg" alt="Candida Colorida">
   <span class="icone-busca">🔍</span>
-  <p class="descricao-produto">
-    Ideal para eliminar sujeiras de roupas coloridas e brancas.
-  </p>
-<h3>Candida Colorida</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 11,00</span>
-<button onclick="addProduto('candida-colorida-2l','Candida Colorida 2L',11)">Adicionar</button>
+  <h3>Candida Colorida</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>2L — R$ 11,00</span>
+      <button onclick="addProduto(
+        'candida-colorida-2l',
+        'Candida Colorida',
+        11,
+        'img/candida-colorida.jpg',
+        [
+          { tamanho: '2L', preco: 11 },
+          { tamanho: '5L', preco: 22 }
+        ],
+        '2L'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>5L — R$ 22,00</span>
+      <button onclick="addProduto(
+        'candida-colorida-5l',
+        'Candida Colorida',
+        22,
+        'img/candida-colorida.jpg',
+        [
+          { tamanho: '2L', preco: 11 },
+          { tamanho: '5L', preco: 22 }
+        ],
+        '5L'
+      )">Adicionar</button>
+    </div>
   </div>
-  <div class="linha">
-    <span>5L — R$ 22,00</span>
-<button onclick="addProduto('candida-colorida-5l','Candida Colorida 5L',22)">Adicionar</button>
-  </div>
-</div>
 </div>
 
+<!-- Candida Colorida Azul -->
 <div class="produto limpeza"
      data-nomes="candida colorida azul, cândida colorida azul, azul, sem cloro, roupas coloridas, limpeza leve, branqueador sem cloro, limpeza">
 
- <img src="img/candida-azul.jpg" alt="Candida Colorida Azul">
+  <img src="img/candida-azul.jpg" alt="Candida Colorida Azul">
   <span class="icone-busca">🔍</span>
-  <p class="descricao-produto">
-    Ideal para eliminar sujeiras de roupas coloridas e brancas.
-  </p>
-<h3>Candida Colorida Azul</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 9,00</span>
-<button onclick="addProduto('candida-colorida-azul-2l','Candida Colorida Azul 2L',9)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>5L — R$ 20,00</span>
-<button onclick="addProduto('candida-colorida-azul-5l','Candida Colorida Azul 5L',20)">Adicionar</button>
+  <h3>Candida Colorida Azul</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>2L — R$ 9,00</span>
+      <button onclick="addProduto(
+        'candida-colorida-azul-2l',
+        'Candida Colorida Azul',
+        9,
+        'img/candida-azul.jpg',
+        [
+          { tamanho: '2L', preco: 9 },
+          { tamanho: '5L', preco: 20 }
+        ],
+        '2L'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>5L — R$ 20,00</span>
+      <button onclick="addProduto(
+        'candida-colorida-azul-5l',
+        'Candida Colorida Azul',
+        20,
+        'img/candida-azul.jpg',
+        [
+          { tamanho: '2L', preco: 9 },
+          { tamanho: '5L', preco: 20 }
+        ],
+        '5L'
+      )">Adicionar</button>
+    </div>
   </div>
 </div>
-</div>
-  
+
+<!-- Sabão Líquido Bonrruque -->
 <div class="produto limpeza"
      data-nomes="sabao liquido bonrruque, sabão líquido bonrruque, bonrruque, lava roupas, branqueador, limpeza pesada">
 
- <img src="img/sabao-liquido-bonrruque.jpg" alt="Sabao liquido Bonrruque">
+  <img src="img/sabao-liquido-bonrruque.jpg" alt="Sabao Liquido Bonrruque">
   <span class="icone-busca">🔍</span>
-<h3>Sabão Líquido Bonrruque</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 12,00</span>
-<button onclick="addProduto('sabao-bonrruque-2l','Sabão Líquido Bonrruque 2L',12)">Adicionar</button>
+  <h3>Sabão Líquido Bonrruque</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>2L — R$ 12,00</span>
+      <button onclick="addProduto(
+        'sabao-bonrruque-2l',
+        'Sabão Líquido Bonrruque',
+        12,
+        'img/sabao-liquido-bonrruque.jpg',
+        [
+          { tamanho: '2L', preco: 12 },
+          { tamanho: '5L', preco: 25 }
+        ],
+        '2L'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>5L — R$ 25,00</span>
+      <button onclick="addProduto(
+        'sabao-bonrruque-5l',
+        'Sabão Líquido Bonrruque',
+        25,
+        'img/sabao-liquido-bonrruque.jpg',
+        [
+          { tamanho: '2L', preco: 12 },
+          { tamanho: '5L', preco: 25 }
+        ],
+        '5L'
+      )">Adicionar</button>
+    </div>
   </div>
-  <div class="linha">
-    <span>5L — R$ 25,00</span>
-<button onclick="addProduto('sabao-bonrruque-5l','Sabão Líquido Bonrruque 5L',25)">Adicionar</button>
-  </div>
-</div>
 </div>
 
- <div class="produto limpeza"
+<!-- Sabão Líquido Clineza -->
+<div class="produto limpeza"
      data-nomes="sabao liquido clineza, sabão líquido clineza, clineza, lava roupas, limpeza, uso diario">
 
- <img src="img/sabao-liquido-clineza.jpg" alt="Sabao Liquido Clineza">
-   <span class="icone-busca">🔍</span>
-<h3>Sabão Liquido Clineza</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 13,00</span>
-<button onclick="addProduto('sabao-clineza-2l','Sabão Líquido Clineza 2L',13)">Adicionar</button>
+  <img src="img/sabao-liquido-clineza.jpg" alt="Sabao Liquido Clineza">
+  <span class="icone-busca">🔍</span>
+  <h3>Sabão Líquido Clineza</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>2L — R$ 13,00</span>
+      <button onclick="addProduto(
+        'sabao-clineza-2l',
+        'Sabão Líquido Clineza',
+        13,
+        'img/sabao-liquido-clineza.jpg',
+        [
+          { tamanho: '2L', preco: 13 },
+          { tamanho: '5L', preco: 27 }
+        ],
+        '2L'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>5L — R$ 27,00</span>
+      <button onclick="addProduto(
+        'sabao-clineza-5l',
+        'Sabão Líquido Clineza',
+        27,
+        'img/sabao-liquido-clineza.jpg',
+        [
+          { tamanho: '2L', preco: 13 },
+          { tamanho: '5L', preco: 27 }
+        ],
+        '5L'
+      )">Adicionar</button>
+    </div>
   </div>
-  <div class="linha">
-    <span>5L — R$ 27,00</span>
-<button onclick="addProduto('sabao-clineza-5l','Sabão Líquido Clineza 5L',27)">Adicionar</button>
-  </div>
-</div>
-     
 </div>
  
 <div class="produto limpeza"
      data-nomes="sabao de coco, sabão de coco, sabao coco, sabão coco, lava roupas, limpeza, uso diario, roupas brancas, roupas delicadas">
 
-<img src="img/sabao-de-coco.jpg" alt="Sabao de Coco">
+  <img src="img/sabao-de-coco.jpg" alt="Sabao de Coco">
   <span class="icone-busca">🔍</span>
-<h3>Sabão de Coco</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 12,00</span>
-<button onclick="addProduto('sabao-coco-2l','Sabão de Coco 2L',12)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>5L — R$ 25,00</span>
-<button onclick="addProduto('sabao-coco-5l','Sabão de Coco 5L',25)">Adicionar</button>
+  <h3>Sabão de Coco</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>2L — R$ 12,00</span>
+      <button onclick="addProduto(
+        'sabao-coco-2l',
+        'Sabão de Coco',
+        12,
+        'img/sabao-de-coco.jpg',
+        [
+          { tamanho: '2L', preco: 12 },
+          { tamanho: '5L', preco: 25 }
+        ],
+        '2L'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>5L — R$ 25,00</span>
+      <button onclick="addProduto(
+        'sabao-coco-5l',
+        'Sabão de Coco',
+        25,
+        'img/sabao-de-coco.jpg',
+        [
+          { tamanho: '2L', preco: 12 },
+          { tamanho: '5L', preco: 25 }
+        ],
+        '5L'
+      )">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
+
 
 <div class="produto limpeza"
      data-nomes="detergente pequeno, detergente 500ml, detergente econômico, detergente cozinha, detergente louça, limpeza diaria">
 
-<img src="img/detergente-pequeno.jpg" alt="Detergente Pequeno">
+  <img src="img/detergente-pequeno.jpg" alt="Detergente Pequeno">
   <span class="icone-busca">🔍</span>
-<h3>Detergente Pequeno</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> Candura 500ML — R$ 3,00</span>
-<button onclick="addProduto('detergente-candura-500ml','Detergente Candura 500ML',3)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span> Ypê 500ML — R$ 3,50</span>
-<button onclick="addProduto('detergente-ype-500ml','Detergente Ypê 500ML',3.5)">Adicionar</button>
+  <h3>Detergente Pequeno</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>Candura 500ML — R$ 3,00</span>
+      <button onclick="addProduto(
+        'detergente-candura-500ml',
+        'Detergente Candura 500ML',
+        3,
+        'img/detergente-pequeno.jpg',
+        [
+          { tamanho: 'Candura 500ML', preco: 3 },
+          { tamanho: 'Ypê 500ML', preco: 3.5 }
+        ],
+        'Candura 500ML'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Ypê 500ML — R$ 3,50</span>
+      <button onclick="addProduto(
+        'detergente-ype-500ml',
+        'Detergente Ypê 500ML',
+        3.5,
+        'img/detergente-pequeno.jpg',
+        [
+          { tamanho: 'Candura 500ML', preco: 3 },
+          { tamanho: 'Ypê 500ML', preco: 3.5 }
+        ],
+        'Ypê 500ML'
+      )">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
-  
+
 <div class="produto limpeza"
      data-nomes="detergente neutro, detergente sem perfume, detergente suave, detergente louça, limpeza, uso diario">
 
-<img src="img/detergente-neutro.jpg" alt="Detergente Neutro">
+  <img src="img/detergente-neutro.jpg" alt="Detergente Neutro">
   <span class="icone-busca">🔍</span>
-<h3>Detergente Neutro</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 10,00</span>
-<button onclick="addProduto('detergente-neutro-2l','Detergente Neutro 2L',10)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>5L — R$ 20,00</span>
-<button onclick="addProduto('detergente-neutro-5l','Detergente Neutro 5L',20)">Adicionar</button>
+  <h3>Detergente Neutro</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>2L — R$ 10,00</span>
+      <button onclick="addProduto(
+        'detergente-neutro-2l',
+        'Detergente Neutro',
+        10,
+        'img/detergente-neutro.jpg',
+        [
+          { tamanho: '2L', preco: 10 },
+          { tamanho: '5L', preco: 20 }
+        ],
+        '2L'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>5L — R$ 20,00</span>
+      <button onclick="addProduto(
+        'detergente-neutro-5l',
+        'Detergente Neutro',
+        20,
+        'img/detergente-neutro.jpg',
+        [
+          { tamanho: '2L', preco: 10 },
+          { tamanho: '5L', preco: 20 }
+        ],
+        '5L'
+      )">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
-  
+
 <div class="produto limpeza"
      data-nomes="detergente concentrado, detergente rendimento, detergente forte, detergente louça, limpeza pesada, uso profissional">
 
-<img src="img/detergente-concentrado.jpg" alt="Detergente Concentrado">
+  <img src="img/detergente-concentrado.jpg" alt="Detergente Concentrado">
   <span class="icone-busca">🔍</span>
-<h3>Detergente Concentrado</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 12,00</span>
-<button onclick="addProduto('detergente-concentrado-2l','Detergente Concentrado 2L',12)">Adicionar</button>
+  <h3>Detergente Concentrado</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>2L — R$ 12,00</span>
+      <button onclick="addProduto(
+        'detergente-concentrado-2l',
+        'Detergente Concentrado',
+        12,
+        'img/detergente-concentrado.jpg',
+        [
+          { tamanho: '2L', preco: 12 },
+          { tamanho: '5L', preco: 25 }
+        ],
+        '2L'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>5L — R$ 25,00</span>
+      <button onclick="addProduto(
+        'detergente-concentrado-5l',
+        'Detergente Concentrado',
+        25,
+        'img/detergente-concentrado.jpg',
+        [
+          { tamanho: '2L', preco: 12 },
+          { tamanho: '5L', preco: 25 }
+        ],
+        '5L'
+      )">Adicionar</button>
+    </div>
   </div>
-  <div class="linha">
-    <span>5L — R$ 25,00</span>
-<button onclick="addProduto('detergente-concentrado-5l','Detergente Concentrado 5L',25)">Adicionar</button>
-  </div>
-</div>
-    
 </div>
 
 <div class="produto limpeza"
      data-nomes="detergente com fragrancia, detergente perfumado, detergente sabor limão, detergente sabor maçã, detergente louça, limpeza">
 
-<img src="img/detergentes.jpg" alt="Detergente">
+  <img src="img/detergentes.jpg" alt="Detergente">
   <span class="icone-busca">🔍</span>
-<h3>Detergente</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> Maçã 2L — R$ 10,00</span>
-<button onclick="addProduto('detergente-maca-2l','Detergente Maçã 2L',10)">Adicionar</button>
+  <h3>Detergente</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>Maçã 2L — R$ 10,00</span>
+      <button onclick="addProduto(
+        'detergente-maca-2l',
+        'Detergente Maçã 2L',
+        10,
+        'img/detergentes.jpg',
+        [
+          { tamanho: '2L', preco: 10 },
+          { tamanho: '2L', preco: 10 }
+        ],
+        '2L'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Limão 2L — R$ 10,00</span>
+      <button onclick="addProduto(
+        'detergente-limao-2l',
+        'Detergente Limão 2L',
+        10,
+        'img/detergentes.jpg',
+        [
+          { tamanho: '2L', preco: 10 },
+          { tamanho: '2L', preco: 10 }
+        ],
+        '2L'
+      )">Adicionar</button>
+    </div>
   </div>
-  <div class="linha">
-    <span>Limão 2L — R$ 10,00</span>
-<button onclick="addProduto('detergente-limao-2l','Detergente Limão 2L',10)">Adicionar</button>
-  </div>
-</div>
-    
 </div>
 
 <div class="produto limpeza"
      data-nomes="detergente amoniaco, detergente com amoníaco, limpa tudo, detergente limpa tudo, limpeza pesada, cozinha, banheiro, uso profissional">
 
-<img src="img/limpa-tudo.jpg" alt="Detergente Amoníaco">
+  <img src="img/limpa-tudo.jpg" alt="Detergente Amoníaco">
   <span class="icone-busca">🔍</span>
   <p class="descricao-produto">
     Ideal para Quintal, Box de banheiro e azulejos.
     E para eliminar gordura.
   </p>
-<h3>Detergente Amoniaco</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 15,00</span>
-<button onclick="addProduto('detergente-amoniaco-2l','Detergente Amoniaco 2L',15)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>5L — R$ 32,00</span>
-<button onclick="addProduto('detergente-amoniaco-5l','Detergente Amoniaco 5L',32)">Adicionar</button>
+  <h3>Detergente Amoniaco</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>2L — R$ 15,00</span>
+      <button onclick="addProduto(
+        'detergente-amoniaco-2l',
+        'Detergente Amoniaco 2L',
+        15,
+        'img/limpa-tudo.jpg',
+        [
+          { tamanho: '2L', preco: 15 },
+          { tamanho: '5L', preco: 32 }
+        ],
+        '2L'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>5L — R$ 32,00</span>
+      <button onclick="addProduto(
+        'detergente-amoniaco-5l',
+        'Detergente Amoniaco 5L',
+        32,
+        'img/limpa-tudo.jpg',
+        [
+          { tamanho: '2L', preco: 15 },
+          { tamanho: '5L', preco: 32 }
+        ],
+        '5L'
+      )">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
-  
+
 <div class="produto limpeza"
-     data-nomes="amaciante, amaciante roupas, perfume para roupas, maciez, uso diario">
+     data-nomes="amaciante, amaciante confort, confort, amaciante roupas, perfume para roupas, maciez, uso diario">
 
-<img src="img/amaciante.jpg" alt="Amaciante">
+  <img src="img/amaciante.jpg" alt="Amaciante">
   <span class="icone-busca">🔍</span>
-<h3>Amaciante</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 10,00</span>
-<button onclick="addProduto('amaciante-2l','Amaciante 2L',10)">Adicionar</button>
+  <h3>Amaciante</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>2L — R$ 10,00</span>
+      <button onclick="addProduto(
+        'amaciante-2l',
+        'Amaciante 2L',
+        10,
+        'img/amaciante.jpg',
+        [
+          { tamanho: '2L', preco: 10 },
+          { tamanho: '5L', preco: 20 }
+        ],
+        '2L'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>5L — R$ 20,00</span>
+      <button onclick="addProduto(
+        'amaciante-5l',
+        'Amaciante 5L',
+        20,
+        'img/amaciante.jpg',
+        [
+          { tamanho: '2L', preco: 10 },
+          { tamanho: '5L', preco: 20 }
+        ],
+        '5L'
+      )">Adicionar</button>
+    </div>
   </div>
-  <div class="linha">
-    <span>5L — R$ 20,00</span>
-<button onclick="addProduto('amaciante-5l','Amaciante 5L',20)">Adicionar</button>
-  </div>
-</div>
-    
 </div>
 
 <div class="produto limpeza"
-     data-nomes="amaciante concentrado, amaciante rendimento, perfume intenso, roupas, uso profissional">
+     data-nomes="amaciante concentrado, amaciante branco, amaciante downy, downy, amaciante rendimento, perfume intenso, roupas, uso profissional">
 
-<img src="img/amaciante-concentrado.jpg" alt="Amaciante Concentrado">
+  <img src="img/amaciante-concentrado.jpg" alt="Amaciante Concentrado">
   <span class="icone-busca">🔍</span>
-<h3>Amaciante Concentrado</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>Downy 2L — R$ 15,00</span>
-<button onclick="addProduto('amaciante-downy-2l','Amaciante Downy 2L',15)">Adicionar</button>
+  <h3>Amaciante Concentrado</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>Downy 2L — R$ 15,00</span>
+      <button onclick="addProduto(
+        'amaciante-downy-2l',
+        'Amaciante Downy 2L',
+        15,
+        'img/amaciante-concentrado.jpg',
+        [
+          { tamanho: 'Downy 2L', preco: 15 },
+          { tamanho: 'Amac. Branco 2L', preco: 16 }
+        ],
+        'Downy 2L'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Amac. Branco 2L — R$ 16,00</span>
+      <button onclick="addProduto(
+        'amaciante-branco-2l',
+        'Amaciante Branco 2L',
+        16,
+        'img/amaciante-concentrado.jpg',
+        [
+          { tamanho: 'Downy 2L', preco: 15 },
+          { tamanho: 'Amac. Branco 2L', preco: 16 }
+        ],
+        'Amac. Branco 2L'
+      )">Adicionar</button>
+    </div>
   </div>
-  <div class="linha">
-    <span>Amac. Branco 2L — R$ 16,00</span>
-<button onclick="addProduto('amaciante-branco-2l','Amaciante Branco 2L',16)">Adicionar</button>
-  </div>
-</div>
-    
 </div>
 
 <div class="produto limpeza"
      data-nomes="amaciante clineza, clineza, amaciante perfumado, roupas, limpeza">
 
-<img src="img/amaciante-clineza.jpg" alt="Amaciante Clineza">
+  <img src="img/amaciante-clineza.jpg" alt="Amaciante Clineza">
   <span class="icone-busca">🔍</span>
-<h3>Amaciante Clineza</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>Amac. Blue Iris 2L — R$ 10,00</span>
-<button onclick="addProduto('amaciante-blue-iris-2l','Amaciante Blue Iris 2L',10)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>Amac. Pink Sky 2L — R$ 10,00</span>
-<button onclick="addProduto('amaciante-pink-sky-2l','Amaciante Pink Sky 2L',10)">Adicionar</button>
+  <h3>Amaciante Clineza</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>Amac. Blue Iris 2L — R$ 10,00</span>
+      <button onclick="addProduto(
+        'amaciante-blue-iris-2l',
+        'Amaciante Blue Iris 2L',
+        10,
+        'img/amaciante-clineza.jpg',
+        [
+          { tamanho: 'Blue Iris 2L', preco: 10 },
+          { tamanho: 'Pink Sky 2L', preco: 10 }
+        ],
+        'Blue Iris 2L'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Amac. Pink Sky 2L — R$ 10,00</span>
+      <button onclick="addProduto(
+        'amaciante-pink-sky-2l',
+        'Amaciante Pink Sky 2L',
+        10,
+        'img/amaciante-clineza.jpg',
+        [
+          { tamanho: 'Blue Iris 2L', preco: 10 },
+          { tamanho: 'Pink Sky 2L', preco: 10 }
+        ],
+        'Pink Sky 2L'
+      )">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
-  
+
 <div class="produto limpeza"
      data-nomes="lava canil, limpeza pesada, limpeza pet, desinfetante canil, quintal">
 
-<img src="img/lava-canil.jpg" alt="Lava Canil">
+  <img src="img/lava-canil.jpg" alt="Lava Canil">
   <span class="icone-busca">🔍</span>
-<h3>Lava Canil</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 16,00</span>
-<button onclick="addProduto('lava-canil-2l','Lava Canil 2L',16)">Adicionar</button>
+  <h3>Lava Canil</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>2L — R$ 16,00</span>
+      <button onclick="addProduto(
+        'lava-canil-2l',
+        'Lava Canil 2L',
+        16,
+        'img/lava-canil.jpg',
+        [
+          { tamanho: '2L', preco: 16 },
+          { tamanho: '5L', preco: 32 }
+        ],
+        '2L'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>5L — R$ 32,00</span>
+      <button onclick="addProduto(
+        'lava-canil-5l',
+        'Lava Canil 5L',
+        32,
+        'img/lava-canil.jpg',
+        [
+          { tamanho: '2L', preco: 16 },
+          { tamanho: '5L', preco: 32 }
+        ],
+        '5L'
+      )">Adicionar</button>
+    </div>
   </div>
-  <div class="linha">
-    <span>5L — R$ 32,00</span>
-<button onclick="addProduto('lava-canil-5l','Lava Canil 5L',32)">Adicionar</button>
-  </div>
-</div>
-    
 </div>
 
 <div class="produto limpeza"
      data-nomes="veja multiuso pequeno, veja pequeno, multiuso, limpeza rapida, casa">
 
-<img src="img/multiuso.jpg" alt="Veja Multiuso Pequeno">
+  <img src="img/multiuso.jpg" alt="Veja Multiuso Pequeno">
   <span class="icone-busca">🔍</span>
-<h3>Veja Multiuso Pequeno</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>Veja Verde Controle de Odor 500ML — R$ 6,00</span>
-<button onclick="addProduto('veja-verde-500ml','Veja Verde Controle de Odor 500ML',6)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>Veja Azul: Desengordurante 500ML — R$ 6,00</span>
-<button onclick="addProduto('veja-azul-500ml','Veja Azul Desengordurante 500ML',6)">Adicionar</button>
+  <h3>Veja Multiuso Pequeno</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>Veja Verde Controle de Odor 500ML — R$ 6,00</span>
+      <button onclick="addProduto(
+        'veja-verde-500ml',
+        'Veja Verde 500ML',
+        6,
+        'img/multiuso.jpg',
+        [
+          { tamanho: 'Verde 500ML', preco: 6 },
+          { tamanho: 'Azul 500ML', preco: 6 }
+        ],
+        'Verde 500ML'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Veja Azul: Desengordurante 500ML — R$ 6,00</span>
+      <button onclick="addProduto(
+        'veja-azul-500ml',
+        'Veja Azul 500ML',
+        6,
+        'img/multiuso.jpg',
+        [
+          { tamanho: 'Verde 500ML', preco: 6 },
+          { tamanho: 'Azul 500ML', preco: 6 }
+        ],
+        'Azul 500ML'
+      )">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
-  
+
 <div class="produto limpeza"
      data-nomes="veja multiuso bonrruque, veja bonrruque, multiuso forte, limpeza pesada">
 
-<img src="img/veja.jpg" alt="Veja Multiuso Bonrruque">
+  <img src="img/veja.jpg" alt="Veja Multiuso Bonrruque">
   <span class="icone-busca">🔍</span>
-<h3>Veja Multiuso Bonrruque</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 12,00</span>
-<button onclick="addProduto('veja-bonrruque-2l','Veja Multiuso Bonrruque 2L',12)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>5L — R$ 25,00</span>
-<button onclick="addProduto('veja-bonrruque-5l','Veja Multiuso Bonrruque 5L',25)">Adicionar</button>
+  <h3>Veja Multiuso Bonrruque</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>2L — R$ 12,00</span>
+      <button onclick="addProduto(
+        'veja-bonrruque-2l',
+        'Veja Bonrruque 2L',
+        12,
+        'img/veja.jpg',
+        [
+          { tamanho: '2L', preco: 12 },
+          { tamanho: '5L', preco: 25 }
+        ],
+        '2L'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>5L — R$ 25,00</span>
+      <button onclick="addProduto(
+        'veja-bonrruque-5l',
+        'Veja Bonrruque 5L',
+        25,
+        'img/veja.jpg',
+        [
+          { tamanho: '2L', preco: 12 },
+          { tamanho: '5L', preco: 25 }
+        ],
+        '5L'
+      )">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
-      
+
 <div class="produto limpeza"
      data-nomes="veja multiuso clineza, clineza, multiuso, limpeza geral, casa">
 
-<img src="img/veja-multiuso.jpg" alt="Veja Multiuso Clineza">
+  <img src="img/veja-multiuso.jpg" alt="Veja Multiuso Clineza">
   <span class="icone-busca">🔍</span>
-<h3>Veja Multiuso Clineza</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 12,00</span>
-<button onclick="addProduto('veja-clineza-2l','Veja Multiuso Clineza 2L',12)">Adicionar</button>
+  <h3>Veja Multiuso Clineza</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>2L — R$ 12,00</span>
+      <button onclick="addProduto(
+        'veja-clineza-2l',
+        'Veja Clineza 2L',
+        12,
+        'img/veja-multiuso.jpg',
+        [
+          { tamanho: '2L', preco: 12 },
+          { tamanho: '5L', preco: 25 }
+        ],
+        '2L'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>5L — R$ 25,00</span>
+      <button onclick="addProduto(
+        'veja-clineza-5l',
+        'Veja Clineza 5L',
+        25,
+        'img/veja-multiuso.jpg',
+        [
+          { tamanho: '2L', preco: 12 },
+          { tamanho: '5L', preco: 25 }
+        ],
+        '5L'
+      )">Adicionar</button>
+    </div>
   </div>
-  <div class="linha">
-    <span>5L — R$ 25,00</span>
-<button onclick="addProduto('veja-clineza-5l','Veja Multiuso Clineza 5L',25)">Adicionar</button>
-  </div>
-</div>
-    
 </div>
 
 <div class="produto limpeza"
      data-nomes="pinho em gel, limpeza pesada, banheiro, quintal">
 
-<img src="img/pinho-gel.jpg" alt="Pinho em Gel">
+  <img src="img/pinho-gel.jpg" alt="Pinho em Gel">
   <span class="icone-busca">🔍</span>
   <p class="descricao-produto">
     Ideal para limpar Quintal, pisos e sanitários.
   </p>
-<h3>Pinho em Gel</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 16,00</span>
-<button onclick="addProduto('pinho-gel-2l','Pinho em Gel 2L',16)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>5L — R$ 32,00</span>
-<button onclick="addProduto('pinho-gel-5l','Pinho em Gel 5L',32)">Adicionar</button>
+  <h3>Pinho em Gel</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>2L — R$ 16,00</span>
+      <button onclick="addProduto(
+        'pinho-gel-2l',
+        'Pinho em Gel 2L',
+        16,
+        'img/pinho-gel.jpg',
+        [
+          { tamanho: '2L', preco: 16 },
+          { tamanho: '5L', preco: 32 }
+        ],
+        '2L'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>5L — R$ 32,00</span>
+      <button onclick="addProduto(
+        'pinho-gel-5l',
+        'Pinho em Gel 5L',
+        32,
+        'img/pinho-gel.jpg',
+        [
+          { tamanho: '2L', preco: 16 },
+          { tamanho: '5L', preco: 32 }
+        ],
+        '5L'
+      )">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
-  
+
 <div class="produto limpeza"
      data-nomes="cloro em gel, cloro gel, limpeza pesada, banheiro">
 
@@ -1988,29 +2726,52 @@ data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de 
   <h3>Cloro em Gel</h3>
 
   <div class="variacoes">
-
     <div class="linha">
       <span>1L — R$ 9,00</span>
-<button onclick="addProduto('cloro-gel-1l','Cloro em Gel 1L',9)">Adicionar</button>
-        Adicionar
-      </button>
+      <button onclick="addProduto(
+        'cloro-gel-1l',
+        'Cloro em Gel 1L',
+        9,
+        'img/cloro-em-gel.jpg',
+        [
+          { tamanho: '1L', preco: 9 },
+          { tamanho: '2L', preco: 16 },
+          { tamanho: '5L', preco: 32 }
+        ],
+        '1L'
+      )">Adicionar</button>
     </div>
-
     <div class="linha">
       <span>2L — R$ 16,00</span>
-<button onclick="addProduto('cloro-gel-2l','Cloro em Gel 2L',16)">Adicionar</button>
-        Adicionar
-      </button>
+      <button onclick="addProduto(
+        'cloro-gel-2l',
+        'Cloro em Gel 2L',
+        16,
+        'img/cloro-em-gel.jpg',
+        [
+          { tamanho: '1L', preco: 9 },
+          { tamanho: '2L', preco: 16 },
+          { tamanho: '5L', preco: 32 }
+        ],
+        '2L'
+      )">Adicionar</button>
     </div>
-
     <div class="linha">
       <span>5L — R$ 32,00</span>
-<button onclick="addProduto('cloro-gel-5l','Cloro em Gel 5L',32)">Adicionar</button>
-        Adicionar
-      </button>
+      <button onclick="addProduto(
+        'cloro-gel-5l',
+        'Cloro em Gel 5L',
+        32,
+        'img/cloro-em-gel.jpg',
+        [
+          { tamanho: '1L', preco: 9 },
+          { tamanho: '2L', preco: 16 },
+          { tamanho: '5L', preco: 32 }
+        ],
+        '5L'
+      )">Adicionar</button>
     </div>
   </div>
-      
 </div>
 
 <div class="produto limpeza"
@@ -2023,69 +2784,137 @@ data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de 
   <div class="variacoes">
     <div class="linha">
       <span>1L — R$ 12,00</span>
-<button onclick="addProduto('desengordurante-1l','Desengordurante 1L',12)">Adicionar</button>
+      <button onclick="addProduto(
+        'desengordurante-1l',
+        'Desengordurante 1L',
+        12,
+        'img/desengordurante.jpg',
+        [
+          { tamanho: '1L', preco: 12 },
+          { tamanho: '2L', preco: 22 },
+          { tamanho: '5L', preco: 40 }
+        ],
+        '1L'
+      )">Adicionar</button>
     </div>
     <div class="linha">
       <span>2L — R$ 22,00</span>
-<button onclick="addProduto('desengordurante-2l','Desengordurante 2L',22)">Adicionar</button>
+      <button onclick="addProduto(
+        'desengordurante-2l',
+        'Desengordurante 2L',
+        22,
+        'img/desengordurante.jpg',
+        [
+          { tamanho: '1L', preco: 12 },
+          { tamanho: '2L', preco: 22 },
+          { tamanho: '5L', preco: 40 }
+        ],
+        '2L'
+      )">Adicionar</button>
     </div>
     <div class="linha">
       <span>5L — R$ 40,00</span>
-<button onclick="addProduto('desengordurante-5l','Desengordurante 5L',40)">Adicionar</button>
+      <button onclick="addProduto(
+        'desengordurante-5l',
+        'Desengordurante 5L',
+        40,
+        'img/desengordurante.jpg',
+        [
+          { tamanho: '1L', preco: 12 },
+          { tamanho: '2L', preco: 22 },
+          { tamanho: '5L', preco: 40 }
+        ],
+        '5L'
+      )">Adicionar</button>
     </div>
   </div>
-      
 </div>
-      
+
 <div class="produto limpeza"
      data-nomes="soda liquida, soda caustica, desentupidor, limpeza pesada, uso profissional">
 
-<img src="img/soda.jpg" alt="Soda Liquida">
+  <img src="img/soda.jpg" alt="Soda Líquida">
   <span class="icone-busca">🔍</span>
   <p class="descricao-produto">
     Ideal para fazer Sabão Caseiro, e desentupir ralos.
   </p>
-<h3>Soda Liquida</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>1L — R$ 17,00</span>
-<button onclick="addProduto('soda-liquida-1l','Soda Liquida 1L',17)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>2L — R$ 34,00</span>
-<button onclick="addProduto('soda-liquida-2l','Soda Liquida 2L',34)">Adicionar</button>
-  </div>
-</div>
-    
-</div>
-  
-<div class="produto limpeza"
-     data-nomes="sabao querosene, sabão querosene, limpeza pesada, manchas, roupa">
+  <h3>Soda Líquida</h3>
 
-<img src="img/querosene.jpg" alt="Sabão Querosene">
+  <div class="variacoes">
+    <div class="linha">
+      <span>1L — R$ 17,00</span>
+      <button onclick="addProduto(
+        'soda-liquida-1l',
+        'Soda Líquida 1L',
+        17,
+        'img/soda.jpg',
+        [
+          { tamanho: '1L', preco: 17 },
+          { tamanho: '2L', preco: 34 }
+        ],
+        '1L'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>2L — R$ 34,00</span>
+      <button onclick="addProduto(
+        'soda-liquida-2l',
+        'Soda Líquida 2L',
+        34,
+        'img/soda.jpg',
+        [
+          { tamanho: '1L', preco: 17 },
+          { tamanho: '2L', preco: 34 }
+        ],
+        '2L'
+      )">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<div class="produto limpeza"
+     data-nomes="sabao querosene, sabão liquido, limpeza pesada, roupas, uso diario">
+
+  <img src="img/sabao-querosene.jpg" alt="Sabão Querosene">
   <span class="icone-busca">🔍</span>
-  <p class="descricao-produto">
-    Limpeza pesada para quintal. 
-    Espanta baratas, aranhas e insetos com ação potente.
-  </p>
-<h3>Sabão Querosene</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 18,00</span>
-<button onclick="addProduto('sabao-querosene-2l','Sabão Querosene 2L',18)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>5L — R$ 40,00</span>
-<button onclick="addProduto('sabao-querosene-5l','Sabão Querosene 5L',40)">Adicionar</button>
+  <h3>Sabão Querosene</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>2L — R$ 14,00</span>
+      <button onclick="addProduto(
+        'sabao-querosene-2l',
+        'Sabão Querosene 2L',
+        14,
+        'img/sabao-querosene.jpg',
+        [
+          { tamanho: '2L', preco: 14 },
+          { tamanho: '5L', preco: 28 }
+        ],
+        '2L'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>5L — R$ 28,00</span>
+      <button onclick="addProduto(
+        'sabao-querosene-5l',
+        'Sabão Querosene 5L',
+        28,
+        'img/sabao-querosene.jpg',
+        [
+          { tamanho: '2L', preco: 14 },
+          { tamanho: '5L', preco: 28 }
+        ],
+        '5L'
+      )">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
-  
+
 <div class="produto limpeza"
      data-nomes="alcool perfumado, álcool perfumado, limpeza, perfume, casa">
 
-  <img src="img/alcool-perfumado.jpg" alt="Alcool Perfumado">
+  <img src="img/alcool-perfumado.jpg" alt="Álcool Perfumado">
   <span class="icone-busca">🔍</span>
   <p class="descricao-produto">
     Limpeza diária eficiente com perfume suave e agradável.
@@ -2094,464 +2923,578 @@ data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de 
 
   <div class="variacoes">
     <div class="linha">
-      <span>Álcool Perf. Transparente 2L R$ 10,00</span>
-<button onclick="addProduto('alcool-perfumado-transparente-2l','Álcool Perf. Transparente 2L',10)">Adicionar</button>
+      <span>Álcool Perf. Transparente 2L — R$ 10,00</span>
+      <button onclick="addProduto(
+        'alcool-perfumado-transparente-2l',
+        'Álcool Perf. Transparente 2L',
+        10,
+        'img/alcool-perfumado.jpg',
+        [
+          { tamanho: 'Transparente 2L', preco: 10 },
+          { tamanho: 'Roxo 2L', preco: 10 },
+          { tamanho: 'Roxo 5L', preco: 23 }
+        ],
+        'Transparente 2L'
+      )">Adicionar</button>
     </div>
     <div class="linha">
       <span>2L — R$ 10,00</span>
-<button onclick="addProduto('alcool-perfumado-2l','Álcool Perfumado 2L',10)">Adicionar</button>
+      <button onclick="addProduto(
+        'alcool-perfumado-2l',
+        'Álcool Perfumado 2L',
+        10,
+        'img/alcool-perfumado.jpg',
+        [
+          { tamanho: 'Transparente 2L', preco: 10 },
+          { tamanho: 'Roxo 2L', preco: 10 },
+          { tamanho: 'Roxo 5L', preco: 23 }
+        ],
+        'Roxo 2L'
+      )">Adicionar</button>
     </div>
     <div class="linha">
       <span>5L — R$ 23,00</span>
-<button onclick="addProduto('alcool-perfumado-5l','Álcool Perfumado 5L',23)">Adicionar</button>
+      <button onclick="addProduto(
+        'alcool-perfumado-5l',
+        'Álcool Perfumado 5L',
+        23,
+        'img/alcool-perfumado.jpg',
+        [
+          { tamanho: 'Transparente 2L', preco: 10 },
+          { tamanho: 'Roxo 2L', preco: 10 },
+          { tamanho: 'Roxo 5L', preco: 23 }
+        ],
+        'Roxo 5L'
+      )">Adicionar</button>
     </div>
   </div>
-      
 </div>
+
 
 <div class="produto limpeza"
-     data-nomes="alcool perfumado concentrado, álcool concentrado, limpeza pesada, perfume forte">
+     data-nomes="alcool perfumado concentrado, alcool concentrado, limpeza, casa">
 
-<img src="img/alcool-concentrado.jpg" alt="Álcool Perf. Concentrado">
+  <img src="img/alcool-concentrado.jpg" alt="Álcool Perfumado Concentrado">
   <span class="icone-busca">🔍</span>
-  <p class="descricao-produto">
-    Limpeza potente com perfume intenso e duradouro. Alto rendimento.
-  </p>
-<h3>Álcool Perf. Concentrado</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 13,00</span>
-<button onclick="addProduto('alcool-perfumado-concentrado-2l','Álcool Perf. Concentrado 2L',13)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>5L — R$ 30,00</span>
-<button onclick="addProduto('alcool-perfumado-concentrado-5l','Álcool Perf. Concentrado 5L',30)">Adicionar</button>
-  </div>
-</div>
-     
-</div>
+  <h3>Álcool Perfumado Concentrado</h3>
 
-<div class="produto limpeza"
-     data-nomes="alcool 70, álcool 70%, desinfecção, limpeza, uso diario">
-
-<img src="img/alcool-70.jpg" alt="Alcool 70%">
-  <span class="icone-busca">🔍</span>
-<h3>Álcool 70%</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>1L — R$ 12,00</span>
-<button onclick="addProduto('alcool-70-1l','Álcool 70% 1L',12)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>5L — R$ 40,00</span>
-<button onclick="addProduto('alcool-70-5l','Álcool 70% 5L',40)">Adicionar</button>
-  </div>
-</div>
-    
-</div>
-
-<div class="produto limpeza"
-     data-nomes="alcool em gel, álcool gel, higiene, limpeza, uso diario">
-
-<img src="img/alcool-gel.jpg" alt="Alcool em Gel">
-  <span class="icone-busca">🔍</span>
-<h3>Álcool em Gel</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>500 ML — R$ 13,00</span>
-<button onclick="addProduto('alcool-gel-500ml','Álcool em Gel 500ML',13)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>5L — R$ 45,00</span>
-<button onclick="addProduto('alcool-gel-5l','Álcool em Gel 5L',45)">Adicionar</button>
-  </div>
-</div>
-    
-</div>
-
-<div class="produto limpeza"
-     data-nomes="limpa aluminio, alumínio, brilho, panelas, limpeza pesada">
-
-<img src="img/limpa-aluminio.jpg" alt="Limpa Alumínio">
-  <span class="icone-busca">🔍</span>
-<h3>Limpa Alumínio</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>1L — R$ 10,00</span>
-<button onclick="addProduto('limpa-aluminio-1l','Limpa Alumínio 1L',10)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>2L — R$ 14,00</span>
-<button onclick="addProduto('limpa-aluminio-2l','Limpa Alumínio 2L',14)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>5L — R$ 30,00</span>
-<button onclick="addProduto('limpa-aluminio-5l','Limpa Alumínio 5L',30)">Adicionar</button>
-  </div>
-</div>
-    
-</div>
-      
-<div class="produto limpeza"
-     data-nomes="limpa pedra, limpeza externa, quintal, piso rustico">
-
-<img src="img/limpa-pedra.jpg" alt="Limpa Pedra">
-  <span class="icone-busca">🔍</span>
-  <p class="descricao-produto">
-    Ideal para limpeza pesada, pisos rústicos, quintais e áreas externas.
-  </p>
-<h3>Limpa Pedra </h3>
-<div class="variacoes">
- <div class="linha">
-  <span>Clineza 2L — R$ 18,00</span>
-<button onclick="addProduto('limpa-pedra-clineza-2l','Limpa Pedra Clineza 2L',18)">Adicionar</button>
-</div>
-  <div class="linha">
-    <span> Bonrruque 2L — R$ 18,00</span>
-<button onclick="addProduto('limpa-pedra-bonrruque-2l','Limpa Pedra Bonrruque 2L',18)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>Bonrruque 5L — R$ 40,00</span>
-<button onclick="addProduto('limpa-pedra-bonrruque-5l','Limpa Pedra Bonrruque 5L',40)">Adicionar</button>
-  </div>
-</div>
-    
-</div>
-    
-<div class="produto casa"
-     data-nomes="limpa porcelanato, limpeza de porcelanato, piso, limpeza de piso, casa">
-    
-<img src="img/limpa-porcelanato.jpg" alt="Limpa Porcelanato">
-  <span class="icone-busca">🔍</span>
-<h3>Limpa Porcelanato</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>1L — R$ 25,00</span>
-<button onclick="addProduto('limpa-porcelanato-1l','Limpa Porcelanato 1L',25)">Adicionar</button>
-  </div>
-</div>
-</div>
-  
-<div class="produto limpeza"
-     data-nomes="limpa piso, limpeza piso, ceramica, porcelanato, casa">
-
-<img src="img/limpa-piso.jpg" alt="Limpa Piso">
-  <span class="icone-busca">🔍</span>
-<h3>Limpa Piso</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 18,00</span>
-<button onclick="addProduto('limpa-piso-2l','Limpa Piso 2L',18)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>5L — R$ 40,00</span>
-<button onclick="addProduto('limpa-piso-5l','Limpa Piso 5L',40)">Adicionar</button>
-  </div>
-</div>
-    
-</div>
-
-<div class="produto limpeza"
-     data-nomes="maridão, limpa tudo, limpeza pesada, desengordurante, casa">
-
-    <img src="img/maridao.jpg" alt="Maridão">
-  <span class="icone-busca">🔍</span>
-  <p class="descricao-produto">
-    Ideal para limpar box de banheiro, azulejo 
-    e eliminar gorduras.
-  </p>
-    <h3>Maridao</h3>
   <div class="variacoes">
     <div class="linha">
-      <span>1L R$ 9,00</span>
-<button onclick="addProduto('maridao-1l','Maridao 1L',9)">Adicionar</button>
+      <span>1L — R$ 12,00</span>
+      <button onclick="addProduto(
+        'alcool-concentrado-1l',
+        'Álcool Concentrado 1L',
+        12,
+        'img/alcool-concentrado.jpg',
+        [
+          { tamanho: '1L', preco: 12 },
+          { tamanho: '2L', preco: 22 }
+        ],
+        '1L'
+      )">Adicionar</button>
     </div>
     <div class="linha">
-      <span>5L R$ 35,00</span>
-<button onclick="addProduto('maridao-5l','Maridao 5L',35)">Adicionar</button>
+      <span>2L — R$ 22,00</span>
+      <button onclick="addProduto(
+        'alcool-concentrado-2l',
+        'Álcool Concentrado 2L',
+        22,
+        'img/alcool-concentrado.jpg',
+        [
+          { tamanho: '1L', preco: 12 },
+          { tamanho: '2L', preco: 22 }
+        ],
+        '2L'
+      )">Adicionar</button>
     </div>
   </div>
-     
 </div>
 
- <div class="produto limpeza"
-     data-nomes="cera optimo, cera piso, brilho, proteção, limpeza">
-
-<img src="img/cera-optimo.jpg" alt="Cera Óptimo">
-   <span class="icone-busca">🔍</span>
-   <p class="descricao-produto">
-    Ideal para perfumar o piso e dar brilho.
-  </p>
-<h3>Cera Optimo</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 15,00</span>
-<button onclick="addProduto('cera-optimo-2l','Cera Optimo 2L',15)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>5L — R$ 32,00</span>
-<button onclick="addProduto('cera-optimo-5l','Cera Optimo 5L',32)">Adicionar</button>
-  </div>
-</div>
-      
-</div>
-    
 <div class="produto limpeza"
-     data-nomes="cera incolor, cera neutra, brilho piso, proteção">
+     data-nomes="alcool 70, alcool 70%, desinfetante, limpeza, casa, hospital">
 
-<img src="img/cera-incolor.jpg" alt="Cera Incolor">
+  <img src="img/alcool-70.jpg" alt="Álcool 70%">
   <span class="icone-busca">🔍</span>
-  <p class="descricao-produto">
-    Com alto poder para dar brilho em seu piso.
-  </p>
-<h3>Cera Incolor</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>1L — R$ 20,00</span>
-<button onclick="addProduto('cera-incolor-1l','Cera Brilhante 1L',20)">Adicionar</button>
+  <h3>Álcool 70%</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>1L — R$ 10,00</span>
+      <button onclick="addProduto(
+        'alcool-70-1l',
+        'Álcool 70% 1L',
+        10,
+        'img/alcool-70.jpg',
+        [
+          { tamanho: '1L', preco: 10 },
+          { tamanho: '2L', preco: 18 }
+        ],
+        '1L'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>2L — R$ 18,00</span>
+      <button onclick="addProduto(
+        'alcool-70-2l',
+        'Álcool 70% 2L',
+        18,
+        'img/alcool-70.jpg',
+        [
+          { tamanho: '1L', preco: 10 },
+          { tamanho: '2L', preco: 18 }
+        ],
+        '2L'
+      )">Adicionar</button>
+    </div>
   </div>
-  <div class="linha">
-    <span>5L — R$ 80,00</span>
-<button onclick="addProduto('cera-incolor-5l','Cera Brilhante 5L',80)">Adicionar</button>
-  </div>
-</div>
-    
 </div>
 
 <div class="produto limpeza"
-     data-nomes="oleo de peroba, óleo peroba, madeira, brilho, lustra moveis">
+     data-nomes="alcool em gel, alcool gel, higienizante, limpeza, desinfetante">
 
-<img src="img/oleo-peroba.jpg" alt="Oleo de Peroba">
+  <img src="img/alcool-em-gel.jpg" alt="Álcool em Gel">
   <span class="icone-busca">🔍</span>
-<h3>Óleo de Peroba</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>100ML — R$14,00</span>
-<button onclick="addProduto('oleo-peroba-100ml','Óleo de Peroba 100ML',14)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>200ML — R$ 20,00</span>
-<button onclick="addProduto('oleo-peroba-200ml','Óleo de Peroba 200ML',20)">Adicionar</button>
-  </div>
-</div>
-    
-</div>
-  
-<div class="produto limpeza"
-     data-nomes="lustra moveis, lustra móveis, brilho madeira, limpeza, casa">
+  <h3>Álcool em Gel</h3>
 
-<img src="img/lustra-moveis.jpg" alt="Lustra Móveis">
+  <div class="variacoes">
+    <div class="linha">
+      <span>500ML — R$ 12,00</span>
+      <button onclick="addProduto(
+        'alcool-gel-500ml',
+        'Álcool em Gel 500ML',
+        12,
+        'img/alcool-em-gel.jpg',
+        [
+          { tamanho: '500ML', preco: 12 },
+          { tamanho: '1L', preco: 20 }
+        ],
+        '500ML'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>1L — R$ 20,00</span>
+      <button onclick="addProduto(
+        'alcool-gel-1l',
+        'Álcool em Gel 1L',
+        20,
+        'img/alcool-em-gel.jpg',
+        [
+          { tamanho: '500ML', preco: 12 },
+          { tamanho: '1L', preco: 20 }
+        ],
+        '1L'
+      )">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Limpa Alumínio -->
+<div class="produto limpeza"
+     data-nomes="limpa aluminio, alumínio, brilho, panelas, limpeza pesada">
+  <img src="img/limpa-aluminio.jpg" alt="Limpa Alumínio">
   <span class="icone-busca">🔍</span>
-<h3>Lustra Móveis</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>500ML — R$ 7,00</span>
-<button onclick="addProduto('lustra-moveis-500ml','Lustra Móveis 500ML',7)">Adicionar</button>
+  <h3>Limpa Alumínio</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>1L — R$ 10,00</span>
+      <button onclick="addProduto(
+        'limpa-aluminio-1l','Limpa Alumínio 1L',10,'img/limpa-aluminio.jpg',
+        [{tamanho:'1L',preco:10},{tamanho:'2L',preco:14},{tamanho:'5L',preco:30}],'1L')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>2L — R$ 14,00</span>
+      <button onclick="addProduto(
+        'limpa-aluminio-2l','Limpa Alumínio 2L',14,'img/limpa-aluminio.jpg',
+        [{tamanho:'1L',preco:10},{tamanho:'2L',preco:14},{tamanho:'5L',preco:30}],'2L')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>5L — R$ 30,00</span>
+      <button onclick="addProduto(
+        'limpa-aluminio-5l','Limpa Alumínio 5L',30,'img/limpa-aluminio.jpg',
+        [{tamanho:'1L',preco:10},{tamanho:'2L',preco:14},{tamanho:'5L',preco:30}],'5L')">Adicionar</button>
+    </div>
   </div>
-  <div class="linha">
-    <span>1L — R$ 13,00</span>
-<button onclick="addProduto('lustra-moveis-1l','Lustra Móveis 1L',13)">Adicionar</button>
-  </div>
-</div>
-    
 </div>
 
+<!-- Limpa Pedra -->
 <div class="produto limpeza"
-     data-nomes="removedor, tira manchas, removedor sujeira pesada, limpeza">
-
-<img src="img/removedor.jpg" alt="Removedor">
+     data-nomes="limpa pedra, limpeza externa, quintal, piso rustico">
+  <img src="img/limpa-pedra.jpg" alt="Limpa Pedra">
   <span class="icone-busca">🔍</span>
-<h3>Removedor</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>Clineza 500ML — R$ 9,00</span>
-<button onclick="addProduto('removedor-clineza-500ml','Removedor Clineza 500ML',9)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>Búfalo 500ML — R$ 20,00</span>
-<button onclick="addProduto('removedor-bufalo-500ml','Removedor Búfalo 500ML',20)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>Suprema 1L — R$ 14,00</span>
-<button onclick="addProduto('removedor-suprema-1l','Removedor Suprema 1L',14)">Adicionar</button>
+  <p class="descricao-produto">Ideal para limpeza pesada, pisos rústicos, quintais e áreas externas.</p>
+  <h3>Limpa Pedra</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Clineza 2L — R$ 18,00</span>
+      <button onclick="addProduto(
+        'limpa-pedra-clineza-2l','Limpa Pedra Clineza 2L',18,'img/limpa-pedra.jpg',
+        [{tamanho:'Clineza 2L',preco:18},{tamanho:'Bonrruque 2L',preco:18},{tamanho:'Bonrruque 5L',preco:40}],'Clineza 2L')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Bonrruque 2L — R$ 18,00</span>
+      <button onclick="addProduto(
+        'limpa-pedra-bonrruque-2l','Limpa Pedra Bonrruque 2L',18,'img/limpa-pedra.jpg',
+        [{tamanho:'Clineza 2L',preco:18},{tamanho:'Bonrruque 2L',preco:18},{tamanho:'Bonrruque 5L',preco:40}],'Bonrruque 2L')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Bonrruque 5L — R$ 40,00</span>
+      <button onclick="addProduto(
+        'limpa-pedra-bonrruque-5l','Limpa Pedra Bonrruque 5L',40,'img/limpa-pedra.jpg',
+        [{tamanho:'Clineza 2L',preco:18},{tamanho:'Bonrruque 2L',preco:18},{tamanho:'Bonrruque 5L',preco:40}],'Bonrruque 5L')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto limpeza"
-     data-nomes="limpa vidro, vidro, espelho, limpeza, brilho">
-
-<img src="img/limpa-vidro.jpg" alt="Limpa Vidro">
+<!-- Limpa Porcelanato -->
+<div class="produto casa"
+     data-nomes="limpa porcelanato, limpeza de porcelanato, piso, limpeza de piso, casa">
+  <img src="img/limpa-porcelanato.jpg" alt="Limpa Porcelanato">
   <span class="icone-busca">🔍</span>
-<h3>Limpa Vidro</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>500ML — R$ 7,00</span>
-<button onclick="addProduto('limpa-vidro-500ml','Limpa Vidro 500ML',7)">Adicionar</button>
+  <h3>Limpa Porcelanato</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>1L — R$ 25,00</span>
+      <button onclick="addProduto(
+        'limpa-porcelanato-1l','Limpa Porcelanato 1L',25,'img/limpa-porcelanato.jpg',
+        [{tamanho:'1L',preco:25}],'1L')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
-  
-<div class="produto limpeza"
-     data-nomes="sapolio cremoso, sapólio, limpeza pesada, inox, banheiro">
 
-<img src="img/sapolio.jpg" alt="Sapólio Cremoso">
+<!-- Limpa Piso -->
+<div class="produto limpeza"
+     data-nomes="limpa piso, limpeza piso, ceramica, porcelanato, casa">
+  <img src="img/limpa-piso.jpg" alt="Limpa Piso">
   <span class="icone-busca">🔍</span>
-<h3>Sapólio Cremoso</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> YpÊ 300ML — R$ 12,00</span>
-<button onclick="addProduto('sapolio-ype-300ml','Sapólio Ypê 300ML',12)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span> Cif 450ML — R$ 20,00</span>
-<button onclick="addProduto('sapolio-cif-450ml','Sapólio Cif 450ML',20)">Adicionar</button>
+  <h3>Limpa Piso</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>2L — R$ 18,00</span>
+      <button onclick="addProduto(
+        'limpa-piso-2l','Limpa Piso 2L',18,'img/limpa-piso.jpg',
+        [{tamanho:'2L',preco:18},{tamanho:'5L',preco:40}],'2L')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>5L — R$ 40,00</span>
+      <button onclick="addProduto(
+        'limpa-piso-5l','Limpa Piso 5L',40,'img/limpa-piso.jpg',
+        [{tamanho:'2L',preco:18},{tamanho:'5L',preco:40}],'5L')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto limpeza"
-     data-nomes="sabonete liquido dove, dove, higiene pessoal, sabonete hidratante">
 
-<img src="img/sabonete-liquido-dove.jpg" alt="Sabonete Líquido Dove">
+<!-- Maridão -->
+<div class="produto limpeza" data-nomes="maridão, limpa tudo, limpeza pesada, desengordurante, casa">
+  <img src="img/maridao.jpg" alt="Maridão">
   <span class="icone-busca">🔍</span>
-<h3>Sabonete Líquido Dove</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>1L — R$ 12,00</span>
-<button onclick="addProduto('sabonete-dove-1l','Sabonete Dove 1L',12)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>5L — R$ 35,00</span>
-<button onclick="addProduto('sabonete-dove-5l','Sabonete Dove 5L',35)">Adicionar</button>
+  <p class="descricao-produto">Ideal para limpar box de banheiro, azulejo e eliminar gorduras.</p>
+  <h3>Maridão</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Maridão 1L — R$ 9,00</span>
+      <button onclick="addProduto(
+        'maridao-1l','Maridão 1L',9,'img/maridao.jpg',
+        [{tamanho:'1L',preco:9},{tamanho:'5L',preco:35}],'1L')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Maridão 5L — R$ 35,00</span>
+      <button onclick="addProduto(
+        'maridao-5l','Maridão 5L',35,'img/maridao.jpg',
+        [{tamanho:'1L',preco:9},{tamanho:'5L',preco:35}],'5L')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
- 
-<div class="produto limpeza"
-     data-nomes="sabonete liquido erva doce, erva doce, higiene, sabonete suave">
 
-<img src="img/sabonete-liquido-erva-doce.jpg" alt="Sabonete Líquido Erva Doce">
+<!-- Cera Optimo -->
+<div class="produto limpeza" data-nomes="cera optimo, cera piso, brilho, proteção, limpeza">
+  <img src="img/cera-optimo.jpg" alt="Cera Óptimo">
   <span class="icone-busca">🔍</span>
-<h3>Sabonete Liquido Erva Doce</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>1L — R$ 12,00</span>
-<button onclick="addProduto('sabonete-erva-doce-1l','Sabonete Líquido Erva Doce 1L',12)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>5L — R$ 35,00</span>
-<button onclick="addProduto('sabonete-erva-doce-5l','Sabonete Líquido Erva Doce 5L',35)">Adicionar</button>
+  <p class="descricao-produto">Ideal para perfumar o piso e dar brilho.</p>
+  <h3>Cera Optimo</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Cera Optimo 2L — R$ 15,00</span>
+      <button onclick="addProduto(
+        'cera-optimo-2l','Cera Optimo 2L',15,'img/cera-optimo.jpg',
+        [{tamanho:'2L',preco:15},{tamanho:'5L',preco:32}],'2L')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Cera Optimo 5L — R$ 32,00</span>
+      <button onclick="addProduto(
+        'cera-optimo-5l','Cera Optimo 5L',32,'img/cera-optimo.jpg',
+        [{tamanho:'2L',preco:15},{tamanho:'5L',preco:32}],'5L')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
-    
-<div class="produto limpeza"
-     data-nomes="percarbonato, tira manchas, roupas brancas, limpeza pesada">
 
-<img src="img/percabonato.jpg" alt="Percabonato">
+<!-- Cera Incolor -->
+<div class="produto limpeza" data-nomes="cera incolor, cera neutra, brilho piso, proteção">
+  <img src="img/cera-incolor.jpg" alt="Cera Incolor">
+  <span class="icone-busca">🔍</span>
+  <p class="descricao-produto">Com alto poder para dar brilho em seu piso.</p>
+  <h3>Cera Incolor</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Cera Incolor 1L — R$ 20,00</span>
+      <button onclick="addProduto(
+        'cera-incolor-1l','Cera Incolor 1L',20,'img/cera-incolor.jpg',
+        [{tamanho:'1L',preco:20},{tamanho:'5L',preco:80}],'1L')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Cera Incolor 5L — R$ 80,00</span>
+      <button onclick="addProduto(
+        'cera-incolor-5l','Cera Incolor 5L',80,'img/cera-incolor.jpg',
+        [{tamanho:'1L',preco:20},{tamanho:'5L',preco:80}],'5L')">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Óleo de Peroba -->
+<div class="produto limpeza" data-nomes="oleo de peroba, óleo peroba, madeira, brilho, lustra moveis">
+  <img src="img/oleo-peroba.jpg" alt="Óleo de Peroba">
+  <span class="icone-busca">🔍</span>
+  <h3>Óleo de Peroba</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Óleo de Peroba 100ML — R$ 14,00</span>
+      <button onclick="addProduto(
+        'oleo-peroba-100ml','Óleo de Peroba 100ML',14,'img/oleo-peroba.jpg',
+        [{tamanho:'100ML',preco:14},{tamanho:'200ML',preco:20}],'100ML')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Óleo de Peroba 200ML — R$ 20,00</span>
+      <button onclick="addProduto(
+        'oleo-peroba-200ml','Óleo de Peroba 200ML',20,'img/oleo-peroba.jpg',
+        [{tamanho:'100ML',preco:14},{tamanho:'200ML',preco:20}],'200ML')">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Lustra Móveis -->
+<div class="produto limpeza" data-nomes="lustra moveis, lustra móveis, brilho madeira, limpeza, casa">
+  <img src="img/lustra-moveis.jpg" alt="Lustra Móveis">
+  <span class="icone-busca">🔍</span>
+  <h3>Lustra Móveis</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Lustra Móveis 500ML — R$ 7,00</span>
+      <button onclick="addProduto(
+        'lustra-moveis-500ml','Lustra Móveis 500ML',7,'img/lustra-moveis.jpg',
+        [{tamanho:'500ML',preco:7},{tamanho:'1L',preco:13}],'500ML')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Lustra Móveis 1L — R$ 13,00</span>
+      <button onclick="addProduto(
+        'lustra-moveis-1l','Lustra Móveis 1L',13,'img/lustra-moveis.jpg',
+        [{tamanho:'500ML',preco:7},{tamanho:'1L',preco:13}],'1L')">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Removedor -->
+<div class="produto limpeza" data-nomes="removedor, tira manchas, removedor sujeira pesada, limpeza">
+  <img src="img/removedor.jpg" alt="Removedor">
+  <span class="icone-busca">🔍</span>
+  <h3>Removedor</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Removedor Clineza 500ML — R$ 9,00</span>
+      <button onclick="addProduto(
+        'removedor-clineza-500ml','Removedor Clineza 500ML',9,'img/removedor.jpg',
+        [{tamanho:'500ML',preco:9},{tamanho:'500ML',preco:20},{tamanho:'1L',preco:14}],'500ML')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Removedor Búfalo 500ML — R$ 20,00</span>
+      <button onclick="addProduto(
+        'removedor-bufalo-500ml','Removedor Búfalo 500ML',20,'img/removedor.jpg',
+        [{tamanho:'500ML',preco:9},{tamanho:'500ML',preco:20},{tamanho:'1L',preco:14}],'500ML')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Removedor Suprema 1L — R$ 14,00</span>
+      <button onclick="addProduto(
+        'removedor-suprema-1l','Removedor Suprema 1L',14,'img/removedor.jpg',
+        [{tamanho:'500ML',preco:9},{tamanho:'500ML',preco:20},{tamanho:'1L',preco:14}],'1L')">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Limpa Vidro -->
+<div class="produto limpeza" data-nomes="limpa vidro, vidro, espelho, limpeza, brilho">
+  <img src="img/limpa-vidro.jpg" alt="Limpa Vidro">
+  <span class="icone-busca">🔍</span>
+  <h3>Limpa Vidro</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Limpa Vidro 500ML — R$ 7,00</span>
+      <button onclick="addProduto(
+        'limpa-vidro-500ml','Limpa Vidro 500ML',7,'img/limpa-vidro.jpg',
+        [{tamanho:'500ML',preco:7}],'500ML')">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Sapólio Cremoso -->
+<div class="produto limpeza" data-nomes="sapolio cremoso, sapólio, limpeza pesada, inox, banheiro">
+  <img src="img/sapolio.jpg" alt="Sapólio Cremoso">
+  <span class="icone-busca">🔍</span>
+  <h3>Sapólio Cremoso</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Sapólio Ypê 300ML — R$ 12,00</span>
+      <button onclick="addProduto(
+        'sapolio-ype-300ml','Sapólio Ypê 300ML',12,'img/sapolio.jpg',
+        [{tamanho:'300ML',preco:12},{tamanho:'450ML',preco:20}],'300ML')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Sapólio Cif 450ML — R$ 20,00</span>
+      <button onclick="addProduto(
+        'sapolio-cif-450ml','Sapólio Cif 450ML',20,'img/sapolio.jpg',
+        [{tamanho:'300ML',preco:12},{tamanho:'450ML',preco:20}],'450ML')">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Sabonete Líquido Dove -->
+<div class="produto limpeza" data-nomes="sabonete liquido dove, dove, higiene pessoal, sabonete hidratante">
+  <img src="img/sabonete-liquido-dove.jpg" alt="Sabonete Líquido Dove">
+  <span class="icone-busca">🔍</span>
+  <h3>Sabonete Líquido Dove</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Sabonete Dove 1L — R$ 12,00</span>
+      <button onclick="addProduto(
+        'sabonete-dove-1l','Sabonete Dove 1L',12,'img/sabonete-liquido-dove.jpg',
+        [{tamanho:'1L',preco:12},{tamanho:'5L',preco:35}],'1L')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Sabonete Dove 5L — R$ 35,00</span>
+      <button onclick="addProduto(
+        'sabonete-dove-5l','Sabonete Dove 5L',35,'img/sabonete-liquido-dove.jpg',
+        [{tamanho:'1L',preco:12},{tamanho:'5L',preco:35}],'5L')">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Sabonete Líquido Erva Doce -->
+<div class="produto limpeza" data-nomes="sabonete liquido erva doce, erva doce, higiene, sabonete suave">
+  <img src="img/sabonete-liquido-erva-doce.jpg" alt="Sabonete Líquido Erva Doce">
+  <span class="icone-busca">🔍</span>
+  <h3>Sabonete Líquido Erva Doce</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Sabonete Erva Doce 1L — R$ 12,00</span>
+      <button onclick="addProduto(
+        'sabonete-erva-doce-1l','Sabonete Erva Doce 1L',12,'img/sabonete-liquido-erva-doce.jpg',
+        [{tamanho:'1L',preco:12},{tamanho:'5L',preco:35}],'1L')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Sabonete Erva Doce 5L — R$ 35,00</span>
+      <button onclick="addProduto(
+        'sabonete-erva-doce-5l','Sabonete Erva Doce 5L',35,'img/sabonete-liquido-erva-doce.jpg',
+        [{tamanho:'1L',preco:12},{tamanho:'5L',preco:35}],'5L')">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Percabonato -->
+<div class="produto limpeza" data-nomes="percarbonato, tira manchas, roupas brancas, limpeza pesada">
+  <img src="img/percabonato.jpg" alt="Percabonato">
   <span class="icone-busca">🔍</span>
   <p class="descricao-produto">
     Ideal para tirar manchas de roupas.
   </p>
-<h3>Percabonato</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>500g R$ 25,00</span>
-<button onclick="addProduto('percarbonato-500g','Percabonato 500g',25)">Adicionar</button>
+  <h3>Percabonato</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Percabonato 500g — R$ 25,00</span>
+      <button onclick="addProduto(
+        'percarbonato-500g','Percabonato 500g',25,'img/percabonato.jpg',
+        [{tamanho:'500g',preco:25}],'500g')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto limpeza"
-     data-nomes="bicarbonato, bicarbonato sodio, limpeza, neutraliza odor">
-
-<img src="img/bircabonato.jpg" alt="bicarbonato">
+<!-- Bicarbonato -->
+<div class="produto limpeza" data-nomes="bicarbonato, bicarbonato sodio, limpeza, neutraliza odor">
+  <img src="img/bircabonato.jpg" alt="Bicarbonato">
   <span class="icone-busca">🔍</span>
   <p class="descricao-produto">
-    Ideal para limpeza, tirar odores e ajudar na higiene do dia a dia.
-Versátil, eficiente e fácil de usar em casa.
+    Ideal para limpeza, tirar odores e ajudar na higiene do dia a dia. Versátil, eficiente e fácil de usar em casa.
   </p>
-<h3>Bicarbonato</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>500g R$ 15,00</span>
-<button onclick="addProduto('bicarbonato-500g','Bicarbonato 500g',15)">Adicionar</button>
+  <h3>Bicarbonato</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Bicarbonato 500g — R$ 15,00</span>
+      <button onclick="addProduto(
+        'bicarbonato-500g','Bicarbonato 500g',15,'img/bircabonato.jpg',
+        [{tamanho:'500g',preco:15}],'500g')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto limpeza"
-data-nomes="creolinha, desinfetante forte, limpeza pesada">
-
+<!-- Creolinha -->
+<div class="produto limpeza" data-nomes="creolinha, desinfetante forte, limpeza pesada">
   <img src="img/creolina.jpg" alt="Creolinha">
   <span class="icone-busca">🔍</span>
   <h3>Creolinha 900ML</h3>
   <div class="variacoes">
     <div class="linha">
-      <span>R$ 27,00</span>
-      <button onclick="addProduto('creolinha','Creolinha',27)">
-        Adicionar
-      </button>
+      <span>Creolinha 900ML — R$ 27,00</span>
+      <button onclick="addProduto(
+        'creolinha','Creolinha 900ML',27,'img/creolina.jpg',
+        [{tamanho:'900ML',preco:27}],'900ML')">Adicionar</button>
     </div>
   </div>
-
 </div>
-    
-<div class="produto limpeza"
-     data-nomes="dulbarmiga, inseticida formiga, veneno formiga, controle pragas">
 
-<img src="img/dulbarmiga.jpg" alt="Dulbarmiga Inseticida">
+<!-- Dulbarmiga -->
+<div class="produto limpeza" data-nomes="dulbarmiga, inseticida formiga, veneno formiga, controle pragas">
+  <img src="img/dulbarmiga.jpg" alt="Dulbarmiga Inseticida">
   <span class="icone-busca">🔍</span>
-<h3>Dulbarmiga Inseticida</h3>
+  <h3>Dulbarmiga Inseticida</h3>
   <p class="descricao-produto">
-    Ideal para eliminar Pulgas, Baratas, 
-    Aranhas e Pernilongos.
+    Ideal para eliminar Pulgas, Baratas, Aranhas e Pernilongos.
   </p>
-<div class="variacoes">
-  <div class="linha">
-    <span>R$ 35,00</span>
-<button onclick="addProduto('dulbarmiga','Dulbarmiga Inseticida',35)">Adicionar</button>
-  </div>
-</div>
-    
-</div>
-
-<div class="produto limpeza"
-     data-nomes="formixgel, veneno formiga, inseticida gel, controle formigas">
-
-<img src="img/formax.jpg" alt="FormixGel Veneno de Formiga">
-  <span class="icone-busca">🔍</span>
-<h3>FormixGel Veneno de Formiga</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 10,00</span>
-<button onclick="addProduto('formixgel','FormixGel Veneno de Formiga',10)">Adicionar</button>
-</div>
-</div>
-    
-</div>
-    
-<div class="produto limpeza"
-     data-nomes="kit banho cachorro, banho pet, higiene pet, shampoo cachorro">
-
-<img src="img/kit-banho-cachorro.jpg" alt="Kit Banho para Cachorro">
-  <span class="icone-busca">🔍</span>
-<h3>Kit Banho Para Cachorro</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 50,00</span>
-<button onclick="addProduto('kit-banho-cachorro','Kit Banho Para Cachorro',50)">Adicionar</button>
-  </div>
-</div>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Dulbarmiga 1L — R$ 35,00</span>
+      <button onclick="addProduto(
+        'dulbarmiga','Dulbarmiga 1L',35,'img/dulbarmiga.jpg',
+        [{tamanho:'1L',preco:35}],'1L')">Adicionar</button>
     </div>
+  </div>
+</div>
+
+<!-- FormixGel -->
+<div class="produto limpeza" data-nomes="formixgel, veneno formiga, inseticida gel, controle formigas">
+  <img src="img/formax.jpg" alt="FormixGel Veneno de Formiga">
+  <span class="icone-busca">🔍</span>
+  <h3>FormixGel Veneno de Formiga</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>FormixGel 30g — R$ 10,00</span>
+      <button onclick="addProduto(
+        'formixgel','FormixGel 30g',10,'img/formax.jpg',
+        [{tamanho:'30g',preco:10}],'30g')">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Kit Banho Cachorro -->
+<div class="produto limpeza" data-nomes="kit banho cachorro, banho pet, higiene pet, shampoo cachorro">
+  <img src="img/kit-banho-cachorro.jpg" alt="Kit Banho para Cachorro">
+  <span class="icone-busca">🔍</span>
+  <h3>Kit Banho Para Cachorro</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Kit Banho 1 Unidade — R$ 50,00</span>
+      <button onclick="addProduto(
+        'kit-banho-cachorro','Kit Banho 1 Unidade',50,'img/kit-banho-cachorro.jpg',
+        [{tamanho:'1 Unidade',preco:50}],'1 Unidade')">Adicionar</button>
+    </div>
+  </div>
+</div>
     
 </div>
 </div>
@@ -4733,7 +5676,7 @@ function atualizarMedia() {
     let soma = 0;
 
     snapshot.forEach(doc => {
-      soma += doc.data().nota;
+      soma += Number(doc.data().nota);
       total++;
     });
 
@@ -4748,64 +5691,104 @@ function atualizarMedia() {
   });
 }
 
+let todasAvaliacoes = [];
+
 function mostrarAvaliacoes() {
 
   db.collection("avaliacoes")
     .orderBy("data", "desc")
     .onSnapshot(snapshot => {
 
-      // Limpa todas as divisões
-      for (let i = 1; i <= 5; i++) {
-        document.getElementById("estrela" + i).innerHTML =
-          `<h3>${"⭐".repeat(i)} (${i} estrelas)</h3>`;
-      }
+      todasAvaliacoes = [];
+      let soma = 0;
 
       snapshot.forEach(doc => {
 
         const a = doc.data();
-        const container = document.getElementById("estrela" + a.nota);
-        const souAdmin = isAdmin();
 
-        container.innerHTML += `
-          <div class="avaliacao-card ${a.admin ? "avaliacao-admin" : ""}">
-            
-            <div class="estrelas">
-              ${renderEstrelas(a.nota)}
-            </div>
+        if (!a.nota) return; // ignora sem nota
 
-            <p>${a.comentario || "Sem comentário"}</p>
-            <strong>— ${a.nome}</strong>
+        a.id = doc.id;
+        a.nota = Number(a.nota);
 
-            ${
-              a.respostaAdmin
-                ? `
-                  <div class="resposta-admin">
-                    <strong>Resposta da loja:</strong>
-                    <p>${a.respostaAdmin}</p>
-                  </div>
-                `
-                : ""
-            }
+        if (a.nota < 1 || a.nota > 5) return;
 
-            ${
-              souAdmin && !a.respostaAdmin
-                ? `
-                  <textarea id="resp_${doc.id}"
-                    placeholder="Responder avaliação..."></textarea>
+        soma += a.nota;
+        todasAvaliacoes.push(a);
 
-                  <button onclick="responderAvaliacao('${doc.id}')">
-                    Responder
-                  </button>
-                `
-                : ""
-            }
-
-          </div>
-        `;
       });
 
+      const total = todasAvaliacoes.length;
+
+      const media = total > 0
+        ? (soma / total).toFixed(1)
+        : "0.0";
+
+      document.getElementById("mediaAvaliacao").innerText = media;
+      document.getElementById("totalAvaliacoes").innerText = total;
+
+      filtrarEstrelas(0);
     });
 }
+
+function filtrarEstrelas(nota) {
+
+  const container = document.getElementById("listaAvaliacoes");
+  container.innerHTML = "";
+
+  const souAdmin = isAdmin();
+
+  const filtradas = nota === 0
+    ? todasAvaliacoes
+    : todasAvaliacoes.filter(a => a.nota === nota);
+
+  // ✅ ADICIONE ISSO AQUI
+  if (filtradas.length === 0) {
+    container.innerHTML = "<p>Nenhuma avaliação nesta categoria.</p>";
+    return;
+  }
+
+  filtradas.forEach(a => {
+
+    container.innerHTML += `
+      <div class="avaliacao-card ${a.admin ? "avaliacao-admin" : ""}">
+
+        <div class="estrelas">
+          ${renderEstrelas(a.nota)}
+        </div>
+
+        <p>${a.comentario || "Sem comentário"}</p>
+        <strong>— ${a.nome}</strong>
+
+        ${
+          a.respostaAdmin
+            ? `
+              <div class="resposta-admin">
+                <strong>Resposta da loja:</strong>
+                <p>${a.respostaAdmin}</p>
+              </div>
+            `
+            : ""
+        }
+
+        ${
+          souAdmin && !a.respostaAdmin
+            ? `
+              <textarea id="resp_${a.id}"
+                placeholder="Responder avaliação..."></textarea>
+
+              <button onclick="responderAvaliacao('${a.id}')">
+                Responder
+              </button>
+            `
+            : ""
+        }
+
+      </div>
+    `;
+  });
+}
+
 
 function removerAvaliacao(idDoc, donoId) {
   const meuId = getUserId();
@@ -4824,7 +5807,6 @@ function removerAvaliacao(idDoc, donoId) {
 
 document.addEventListener("DOMContentLoaded", () => {
   mostrarAvaliacoes();
-  atualizarMedia();
 });
 
 function responderAvaliacao(idDoc) {
@@ -5103,15 +6085,16 @@ function esconderPainelAdmin() {
     (<span id="totalAvaliacoes">0</span> avaliações)
   </div>
 
- <div id="avaliacoesSeparadas">
-
-  <div id="estrela5"><h3>⭐⭐⭐⭐⭐ (5 estrelas)</h3></div>
-  <div id="estrela4"><h3>⭐⭐⭐⭐ (4 estrelas)</h3></div>
-  <div id="estrela3"><h3>⭐⭐⭐ (3 estrelas)</h3></div>
-  <div id="estrela2"><h3>⭐⭐ (2 estrelas)</h3></div>
-  <div id="estrela1"><h3>⭐ (1 estrela)</h3></div>
-
+<div class="filtro-avaliacoes">
+  <span onclick="filtrarEstrelas(0)">Todas</span>
+  <span onclick="filtrarEstrelas(5)">5⭐</span>
+  <span onclick="filtrarEstrelas(4)">4⭐</span>
+  <span onclick="filtrarEstrelas(3)">3⭐</span>
+  <span onclick="filtrarEstrelas(2)">2⭐</span>
+  <span onclick="filtrarEstrelas(1)">1⭐</span>
 </div>
+
+<div id="listaAvaliacoes"></div>
 
 </section>
 
