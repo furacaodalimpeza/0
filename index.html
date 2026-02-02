@@ -1201,6 +1201,26 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 }
 
+  #avaliacoesSeparadas > div {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+  #sugestoesMaisVendidos {
+  margin-top: 20px;
+  padding: 10px;
+  background: #fff8e1;
+  border-radius: 10px;
+}
+
+.sugestao-item {
+  padding: 5px 0;
+  font-size: 14px;
+}
+
 </style>
 </head>
 
@@ -1547,19 +1567,46 @@ data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de 
   
   <img src="img/cloro.jpg" alt="Cloro Liquido Clineza">
   <span class="icone-busca">🔍</span>
-<h3>Cloro Liquido Clineza</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 13,00</span>
-    <button onclick="addProduto('cloro-liquido-2l','Cloro Liquido Clineza 2L',13)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>5L — R$ 26,00</span>
-    <button onclick="addProduto('cloro-liquido-5l','Cloro Liquido Clineza 5L',26)">Adicionar</button>
+
+  <h3>Cloro Liquido Clineza</h3>
+
+  <div class="variacoes">
+    <div class="linha">
+      <span>2L — R$ 13,00</span>
+      <button onclick="addProduto(
+        'cloro-liquido-2l',
+        'Cloro Liquido Clineza',
+        13,
+        'img/cloro.jpg',
+        [
+          { tamanho: '2L', preco: 13 },
+          { tamanho: '5L', preco: 26 }
+        ],
+        '2L'
+      )">
+        Adicionar
+      </button>
+    </div>
+
+    <div class="linha">
+      <span>5L — R$ 26,00</span>
+      <button onclick="addProduto(
+        'cloro-liquido-5l',
+        'Cloro Liquido Clineza',
+        26,
+        'img/cloro.jpg',
+        [
+          { tamanho: '2L', preco: 13 },
+          { tamanho: '5L', preco: 26 }
+        ],
+        '5L'
+      )">
+        Adicionar
+      </button>
+    </div>
   </div>
 </div>
-</div>
-    
+
 <div class="produto limpeza"
      data-nomes="candida, cândida, agua sanitaria, água sanitária, cloro, limpeza pesada, branqueador, limpeza">
   
@@ -4004,6 +4051,7 @@ data-nomes="silicone clineza, silicone, brilho, carro">
 </div>
 
 <ul id="lista"></ul>
+  <div id="sugestoesMaisVendidos"></div>
 <p><strong>Total: R$ <span id="total">0.00</span></strong></p>
 
 <button
@@ -4119,6 +4167,7 @@ auth.onAuthStateChanged(user => {
       adminLogado = true;
       mostrarPainelAdmin();
       carregarEstoqueAdmin();
+      carregarPedidosAdmin();
       document.getElementById("loginAdmin").style.display = "none";
       console.log("ADMIN LOGADO");
       document.getElementById("btnAdminFlutuante").style.display = "none";
@@ -4192,8 +4241,9 @@ async function baixarEstoquePedido() {
   });
 }
 
-let carrinho = [];
+  let carrinho = [];
 let totalGeral = 0;
+let estrelaSelecionada = 0;
 let ultimoTotal = 0;
   
 // FUNÇÃO PARA ADICIONAR PRODUTO
@@ -4212,7 +4262,7 @@ function bloquearBotoesZerados() {
   }
 }
 
-function addProduto(id, nome, preco) {
+function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecionado = "") {
 
   preco = Number(preco);
   if (isNaN(preco)) return;
@@ -4229,9 +4279,17 @@ function addProduto(id, nome, preco) {
   if (item) {
     item.qtd++;
   } else {
-    carrinho.push({ id, nome, preco, qtd: 1 });
+    carrinho.push({ 
+      id, 
+      nome: nome + (tamanhoSelecionado ? " " + tamanhoSelecionado : ""),
+      preco, 
+      qtd: 1,
+      imagem,
+      tamanhos
+    });
   }
 
+  // 🔥 TEM QUE FICAR FORA DO ELSE
   atualizar();
   atualizarEstoqueTela();
   bloquearBotoesZerados();
@@ -4297,6 +4355,7 @@ if (totalFlutuante && totalFlutuanteValor) {
     ultimoTotal = totalGeral;
   }
 }
+  mostrarMaisVendidos();
 }
   
 // TROCAR NOME
@@ -4448,6 +4507,12 @@ function fecharModal() {
 }
 
 async function confirmarPedido() {
+
+  const cliNome = document.getElementById("cliNome");
+  const cliTel = document.getElementById("cliTel");
+  const cliEnd = document.getElementById("cliEnd");
+  const cliPag = document.getElementById("cliPag");
+
   const nome = cliNome.value.trim();
   const tel = cliTel.value.trim();
   const end = cliEnd.value.trim();
@@ -4492,6 +4557,43 @@ try {
   alert("ERRO: " + err);
   console.error("ERRO COMPLETO:", err);
   return;
+}
+
+  // 2️⃣ SALVA O PEDIDO PARA O ADMIN
+await db.collection("pedidos").add({
+  numero: numeroPedido,
+  cliente: nome,
+  telefone: tel,
+  endereco: end,
+  pagamento: pag,
+  itens: JSON.parse(JSON.stringify(carrinho)),
+  total: totalGeral,
+  data: firebase.firestore.FieldValue.serverTimestamp(),
+  status: "Novo"
+});
+
+  for (const item of carrinho) {
+
+  const ref = db.collection("maisVendidos").doc(item.id);
+
+  await db.runTransaction(async (transaction) => {
+    const doc = await transaction.get(ref);
+
+    if (!doc.exists) {
+      transaction.set(ref, {
+  nome: item.nome,
+  imagem: item.imagem || "",
+  tamanhos: item.tamanhos || [],
+  quantidade: item.qtd
+});
+    } else {
+      const atual = doc.data().quantidade || 0;
+      transaction.update(ref, {
+  quantidade: atual + item.qtd
+});
+    }
+  });
+
 }
 
   setTimeout(() => {
@@ -4602,7 +4704,7 @@ if (!nome) {
   nota: estrelaSelecionada,
   comentario: comentario,
   admin: isAdmin(),
-  data: new Date()
+  data: firebase.firestore.FieldValue.serverTimestamp()
 });
 
   localStorage.setItem("avaliado_" + pedidoAtual, "true");
@@ -4612,14 +4714,14 @@ if (!nome) {
   estrelaSelecionada = 0;
 
   const estrelas = document.querySelectorAll(".avaliar-loja .estrelas span");
-document.querySelectorAll(".avaliar-loja .estrelas span")
-  .forEach(e => e.classList.remove("ativa", "meia"));
+
+estrelas.forEach(e => e.classList.remove("ativa"));
 
   document.getElementById("msgAvaliacao").innerText =
     "Obrigado pela sua avaliação 💙";
   
   document.getElementById("boxAvaliacao").style.display = "none";
-document.getElementById("msgObrigadoAvaliacao").style.display = "none";
+document.getElementById("msgObrigadoAvaliacao").style.display = "block";
 
   return;
 }
@@ -4646,33 +4748,29 @@ function atualizarMedia() {
   });
 }
 
-// MOSTRAR AVALIAÇÕES
 function mostrarAvaliacoes() {
-  const lista = document.getElementById("listaAvaliacoes");
-  if (!lista) return;
-
-  const meuId = getUserId();
-  const souAdmin = isAdmin();
-
-  lista.innerHTML = "Carregando avaliações...";
 
   db.collection("avaliacoes")
     .orderBy("data", "desc")
     .onSnapshot(snapshot => {
-      lista.innerHTML = "";
+
+      // Limpa todas as divisões
+      for (let i = 1; i <= 5; i++) {
+        document.getElementById("estrela" + i).innerHTML =
+          `<h3>${"⭐".repeat(i)} (${i} estrelas)</h3>`;
+      }
 
       snapshot.forEach(doc => {
-        const a = doc.data();
-        const podeRemover = souAdmin || a.userId === meuId;
 
-        lista.innerHTML += `
+        const a = doc.data();
+        const container = document.getElementById("estrela" + a.nota);
+        const souAdmin = isAdmin();
+
+        container.innerHTML += `
           <div class="avaliacao-card ${a.admin ? "avaliacao-admin" : ""}">
             
-            <div class="topo-avaliacao">
-              <div class="estrelas">
-                ${renderEstrelas(a.nota)}
-              </div>
-              ${a.admin ? `<span class="selo-admin">ADMIN</span>` : ""}
+            <div class="estrelas">
+              ${renderEstrelas(a.nota)}
             </div>
 
             <p>${a.comentario || "Sem comentário"}</p>
@@ -4680,42 +4778,34 @@ function mostrarAvaliacoes() {
 
             ${
               a.respostaAdmin
-                ? `<div class="resposta-admin">
-                     <strong>Resposta da loja:</strong>
-                     <p>${a.respostaAdmin}</p>
-                   </div>`
+                ? `
+                  <div class="resposta-admin">
+                    <strong>Resposta da loja:</strong>
+                    <p>${a.respostaAdmin}</p>
+                  </div>
+                `
                 : ""
             }
 
             ${
               souAdmin && !a.respostaAdmin
                 ? `
-                <textarea id="resp_${doc.id}"
-                  placeholder="Responder avaliação..."></textarea>
+                  <textarea id="resp_${doc.id}"
+                    placeholder="Responder avaliação..."></textarea>
 
-                <button onclick="responderAvaliacao('${doc.id}')">
-                  Responder
-                </button>
+                  <button onclick="responderAvaliacao('${doc.id}')">
+                    Responder
+                  </button>
                 `
                 : ""
             }
 
-            ${
-              podeRemover
-                ? `
-                <button class="btn-remover"
-                  onclick="removerAvaliacao('${doc.id}', '${a.userId}')">
-                  🗑️ Remover
-                </button>
-                `
-                : ""
-            }
           </div>
         `;
       });
+
     });
 }
-
 
 function removerAvaliacao(idDoc, donoId) {
   const meuId = getUserId();
@@ -4738,6 +4828,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function responderAvaliacao(idDoc) {
+
+  if (!isAdmin()) {
+    alert("Apenas o administrador pode responder.");
+    return;
+  }
+
   const campo = document.getElementById("resp_" + idDoc);
   if (!campo) return;
 
@@ -4826,8 +4922,6 @@ function esconderPainelAdmin() {
   });
 }
 
-</script>
-  <script>
   function toggleLoginAdmin() {
     const modal = document.getElementById("loginAdmin");
 
@@ -4853,9 +4947,111 @@ function esconderPainelAdmin() {
   });
 }
 
+   function carregarPedidosAdmin() {
+  if (!isAdmin()) return;
+
+  const painel = document.getElementById("listaPedidosAdmin");
+  if (!painel) return; // ✅ coloca AQUI
+
+  painel.innerHTML = "Carregando pedidos...";
+
+  db.collection("pedidos")
+    .orderBy("data", "desc")
+    .onSnapshot(snapshot => {
+      painel.innerHTML = "";
+
+      snapshot.forEach(doc => {
+        const p = doc.data();
+
+        painel.innerHTML += `
+          <div class="pedido-admin">
+            <strong>Pedido Nº ${p.numero}</strong><br>
+            Cliente: ${p.cliente}<br>
+            Total: R$ ${(p.total || 0).toFixed(2)}<br>
+            Status: ${p.status}<br>
+          </div>
+        `;
+      });
+    });
+}
+
+   function mostrarMaisVendidos() {
+
+  const box = document.getElementById("sugestoesMaisVendidos");
+  if (!box) return;
+
+  if (carrinho.length === 0) {
+    box.innerHTML = "";
+    return;
+  }
+
+  db.collection("maisVendidos")
+    .orderBy("quantidade", "desc")
+    .limit(3)
+    .get()
+    .then(snapshot => {
+
+      box.innerHTML = `
+        <h4>🔥 Reparando nas suas compras, temos também:</h4>
+      `;
+
+      snapshot.forEach(doc => {
+
+        const p = doc.data();
+
+        box.innerHTML += `
+          <div class="sugestao-card">
+            
+            <img src="${p.imagem}" style="width:60px; margin-bottom:5px;">
+
+            <div><strong>${p.nome}</strong></div>
+
+            ${
+              p.tamanhos && p.tamanhos.length > 0
+                ? `
+                  <select onchange="adicionarSugestao('${doc.id}', this)">
+                    <option value="">Selecionar tamanho</option>
+                    ${p.tamanhos.map(t => `
+                      <option value="${t.preco}|${t.tamanho}">
+                        ${t.tamanho} - R$ ${t.preco}
+                      </option>
+                    `).join("")}
+                  </select>
+                `
+                : ""
+            }
+
+          </div>
+        `;
+      });
+
+    });
+}
+
+    function adicionarSugestao(id, select) {
+
+  if (!select.value) return;
+
+  const [preco, tamanho] = select.value.split("|");
+
+  const card = select.closest(".sugestao-card");
+
+  const nome = card.querySelector("strong").innerText;
+  const imagem = card.querySelector("img").src;
+
+  addProduto(
+    id + "_" + tamanho,
+    nome,
+    Number(preco),
+    imagem,
+    [],
+    tamanho
+  );
+
+  select.value = "";
+}
+
 </script>
-
-
  <!-- 🔐 BOTÃO ADMIN FLUTUANTE -->
 <button id="btnAdminFlutuante" onclick="toggleLoginAdmin()">
   🔐
@@ -4878,7 +5074,7 @@ function esconderPainelAdmin() {
 
 </div>
 
-    <!-- 🔐 PAINEL ADMIN - ESTOQUE -->
+   <!-- 🔐 PAINEL ADMIN -->
 <div id="painelAdmin" style="
   display:none;
   background:#fff;
@@ -4888,8 +5084,12 @@ function esconderPainelAdmin() {
 ">
 
   <h2>📦 Painel de Estoque (Admin)</h2>
-
   <div id="listaEstoqueAdmin"></div>
+
+  <hr style="margin:30px 0;">
+
+  <h2>🧾 Pedidos Recebidos</h2>
+  <div id="listaPedidosAdmin"></div>
 
 </div>
 
@@ -4903,7 +5103,15 @@ function esconderPainelAdmin() {
     (<span id="totalAvaliacoes">0</span> avaliações)
   </div>
 
-  <div id="listaAvaliacoes"></div>
+ <div id="avaliacoesSeparadas">
+
+  <div id="estrela5"><h3>⭐⭐⭐⭐⭐ (5 estrelas)</h3></div>
+  <div id="estrela4"><h3>⭐⭐⭐⭐ (4 estrelas)</h3></div>
+  <div id="estrela3"><h3>⭐⭐⭐ (3 estrelas)</h3></div>
+  <div id="estrela2"><h3>⭐⭐ (2 estrelas)</h3></div>
+  <div id="estrela1"><h3>⭐ (1 estrela)</h3></div>
+
+</div>
 
 </section>
 
@@ -4992,49 +5200,37 @@ function esconderPainelAdmin() {
   <div id="seloVerificado">✔️ Verificado</div>
 
   <script>
-let estrelaSelecionada = 0;
-const estrelas = document.querySelectorAll(".avaliar-loja .estrelas span");
+document.addEventListener("DOMContentLoaded", () => {
 
-function atualizarEstrelas(nota) {
+  const estrelas = document.querySelectorAll(".avaliar-loja .estrelas span");
+
+  function atualizarEstrelas(nota) {
+    estrelas.forEach((estrela, i) => {
+      estrela.classList.remove("ativa");
+      if (i < nota) {
+        estrela.classList.add("ativa");
+      }
+    });
+  }
+
   estrelas.forEach((estrela, i) => {
-    estrela.classList.remove("ativa");
-    if (i < nota) {
-      estrela.classList.add("ativa");
-    }
-  });
-}
+    estrela.addEventListener("click", () => {
+      estrelaSelecionada = i + 1;
+      atualizarEstrelas(estrelaSelecionada);
+    });
 
-// clique normal (apenas inteiro)
-estrelas.forEach((estrela, i) => {
-  estrela.addEventListener("click", () => {
-    estrelaSelecionada = i + 1;
-    atualizarEstrelas(estrelaSelecionada);
+    estrela.addEventListener("mouseenter", () => {
+      atualizarEstrelas(i + 1);
+    });
   });
 
-  // efeito hover
-  estrela.addEventListener("mouseenter", () => {
-    atualizarEstrelas(i + 1);
-  });
+  document
+    .querySelector(".avaliar-loja .estrelas")
+    .addEventListener("mouseleave", () => {
+      atualizarEstrelas(estrelaSelecionada);
+    });
+
 });
-
-// volta para nota salva
-document
-  .querySelector(".avaliar-loja .estrelas")
-  .addEventListener("mouseleave", () => {
-    atualizarEstrelas(estrelaSelecionada);
-  });
-
-atualizarEstrelas(0);
-
-// VOLTA PARA A NOTA SALVA
-document
-  .querySelector(".avaliar-loja .estrelas")
-  .addEventListener("mouseleave", () => {
-    atualizarEstrelas(estrelaSelecionada);
-  });
-
-// inicia zerado
-atualizarEstrelas(0);
 </script>
 
 </body>
