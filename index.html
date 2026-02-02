@@ -1201,23 +1201,32 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 }
 
- .filtro-avaliacoes {
+.avaliacoes {
+  background: #f9fafc;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.avaliacoes h2 {
+  font-size: 26px;
+  margin-bottom: 20px; /* dá espaço entre título e avaliações */
+  color: #0d47a1;
+}
+
+.avaliacoes-box {
   display: flex;
-  gap: 10px;
-  margin: 10px 0;
-  flex-wrap: wrap;
+  flex-direction: column; /* garante que fiquem uma embaixo da outra */
+  align-items: center;    /* centraliza horizontalmente */
+  gap: 20px;              /* espaço entre cada avaliação */
+  margin-top: 10px;
 }
 
-.filtro-avaliacoes span {
-  background: #f2f2f2;
-  padding: 6px 12px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.filtro-avaliacoes span:hover {
-  background: gold;
+.avaliacao-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 14px;
+  max-width: 260px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
   #sugestoesMaisVendidos {
@@ -1230,6 +1239,19 @@ input[type="search"]::-webkit-search-cancel-button {
 .sugestao-item {
   padding: 5px 0;
   font-size: 14px;
+}
+
+  #listaAvaliacoes {
+  display: flex;
+  flex-direction: column; /* uma embaixo da outra */
+  gap: 15px; /* espaço entre as avaliações */
+  margin-top: 15px; /* espaço do filtro/ título */
+}
+.avaliacao-card {
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
 </style>
@@ -2970,7 +2992,6 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
   </div>
 </div>
 
-
 <div class="produto limpeza"
      data-nomes="alcool perfumado concentrado, alcool concentrado, limpeza, casa">
 
@@ -3574,89 +3595,214 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 <div class="produto casa"
      data-nomes="saco de lixo, saco lixo, lixo, limpeza, cozinha, banheiro">
 
-<img src="img/saco-lixo.jpg" alt="Saco de Lixo">
+  <img src="img/saco-lixo.jpg" alt="Saco de Lixo">
   <span class="icone-busca">🔍</span>
-<h3>Saco de Lixo</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>20L 10 Unid. — R$ 8,00</span>
-<button onclick="addProduto('saco-lixo-20l-10un','Saco de Lixo 20L 10 Unid.',8)">Adicionar</button>
+  <h3>Saco de Lixo</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>20L 10 Unid. — R$ 8,00</span>
+      <button onclick="addProduto(
+        'saco-lixo-20l-10un',
+        'Saco de Lixo 20L 10 Unid.',
+        8,
+        'img/saco-lixo.jpg',
+        [
+          { tamanho: '20L 10 Unid.', preco: 8 },
+          { tamanho: '30L 10 Unid.', preco: 8 },
+          { tamanho: '40L 10 Unid.', preco: 9 },
+          { tamanho: '50L 10 Unid.', preco: 9 },
+          { tamanho: '60L Reforçado 10 Unid.', preco: 10 },
+          { tamanho: '100L 5 Unid.', preco: 9 }
+        ],
+        '20L 10 Unid.'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>30L 10 Unid. — R$ 8,00</span>
+      <button onclick="addProduto(
+        'saco-lixo-30l-10un',
+        'Saco de Lixo 30L 10 Unid.',
+        8,
+        'img/saco-lixo.jpg',
+        [
+          { tamanho: '20L 10 Unid.', preco: 8 },
+          { tamanho: '30L 10 Unid.', preco: 8 },
+          { tamanho: '40L 10 Unid.', preco: 9 },
+          { tamanho: '50L 10 Unid.', preco: 9 },
+          { tamanho: '60L Reforçado 10 Unid.', preco: 10 },
+          { tamanho: '100L 5 Unid.', preco: 9 }
+        ],
+        '30L 10 Unid.'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>40L 10 Unid. — R$ 9,00</span>
+      <button onclick="addProduto(
+        'saco-lixo-40l-10un',
+        'Saco de Lixo 40L 10 Unid.',
+        9,
+        'img/saco-lixo.jpg',
+        [
+          { tamanho: '20L 10 Unid.', preco: 8 },
+          { tamanho: '30L 10 Unid.', preco: 8 },
+          { tamanho: '40L 10 Unid.', preco: 9 },
+          { tamanho: '50L 10 Unid.', preco: 9 },
+          { tamanho: '60L Reforçado 10 Unid.', preco: 10 },
+          { tamanho: '100L 5 Unid.', preco: 9 }
+        ],
+        '40L 10 Unid.'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>50L 10 Unid. — R$ 9,00</span>
+      <button onclick="addProduto(
+        'saco-lixo-50l-10un',
+        'Saco de Lixo 50L 10 Unid.',
+        9,
+        'img/saco-lixo.jpg',
+        [
+          { tamanho: '20L 10 Unid.', preco: 8 },
+          { tamanho: '30L 10 Unid.', preco: 8 },
+          { tamanho: '40L 10 Unid.', preco: 9 },
+          { tamanho: '50L 10 Unid.', preco: 9 },
+          { tamanho: '60L Reforçado 10 Unid.', preco: 10 },
+          { tamanho: '100L 5 Unid.', preco: 9 }
+        ],
+        '50L 10 Unid.'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>60L Reforçado 10 Unid. — R$ 10,00</span>
+      <button onclick="addProduto(
+        'saco-lixo-60l-reforcado-10un',
+        'Saco de Lixo 60L Reforçado 10 Unid.',
+        10,
+        'img/saco-lixo.jpg',
+        [
+          { tamanho: '20L 10 Unid.', preco: 8 },
+          { tamanho: '30L 10 Unid.', preco: 8 },
+          { tamanho: '40L 10 Unid.', preco: 9 },
+          { tamanho: '50L 10 Unid.', preco: 9 },
+          { tamanho: '60L Reforçado 10 Unid.', preco: 10 },
+          { tamanho: '100L 5 Unid.', preco: 9 }
+        ],
+        '60L Reforçado 10 Unid.'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>100L 5 Unid. — R$ 9,00</span>
+      <button onclick="addProduto(
+        'saco-lixo-100l-5un',
+        'Saco de Lixo 100L 5 Unid.',
+        9,
+        'img/saco-lixo.jpg',
+        [
+          { tamanho: '20L 10 Unid.', preco: 8 },
+          { tamanho: '30L 10 Unid.', preco: 8 },
+          { tamanho: '40L 10 Unid.', preco: 9 },
+          { tamanho: '50L 10 Unid.', preco: 9 },
+          { tamanho: '60L Reforçado 10 Unid.', preco: 10 },
+          { tamanho: '100L 5 Unid.', preco: 9 }
+        ],
+        '100L 5 Unid.'
+      )">Adicionar</button>
+    </div>
   </div>
-  <div class="linha">
-    <span>30L 10 Unid. — R$ 8,00</span>
-<button onclick="addProduto('saco-lixo-30l-10un','Saco de Lixo 30L 10 Unid.',8)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>40L 10 Unid. — R$ 9,00</span>
-<button onclick="addProduto('saco-lixo-40l-10un','Saco de Lixo 40L 10 Unid.',9)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>50L 10 Unid. — R$ 9,00</span>
-<button onclick="addProduto('saco-lixo-50l-10un','Saco de Lixo 50L 10 Unid.',9)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>100L 5 Unid. — R$ 9,00</span>
-<button onclick="addProduto('saco-lixo-100l-5un','Saco de Lixo 100L 5 Unid.',9)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>60L Reforçado 10 Unid. — R$ 10,00</span>
-<button onclick="addProduto('saco-lixo-60l-reforcado-10un','Saco de Lixo 60L Reforçado 10 Unid.',10)">Adicionar</button>
-  </div>
-</div>
-    
 </div>
 
 <div class="produto casa"
      data-nomes="sabao em pedra, sabão pedra, lavar roupa, limpeza pesada">
 
-<img src="img/sabao-pedra.jpg" alt="Sabão em Pedra">
+  <img src="img/sabao-pedra.jpg" alt="Sabão em Pedra">
   <span class="icone-busca">🔍</span>
-<h3>Sabao em Pedra</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>3 Unid. R$ 10,00</span>
-<button onclick="addProduto('sabao-pedra-3un','Sabão em Pedra 3 Unid.',10)">Adicionar</button>
+  <h3>Sabão em Pedra</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>3 Unid. — R$ 10,00</span>
+      <button onclick="addProduto(
+        'sabao-pedra-3un',
+        'Sabão em Pedra 3 Unid.',
+        10,
+        'img/sabao-pedra.jpg',
+        [
+          { tamanho: '3 Unid.', preco: 10 },
+          { tamanho: 'Pote 500g', preco: 8 }
+        ],
+        '3 Unid.'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Pote 500g — R$ 8,00</span>
+      <button onclick="addProduto(
+        'sabao-pedra-pote-500g',
+        'Sabão em Pedra Pote 500g',
+        8,
+        'img/sabao-pedra.jpg',
+        [
+          { tamanho: '3 Unid.', preco: 10 },
+          { tamanho: 'Pote 500g', preco: 8 }
+        ],
+        'Pote 500g'
+      )">Adicionar</button>
+    </div>
   </div>
-  <div class="linha">
-    <span>em pote 500g R$ 8,00</span>
-<button onclick="addProduto('sabao-pedra-pote-500g','Sabão em Pedra Pote 500g',8)">Adicionar</button>
-  </div>
-</div>
-    
 </div>
 
 <div class="produto casa"
      data-nomes="sabão em pedra ypê, sabão ypê, lavar roupas, limpeza pesada, sabão em barra">
-    
-<img src="img/sabao-ype.jpg" alt="Sabão em Pedra Ypê 5 Unid.">
+
+  <img src="img/sabao-ype.jpg" alt="Sabão em Pedra Ypê 5 Unid.">
   <span class="icone-busca">🔍</span>
-<h3>Sabão em Pedra Ypê 5 Unid.</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>R$ 18,00</span>
-<button onclick="addProduto('sabao-pedra-ype-5un','Sabão em Pedra Ypê 5 Unid.',18)">Adicionar</button>
+  <h3>Sabão em Pedra Ypê 5 Unid.</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>R$ 18,00</span>
+      <button onclick="addProduto(
+        'sabao-pedra-ype-5un',
+        'Sabão em Pedra Ypê 5 Unid.',
+        18,
+        'img/sabao-ype.jpg',
+        [{ tamanho: '5 Unid.', preco: 18 }],
+        '5 Unid.'
+      )">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-    
-<div class="produto casa" 
-     data-nomes="sabao em pedra, sabao pedra, sabao barra, sabao de barra, sabao azul, sabao limpeza">
-  
+<div class="produto casa"
+     data-nomes="sabao em pó, sabão limpeza, omo, brilhante">
+
   <img src="img/sabao-em-po.jpg" alt="Sabão em Pó">
-<span class="icone-busca">🔍</span>
+  <span class="icone-busca">🔍</span>
   <h3>Sabão em Pó</h3>
-
   <div class="variacoes">
     <div class="linha">
       <span>Omo — R$ 16,00</span>
-<button onclick="addProduto('sabao-po-omo','Sabão em Pó Omo',16)">Adicionar</button>
+      <button onclick="addProduto(
+        'sabao-po-omo',
+        'Sabão em Pó Omo',
+        16,
+        'img/sabao-em-po.jpg',
+        [
+          { tamanho: 'Omo', preco: 16 },
+          { tamanho: 'Brilhante', preco: 13 }
+        ],
+        'Omo'
+      )">Adicionar</button>
     </div>
-
     <div class="linha">
       <span>Brilhante — R$ 13,00</span>
-<button onclick="addProduto('sabao-po-brilhante','Sabão em Pó Brilhante',13)">Adicionar</button>
+      <button onclick="addProduto(
+        'sabao-po-brilhante',
+        'Sabão em Pó Brilhante',
+        13,
+        'img/sabao-em-po.jpg',
+        [
+          { tamanho: 'Omo', preco: 16 },
+          { tamanho: 'Brilhante', preco: 13 }
+        ],
+        'Brilhante'
+      )">Adicionar</button>
     </div>
   </div>
 </div>
@@ -3664,788 +3810,778 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 <div class="produto casa"
      data-nomes="pasta de brilho, brilho metais, limpeza, polimento">
 
-<img src="img/pasta-brilho.jpg" alt="Pasta de Brilho">
+  <img src="img/pasta-brilho.jpg" alt="Pasta de Brilho">
   <span class="icone-busca">🔍</span>
-<h3>Pasta de Brilho</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 8,00</span>
-<button onclick="addProduto('pasta-brilho','Pasta de Brilho',8)">Adicionar</button>
+  <h3>Pasta de Brilho</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>R$ 8,00</span>
+      <button onclick="addProduto('pasta-brilho','Pasta de Brilho',8,'img/pasta-brilho.jpg',[{tamanho:'Único',preco:8}],'Único')">Adicionar</button>
+    </div>
   </div>
 </div>
-  
-</div> 
 
 <div class="produto casa"
      data-nomes="bombril, esponja aço, limpeza pesada, panela, cozinha">
 
-<img src="img/bombril.jpg" alt="Bombril">
+  <img src="img/bombril.jpg" alt="Bombril">
   <span class="icone-busca">🔍</span>
   <h3>Bombril</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 4,50</span>
-<button onclick="addProduto('bombril','Bombril',4.5)">Adicionar</button>
+  <div class="variacoes">
+    <div class="linha">
+      <span>R$ 4,50</span>
+      <button onclick="addProduto('bombril','Bombril',4.5,'img/bombril.jpg',[{tamanho:'Único',preco:4.5}],'Único')">Adicionar</button>
+    </div>
   </div>
-</div>
-    
 </div>
 
 <div class="produto casa"
      data-nomes="bucha de aço, esponja de aço, palha de aço, limpeza pesada, lavar louça">
-  
-    <img src="img/bucha-aco.jpg" alt="Bucha de Aço">
+
+  <img src="img/bucha-aco.jpg" alt="Bucha de Aço">
   <span class="icone-busca">🔍</span>
   <h3>Bucha de Aço</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 4,00</span>
-<button onclick="addProduto('bucha-aco','Bucha de Aço',4)">Adicionar</button>
+  <div class="variacoes">
+    <div class="linha">
+      <span>R$ 4,00</span>
+      <button onclick="addProduto('bucha-aco','Bucha de Aço',4,'img/bucha-aco.jpg',[{tamanho:'Único',preco:4}],'Único')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
+
 <div class="produto casa"
      data-nomes="bucha banho, esponja banho, higiene pessoal">
 
-<img src="img/bucha-banho.jpg" alt="Bucha de Banho">
+  <img src="img/bucha-banho.jpg" alt="Bucha de Banho">
   <span class="icone-busca">🔍</span>
-<h3>Bucha de Banho</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>Vegetal R$ 8,00</span>
-<button onclick="addProduto('bucha-banho-vegetal','Bucha de Banho Vegetal',8)">Adicionar</button>
+  <h3>Bucha de Banho</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Vegetal — R$ 8,00</span>
+      <button onclick="addProduto('bucha-banho-vegetal','Bucha de Banho Vegetal',8,'img/bucha-banho.jpg',[{tamanho:'Vegetal',preco:8},{tamanho:'Dupla Face',preco:8},{tamanho:'Leve Brisa',preco:8}],'Vegetal')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Dupla Face — R$ 8,00</span>
+      <button onclick="addProduto('bucha-banho-dupla-face','Bucha de Banho Dupla Face',8,'img/bucha-banho.jpg',[{tamanho:'Vegetal',preco:8},{tamanho:'Dupla Face',preco:8},{tamanho:'Leve Brisa',preco:8}],'Dupla Face')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Leve Brisa — R$ 8,00</span>
+      <button onclick="addProduto('bucha-banho-leve-brisa','Bucha de Banho Leve Brisa',8,'img/bucha-banho.jpg',[{tamanho:'Vegetal',preco:8},{tamanho:'Dupla Face',preco:8},{tamanho:'Leve Brisa',preco:8}],'Leve Brisa')">Adicionar</button>
+    </div>
   </div>
-  <div class="linha">
-    <span>Dupla Face R$ 8,00</span>
-<button onclick="addProduto('bucha-banho-dupla-face','Bucha de Banho Dupla Face',8)">Adicionar</button>
-  </div>
-   <div class="linha">
-    <span>Leve Brisa R$ 8,00</span>
-<button onclick="addProduto('bucha-banho-leve-brisa','Bucha de Banho Leve Brisa',8)">Adicionar</button>
-  </div>
-</div>
-    
 </div>
   
-<div class="produto casa"
-     data-nomes="bucha louca, esponja louca, limpeza cozinha">
-
-<img src="img/bucha-louca.jpg" alt="Bucha de Louça">
+<!-- Bucha de Louça -->
+<div class="produto casa" data-nomes="bucha louca, esponja louca, limpeza cozinha">
+  <img src="img/bucha-louca.jpg" alt="Bucha de Louça">
   <span class="icone-busca">🔍</span>
-<h3>Bucha de Louça</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>Scotch Brite 4 Unid. R$ 11,00</span>
-<button onclick="addProduto('bucha-louca-scotch-4un','Bucha Scotch Brite 4 Unid.',11)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>Alklin R$ 1,50</span>
-<button onclick="addProduto('bucha-louca-alklin','Bucha Alklin',1.5)">Adicionar</button>
+  <h3>Bucha de Louça</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Scotch Brite 4 Unid. — R$ 11,00</span>
+      <button onclick="addProduto(
+        'bucha-louca-scotch-4un','Bucha Scotch Brite 4 Unid.',11,'img/bucha-louca.jpg',
+        [{tamanho:'4 Unid.', preco:11}],'4 Unid.')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Alklin — R$ 1,50</span>
+      <button onclick="addProduto(
+        'bucha-louca-alklin','Bucha Alklin',1.5,'img/bucha-louca.jpg',
+        [{tamanho:'Unid.', preco:1.5}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto casa"
-     data-nomes="papel toalha, toalha papel, cozinha, limpeza">
-
-<img src="img/papel-toalha.jpg" alt="Papel Toalha">
+<!-- Papel Toalha -->
+<div class="produto casa" data-nomes="papel toalha, toalha papel, cozinha, limpeza">
+  <img src="img/papel-toalha.jpg" alt="Papel Toalha">
   <span class="icone-busca">🔍</span>
-<h3>Papel Toalha</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 18,00</span>
-<button onclick="addProduto('papel-toalha','Papel Toalha',18)">Adicionar</button>
+  <h3>Papel Toalha</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 18,00</span>
+      <button onclick="addProduto(
+        'papel-toalha','Papel Toalha',18,'img/papel-toalha.jpg',
+        [{tamanho:'Unid.', preco:18}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div> 
-  
-<div class="produto casa"
-     data-nomes="luvas limpeza, luva borracha, proteção, limpeza pesada">
 
-<img src="img/luvas-m.jpg" alt="Luvas M">
+<!-- Luvas -->
+<div class="produto casa" data-nomes="luvas limpeza, luva borracha, proteção, limpeza pesada">
+  <img src="img/luvas-m.jpg" alt="Luvas M">
   <span class="icone-busca">🔍</span>
-<h3>Luvas</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 9,00</span>
-<button onclick="addProduto('luvas-m','Luvas M',9)">Adicionar</button>
+  <h3>Luvas</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 9,00</span>
+      <button onclick="addProduto(
+        'luvas-m','Luvas M',9,'img/luvas-m.jpg',
+        [{tamanho:'M', preco:9}],'M')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto casa"
-     data-nomes="borrifador, borrifadores, spray limpeza">
-
-<img src="img/borrifadores.jpg" alt="Borrifadores">
+<!-- Borrifadores -->
+<div class="produto casa" data-nomes="borrifador, borrifadores, spray limpeza">
+  <img src="img/borrifadores.jpg" alt="Borrifadores">
   <span class="icone-busca">🔍</span>
-<h3>Borrifadores</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> Borrifador Rosa R$ 13,00</span>
-<button onclick="addProduto('borrifador-rosa','Borrifador Rosa',13)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span> Borrifador Transparente R$ 13,00</span>
-<button onclick="addProduto('borrifador-transparente','Borrifador Transparente',13)">Adicionar</button>
+  <h3>Borrifadores</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Borrifador Rosa — R$ 13,00</span>
+      <button onclick="addProduto(
+        'borrifador-rosa','Borrifador Rosa',13,'img/borrifadores.jpg',
+        [{tamanho:'Rosa', preco:13}],'Rosa')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Borrifador Transparente — R$ 13,00</span>
+      <button onclick="addProduto(
+        'borrifador-transparente','Borrifador Transparente',13,'img/borrifadores.jpg',
+        [{tamanho:'Transparente', preco:13}],'Transparente')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
-  
-<div class="produto casa"
-     data-nomes="limpa forno diabo verde, diabo verde, limpeza pesada, forno">
 
-<img src="img/diabo-verde.jpg" alt="Limpa Forno Diabo Verde">
+<!-- Limpa Forno Diabo Verde -->
+<div class="produto casa" data-nomes="limpa forno diabo verde, diabo verde, limpeza pesada, forno">
+  <img src="img/diabo-verde.jpg" alt="Limpa Forno Diabo Verde">
   <span class="icone-busca">🔍</span>
-<h3>Limpa Forno Diabo Verde</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 23,00</span>
-<button onclick="addProduto('limpa-forno-diabo-verde','Limpa Forno Diabo Verde',23)">Adicionar</button>
+  <h3>Limpa Forno Diabo Verde</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 23,00</span>
+      <button onclick="addProduto(
+        'limpa-forno-diabo-verde','Limpa Forno Diabo Verde',23,'img/diabo-verde.jpg',
+        [{tamanho:'Unid.', preco:23}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
- 
-<div class="produto casa"
-     data-nomes="limpa forno spray, limpeza forno, gordura pesada">
 
-<img src="img/limpa-forno-spray.jpg" alt="Limpa Forno Spray">
+<!-- Limpa Forno Spray -->
+<div class="produto casa" data-nomes="limpa forno spray, limpeza forno, gordura pesada">
+  <img src="img/limpa-forno-spray.jpg" alt="Limpa Forno Spray">
   <span class="icone-busca">🔍</span>
-<h3>Limpa Forno Spray</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 25,00</span>
-<button onclick="addProduto('limpa-forno-spray','Limpa Forno Spray',25)">Adicionar</button>
+  <h3>Limpa Forno Spray</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 25,00</span>
+      <button onclick="addProduto(
+        'limpa-forno-spray','Limpa Forno Spray',25,'img/limpa-forno-spray.jpg',
+        [{tamanho:'Unid.', preco:25}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto casa"
-     data-nomes="pano de chao, pano chão, limpeza piso">
-
-<img src="img/pano-chao.jpg" alt="Pano de Chão">
+<!-- Pano de Chão -->
+<div class="produto casa" data-nomes="pano de chao, pano chão, limpeza piso">
+  <img src="img/pano-chao.jpg" alt="Pano de Chão">
   <span class="icone-busca">🔍</span>
-<h3>Pano de Chão</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>Xadrex R$ 5,50</span>
-<button onclick="addProduto('pano-chao-xadrez','Pano de Chão Xadrez',5.5)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>Branco R$ 5,50</span>
-<button onclick="addProduto('pano-chao-branco','Pano de Chão Branco',5.5)">Adicionar</button>
+  <h3>Pano de Chão</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Xadrez — R$ 5,50</span>
+      <button onclick="addProduto(
+        'pano-chao-xadrez','Pano de Chão Xadrez',5.5,'img/pano-chao.jpg',
+        [{tamanho:'Xadrez', preco:5.5}],'Xadrez')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Branco — R$ 5,50</span>
+      <button onclick="addProduto(
+        'pano-chao-branco','Pano de Chão Branco',5.5,'img/pano-chao.jpg',
+        [{tamanho:'Branco', preco:5.5}],'Branco')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto casa"
-     data-nomes="pano de prato, pano cozinha, limpeza">
-
-<img src="img/pano-prato.jpg" alt="Pano de Prato">
+<!-- Pano de Prato -->
+<div class="produto casa" data-nomes="pano de prato, pano cozinha, limpeza">
+  <img src="img/pano-prato.jpg" alt="Pano de Prato">
   <span class="icone-busca">🔍</span>
-<h3>Pano de Prato</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 4,50</span>
-<button onclick="addProduto('pano-prato','Pano de Prato',4.5)">Adicionar</button>
+  <h3>Pano de Prato</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 4,50</span>
+      <button onclick="addProduto(
+        'pano-prato','Pano de Prato',4.5,'img/pano-prato.jpg',
+        [{tamanho:'Unid.', preco:4.5}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto casa"
-     data-nomes="kit pano multiuso, pano multiuso, pano limpeza, pano microfibra, limpeza, 3 unidades">
-    
-<img src="img/multiuso-3.jpg" alt="Kit de Pano Multiuso 3 Unid.">
-    <span class="icone-busca">🔍</span>
-<h3>Kit de Pano Multiuso 3 Unid.</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 14,00</span>
-<button onclick="addProduto('kit-pano-multiuso-3un','Kit Pano Multiuso 3 Unid.',14)">Adicionar</button>
-  </div>
-</div>
-</div>
-  
-  <div class="produto casa"
-     data-nomes="flanela, pano flanela, brilho, limpeza">
-
-<img src="img/flanela.jpg" alt="Flanela">
-    <span class="icone-busca">🔍</span>
-<h3>Flanela</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 4,00</span>
-<button onclick="addProduto('flanela','Flanela',4)">Adicionar</button>
-  </div>
-</div>
-      
-</div>
-  
-<div class="produto casa"
-     data-nomes="pano perfex, pano descartavel, limpeza geral">
-
-<img src="img/perflex-25.jpg" alt="Pano Perflex">
+<!-- Kit de Pano Multiuso 3 Unid. -->
+<div class="produto casa" data-nomes="kit pano multiuso, pano multiuso, pano limpeza, pano microfibra, limpeza, 3 unidades">
+  <img src="img/multiuso-3.jpg" alt="Kit de Pano Multiuso 3 Unid.">
   <span class="icone-busca">🔍</span>
-<h3>Pano Perflex</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>5 Unid. R$ 5,00</span>
-<button onclick="addProduto('perflex-5un','Perflex 5 Unid.',5)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>25 Unid. R$ 18,00</span>
-<button onclick="addProduto('perflex-25un','Perflex 25 Unid.',18)">Adicionar</button>
+  <h3>Kit de Pano Multiuso 3 Unid.</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 14,00</span>
+      <button onclick="addProduto(
+        'kit-pano-multiuso-3un','Kit Pano Multiuso 3 Unid.',14,'img/multiuso-3.jpg',
+        [{tamanho:'3 Unid.', preco:14}],'3 Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto casa"
-     data-nomes="pano multiuso, pano limpeza, 2 unidades">
-
-<img src="img/pano-multiuso.jpg" alt="Pano Multiuso 2 Unid.">
+<!-- Flanela -->
+<div class="produto casa" data-nomes="flanela, pano flanela, brilho, limpeza">
+  <img src="img/flanela.jpg" alt="Flanela">
   <span class="icone-busca">🔍</span>
-<h3>Panos Multiuso 2 Unid.</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 10,00</span>
-<button onclick="addProduto('pano-multiuso-2un','Pano Multiuso 2 Unid.',10)">Adicionar</button>
+  <h3>Flanela</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 4,00</span>
+      <button onclick="addProduto(
+        'flanela','Flanela',4,'img/flanela.jpg',
+        [{tamanho:'Unid.', preco:4}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto casa"
-     data-nomes="porta detergente, suporte detergente, cozinha">
-
-<img src="img/porta-detergente.jpg" alt="Porta Detergente">
+<!-- Pano Perflex -->
+<div class="produto casa" data-nomes="pano perfex, pano descartavel, limpeza geral">
+  <img src="img/perflex-25.jpg" alt="Pano Perflex">
   <span class="icone-busca">🔍</span>
-<h3>Porta Detergente</h3>
-<p class="estoque" id="estoque-porta-detergente">
-  📦 Estoque: 5
-</p>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 15,00</span>
-  <button
-  id="btn-porta-detergente"
-  onclick="addProduto('porta-detergente','Porta Detergente',15)">
-  Adicionar
-</button>
+  <h3>Pano Perflex</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>5 Unid. — R$ 5,00</span>
+      <button onclick="addProduto(
+        'perflex-5un','Perflex 5 Unid.',5,'img/perflex-25.jpg',
+        [{tamanho:'5 Unid.', preco:5}],'5 Unid.')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>25 Unid. — R$ 18,00</span>
+      <button onclick="addProduto(
+        'perflex-25un','Perflex 25 Unid.',18,'img/perflex-25.jpg',
+        [{tamanho:'25 Unid.', preco:18}],'25 Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto casa"
-     data-nomes="timer egg, timer cozinha, temporizador">
-
-<img src="img/timer-egg.jpg" alt="Timer Egg">
+<!-- Panos Multiuso 2 Unid. -->
+<div class="produto casa" data-nomes="pano multiuso, pano limpeza, 2 unidades">
+  <img src="img/pano-multiuso.jpg" alt="Pano Multiuso 2 Unid.">
   <span class="icone-busca">🔍</span>
-<h3>Timer Egg</h3>
- <p class="estoque" id="estoque-timer-egg">
-  📦 Estoque: 10
-</p>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 15,00</span>
-<button onclick="addProduto('timer-egg','Timer Egg',15)">Adicionar</button>
+  <h3>Panos Multiuso 2 Unid.</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 10,00</span>
+      <button onclick="addProduto(
+        'pano-multiuso-2un','Pano Multiuso 2 Unid.',10,'img/pano-multiuso.jpg',
+        [{tamanho:'2 Unid.', preco:10}],'2 Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto casa"
-     data-nomes="chuveiro torneira, arejador, economia agua">
-
-<img src="img/chuveiro-torneira.jpg" alt="Chuveiro para Torneira">
+<!-- Porta Detergente -->
+<div class="produto casa" data-nomes="porta detergente, suporte detergente, cozinha">
+  <img src="img/porta-detergente.jpg" alt="Porta Detergente">
   <span class="icone-busca">🔍</span>
-<h3>Chuveiro Para Torneira</h3>
-<p class="estoque" id="estoque-chuveiro-torneira">📦 Estoque: 2</p>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 13,00</span>
-<button onclick="addProduto('chuveiro-torneira','Chuveiro para Torneira',13)">Adicionar</button>
+  <h3>Porta Detergente</h3>
+  <p class="estoque" id="estoque-porta-detergente">📦 Estoque: 5</p>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 15,00</span>
+      <button onclick="addProduto(
+        'porta-detergente','Porta Detergente',15,'img/porta-detergente.jpg',
+        [{tamanho:'Unid.', preco:15}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-      
-</div>
-  
-<div class="produto casa"
-     data-nomes="frigideira antiaderente, frigideira, cozinha">
-
-<img src="img/panela-antiaderente.jpg" alt="Frigideira Antiaderente">
+    
+<!-- Timer Egg -->
+<div class="produto casa" data-nomes="timer egg, timer cozinha, temporizador">
+  <img src="img/timer-egg.jpg" alt="Timer Egg">
   <span class="icone-busca">🔍</span>
-<h3>Frigideira Antiaderente</h3>
-<p class="estoque" id="estoque-frigideira-antiaderente">📦 Estoque: 2</p>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 55,00</span>
-<button onclick="addProduto('frigideira-antiaderente','Frigideira Antiaderente',55)">Adicionar</button>
+  <h3>Timer Egg</h3>
+  <p class="estoque" id="estoque-timer-egg">📦 Estoque: 10</p>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 15,00</span>
+      <button onclick="addProduto(
+        'timer-egg','Timer Egg',15,'img/timer-egg.jpg',
+        [{tamanho:'Unid.', preco:15}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
- 
-<div class="produto casa"
-     data-nomes="porta tempero, porta tempero 9 pecas, cozinha">
 
-<img src="img/porta-tempero.jpg" alt="Porta Tempeiro 9 Peças">
+<!-- Chuveiro Para Torneira -->
+<div class="produto casa" data-nomes="chuveiro torneira, arejador, economia agua">
+  <img src="img/chuveiro-torneira.jpg" alt="Chuveiro para Torneira">
   <span class="icone-busca">🔍</span>
-<h3>Porta Tempeiro 9 Peças </h3>
-<p class="estoque" id="estoque-porta-tempero-9pcs">📦 Estoque: 2</p>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 50,00</span>
-<button onclick="addProduto('porta-tempero-9pcs','Porta Tempero 9 Peças',50)">Adicionar</button>
+  <h3>Chuveiro Para Torneira</h3>
+  <p class="estoque" id="estoque-chuveiro-torneira">📦 Estoque: 2</p>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 13,00</span>
+      <button onclick="addProduto(
+        'chuveiro-torneira','Chuveiro para Torneira',13,'img/chuveiro-torneira.jpg',
+        [{tamanho:'Unid.', preco:13}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-     
-</div> 
- 
-<div class="produto casa"
-     data-nomes="chaleira, chaleira cozinha, agua quente">
 
-<img src="img/chaleira.jpg" alt="Chaleira">
+<!-- Frigideira Antiaderente -->
+<div class="produto casa" data-nomes="frigideira antiaderente, frigideira, cozinha">
+  <img src="img/panela-antiaderente.jpg" alt="Frigideira Antiaderente">
   <span class="icone-busca">🔍</span>
-<h3>Chaleira</h3>
-<p class="estoque" id="estoque-chaleira">📦 Estoque: 2</p>
-<div class="variacoes">
-  <div class="linha">
-    <span>R$ 90,00</span>
-<button onclick="addProduto('chaleira','Chaleira',90)">Adicionar</button>
+  <h3>Frigideira Antiaderente</h3>
+  <p class="estoque" id="estoque-frigideira-antiaderente">📦 Estoque: 2</p>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 55,00</span>
+      <button onclick="addProduto(
+        'frigideira-antiaderente','Frigideira Antiaderente',55,'img/panela-antiaderente.jpg',
+        [{tamanho:'Unid.', preco:55}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto casa"
-     data-nomes="sanduicheira, sanduicheira eletrica, lancheira, cozinha">
-
-<img src="img/sanduicheira.jpg" alt="Sanduicheira">
+<!-- Porta Tempero 9 Peças -->
+<div class="produto casa" data-nomes="porta tempero, porta tempero 9 pecas, cozinha">
+  <img src="img/porta-tempero.jpg" alt="Porta Tempeiro 9 Peças">
   <span class="icone-busca">🔍</span>
-<h3>Sanduicheira</h3>
-<p class="estoque" id="estoque-sanduicheira">📦 Estoque: 2</p>
-<div class="variacoes">
-  <div class="linha">
-    <span>R$ 110,00</span>
-<button onclick="addProduto('sanduicheira','Sanduicheira',110)">Adicionar</button>
+  <h3>Porta Tempeiro 9 Peças</h3>
+  <p class="estoque" id="estoque-porta-tempero-9pcs">📦 Estoque: 2</p>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 50,00</span>
+      <button onclick="addProduto(
+        'porta-tempero-9pcs','Porta Tempero 9 Peças',50,'img/porta-tempero.jpg',
+        [{tamanho:'Unid.', preco:50}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
-    
-<div class="produto casa"
-     data-nomes="varal de chao com abas, varal roupa, lavanderia">
 
-<img src="img/varal-de-chao.jpg" alt="Varal de Chão com Abas">
+<!-- Chaleira -->
+<div class="produto casa" data-nomes="chaleira, chaleira cozinha, agua quente">
+  <img src="img/chaleira.jpg" alt="Chaleira">
   <span class="icone-busca">🔍</span>
-<h3>Varal de Chão com Abas</h3>
-<p class="estoque" id="estoque-varal-chao-abas">📦 Estoque: 2</p>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 135,00</span>
-<button onclick="addProduto('varal-chao-abas','Varal de Chão com Abas',135)">Adicionar</button>
+  <h3>Chaleira</h3>
+  <p class="estoque" id="estoque-chaleira">📦 Estoque: 2</p>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 90,00</span>
+      <button onclick="addProduto(
+        'chaleira','Chaleira',90,'img/chaleira.jpg',
+        [{tamanho:'Unid.', preco:90}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
-  
-<div class="produto casa"
-     data-nomes="varal intimo, varal roupas pequenas">
 
-<img src="img/varal-intimo.jpg" alt="Varal Íntimo">
+<!-- Sanduicheira -->
+<div class="produto casa" data-nomes="sanduicheira, sanduicheira eletrica, lancheira, cozinha">
+  <img src="img/sanduicheira.jpg" alt="Sanduicheira">
   <span class="icone-busca">🔍</span>
-<h3>Varal Intimo</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>R$ 17,00</span>
-<button onclick="addProduto('varal-intimo','Varal Íntimo',17)">Adicionar</button>
+  <h3>Sanduicheira</h3>
+  <p class="estoque" id="estoque-sanduicheira">📦 Estoque: 2</p>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 110,00</span>
+      <button onclick="addProduto(
+        'sanduicheira','Sanduicheira',110,'img/sanduicheira.jpg',
+        [{tamanho:'Unid.', preco:110}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
     
-</div>
-
-<div class="produto casa"
-     data-nomes="varal, varais, estender roupa">
-
-<img src="img/varals.jpg" alt="Varals">
+<!-- Varal de Chão com Abas -->
+<div class="produto casa" data-nomes="varal de chao com abas, varal roupa, lavanderia">
+  <img src="img/varal-de-chao.jpg" alt="Varal de Chão com Abas">
   <span class="icone-busca">🔍</span>
-<h3>Varais</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>Varal de Aço 20 MTS R$ 10,00</span>
-<button onclick="addProduto('varal-aco-20m','Varal de Aço 20m',10)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>Varal de Nylon 15 MTS R$ 8,00</span>
-<button onclick="addProduto('varal-nylon-15m','Varal de Nylon 15m',8)">Adicionar</button>
+  <h3>Varal de Chão com Abas</h3>
+  <p class="estoque" id="estoque-varal-chao-abas">📦 Estoque: 2</p>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 135,00</span>
+      <button onclick="addProduto(
+        'varal-chao-abas','Varal de Chão com Abas',135,'img/varal-de-chao.jpg',
+        [{tamanho:'Unid.', preco:135}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto casa"
-     data-nomes="prendedores roupa, pregador, varal">
-
-<img src="img/prendedores.jpg" alt="Prendedores">
+<!-- Varal Íntimo -->
+<div class="produto casa" data-nomes="varal intimo, varal roupas pequenas">
+  <img src="img/varal-intimo.jpg" alt="Varal Íntimo">
   <span class="icone-busca">🔍</span>
-<h3>Prendedores</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> Prendedor de Madeira R$ 3,50</span>
-<button onclick="addProduto('prendedor-de-madeira','Prendedor de Madeira',3.5)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span> Prendedor de Plástico R$ 6,50</span>
-    <button onclick="addProduto('prendedor-de-plastico','Prendedor de Plástico',6.5)">Adicionar</button>
-
+  <h3>Varal Íntimo</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 17,00</span>
+      <button onclick="addProduto(
+        'varal-intimo','Varal Íntimo',17,'img/varal-intimo.jpg',
+        [{tamanho:'Unid.', preco:17}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
-  
-<div class="produto casa"
-     data-nomes="kit limpeza infantil, vassoura brinquedo, rodo, pa">
 
-<img src="img/kit-para-crianca.jpg" alt="Kit Limpeza Para crianças Vassoura, Rodo e Pá">
+<!-- Varais -->
+<div class="produto casa" data-nomes="varal, varais, estender roupa">
+  <img src="img/varals.jpg" alt="Varais">
   <span class="icone-busca">🔍</span>
-<h3>Kit Limpeza para Crianças Vassoura, Rodo e pá</h3>
-  <p class="estoque" id="estoque-kit-Para-Criança-Vassoura,-Rodo-e-Pá"></p>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 30,00</span>
-<button onclick="addProduto('kit-limpeza-infantil','Kit Limpeza para Crianças',30)">Adicionar</button>
+  <h3>Varais</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Varal de Aço 20 MTS — R$ 10,00</span>
+      <button onclick="addProduto(
+        'varal-aco-20m','Varal de Aço 20m',10,'img/varals.jpg',
+        [{tamanho:'20 MTS', preco:10}],'20 MTS')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Varal de Nylon 15 MTS — R$ 8,00</span>
+      <button onclick="addProduto(
+        'varal-nylon-15m','Varal de Nylon 15m',8,'img/varals.jpg',
+        [{tamanho:'15 MTS', preco:8}],'15 MTS')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto casa"
-     data-nomes="vassoura, vassouras, limpeza casa">
-
-<img src="img/vassouras.jpg" alt="Vassouras">
+<!-- Prendedores -->
+<div class="produto casa" data-nomes="prendedores roupa, pregador, varal">
+  <img src="img/prendedores.jpg" alt="Prendedores">
   <span class="icone-busca">🔍</span>
-<h3>Vassouras</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>Vassoura 1° R$ 24,00</span>
-<button onclick="addProduto('vassoura-grande','Vassoura Grande',24)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>Vassoura 2°R$ 19,00</span>
-<button onclick="addProduto('vassoura-canto','Vassoura de Canto',19)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>Vassoura 3° R$ 19,00</span>
-<button onclick="addProduto('vassoura-novica','Vassoura Noviça',19)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>Vassoura 4° R$ 16,00</span>
-<button onclick="addProduto('vassoura-madeira','Vassoura de Madeira',16)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>Vassoura 5° R$ 12,00</span>
-<button onclick="addProduto('vassoura-condor','Vassoura Condor',12)">Adicionar</button>
+  <h3>Prendedores</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Prendedor de Madeira — R$ 3,50</span>
+      <button onclick="addProduto(
+        'prendedor-de-madeira','Prendedor de Madeira',3.5,'img/prendedores.jpg',
+        [{tamanho:'Unid.', preco:3.5}],'Unid.')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Prendedor de Plástico — R$ 6,50</span>
+      <button onclick="addProduto(
+        'prendedor-de-plastico','Prendedor de Plástico',6.5,'img/prendedores.jpg',
+        [{tamanho:'Unid.', preco:6.5}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto casa"
-     data-nomes="vassoura, piaçava, sperta, vassouras, limpeza casa">
-
-<img src="img/vassouras2.jpg" alt="Vassouras">
-    <span class="icone-busca">🔍</span>
-<h3>Vassouras</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>1 Piaçava R$ 25,00</span>
-<button onclick="addProduto('vassoura-piacava','Vassoura Piaçava',25)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>2 Sperta R$ 18,00</span>
-<button onclick="addProduto('vassoura-sperta','Vassoura Sperta',18)">Adicionar</button>
-  </div>
-</div>
-    
-</div>
-
-    <div class="produto casa"
-     data-nomes="pá, pá de lixo, coleta de lixo, limpeza, casa, chão">
-
-<img src="img/pa.jpg" alt="Pá">
+<!-- Kit Limpeza Para Crianças -->
+<div class="produto casa" data-nomes="kit limpeza infantil, vassoura brinquedo, rodo, pa">
+  <img src="img/kit-para-crianca.jpg" alt="Kit Limpeza Para crianças Vassoura, Rodo e Pá">
   <span class="icone-busca">🔍</span>
-<h3>Pá</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>R$ 12,00</span>
-<button onclick="addProduto('pa-lixo','Pá',12)">Adicionar</button>
+  <h3>Kit Limpeza para Crianças Vassoura, Rodo e Pá</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 30,00</span>
+      <button onclick="addProduto(
+        'kit-limpeza-infantil','Kit Limpeza para Crianças',30,'img/kit-para-crianca.jpg',
+        [{tamanho:'Unid.', preco:30}],'Unid.')">Adicionar</button>
+    </div>
   </div>
-</div>
-    
-</div>
-  
-<div class="produto casa"
-     data-nomes="rodo, rodo limpeza, piso">
-
-<img src="img/rodos.jpg" alt="Rodos">
-    <span class="icone-busca">🔍</span>
-<h3>Rodos</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> Rodo Pequeno 30 CM R$ 13,00</span>
-<button onclick="addProduto('rodo-30cm','Rodo 30cm',13)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span> Rodo Médio 40 CM R$ 16,00</span>
-<button onclick="addProduto('rodo-40cm','Rodo 40cm',16)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span> Rodo Grande 60 CM R$ 25,00</span>
-<button onclick="addProduto('rodo-60cm','Rodo 60cm',25)">Adicionar</button>
-  </div>
-</div>
-    
-</div>
-  
-<div class="produto casa"
-     data-nomes="vassoura pelo, esfregao, limpeza pesada">
-
-<img src="img/vassoura-pelo-e-esfregao.jpg" alt="Vassoura de Pelo e Esfregão">
-    <span class="icone-busca">🔍</span>
-<h3>Vassoura de Pelo e Esfregão</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> Vassoura de Pelo R$ 19,00</span>
-<button onclick="addProduto('vassoura-pelo','Vassoura de Pelo',19)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span> Esfregão R$ 18,00</span>
-<button onclick="addProduto('esfregao','Esfregão',18)">Adicionar</button>
-  </div>
-</div>
-    
-</div>
-  
-<div class="produto casa"
-     data-nomes="limpa azulejo, passa cera, limpeza piso">
-
-<img src="img/limpa-azulejo-e-passa-cera.jpg" alt="Limpa Azulejo e Passa Cera">
-    <span class="icone-busca">🔍</span>
-<h3>Limpa Azulejo e Passa Cera</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>Limpa Azulejo R$ 16,00</span>
-<button onclick="addProduto('limpa-azulejo','Limpa Azulejo',16)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>Passa Cera R$ 16,00</span>
-<button onclick="addProduto('passa-cera','Passa Cera',16)">Adicionar</button>
-  </div>
-</div>
-    
 </div>
 
-<div class="produto casa"
-     data-nomes="escova roupa, lavar roupa, limpeza">
-
-<img src="img/escova-de-roupa.jpg" alt="Escova de Roupa">
-    <span class="icone-busca">🔍</span>
-<h3>Escova de Roupa</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 6,00</span>
-<button onclick="addProduto('escova-roupa','Escova de Roupa',6)">Adicionar</button>
+<!-- Vassouras -->
+<div class="produto casa" data-nomes="vassoura, vassouras, limpeza casa">
+  <img src="img/vassouras.jpg" alt="Vassouras">
+  <span class="icone-busca">🔍</span>
+  <h3>Vassouras</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Vassoura 1° — R$ 24,00</span>
+      <button onclick="addProduto(
+        'vassoura-grande','Vassoura Grande',24,'img/vassouras.jpg',
+        [{tamanho:'Unid.', preco:24}],'Unid.')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Vassoura 2° — R$ 19,00</span>
+      <button onclick="addProduto(
+        'vassoura-canto','Vassoura de Canto',19,'img/vassouras.jpg',
+        [{tamanho:'Unid.', preco:19}],'Unid.')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Vassoura 3° — R$ 19,00</span>
+      <button onclick="addProduto(
+        'vassoura-novica','Vassoura Noviça',19,'img/vassouras.jpg',
+        [{tamanho:'Unid.', preco:19}],'Unid.')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Vassoura 4° — R$ 16,00</span>
+      <button onclick="addProduto(
+        'vassoura-madeira','Vassoura de Madeira',16,'img/vassouras.jpg',
+        [{tamanho:'Unid.', preco:16}],'Unid.')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Vassoura 5° — R$ 12,00</span>
+      <button onclick="addProduto(
+        'vassoura-condor','Vassoura Condor',12,'img/vassouras.jpg',
+        [{tamanho:'Unid.', preco:12}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
-  
-<div class="produto casa"
-     data-nomes="escova roupa cabo, escova longa, limpeza">
 
-<img src="img/escova-roupa.jpg" alt="Escova de Roupa com Cabo">
-    <span class="icone-busca">🔍</span>
-<h3>Escova de Roupa Com Cabo</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 15,00</span>
-<button onclick="addProduto('escova-roupa-cabo','Escova de Roupa com Cabo',15)">Adicionar</button>
+<!-- Vassouras Piaçava e Sperta -->
+<div class="produto casa" data-nomes="vassoura, piaçava, sperta, vassouras, limpeza casa">
+  <img src="img/vassouras2.jpg" alt="Vassouras">
+  <span class="icone-busca">🔍</span>
+  <h3>Vassouras</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>1 Piaçava — R$ 25,00</span>
+      <button onclick="addProduto(
+        'vassoura-piacava','Vassoura Piaçava',25,'img/vassouras2.jpg',
+        [{tamanho:'Unid.', preco:25}],'Unid.')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>2 Sperta — R$ 18,00</span>
+      <button onclick="addProduto(
+        'vassoura-sperta','Vassoura Sperta',18,'img/vassouras2.jpg',
+        [{tamanho:'Unid.', preco:18}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-      
-</div>
 
-<div class="produto casa"
-     data-nomes="mangueira silicone, mangueira agua, limpeza">
-
-<img src="img/mangueira.jpg" alt="Mangueira de Silicone">
-    <span class="icone-busca">🔍</span>
-<h3>Mangueira de Silicone</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> 10 MTS R$ 55,00</span>
-<button onclick="addProduto('mangueira-10m','Mangueira 10 MTS',55)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span> 15 MTS R$ 80,00</span>
-<button onclick="addProduto('mangueira-15m','Mangueira 15 MTS',80)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span> 20 MTS R$ 105,00</span>
-<button onclick="addProduto('mangueira-20m','Mangueira 20 MTS',105)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span> 25 MTS R$ 130,00</span>
-<button onclick="addProduto('mangueira-25m','Mangueira 25 MTS',130)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span> 30 MTS R$ 155,00</span>
-<button onclick="addProduto('mangueira-30m','Mangueira 30 MTS',155)">Adicionar</button>
+    <!-- Pá -->
+<div class="produto casa" data-nomes="pá, pá de lixo, coleta de lixo, limpeza, casa, chão">
+  <img src="img/pa.jpg" alt="Pá">
+  <span class="icone-busca">🔍</span>
+  <h3>Pá</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 12,00</span>
+      <button onclick="addProduto(
+        'pa-lixo','Pá',12,'img/pa.jpg',
+        [{tamanho:'Unid.', preco:12}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
-  
-<div class="produto casa"
-     data-nomes="carrinho multiuso, organizador, limpeza">
 
-<img src="img/carrinho-multiuso.jpg" alt="Carrinho Multiuso">
-    <span class="icone-busca">🔍</span>
-<h3>Carrinho Multiuso</h3>
-<p class="estoque" id="estoque-carrinho-multiuso">📦 Estoque: 2</p>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 90,00</span>
-<button onclick="addProduto('carrinho-multiuso','Carrinho Multiuso',90)">Adicionar</button>
+<!-- Rodos -->
+<div class="produto casa" data-nomes="rodo, rodo limpeza, piso">
+  <img src="img/rodos.jpg" alt="Rodos">
+  <span class="icone-busca">🔍</span>
+  <h3>Rodos</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Rodo Pequeno 30 CM — R$ 13,00</span>
+      <button onclick="addProduto(
+        'rodo-30cm','Rodo 30cm',13,'img/rodos.jpg',
+        [{tamanho:'30 CM', preco:13}],'30 CM')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Rodo Médio 40 CM — R$ 16,00</span>
+      <button onclick="addProduto(
+        'rodo-40cm','Rodo 40cm',16,'img/rodos.jpg',
+        [{tamanho:'40 CM', preco:16}],'40 CM')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Rodo Grande 60 CM — R$ 25,00</span>
+      <button onclick="addProduto(
+        'rodo-60cm','Rodo 60cm',25,'img/rodos.jpg',
+        [{tamanho:'60 CM', preco:25}],'60 CM')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto casa"
-     data-nomes="mop giratorio, esfregao, limpeza piso">
-
-<img src="img/mop.jpg" alt="Mop Giratório">
-    <span class="icone-busca">🔍</span>
-<h3>Mop Giratorio</h3>
-<p class="estoque" id="estoque-mop-giratorio">📦 Estoque: 2</p>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 75,00</span>
-<button onclick="addProduto('mop-giratorio','Mop Giratório',75)">Adicionar</button>
+<!-- Vassoura de Pelo e Esfregão -->
+<div class="produto casa" data-nomes="vassoura pelo, esfregao, limpeza pesada">
+  <img src="img/vassoura-pelo-e-esfregao.jpg" alt="Vassoura de Pelo e Esfregão">
+  <span class="icone-busca">🔍</span>
+  <h3>Vassoura de Pelo e Esfregão</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Vassoura de Pelo — R$ 19,00</span>
+      <button onclick="addProduto(
+        'vassoura-pelo','Vassoura de Pelo',19,'img/vassoura-pelo-e-esfregao.jpg',
+        [{tamanho:'Unid.', preco:19}],'Unid.')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Esfregão — R$ 18,00</span>
+      <button onclick="addProduto(
+        'esfregao','Esfregão',18,'img/vassoura-pelo-e-esfregao.jpg',
+        [{tamanho:'Unid.', preco:18}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto casa"
-     data-nomes="balde, baldes, limpeza casa">
-
-<img src="img/balde.jpg" alt="Baldes">
-    <span class="icone-busca">🔍</span>
-<h3>Baldes</h3>
-  <p class="estoque" id="estoque-balde-8l">📦 8L Estoque: 2</p>
-  <p class="estoque" id="estoque-balde-10l">📦 10L Estoque: 2</p>
-<div class="variacoes">
-  <div class="linha">
-    <span>8L — R$ 10,00</span>
-<button onclick="addProduto('balde-8l','Balde 8L',10)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>10L — R$ 16,00</span>
-<button onclick="addProduto('balde-10l','Balde 10L',16)">Adicionar</button>
-  </div>
-</div>
-    
-</div>
-  
-<div class="produto casa"
-     data-nomes="cesto roupa 60 litros, cesto roupa, lavanderia">
-
-<img src="img/cesto-60.jpg" alt="Cesto de Roupa 60 LTS">
-    <span class="icone-busca">🔍</span>
-<h3>Cesto de Roupa 60 LTS</h3>
-  <p class="estoque" id="estoque-cesto-roupa-60l">📦 Estoque: 2</p>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 40,00</span>
-<button onclick="addProduto('cesto-roupa-60l','Cesto de Roupa 60 LTS',40)">Adicionar</button>
+<!-- Limpa Azulejo e Passa Cera -->
+<div class="produto casa" data-nomes="limpa azulejo, passa cera, limpeza piso">
+  <img src="img/limpa-azulejo-e-passa-cera.jpg" alt="Limpa Azulejo e Passa Cera">
+  <span class="icone-busca">🔍</span>
+  <h3>Limpa Azulejo e Passa Cera</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Limpa Azulejo — R$ 16,00</span>
+      <button onclick="addProduto(
+        'limpa-azulejo','Limpa Azulejo',16,'img/limpa-azulejo-e-passa-cera.jpg',
+        [{tamanho:'Unid.', preco:16}],'Unid.')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Passa Cera — R$ 16,00</span>
+      <button onclick="addProduto(
+        'passa-cera','Passa Cera',16,'img/limpa-azulejo-e-passa-cera.jpg',
+        [{tamanho:'Unid.', preco:16}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto casa"
-     data-nomes="cesto roupa fechado 65 litros, cesto fechado">
-
-<img src="img/cesto-fechado.jpg" alt="Cesto de Roupa Fechado 65 LTS">
-    <span class="icone-busca">🔍</span>
-<h3>Cesto de Roupa Fechado 65 LTS</h3>
-  <p class="estoque" id="estoque-cesto-roupa-fechado-65l">📦 Estoque: 2</p>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 65,00</span>
-<button onclick="addProduto('cesto-roupa-fechado-65l','Cesto de Roupa Fechado 65 LTS',65)">Adicionar</button>
+<!-- Escova de Roupa -->
+<div class="produto casa" data-nomes="escova roupa, lavar roupa, limpeza">
+  <img src="img/escova-de-roupa.jpg" alt="Escova de Roupa">
+  <span class="icone-busca">🔍</span>
+  <h3>Escova de Roupa</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 6,00</span>
+      <button onclick="addProduto(
+        'escova-roupa','Escova de Roupa',6,'img/escova-de-roupa.jpg',
+        [{tamanho:'Unid.', preco:6}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
-  
-<div class="produto casa"
-     data-nomes="lixeira 9 litros, lixeira pequena, banheiro">
 
-<img src="img/lixeira-9.jpg" alt="Lixeira 9 LTS">
-    <span class="icone-busca">🔍</span>
-<h3>Lixeira 9 LTS</h3>
-  <p class="estoque" id="estoque-lixeira-9l">📦 Estoque: 2</p>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 30,00</span>
-<button onclick="addProduto('lixeira-9l','Lixeira 9 LTS',30)">Adicionar</button>
+<!-- Escova de Roupa com Cabo -->
+<div class="produto casa" data-nomes="escova roupa cabo, escova longa, limpeza">
+  <img src="img/escova-roupa.jpg" alt="Escova de Roupa com Cabo">
+  <span class="icone-busca">🔍</span>
+  <h3>Escova de Roupa Com Cabo</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 15,00</span>
+      <button onclick="addProduto(
+        'escova-roupa-cabo','Escova de Roupa com Cabo',15,'img/escova-roupa.jpg',
+        [{tamanho:'Unid.', preco:15}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto casa"
-     data-nomes="lixeira pendurar, lixeira suporte, cozinha">
-
-<img src="img/lixeira-suporte.jpg" alt="Lixeira com Suporte para Pendurar">
-    <span class="icone-busca">🔍</span>
-<h3>lixeira com Suporte para Pendurar</h3>
-  <p class="estoque" id="estoque-lixeira-suporte">📦 Estoque: 2</p>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 40,00</span>
-<button onclick="addProduto('lixeira-suporte','Lixeira com Suporte para Pendurar',40)">Adicionar</button>
+<!-- Mangueira de Silicone -->
+<div class="produto casa" data-nomes="mangueira silicone, mangueira agua, limpeza">
+  <img src="img/mangueira.jpg" alt="Mangueira de Silicone">
+  <span class="icone-busca">🔍</span>
+  <h3>Mangueira de Silicone</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>10 MTS — R$ 55,00</span>
+      <button onclick="addProduto(
+        'mangueira-10m','Mangueira 10 MTS',55,'img/mangueira.jpg',
+        [{tamanho:'10 MTS', preco:55}],'10 MTS')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>15 MTS — R$ 80,00</span>
+      <button onclick="addProduto(
+        'mangueira-15m','Mangueira 15 MTS',80,'img/mangueira.jpg',
+        [{tamanho:'15 MTS', preco:80}],'15 MTS')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>20 MTS — R$ 105,00</span>
+      <button onclick="addProduto(
+        'mangueira-20m','Mangueira 20 MTS',105,'img/mangueira.jpg',
+        [{tamanho:'20 MTS', preco:105}],'20 MTS')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>25 MTS — R$ 130,00</span>
+      <button onclick="addProduto(
+        'mangueira-25m','Mangueira 25 MTS',130,'img/mangueira.jpg',
+        [{tamanho:'25 MTS', preco:130}],'25 MTS')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>30 MTS — R$ 155,00</span>
+      <button onclick="addProduto(
+        'mangueira-30m','Mangueira 30 MTS',155,'img/mangueira.jpg',
+        [{tamanho:'30 MTS', preco:155}],'30 MTS')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto casa"
-     data-nomes="lixeira 12 litros, lixeira media, cozinha">
-
-<img src="img/lixeira-12.jpg" alt="Lixeira 12 LTS">
-    <span class="icone-busca">🔍</span>
-<h3>Lixeira 12 LTS</h3>
-  <p class="estoque" id="estoque-lixeira-12l">📦 Estoque: 2</p>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 30,00</span>
-<button onclick="addProduto('lixeira-12l','Lixeira 12 LTS',30)">Adicionar</button>
+<!-- Baldes -->
+<div class="produto casa" data-nomes="balde, baldes, limpeza casa">
+  <img src="img/balde.jpg" alt="Baldes">
+  <span class="icone-busca">🔍</span>
+  <h3>Baldes</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>8L — R$ 10,00</span>
+      <button onclick="addProduto(
+        'balde-8l','Balde 8L',10,'img/balde.jpg',
+        [{tamanho:'8L', preco:10}],'8L')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>10L — R$ 16,00</span>
+      <button onclick="addProduto(
+        'balde-10l','Balde 10L',16,'img/balde.jpg',
+        [{tamanho:'10L', preco:16}],'10L')">Adicionar</button>
+    </div>
   </div>
 </div>
+
+<!-- Cesto de Roupa 60 LTS -->
+<div class="produto casa" data-nomes="cesto roupa 60 litros, cesto roupa, lavanderia">
+  <img src="img/cesto-60.jpg" alt="Cesto de Roupa 60 LTS">
+  <span class="icone-busca">🔍</span>
+  <h3>Cesto de Roupa 60 LTS</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 40,00</span>
+      <button onclick="addProduto(
+        'cesto-roupa-60l','Cesto de Roupa 60 LTS',40,'img/cesto-60.jpg',
+        [{tamanho:'60 LTS', preco:40}],'60 LTS')">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cesto de Roupa Fechado 65 LTS -->
+<div class="produto casa" data-nomes="cesto roupa fechado 65 litros, cesto fechado">
+  <img src="img/cesto-fechado.jpg" alt="Cesto de Roupa Fechado 65 LTS">
+  <span class="icone-busca">🔍</span>
+  <h3>Cesto de Roupa Fechado 65 LTS</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 65,00</span>
+      <button onclick="addProduto(
+        'cesto-roupa-fechado-65l','Cesto de Roupa Fechado 65 LTS',65,'img/cesto-fechado.jpg',
+        [{tamanho:'65 LTS', preco:65}],'65 LTS')">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Lixeira 9 LTS -->
+<div class="produto casa" data-nomes="lixeira 9 litros, lixeira pequena, banheiro">
+  <img src="img/lixeira-9.jpg" alt="Lixeira 9 LTS">
+  <span class="icone-busca">🔍</span>
+  <h3>Lixeira 9 LTS</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 30,00</span>
+      <button onclick="addProduto(
+        'lixeira-9l','Lixeira 9 LTS',30,'img/lixeira-9.jpg',
+        [{tamanho:'9 LTS', preco:30}],'9 LTS')">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Lixeira com Suporte para Pendurar -->
+<div class="produto casa" data-nomes="lixeira pendurar, lixeira suporte, cozinha">
+  <img src="img/lixeira-suporte.jpg" alt="Lixeira com Suporte para Pendurar">
+  <span class="icone-busca">🔍</span>
+  <h3>Lixeira com Suporte para Pendurar</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 40,00</span>
+      <button onclick="addProduto(
+        'lixeira-suporte','Lixeira com Suporte para Pendurar',40,'img/lixeira-suporte.jpg',
+        [{tamanho:'Unid.', preco:40}],'Unid.')">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Lixeira 12 LTS -->
+<div class="produto casa" data-nomes="lixeira 12 litros, lixeira media, cozinha">
+  <img src="img/lixeira-12.jpg" alt="Lixeira 12 LTS">
+  <span class="icone-busca">🔍</span>
+  <h3>Lixeira 12 LTS</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span> — R$ 30,00</span>
+      <button onclick="addProduto(
+        'lixeira-12l','Lixeira 12 LTS',30,'img/lixeira-12.jpg',
+        [{tamanho:'12 LTS', preco:30}],'12 LTS')">Adicionar</button>
+    </div>
+  </div>
 </div>
 
 </div>
@@ -4457,165 +4593,175 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
   <div class="produtos">
   
 <!-- produtos banheiro -->
- <div class="produto banheiro"
-     data-nomes="papel higienico, papel higiênico, papel banheiro, papel sanitário, papel toalete">
-
- <img src="img/papel-higienico.jpg" alt="Papel Higiênico">
-     <span class="icone-busca">🔍</span>
-<h3>Papel Higienico</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 30,00</span>
-<button onclick="addProduto('papel-higienico','Papel Higiênico',30)">Adicionar</button>
+ <!-- Papel Higiênico -->
+<div class="produto banheiro" data-nomes="papel higienico, papel higiênico, papel banheiro, papel sanitário, papel toalete">
+  <img src="img/papel-higienico.jpg" alt="Papel Higiênico">
+  <span class="icone-busca">🔍</span>
+  <h3>Papel Higiênico</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>R$ 30,00</span>
+      <button onclick="addProduto(
+        'papel-higienico','Papel Higiênico',30,'img/papel-higienico.jpg',
+        [{tamanho:'Unid.', preco:30}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-      
-</div>
 
-<div class="produto banheiro"
-     data-nomes="pedra sanitaria, pedra sanitária, bloco sanitario, desodorizador vaso">
-
- <img src="img/pedra-sanitaria.jpg" alt="Pedra Sanitaria">
-    <span class="icone-busca">🔍</span>
-<h3>Pedra Sanitária</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 3,00</span>
-<button onclick="addProduto('pedra-sanitaria','Pedra Sanitária',3)">Adicionar</button>
+<!-- Pedra Sanitária -->
+<div class="produto banheiro" data-nomes="pedra sanitaria, pedra sanitária, bloco sanitario, desodorizador vaso">
+  <img src="img/pedra-sanitaria.jpg" alt="Pedra Sanitária">
+  <span class="icone-busca">🔍</span>
+  <h3>Pedra Sanitária</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>R$ 3,00</span>
+      <button onclick="addProduto(
+        'pedra-sanitaria','Pedra Sanitária',3,'img/pedra-sanitaria.jpg',
+        [{tamanho:'Unid.', preco:3}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto banheiro"
-     data-nomes="bloco perfumado, caixa acoplada, bloco sanitario caixa, perfumador vaso">
-
- <img src="img/bloco-perfumado.jpg" alt="Bloco Perfumado para Colocar em Caixa Acoplada">
-    <span class="icone-busca">🔍</span>
-<h3>Bloco Perfumado para Colocar em Caixa Acoplada</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>Bloco Perfumado 1 Unid. R$ 10,00</span>
-<button onclick="addProduto('bloco-perfumado-1un','Bloco Perfumado 1 Unid.',10)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>Bloco Perfumado 3 Unid. R$ 24,00</span>
-<button onclick="addProduto('bloco-perfumado-3un','Bloco Perfumado 3 Unid.',24)">Adicionar</button>
-  </div>
-</div>
-      
-</div>
-  
-<div class="produto banheiro"
-     data-nomes="pastilha aplik, aplik 3 unid, pastilha sanitaria aplik">
-
- <img src="img/aplik.jpg" alt="Pastilha Aplik 3 Unid.">
-    <span class="icone-busca">🔍</span>
-<h3>Pastilha Aplik 3 Unid.</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>Aplik Rosa: Floral R$ 10,00</span>
-<button onclick="addProduto('aplik-rosa-floral','Aplik Rosa Floral',10)">Adicionar</button>
-  </div>
-  <div class="linha">
-          <span>Aplik Roxo: Lavanda — R$ 10,00</span>
-<button onclick="addProduto('aplik-roxo-lavanda','Aplik Roxo Lavanda',10)">Adicionar</button>
-  </div>
-  <div class="linha">
-          <span>Aplik Azul: Marine — R$ 10,00</span>
-<button onclick="addProduto('aplik-azul-marine','Aplik Azul Marine',10)">Adicionar</button>
-        </div>
-  <div class="linha">
-          <span>Aplik Verde: Limão — R$ 10,00</span>
-<button onclick="addProduto('aplik-verde-limao','Aplik Verde Limão',10)">Adicionar</button>
-        </div>
-</div>
-    
-</div>
-
-<div class="produto banheiro"
-     data-nomes="aplik gel, gel sanitario, aplic gel vaso">
-
- <img src="img/gel-sanitario.jpg" alt="Aplik Gel Sanitario">
-    <span class="icone-busca">🔍</span>
-<h3>Aplik Gel Sanitario</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>Aplik Gel Azul: Marine R$ 5,00</span>
-<button onclick="addProduto('aplik-gel-azul-marine','Aplik Gel Azul Marine',5)">Adicionar</button>
-  </div>
-  <div class="linha">
-          <span>Aplik Gel Roxo: Lavanda — R$ 5,00</span>
-<button onclick="addProduto('aplik-gel-roxo-lavanda','Aplik Gel Roxo Lavanda',5)">Adicionar</button>
-        </div>
-  <div class="linha">
-          <span>Aplik Gel Verde: Limão — R$ 5,00</span>
-<button onclick="addProduto('aplik-gel-verde-limao','Aplik Gel Verde Limão',5)">Adicionar</button>
-        </div>
-</div>
-    
-</div>
-  
-<div class="produto banheiro" 
-     data-nomes="vassoura vaso, escova vaso, escova sanitaria">
-
- <img src="img/vassoura-de-vaso.jpg" alt="Vassoura de Vaso">
-    <span class="icone-busca">🔍</span>
-<h3>Vassoura de Vaso</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>R$ 12,00</span>
-<button onclick="addProduto('vassoura-vaso','Vassoura de Vaso',12)">Adicionar</button>
+<!-- Bloco Perfumado -->
+<div class="produto banheiro" data-nomes="bloco perfumado, caixa acoplada, bloco sanitario caixa, perfumador vaso">
+  <img src="img/bloco-perfumado.jpg" alt="Bloco Perfumado para Caixa Acoplada">
+  <span class="icone-busca">🔍</span>
+  <h3>Bloco Perfumado para Caixa Acoplada</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Bloco Perfumado 1 Unid. — R$ 10,00</span>
+      <button onclick="addProduto(
+        'bloco-perfumado-1un','Bloco Perfumado 1 Unid.',10,'img/bloco-perfumado.jpg',
+        [{tamanho:'1 Unid.', preco:10}],'1 Unid.')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Bloco Perfumado 3 Unid. — R$ 24,00</span>
+      <button onclick="addProduto(
+        'bloco-perfumado-3un','Bloco Perfumado 3 Unid.',24,'img/bloco-perfumado.jpg',
+        [{tamanho:'3 Unid.', preco:24}],'3 Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto banheiro"
-     data-nomes="saco de lixo, lixo pia, lixo banheiro, saco pequeno">
-
- <img src="img/saco-de-lixo-banheiro.jpg" alt="Saco de Lixo de Pia e Banheiro">
-    <span class="icone-busca">🔍</span>
-<h3>Saco de Lixo de Pia e Banheiro</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>R$ 19,00</span>
-<button onclick="addProduto('saco-lixo-pia-banheiro','Saco de Lixo de Pia e Banheiro',19)">Adicionar</button>
+<!-- Pastilha Aplik 3 Unid. -->
+<div class="produto banheiro" data-nomes="pastilha aplik, aplik 3 unid, pastilha sanitaria aplik">
+  <img src="img/aplik.jpg" alt="Pastilha Aplik 3 Unid.">
+  <span class="icone-busca">🔍</span>
+  <h3>Pastilha Aplik 3 Unid.</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Aplik Rosa: Floral — R$ 10,00</span>
+      <button onclick="addProduto(
+        'aplik-rosa-floral','Aplik Rosa Floral',10,'img/aplik.jpg',
+        [{tamanho:'Rosa Floral', preco:10}],'Rosa Floral')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Aplik Roxo: Lavanda — R$ 10,00</span>
+      <button onclick="addProduto(
+        'aplik-roxo-lavanda','Aplik Roxo Lavanda',10,'img/aplik.jpg',
+        [{tamanho:'Roxo Lavanda', preco:10}],'Roxo Lavanda')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Aplik Azul: Marine — R$ 10,00</span>
+      <button onclick="addProduto(
+        'aplik-azul-marine','Aplik Azul Marine',10,'img/aplik.jpg',
+        [{tamanho:'Azul Marine', preco:10}],'Azul Marine')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Aplik Verde: Limão — R$ 10,00</span>
+      <button onclick="addProduto(
+        'aplik-verde-limao','Aplik Verde Limão',10,'img/aplik.jpg',
+        [{tamanho:'Verde Limão', preco:10}],'Verde Limão')">Adicionar</button>
+    </div>
   </div>
 </div>
-    
-</div>
 
-<div class="produto banheiro"
-     data-nomes="tapete banheiro, tapete antiderrapante, tapete branco, tapete banheiro 3 pecas">
-
- <img src="img/kit-pano-de-banheiro-branco.jpg" alt="Tapete de Banheiro 3 Peças Antiderrapante Branco">
-    <span class="icone-busca">🔍</span>
-<h3>Tapete de Banheiro 3 Peças Antiderrapante Branco</h3>
-  <p class="estoque" id="estoque-tapete-banheiro-3pcs-branco">📦 Estoque: 2</p>
-<div class="variacoes">
-  <div class="linha">
-    <span>R$ 60,00</span>
-<button onclick="addProduto('tapete-banheiro-3pcs-branco','Tapete Banheiro 3 Peças Antiderrapante Branco',60)">Adicionar</button>
+<!-- Aplik Gel Sanitario -->
+<div class="produto banheiro" data-nomes="aplik gel, gel sanitario, aplic gel vaso">
+  <img src="img/gel-sanitario.jpg" alt="Aplik Gel Sanitario">
+  <span class="icone-busca">🔍</span>
+  <h3>Aplik Gel Sanitario</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Aplik Gel Azul: Marine — R$ 5,00</span>
+      <button onclick="addProduto(
+        'aplik-gel-azul-marine','Aplik Gel Azul Marine',5,'img/gel-sanitario.jpg',
+        [{tamanho:'Azul Marine', preco:5}],'Azul Marine')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Aplik Gel Roxo: Lavanda — R$ 5,00</span>
+      <button onclick="addProduto(
+        'aplik-gel-roxo-lavanda','Aplik Gel Roxo Lavanda',5,'img/gel-sanitario.jpg',
+        [{tamanho:'Roxo Lavanda', preco:5}],'Roxo Lavanda')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Aplik Gel Verde: Limão — R$ 5,00</span>
+      <button onclick="addProduto(
+        'aplik-gel-verde-limao','Aplik Gel Verde Limão',5,'img/gel-sanitario.jpg',
+        [{tamanho:'Verde Limão', preco:5}],'Verde Limão')">Adicionar</button>
+    </div>
   </div>
 </div>
-  
-</div>
 
-<div class="produto banheiro"
-     data-nomes="tapete banheiro, tapete antiderrapante, tapete preto, tapete banheiro 3 pecas">
-
-   <img src="img/kit-pano-de-banheiro-preto.jpg" alt="Tapete de Banheiro 3 Peças Antiderrapante Preto">
-    <span class="icone-busca">🔍</span>
-<h3>Tapete de Banheiro 3 Peças Antiderrapante Preto</h3>
-  <p class="estoque" id="estoque-tapete-banheiro-3pcs-preto">📦 Estoque: 2</p>
-
-<div class="variacoes">
-  <div class="linha">
-    <span>R$ 60,00</span>
-<button onclick="addProduto('tapete-banheiro-3pcs-preto','Tapete Banheiro 3 Peças Antiderrapante Preto',60)">Adicionar</button>
+<!-- Vassoura de Vaso -->
+<div class="produto banheiro" data-nomes="vassoura vaso, escova vaso, escova sanitaria">
+  <img src="img/vassoura-de-vaso.jpg" alt="Vassoura de Vaso">
+  <span class="icone-busca">🔍</span>
+  <h3>Vassoura de Vaso</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>R$ 12,00</span>
+      <button onclick="addProduto(
+        'vassoura-vaso','Vassoura de Vaso',12,'img/vassoura-de-vaso.jpg',
+        [{tamanho:'Unid.', preco:12}],'Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
+
+<!-- Saco de Lixo de Pia e Banheiro -->
+<div class="produto banheiro" data-nomes="saco de lixo, lixo pia, lixo banheiro, saco pequeno">
+  <img src="img/saco-de-lixo-banheiro.jpg" alt="Saco de Lixo de Pia e Banheiro">
+  <span class="icone-busca">🔍</span>
+  <h3>Saco de Lixo de Pia e Banheiro</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>R$ 19,00</span>
+      <button onclick="addProduto(
+        'saco-lixo-pia-banheiro','Saco de Lixo de Pia e Banheiro',19,'img/saco-de-lixo-banheiro.jpg',
+        [{tamanho:'Unid.', preco:19}],'Unid.')">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Tapete de Banheiro 3 Peças Antiderrapante Branco -->
+<div class="produto banheiro" data-nomes="tapete banheiro, tapete antiderrapante, tapete branco, tapete banheiro 3 pecas">
+  <img src="img/kit-pano-de-banheiro-branco.jpg" alt="Tapete de Banheiro 3 Peças Antiderrapante Branco">
+  <span class="icone-busca">🔍</span>
+  <h3>Tapete de Banheiro 3 Peças Antiderrapante Branco</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>R$ 60,00</span>
+      <button onclick="addProduto(
+        'tapete-banheiro-3pcs-branco','Tapete Banheiro 3 Peças Antiderrapante Branco',60,'img/kit-pano-de-banheiro-branco.jpg',
+        [{tamanho:'3 Peças', preco:60}],'3 Peças')">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Tapete de Banheiro 3 Peças Antiderrapante Preto -->
+<div class="produto banheiro" data-nomes="tapete banheiro, tapete antiderrapante, tapete preto, tapete banheiro 3 pecas">
+  <img src="img/kit-pano-de-banheiro-preto.jpg" alt="Tapete de Banheiro 3 Peças Antiderrapante Preto">
+  <span class="icone-busca">🔍</span>
+  <h3>Tapete de Banheiro 3 Peças Antiderrapante Preto</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>R$ 60,00</span>
+      <button onclick="addProduto(
+        'tapete-banheiro-3pcs-preto','Tapete Banheiro 3 Peças Antiderrapante Preto',60,'img/kit-pano-de-banheiro-preto.jpg',
+        [{tamanho:'3 Peças', preco:60}],'3 Peças')">Adicionar</button>
+    </div>
+  </div>
 </div>
  
 </div>
@@ -4625,203 +4771,244 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
   <h2>Essências</h2>
 <div class="produtos">
 
- <div class="produto essencias"
-     data-nomes="essencia senamax, fragrancia senamax, aroma senamax">
-
-      <img src="img/essencia-senamax.jpg" alt="Essência SenaMax 120ML">
-     <span class="icone-busca">🔍</span>
-      <h3>Essência SenaMax 120ML</h3>
-      <div class="variacoes">
-        <div class="linha">
-          <span>Essen. SenaMax Orquídea Negra — R$ 16,00</span>
-<button onclick="addProduto('essencia-senamax-orquidea-negra','Essência SenaMax Orquídea Negra',16)">Adicionar</button>
-        </div>
-        <div class="linha">
-          <span>Essen. SenaMax Chá Branco — R$ 16,00</span>
-<button onclick="addProduto('essencia-senamax-cha-branco','Essência SenaMax Chá Branco',16)">Adicionar</button>
-        </div>
-         <div class="linha">
-          <span>Essen. SenaMax Óleo de Eucalipto — R$ 16,00</span>
-<button onclick="addProduto('essencia-senamax-oleo-eucalipto','Essência SenaMax Óleo de Eucalipto',16)">Adicionar</button>
-        </div>
-         <div class="linha">
-          <span>Essen. SenaMax Lavanda — R$ 16,00</span>
-<button onclick="addProduto('essencia-senamax-lavanda','Essência SenaMax Lavanda',16)">Adicionar</button>
-        </div>
-         <div class="linha">
-          <span>Essen. SenaMax Flores de Algodão — R$ 16,00</span>
-<button onclick="addProduto('essencia-senamax-flores-algodao','Essência SenaMax Flores de Algodão',16)">Adicionar</button>
-        </div>
-      </div>
-       
-    </div>
-
-  <div class="produto essencias"
-     data-nomes="essencia nogueira, fragrancia nogueira, aroma nogueira">
-
- <img src="img/essencia-nogueira.jpg" alt="Essência Nogueira 125ML">
-      <span class="icone-busca">🔍</span>
-  <h3>Essencia Nogueira 125ML</h3>
-
+<!-- Essência SenaMax 120ML -->
+<div class="produto essencias" data-nomes="essencia senamax, fragrancia senamax, aroma senamax">
+  <img src="img/essencia-senamax.jpg" alt="Essência SenaMax 120ML">
+  <span class="icone-busca">🔍</span>
+  <h3>Essência SenaMax 120ML</h3>
   <div class="variacoes">
+    <div class="linha">
+      <span>Essen. SenaMax Orquídea Negra — R$ 16,00</span>
+      <button onclick="addProduto(
+        'essencia-senamax-orquidea-negra','Essência SenaMax Orquídea Negra',16,'img/essencia-senamax.jpg',
+        [{tamanho:'Orquídea Negra', preco:16}],'Orquídea Negra')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Essen. SenaMax Chá Branco — R$ 16,00</span>
+      <button onclick="addProduto(
+        'essencia-senamax-cha-branco','Essência SenaMax Chá Branco',16,'img/essencia-senamax.jpg',
+        [{tamanho:'Chá Branco', preco:16}],'Chá Branco')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Essen. SenaMax Óleo de Eucalipto — R$ 16,00</span>
+      <button onclick="addProduto(
+        'essencia-senamax-oleo-eucalipto','Essência SenaMax Óleo de Eucalipto',16,'img/essencia-senamax.jpg',
+        [{tamanho:'Óleo de Eucalipto', preco:16}],'Óleo de Eucalipto')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Essen. SenaMax Lavanda — R$ 16,00</span>
+      <button onclick="addProduto(
+        'essencia-senamax-lavanda','Essência SenaMax Lavanda',16,'img/essencia-senamax.jpg',
+        [{tamanho:'Lavanda', preco:16}],'Lavanda')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Essen. SenaMax Flores de Algodão — R$ 16,00</span>
+      <button onclick="addProduto(
+        'essencia-senamax-flores-algodao','Essência SenaMax Flores de Algodão',16,'img/essencia-senamax.jpg',
+        [{tamanho:'Flores de Algodão', preco:16}],'Flores de Algodão')">Adicionar</button>
+    </div>
+  </div>
+</div>
 
+<!-- Essência Nogueira 125ML -->
+<div class="produto essencias" data-nomes="essencia nogueira, fragrancia nogueira, aroma nogueira">
+  <img src="img/essencia-nogueira.jpg" alt="Essência Nogueira 125ML">
+  <span class="icone-busca">🔍</span>
+  <h3>Essência Nogueira 125ML</h3>
+  <div class="variacoes">
     <div class="linha">
       <span>Essen. Nogueira Cereja e Avelã — R$ 10,00</span>
-<button onclick="addProduto('essencia-nogueira-cereja-avela','Essência Nogueira Cereja e Avelã',10)">Adicionar</button>
+      <button onclick="addProduto(
+        'essencia-nogueira-cereja-avela','Essência Nogueira Cereja e Avelã',10,'img/essencia-nogueira.jpg',
+        [{tamanho:'Cereja e Avelã', preco:10}],'Cereja e Avelã')">Adicionar</button>
     </div>
-
     <div class="linha">
       <span>Essen. Nogueira Lavanda — R$ 10,00</span>
-<button onclick="addProduto('essencia-nogueira-lavanda','Essência Nogueira Lavanda',10)">Adicionar</button>
+      <button onclick="addProduto(
+        'essencia-nogueira-lavanda','Essência Nogueira Lavanda',10,'img/essencia-nogueira.jpg',
+        [{tamanho:'Lavanda', preco:10}],'Lavanda')">Adicionar</button>
     </div>
-
     <div class="linha">
       <span>Essen. Nogueira Óleo de Eucalipto — R$ 10,00</span>
-<button onclick="addProduto('essencia-nogueira-oleo-eucalipto','Essência Nogueira Óleo de Eucalipto',10)">Adicionar</button>
+      <button onclick="addProduto(
+        'essencia-nogueira-oleo-eucalipto','Essência Nogueira Óleo de Eucalipto',10,'img/essencia-nogueira.jpg',
+        [{tamanho:'Óleo de Eucalipto', preco:10}],'Óleo de Eucalipto')">Adicionar</button>
     </div>
-
     <div class="linha">
       <span>Essen. Nogueira Broto de Bambu — R$ 10,00</span>
-<button onclick="addProduto('essencia-nogueira-broto-bambu','Essência Nogueira Broto de Bambu',10)">Adicionar</button>
+      <button onclick="addProduto(
+        'essencia-nogueira-broto-bambu','Essência Nogueira Broto de Bambu',10,'img/essencia-nogueira.jpg',
+        [{tamanho:'Broto de Bambu', preco:10}],'Broto de Bambu')">Adicionar</button>
     </div>
-
     <div class="linha">
       <span>Essen. Nogueira Jasmin — R$ 10,00</span>
-<button onclick="addProduto('essencia-nogueira-jasmin','Essência Nogueira Jasmin',10)">Adicionar</button>
+      <button onclick="addProduto(
+        'essencia-nogueira-jasmin','Essência Nogueira Jasmin',10,'img/essencia-nogueira.jpg',
+        [{tamanho:'Jasmin', preco:10}],'Jasmin')">Adicionar</button>
     </div>
-
     <div class="linha">
       <span>Essen. Nogueira Aurora — R$ 10,00</span>
-<button onclick="addProduto('essencia-nogueira-aurora','Essência Nogueira Aurora',10)">Adicionar</button>
+      <button onclick="addProduto(
+        'essencia-nogueira-aurora','Essência Nogueira Aurora',10,'img/essencia-nogueira.jpg',
+        [{tamanho:'Aurora', preco:10}],'Aurora')">Adicionar</button>
     </div>
-
     <div class="linha">
       <span>Essen. Nogueira Citronela — R$ 10,00</span>
-<button onclick="addProduto('essencia-nogueira-citronela','Essência Nogueira Citronela',10)">Adicionar</button>
+      <button onclick="addProduto(
+        'essencia-nogueira-citronela','Essência Nogueira Citronela',10,'img/essencia-nogueira.jpg',
+        [{tamanho:'Citronela', preco:10}],'Citronela')">Adicionar</button>
     </div>
-
     <div class="linha">
       <span>Essen. Nogueira Alfazema — R$ 10,00</span>
-<button onclick="addProduto('essencia-nogueira-alfazema','Essência Nogueira Alfazema',10)">Adicionar</button>
+      <button onclick="addProduto(
+        'essencia-nogueira-alfazema','Essência Nogueira Alfazema',10,'img/essencia-nogueira.jpg',
+        [{tamanho:'Alfazema', preco:10}],'Alfazema')">Adicionar</button>
     </div>
-
     <div class="linha">
       <span>Essen. Nogueira Talco — R$ 10,00</span>
-<button onclick="addProduto('essencia-nogueira-talco','Essência Nogueira Talco',10)">Adicionar</button>
+      <button onclick="addProduto(
+        'essencia-nogueira-talco','Essência Nogueira Talco',10,'img/essencia-nogueira.jpg',
+        [{tamanho:'Talco', preco:10}],'Talco')">Adicionar</button>
     </div>
     <div class="linha">
       <span>Essen. Nogueira Orquídea Negra — R$ 10,00</span>
-<button onclick="addProduto('essencia-nogueira-orquidea-negra','Essência Nogueira Orquídea Negra',10)">Adicionar</button>
+      <button onclick="addProduto(
+        'essencia-nogueira-orquidea-negra','Essência Nogueira Orquídea Negra',10,'img/essencia-nogueira.jpg',
+        [{tamanho:'Orquídea Negra', preco:10}],'Orquídea Negra')">Adicionar</button>
     </div>
   </div>
-        
 </div>
 
-<div class="produto essencias"
-     data-nomes="difusor senamax, aromatizador senamax, difusor ambiente">
-
-     <img src="img/difusor-senamax.jpg" alt="Difusor SenaMax 250ML">
-    <span class="icone-busca">🔍</span>
-      <h3>Difusor SenaMax 250ML</h3>
-      <div class="variacoes">
-        <div class="linha">
-          <span>Difusor SenaMax Orquídea Negra — R$ 22,00</span>
-<button onclick="addProduto('difusor-senamax-orquidea-negra','Difusor SenaMax Orquídea Negra',22)">Adicionar</button>
-        </div>
-        <div class="linha">
-          <span>Difusor SenaMax Chá Branco — R$ 22,00</span>
-<button onclick="addProduto('difusor-senamax-cha-branco','Difusor SenaMax Chá Branco',22)">Adicionar</button>
-        </div>
-         <div class="linha">
-          <span>Difusor SenaMax Pitaya — R$ 22,00</span>
-<button onclick="addProduto('difusor-senamax-pitaya','Difusor SenaMax Pitaya',22)">Adicionar</button>
-        </div>
-         <div class="linha">
-          <span>Difusor SenaMax Pistache — R$ 22,00</span>
-<button onclick="addProduto('difusor-senamax-pistache','Difusor SenaMax Pistache',22)">Adicionar</button>
-        </div>
-         <div class="linha">
-          <span>Difusor SenaMax Lavanda — R$ 22,00</span>
-<button onclick="addProduto('difusor-senamax-lavanda','Difusor SenaMax Lavanda',22)">Adicionar</button>
-        </div>
-      </div>
-    
+<!-- Difusor SenaMax 250ML -->
+<div class="produto essencias" data-nomes="difusor senamax, aromatizador senamax, difusor ambiente">
+  <img src="img/difusor-senamax.jpg" alt="Difusor SenaMax 250ML">
+  <span class="icone-busca">🔍</span>
+  <h3>Difusor SenaMax 250ML</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Difusor SenaMax Orquídea Negra — R$ 22,00</span>
+      <button onclick="addProduto(
+        'difusor-senamax-orquidea-negra','Difusor SenaMax Orquídea Negra',22,'img/difusor-senamax.jpg',
+        [{tamanho:'Orquídea Negra', preco:22}],'Orquídea Negra')">Adicionar</button>
     </div>
-    
-<div class="produto essencias"
-     data-nomes="difusor senalar, aromatizador senalar, difusor ambiente">
-
-      <img src="img/difusor-senalar.jpg" alt="Difusor SenaLar 250ML">
-    <span class="icone-busca">🔍</span>
-      <h3>Difusor SenaLar 250ML</h3>
-      <div class="variacoes">
-        <div class="linha">
-          <span>Difusor SenaLar Orquídea — R$ 15,00</span>
-<button onclick="addProduto('difusor-senalar-orquidea','Difusor SenaLar Orquídea',15)">Adicionar</button>
-        </div>
-        <div class="linha">
-          <span>Difusor SenaLar Chá Branco — R$ 15,00</span>
-<button onclick="addProduto('difusor-senalar-cha-branco','Difusor SenaLar Chá Branco',15)">Adicionar</button>
-        </div>
-         <div class="linha">
-          <span>Disusor SenaLar Bambu — R$ 15,00</span>
-<button onclick="addProduto('difusor-senalar-bambu','Difusor SenaLar Bambu',15)">Adicionar</button>
-      </div>
-         <div class="linha">
-          <span>Difusor SenaLar Lavanda — R$ 15,00</span>
-<button onclick="addProduto('difusor-senalar-lavanda','Difusor SenaLar Lavanda',15)">Adicionar</button>
-        </div>
-      </div>
-    
+    <div class="linha">
+      <span>Difusor SenaMax Chá Branco — R$ 22,00</span>
+      <button onclick="addProduto(
+        'difusor-senamax-cha-branco','Difusor SenaMax Chá Branco',22,'img/difusor-senamax.jpg',
+        [{tamanho:'Chá Branco', preco:22}],'Chá Branco')">Adicionar</button>
     </div>
-
-<div class="produto essencias"
-     data-nomes="agua para tecidos, agua perfumada, perfume roupas">
-
-     <img src="img/agua-tecido.jpg" alt="Agua para Tecidos 500ML">
-    <span class="icone-busca">🔍</span>
-      <h3>Água para Tecidos 500ML</h3>
-      <div class="variacoes">
-        <div class="linha">
-          <span>Água Tecidos Bambu — R$ 23,00</span>
-<button onclick="addProduto('agua-tecidos-bambu','Água para Tecidos Bambu',23)">Adicionar</button>
-        </div>
-        <div class="linha">
-          <span>Água Tecidos Chá Branco — R$ 23,00</span>
-<button onclick="addProduto('agua-tecidos-cha-branco','Água para Tecidos Chá Branco',23)">Adicionar</button>
-        </div>
-        <div class="linha">
-          <span>Água Tecidos Flores de Algodão — R$ 23,00</span>
-<button onclick="addProduto('agua-tecidos-flores-algodao','Água para Tecidos Flores de Algodão',23)">Adicionar</button>
-        </div>
-      </div>
-    
+    <div class="linha">
+      <span>Difusor SenaMax Pitaya — R$ 22,00</span>
+      <button onclick="addProduto(
+        'difusor-senamax-pitaya','Difusor SenaMax Pitaya',22,'img/difusor-senamax.jpg',
+        [{tamanho:'Pitaya', preco:22}],'Pitaya')">Adicionar</button>
     </div>
-
-<div class="produto essencias"
-     data-nomes="bom ar coala, aromatizador coala, cheirinho ambiente">
-
- <img src="img/bom-ar-coala.jpg" alt="Bom Ar Coala">
-    <span class="icone-busca">🔍</span>
-<h3>Bom Ar Coala</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>Bom Ar Coala Orquídea Negra R$ 20,00</span>
-<button onclick="addProduto('bom-ar-coala-orquidea-negra','Bom Ar Coala Orquídea Negra',20)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>Bom Ar Coala Chá Branco R$ 20,00</span>
-<button onclick="addProduto('bom-ar-coala-cha-branco','Bom Ar Coala Chá Branco',20)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>Bom Ar Coala Flores de Cacto R$ 20,00</span>
-<button onclick="addProduto('bom-ar-coala-flores-cacto','Bom Ar Coala Flores de Cacto',20)">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>Bom Ar Coala Ameixa Dourada R$ 20,00</span>
-<button onclick="addProduto('bom-ar-coala-ameixa-dourada','Bom Ar Coala Ameixa Dourada',20)">Adicionar</button>
+    <div class="linha">
+      <span>Difusor SenaMax Pistache — R$ 22,00</span>
+      <button onclick="addProduto(
+        'difusor-senamax-pistache','Difusor SenaMax Pistache',22,'img/difusor-senamax.jpg',
+        [{tamanho:'Pistache', preco:22}],'Pistache')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Difusor SenaMax Lavanda — R$ 22,00</span>
+      <button onclick="addProduto(
+        'difusor-senamax-lavanda','Difusor SenaMax Lavanda',22,'img/difusor-senamax.jpg',
+        [{tamanho:'Lavanda', preco:22}],'Lavanda')">Adicionar</button>
+    </div>
   </div>
 </div>
+
+<!-- Difusor SenaLar 250ML -->
+<div class="produto essencias" data-nomes="difusor senalar, aromatizador senalar, difusor ambiente">
+  <img src="img/difusor-senalar.jpg" alt="Difusor SenaLar 250ML">
+  <span class="icone-busca">🔍</span>
+  <h3>Difusor SenaLar 250ML</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Difusor SenaLar Orquídea — R$ 15,00</span>
+      <button onclick="addProduto(
+        'difusor-senalar-orquidea','Difusor SenaLar Orquídea',15,'img/difusor-senalar.jpg',
+        [{tamanho:'Orquídea', preco:15}],'Orquídea')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Difusor SenaLar Chá Branco — R$ 15,00</span>
+      <button onclick="addProduto(
+        'difusor-senalar-cha-branco','Difusor SenaLar Chá Branco',15,'img/difusor-senalar.jpg',
+        [{tamanho:'Chá Branco', preco:15}],'Chá Branco')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Difusor SenaLar Bambu — R$ 15,00</span>
+      <button onclick="addProduto(
+        'difusor-senalar-bambu','Difusor SenaLar Bambu',15,'img/difusor-senalar.jpg',
+        [{tamanho:'Bambu', preco:15}],'Bambu')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Difusor SenaLar Lavanda — R$ 15,00</span>
+      <button onclick="addProduto(
+        'difusor-senalar-lavanda','Difusor SenaLar Lavanda',15,'img/difusor-senalar.jpg',
+        [{tamanho:'Lavanda', preco:15}],'Lavanda')">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Água para Tecidos 500ML -->
+<div class="produto essencias" data-nomes="agua para tecidos, agua perfumada, perfume roupas">
+  <img src="img/agua-tecido.jpg" alt="Água para Tecidos 500ML">
+  <span class="icone-busca">🔍</span>
+  <h3>Água para Tecidos 500ML</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Água Tecidos Bambu — R$ 23,00</span>
+      <button onclick="addProduto(
+        'agua-tecidos-bambu','Água para Tecidos Bambu',23,'img/agua-tecido.jpg',
+        [{tamanho:'Bambu', preco:23}],'Bambu')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Água Tecidos Chá Branco — R$ 23,00</span>
+      <button onclick="addProduto(
+        'agua-tecidos-cha-branco','Água para Tecidos Chá Branco',23,'img/agua-tecido.jpg',
+        [{tamanho:'Chá Branco', preco:23}],'Chá Branco')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Água Tecidos Flores de Algodão — R$ 23,00</span>
+      <button onclick="addProduto(
+        'agua-tecidos-flores-algodao','Água para Tecidos Flores de Algodão',23,'img/agua-tecido.jpg',
+        [{tamanho:'Flores de Algodão', preco:23}],'Flores de Algodão')">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Bom Ar Coala -->
+<div class="produto essencias" data-nomes="bom ar coala, aromatizador coala, cheirinho ambiente">
+  <img src="img/bom-ar-coala.jpg" alt="Bom Ar Coala">
+  <span class="icone-busca">🔍</span>
+  <h3>Bom Ar Coala</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>Bom Ar Coala Orquídea Negra — R$ 20,00</span>
+      <button onclick="addProduto(
+        'bom-ar-coala-orquidea-negra','Bom Ar Coala Orquídea Negra',20,'img/bom-ar-coala.jpg',
+        [{tamanho:'Orquídea Negra', preco:20}],'Orquídea Negra')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Bom Ar Coala Chá Branco — R$ 20,00</span>
+      <button onclick="addProduto(
+        'bom-ar-coala-cha-branco','Bom Ar Coala Chá Branco',20,'img/bom-ar-coala.jpg',
+        [{tamanho:'Chá Branco', preco:20}],'Chá Branco')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Bom Ar Coala Flores de Cacto — R$ 20,00</span>
+      <button onclick="addProduto(
+        'bom-ar-coala-flores-cacto','Bom Ar Coala Flores de Cacto',20,'img/bom-ar-coala.jpg',
+        [{tamanho:'Flores de Cacto', preco:20}],'Flores de Cacto')">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>Bom Ar Coala Ameixa Dourada — R$ 20,00</span>
+      <button onclick="addProduto(
+        'bom-ar-coala-ameixa-dourada','Bom Ar Coala Ameixa Dourada',20,'img/bom-ar-coala.jpg',
+        [{tamanho:'Ameixa Dourada', preco:20}],'Ameixa Dourada')">Adicionar</button>
+    </div>
+  </div>
 </div>
   
   </div>
@@ -4862,124 +5049,129 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
   <h2>Automotivo</h2>
   <div class="produtos">
 
-<div class="produto automotivo"
-     data-nomes="shampoo automotivo, shampoo carro, lavagem automotiva">
-
+<!-- Shampoo Automotivo -->
+<div class="produto automotivo" data-nomes="shampoo automotivo, shampoo carro, lavagem automotiva">
   <img src="img/shampoo.jpg" alt="Shampoo Automotivo">
-    <span class="icone-busca">🔍</span>
+  <span class="icone-busca">🔍</span>
   <h3>Shampoo Automotivo</h3>
   <div class="variacoes">
     <div class="linha">
       <span>1L — R$ 13,00</span>
-<button onclick="addProduto('shampoo-automotivo-1l','Shampoo Automotivo 1L',13)">Adicionar</button>
+      <button onclick="addProduto(
+        'shampoo-automotivo-1l','Shampoo Automotivo 1L',13,'img/shampoo.jpg',
+        [{tamanho:'1L', preco:13}],'1L')">Adicionar</button>
     </div>
     <div class="linha">
-      <span> Shampoo com Cera 2L — R$ 18,00</span>
-<button onclick="addProduto('shampoo-automotivo-cera-2l','Shampoo com Cera 2L',18)">Adicionar</button>
+      <span>Shampoo com Cera 2L — R$ 18,00</span>
+      <button onclick="addProduto(
+        'shampoo-automotivo-cera-2l','Shampoo com Cera 2L',18,'img/shampoo.jpg',
+        [{tamanho:'2L', preco:18}],'2L')">Adicionar</button>
     </div>
   </div>
-        
 </div>
 
-<div class="produto automotivo"
-     data-nomes="cheirinho carro novo, aromatizador carro, perfume carro">
-
- <img src="img/cherinho-carro-novo.jpg" alt="Cheirinho de Carro Novo">
-    <span class="icone-busca">🔍</span>
-<h3>Cheirinho de Carro Novo</h3>
-  <p class="estoque" id="estoque-cheirinho-carro-novo">📦 Estoque: 2</p>
-
-<div class="variacoes">
-  <div class="linha">
-    <span>R$ 13,00</span>
-<button onclick="addProduto('cheirinho-carro-novo','Cheirinho de Carro Novo',13)">Adicionar</button>
-  </div>
-</div>
-    
-</div>
-      
-      
-<div class="produto automotivo"
-     data-nomes="cheirinho uva, aromatizador uva, perfume carro uva">
-
- <img src="img/cheirinho-uva.jpg" alt="Cheirinho de Uva">
-    <span class="icone-busca">🔍</span>
-<h3>Cheirinho de Uva</h3>
-  <p class="estoque" id="estoque-cheirinho-uva">📦 Estoque: 2</p>
-<div class="variacoes">
-  <div class="linha">
-    <span>R$ 18,00</span>
-<button onclick="addProduto('cheirinho-uva','Cheirinho de Uva',18)">Adicionar</button>
-  </div>
-</div>
-    
-</div>
-
-<div class="produto automotivo"
-data-nomes="silicone clineza, silicone, brilho, carro">
-  
-  <img src="img/desinfetante-casa.jpg" alt="Desinfetante Casa limpa">
+<!-- Cheirinho de Carro Novo -->
+<div class="produto automotivo" data-nomes="cheirinho carro novo, aromatizador carro, perfume carro">
+  <img src="img/cherinho-carro-novo.jpg" alt="Cheirinho de Carro Novo">
   <span class="icone-busca">🔍</span>
-<h3>Silicone Clineza</h3></h3>
-<div class="variacoes">
-  <div class="linha">
-    <span>R$ 15,00</span>
-    <button onclick="addProduto('silicone-clineza','Silicone Clineza',15)">Adicionar</button>
+  <h3>Cheirinho de Carro Novo</h3>
+  <p class="estoque" id="estoque-cheirinho-carro-novo">📦 Estoque: 2</p>
+  <div class="variacoes">
+    <div class="linha">
+      <span>R$ 13,00</span>
+      <button onclick="addProduto(
+        'cheirinho-carro-novo','Cheirinho de Carro Novo',13,'img/cherinho-carro-novo.jpg',
+        [{tamanho:'Único', preco:13}],'Único')">Adicionar</button>
+    </div>
   </div>
 </div>
-</div>
-    
-<div class="produto automotivo"
-     data-nomes="pneu pretinho, brilho pneu, pretinho pneu">
 
+<!-- Cheirinho de Uva -->
+<div class="produto automotivo" data-nomes="cheirinho uva, aromatizador uva, perfume carro uva">
+  <img src="img/cheirinho-uva.jpg" alt="Cheirinho de Uva">
+  <span class="icone-busca">🔍</span>
+  <h3>Cheirinho de Uva</h3>
+  <p class="estoque" id="estoque-cheirinho-uva">📦 Estoque: 2</p>
+  <div class="variacoes">
+    <div class="linha">
+      <span>R$ 18,00</span>
+      <button onclick="addProduto(
+        'cheirinho-uva','Cheirinho de Uva',18,'img/cheirinho-uva.jpg',
+        [{tamanho:'Único', preco:18}],'Único')">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Silicone Clineza -->
+<div class="produto automotivo" data-nomes="silicone clineza, silicone, brilho, carro">
+  <img src="img/desinfetante-casa.jpg" alt="Silicone Clineza">
+  <span class="icone-busca">🔍</span>
+  <h3>Silicone Clineza</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>R$ 15,00</span>
+      <button onclick="addProduto(
+        'silicone-clineza','Silicone Clineza',15,'img/desinfetante-casa.jpg',
+        [{tamanho:'Único', preco:15}],'Único')">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Pneu Pretinho -->
+<div class="produto automotivo" data-nomes="pneu pretinho, brilho pneu, pretinho pneu">
   <img src="img/pneu-pretinho.jpg" alt="Pneu Pretinho">
-    <span class="icone-busca">🔍</span>
+  <span class="icone-busca">🔍</span>
   <h3>Pneu Pretinho</h3>
   <div class="variacoes">
     <div class="linha">
       <span>1L — R$ 13,00</span>
-<button onclick="addProduto('pneu-pretinho-1l','Pneu Pretinho 1L',13)">Adicionar</button>
+      <button onclick="addProduto(
+        'pneu-pretinho-1l','Pneu Pretinho 1L',13,'img/pneu-pretinho.jpg',
+        [{tamanho:'1L', preco:13}],'1L')">Adicionar</button>
     </div>
     <div class="linha">
       <span>5L — R$ 40,00</span>
-<button onclick="addProduto('pneu-pretinho-5l','Pneu Pretinho 5L',40)">Adicionar</button>
+      <button onclick="addProduto(
+        'pneu-pretinho-5l','Pneu Pretinho 5L',40,'img/pneu-pretinho.jpg',
+        [{tamanho:'5L', preco:40}],'5L')">Adicionar</button>
     </div>
   </div>
-    
 </div>
 
-<div class="produto automotivo"
-     data-nomes="solupan, soluan, desengraxante, solupan desengraxante">
-
- <img src="img/solupan.jpg" alt="Solupan">
-    <span class="icone-busca">🔍</span>
-  <p class="descricao-produto">
-    Ideal para remover sujeira difici, como óleos e gracha
-  </p>
+<!-- Solupan -->
+<div class="produto automotivo" data-nomes="solupan, soluan, desengraxante, solupan desengraxante">
+  <img src="img/solupan.jpg" alt="Solupan">
+  <span class="icone-busca">🔍</span>
+  <p class="descricao-produto">Ideal para remover sujeira difícil, como óleos e graxa</p>
   <h3>Solupan</h3>
- <div class="variacoes">
+  <div class="variacoes">
     <div class="linha">
       <span>1L — R$ 13,00</span>
-<button onclick="addProduto('solupan-1l','Solupan 1L',13)">Adicionar</button>
+      <button onclick="addProduto(
+        'solupan-1l','Solupan 1L',13,'img/solupan.jpg',
+        [{tamanho:'1L', preco:13}],'1L')">Adicionar</button>
     </div>
     <div class="linha">
       <span>5L — R$ 40,00</span>
-<button onclick="addProduto('solupan-5l','Solupan 5L',40)">Adicionar</button>
+      <button onclick="addProduto(
+        'solupan-5l','Solupan 5L',40,'img/solupan.jpg',
+        [{tamanho:'5L', preco:40}],'5L')">Adicionar</button>
     </div>
   </div>
-    
 </div>
-    
-<div class="produto automotivo" 
-     data-nomes="pano microfibra, kit microfibra, pano limpeza, pano automotivo">
 
- <img src="img/microfibra.jpg" alt="Kit Pano de Microfibra 4 Unid.">
-    <span class="icone-busca">🔍</span>
-<h3>Kit de Pano Microfibra 4 Unid.</h3>
-<div class="variacoes">
-  <div class="linha">
-    <span> R$ 22,00</span>
-<button onclick="addProduto('kit-microfibra-4un','Kit Pano Microfibra 4 Unid.',22)">Adicionar</button>
+<!-- Kit de Pano Microfibra 4 Unid. -->
+<div class="produto automotivo" data-nomes="pano microfibra, kit microfibra, pano limpeza, pano automotivo">
+  <img src="img/microfibra.jpg" alt="Kit Pano de Microfibra 4 Unid.">
+  <span class="icone-busca">🔍</span>
+  <h3>Kit de Pano Microfibra 4 Unid.</h3>
+  <div class="variacoes">
+    <div class="linha">
+      <span>R$ 22,00</span>
+      <button onclick="addProduto(
+        'kit-microfibra-4un','Kit Pano Microfibra 4 Unid.',22,'img/microfibra.jpg',
+        [{tamanho:'4 Unid.', preco:22}],'4 Unid.')">Adicionar</button>
+    </div>
   </div>
 </div>
 </div>
@@ -5479,10 +5671,11 @@ async function confirmarPedido() {
 🛒 *Itens do pedido:*
 `;
 
-  carrinho.forEach(p => {
+ carrinho.forEach(p => {
+    const tamanho = p.tamanhos && p.tamanhos.length > 0 ? " " + (p.tamanhoSelecionado || "") : "";
     const subtotal = p.preco * p.qtd;
-    msg += `• ${p.nome} — ${p.qtd}x (R$ ${subtotal.toFixed(2)})\n`;
-  });
+    msg += `• ${p.nome}${tamanho} — ${p.qtd}x (R$ ${subtotal.toFixed(2)})\n`;
+});
 
   msg += `
 💰 *Total:* R$ ${totalGeral.toFixed(2)}
@@ -5732,63 +5925,34 @@ function mostrarAvaliacoes() {
 }
 
 function filtrarEstrelas(nota) {
-
   const container = document.getElementById("listaAvaliacoes");
-  container.innerHTML = "";
+  container.innerHTML = ""; // limpa apenas dentro do container
 
   const souAdmin = isAdmin();
+  const filtradas = nota === 0 ? todasAvaliacoes : todasAvaliacoes.filter(a => a.nota === nota);
 
-  const filtradas = nota === 0
-    ? todasAvaliacoes
-    : todasAvaliacoes.filter(a => a.nota === nota);
-
-  // ✅ ADICIONE ISSO AQUI
   if (filtradas.length === 0) {
     container.innerHTML = "<p>Nenhuma avaliação nesta categoria.</p>";
     return;
   }
 
   filtradas.forEach(a => {
+    const card = document.createElement("div");
+    card.classList.add("avaliacao-card");
+    if(a.admin) card.classList.add("avaliacao-admin");
 
-    container.innerHTML += `
-      <div class="avaliacao-card ${a.admin ? "avaliacao-admin" : ""}">
-
-        <div class="estrelas">
-          ${renderEstrelas(a.nota)}
-        </div>
-
-        <p>${a.comentario || "Sem comentário"}</p>
-        <strong>— ${a.nome}</strong>
-
-        ${
-          a.respostaAdmin
-            ? `
-              <div class="resposta-admin">
-                <strong>Resposta da loja:</strong>
-                <p>${a.respostaAdmin}</p>
-              </div>
-            `
-            : ""
-        }
-
-        ${
-          souAdmin && !a.respostaAdmin
-            ? `
-              <textarea id="resp_${a.id}"
-                placeholder="Responder avaliação..."></textarea>
-
-              <button onclick="responderAvaliacao('${a.id}')">
-                Responder
-              </button>
-            `
-            : ""
-        }
-
-      </div>
+    card.innerHTML = `
+      <div class="estrelas">${renderEstrelas(a.nota)}</div>
+      <p>${a.comentario || "Sem comentário"}</p>
+      <strong>— ${a.nome}</strong>
+      ${souAdmin && !a.respostaAdmin ? `<textarea id="resp_${a.id}" placeholder="Responder avaliação..."></textarea>
+      <button onclick="responderAvaliacao('${a.id}')">Responder</button>` : ""}
+      ${a.respostaAdmin ? `<div class="resposta-admin"><strong>Resposta da loja:</strong><p>${a.respostaAdmin}</p></div>` : ""}
     `;
+
+    container.appendChild(card); // ✅ Adiciona sempre dentro do container certo
   });
 }
-
 
 function removerAvaliacao(idDoc, donoId) {
   const meuId = getUserId();
