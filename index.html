@@ -5210,7 +5210,6 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
       <option value="Dinheiro">Dinheiro</option>
       <option value="Cartão de Débito">Cartão de Débito</option>
       <option value="Cartão de Crédito">Cartão de Crédito</option>
-      <option value="Pagar Depois">Pagar Depois</option>
     </select>
 
     <button class="btn-confirmar" onclick="confirmarPedido()">Confirmar Pedido</button>
@@ -5770,6 +5769,7 @@ document.addEventListener("DOMContentLoaded", () => {
   mostrarCategoria("limpeza", document.querySelector(".abas button"));
     mostrarProdutosAbaAtiva();
   atualizarEstoqueTela();
+  mostrarSugestoesFixas();
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
@@ -6109,16 +6109,84 @@ function esconderPainelAdmin() {
       });
     });
 }
+  
+const sugestoesFixas = [
+  {
+    id: "sabao-liquido",
+    nome: "Sabão Líquido",
+    imagem: "img/sabao-liquido.jpg",
+    tamanhos: [
+      { tamanho: "2L", preco: 12.00 },
+      { tamanho: "5L", preco: 25.00 }
+    ]
+  },
+  {
+    id: "detergente",
+    nome: "Detergente",
+    imagem: "img/detergente.jpg",
+    tamanhos: [
+      { tamanho: "2L", preco: 10.00 },
+      { tamanho: "5L", preco: 20.00 }
+    ]
+  }
+];
+
+  function mostrarSugestoesFixas() {
+  const box = document.getElementById("sugestoesMaisVendidos");
+  if (!box) return;
+
+  box.innerHTML = `<h4>💡 Sugestões para você:</h4>`;
+
+  sugestoesFixas.forEach(p => {
+    box.innerHTML += `
+      <div class="sugestao-card">
+        <img src="${p.imagem}" style="width:60px; margin-bottom:5px;">
+
+        <div><strong>${p.nome}</strong></div>
+
+        <select onchange="adicionarSugestaoFixa('${p.id}', this)">
+          <option value="">Selecionar tamanho</option>
+          ${p.tamanhos.map(t => `
+            <option value="${t.preco}|${t.tamanho}">
+              ${t.tamanho} - R$ ${t.preco.toFixed(2)}
+            </option>
+          `).join("")}
+        </select>
+      </div>
+    `;
+  });
+}
+
+  function adicionarSugestaoFixa(idBase, select) {
+  if (!select.value) return;
+
+  const [preco, tamanho] = select.value.split("|");
+  const card = select.closest(".sugestao-card");
+
+  const nome = card.querySelector("strong").innerText;
+  const imagem = card.querySelector("img").src;
+
+  addProduto(
+    idBase + "-" + tamanho.toLowerCase(), // ex: sabao-liquido-2l
+    nome,
+    Number(preco),
+    imagem,
+    [],
+    tamanho
+  );
+
+  select.value = "";
+}
 
    function mostrarMaisVendidos() {
 
   const box = document.getElementById("sugestoesMaisVendidos");
   if (!box) return;
 
-  if (carrinho.length === 0) {
-    box.innerHTML = "";
-    return;
-  }
+if (carrinho.length === 0) {
+  mostrarSugestoesFixas();
+  return;
+}
 
   db.collection("maisVendidos")
     .orderBy("quantidade", "desc")
