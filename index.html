@@ -1242,6 +1242,50 @@ input[type="search"]::-webkit-search-cancel-button {
   font-size: 14px;
 }
 
+  .sugestoes-linha {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.sugestao-card {
+  min-width: 220px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  text-align: center;
+}
+
+.sugestao-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.sugestao-card h4 {
+  margin: 8px 0;
+  color: #0b5cff;
+}
+
+.sugestao-card .linha {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.sugestao-card button {
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 </style>
 </head>
 
@@ -6131,31 +6175,43 @@ const sugestoesFixas = [
   }
 ];
 
-  function mostrarSugestoesFixas() {
+ function mostrarSugestoesFixas() {
   const box = document.getElementById("sugestoesMaisVendidos");
   if (!box) return;
 
-  box.innerHTML = `<h4>💡 Sugestões para você:</h4>`;
+  box.innerHTML = `
+    <h4 style="width:100%; margin-bottom:10px;">💡 Sugestões para você:</h4>
+    <div class="sugestoes-linha">
+  `;
 
   sugestoesFixas.forEach(p => {
     box.innerHTML += `
       <div class="sugestao-card">
-        <img src="${p.imagem}" style="width:60px; margin-bottom:5px;">
+        <img src="${p.imagem}" alt="${p.nome}">
+        <h4>${p.nome}</h4>
 
-        <div><strong>${p.nome}</strong></div>
-
-        <select onchange="adicionarSugestaoFixa('${p.id}', this)">
-          <option value="">Selecionar tamanho</option>
-          ${p.tamanhos.map(t => `
-            <option value="${t.preco}|${t.tamanho}">
-              ${t.tamanho} - R$ ${t.preco.toFixed(2)}
-            </option>
-          `).join("")}
-        </select>
+        ${p.tamanhos.map(t => `
+          <div class="linha">
+            <span>${t.tamanho} — R$ ${t.preco.toFixed(2)}</span>
+            <button onclick="addProduto(
+              '${p.id}-${t.tamanho.toLowerCase()}',
+              '${p.nome}',
+              ${t.preco},
+              '${p.imagem}',
+              [],
+              '${t.tamanho}'
+            )">
+              Adicionar
+            </button>
+          </div>
+        `).join("")}
       </div>
     `;
   });
+
+  box.innerHTML += `</div>`;
 }
+
 
   function adicionarSugestaoFixa(idBase, select) {
   if (!select.value) return;
