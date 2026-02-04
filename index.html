@@ -5704,14 +5704,14 @@ async function confirmarPedido() {
   const numeroPedido = gerarNumeroPedido();
   localStorage.setItem("pedidoAtual", numeroPedido);
 
-  let msg = `🧾 *Pedido Nº ${numeroPedido} – 🌪️🛒 Furacão da Limpeza*
+ let msg = `PEDIDO Nº ${numeroPedido} - FURACAO DA LIMPEZA
 
-👤 *Cliente:* ${nome}
-📞 *Telefone:* ${tel}
-📍 *Endereço:* ${end}
-💳 *Pagamento:* ${pag}
+CLIENTE: ${nome}
+TELEFONE: ${tel}
+ENDERECO: ${end}
+PAGAMENTO: ${pag}
 
-🛒 *Itens do pedido:*
+ITENS DO PEDIDO:
 `;
 
 carrinho.forEach(p => {
@@ -5720,14 +5720,18 @@ carrinho.forEach(p => {
 msg += `• ${p.nome}${tamanho} — ${p.qtd}x (R$ ${subtotal.toFixed(2)})\n`;
 });
 
-  msg += `
-💰 *Total:* R$ ${totalGeral.toFixed(2)}
+msg += `
+TOTAL: R$ ${totalGeral.toFixed(2)}
 
-Assim que confirmarmos, preparamos tudo com carinho para você 🙏✨
+Pedido confirmado. Obrigado pela preferência, em breve entraremos em contato.
 `;
 
   // ✅ CODIFICA A MENSAGEM (ESSENCIAL)
   const msgFinal = encodeURIComponent(msg);
+
+  // 🔥 ABRE WHATSAPP SEM BLOQUEIO
+window.location.href =
+  "https://wa.me/5515996585967?text=" + msgFinal;
 
 try {
   // 1️⃣ baixa o estoque no Firebase
@@ -5774,13 +5778,6 @@ await db.collection("pedidos").add({
   });
 
 }
-
-const linkWhats = document.createElement("a");
-linkWhats.href = "https://wa.me/5515996585967?text=" + msgFinal;
-linkWhats.target = "_blank";
-document.body.appendChild(linkWhats);
-linkWhats.click();
-document.body.removeChild(linkWhats);
 
   // MOSTRA TELA DE SUCESSO
 document.getElementById("telaSucesso").style.display = "flex";
