@@ -1237,17 +1237,12 @@ input[type="search"]::-webkit-search-cancel-button {
 .sugestoes-linha {
   display: flex;
   gap: 14px;
-  overflow-x: auto;          /* rolagem lateral no celular */
-  padding-bottom: 10px;
+  overflow-x: auto;
+  padding: 10px 0;
 }
 
 .sugestao-card {
   min-width: 180px;
-  background: #fff;
-  border-radius: 12px;
-  padding: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  text-align: center;
   flex-shrink: 0;
 }
 
@@ -5212,7 +5207,9 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <ul id="lista"></ul>
-  <div id="sugestoesMaisVendidos"></div>
+  <div id="sugestoesMaisVendidos" class="sugestoes-wrapper">
+  <div class="sugestoes-linha"></div>
+</div>
 <p><strong>Total: R$ <span id="total">0.00</span></strong></p>
 
 <button
@@ -5515,7 +5512,6 @@ if (totalFlutuante && totalFlutuanteValor) {
     ultimoTotal = totalGeral;
   }
 }
-  mostrarMaisVendidos();
 }
   
 // TROCAR NOME
@@ -5801,12 +5797,13 @@ abaAtiva.querySelectorAll(".produto").forEach(produto => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-// 🔥 volta sempre para Produtos de Limpeza
 document.addEventListener("DOMContentLoaded", () => {
   mostrarCategoria("limpeza", document.querySelector(".abas button"));
-    mostrarProdutosAbaAtiva();
+  mostrarProdutosAbaAtiva();
   atualizarEstoqueTela();
   mostrarSugestoesFixas();
+  mostrarAvaliacoes();
+  atualizarMedia();
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
@@ -5993,12 +5990,7 @@ function removerAvaliacao(idDoc, donoId) {
     .then(() => alert("Comentário removido"))
     .catch(() => alert("Erro ao remover"));
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  mostrarAvaliacoes();
-  atualizarMedia(); // ← só isso
-});
-
+  
 function responderAvaliacao(idDoc) {
 
   if (!isAdmin()) {
@@ -6168,17 +6160,22 @@ const sugestoesFixas = [
   }
 ];
 
- function mostrarSugestoesFixas() {
-  const box = document.getElementById("sugestoesMaisVendidos");
-  if (!box) return;
+function mostrarSugestoesFixas() {
+  const wrapper = document.getElementById("sugestoesMaisVendidos");
+  const linha = wrapper.querySelector(".sugestoes-linha");
 
-  box.innerHTML = `
-    <h4 style="width:100%; margin-bottom:10px;">💡 Sugestões para você:</h4>
-    <div class="sugestoes-linha">
-  `;
+  if (!linha) return;
+
+  linha.innerHTML = "";
+  wrapper.querySelector("h4")?.remove();
+
+  wrapper.insertAdjacentHTML(
+    "afterbegin",
+    `<h4 style="width:100%; margin-bottom:10px;">💡 Sugestões para você:</h4>`
+  );
 
   sugestoesFixas.forEach(p => {
-    box.innerHTML += `
+    linha.innerHTML += `
       <div class="sugestao-card">
         <img src="${p.imagem}" alt="${p.nome}">
         <h4>${p.nome}</h4>
@@ -6188,11 +6185,9 @@ const sugestoesFixas = [
             <span>${t.tamanho} — R$ ${t.preco.toFixed(2)}</span>
             <button onclick="addProduto(
               '${p.id}-${t.tamanho.toLowerCase()}',
-              '${p.nome}',
+              '${p.nome} ${t.tamanho}',
               ${t.preco},
-              '${p.imagem}',
-              [],
-              '${t.tamanho}'
+              '${p.imagem}'
             )">
               Adicionar
             </button>
@@ -6201,88 +6196,6 @@ const sugestoesFixas = [
       </div>
     `;
   });
-
-  box.innerHTML += `</div>`;
-}
-
-
-  function adicionarSugestaoFixa(idBase, select) {
-  if (!select.value) return;
-
-  const [preco, tamanho] = select.value.split("|");
-  const card = select.closest(".sugestao-card");
-
-  const nome = card.querySelector("strong").innerText;
-  const imagem = card.querySelector("img").src;
-
-  addProduto(
-    idBase + "-" + tamanho.toLowerCase(), // ex: sabao-liquido-2l
-    nome,
-    Number(preco),
-    imagem,
-    [],
-    tamanho
-  );
-
-  select.value = "";
-}
-
-function mostrarMaisVendidos() {
-
-  const box = document.getElementById("sugestoesMaisVendidos");
-  if (!box) return;
-
-  const idsCarrinho = carrinho.map(p =>
-    p.id.split("-").slice(0, -1).join("-")
-  );
-
-  if (carrinho.length === 0) {
-    mostrarSugestoesFixas();
-    return;
-  }
-
-  db.collection("maisVendidos")
-    .orderBy("quantidade", "desc")
-    .limit(6)
-    .get()
-    .then(snapshot => {
-
-      box.innerHTML = `
-        <h4>🔥 Sugestões para você</h4>
-        <div class="sugestoes-linha">
-      `;
-
-      snapshot.forEach(doc => {
-
-        // ❌ NÃO MOSTRA SE JÁ ESTIVER NO CARRINHO
-        if (idsCarrinho.includes(doc.id)) return;
-
-        const p = doc.data();
-
-        box.innerHTML += `
-          <div class="sugestao-card">
-            <img src="${p.imagem}">
-            <h4>${p.nome}</h4>
-
-            ${p.tamanhos.map(t => `
-              <div class="linha">
-                <span>${t.tamanho} — R$ ${t.preco.toFixed(2)}</span>
-                <button onclick="addProduto(
-                  '${doc.id}-${t.tamanho.toLowerCase()}',
-                  '${p.nome}',
-                  ${t.preco},
-                  '${p.imagem}',
-                  [],
-                  '${t.tamanho}'
-                )">Adicionar</button>
-              </div>
-            `).join("")}
-          </div>
-        `;
-      });
-
-      box.innerHTML += `</div>`;
-    });
 }
 
     function adicionarSugestao(id, select) {
