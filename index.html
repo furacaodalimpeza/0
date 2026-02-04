@@ -5213,56 +5213,66 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div id="carrinho">
-<h3>🛒 Seu Carrinho</h3>
-<div id="cardCliente" class="card-cliente">
-  <span id="nomeClienteExibido">👤 Cliente: não informado</span>
-</div>
+  <h3>🛒 Seu Carrinho</h3>
 
-<ul id="lista"></ul>
-<p><strong>Total: R$ <span id="total">0.00</span></strong></p>
-
-<button
-  id="btnWhatsapp"
-  class="btn-whatsapp"
-  onclick="abrirModal()"
-  disabled
->
-  Enviar pelo WhatsApp
-</button>
-
-<button class="btn-trocar-nome" onclick="trocarNome()">
-  Trocar nome da cliente
-</button>
-
-<button class="continuar" onclick="toggleCarrinho()">Continuar comprando</button>
-  <div id="sugestoesMaisVendidos" class="sugestoes-wrapper">
-  <div class="sugestoes-linha"></div>
-</div>
-  
-<!-- MODAL DADOS DO CLIENTE -->
-<div id="modalCliente" class="modal">
-  <div class="modal-box">
-
-    <h3>Finalizar Pedido</h3>
-
-    <input id="cliNome" type="text" placeholder="👤 Nome completo">
-    <input id="cliTel" type="tel" placeholder="📞 Telefone / WhatsApp">
-    <input id="cliEnd" type="text" placeholder="📍 Endereço completo">
-
-    <select id="cliPag">
-      <option value="">💳 Forma de pagamento</option>
-      <option value="Pix">Pix</option>
-      <option value="Pix na Entrega">Pix na Entrega</option>
-      <option value="Dinheiro">Dinheiro</option>
-      <option value="Cartão de Débito">Cartão de Débito</option>
-      <option value="Cartão de Crédito">Cartão de Crédito</option>
-    </select>
-
-    <button class="btn-confirmar" onclick="confirmarPedido()">Confirmar Pedido</button>
-    <button class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
-
+  <div id="cardCliente" class="card-cliente">
+    <span id="nomeClienteExibido">👤 Cliente: não informado</span>
   </div>
-  </div> 
+
+  <ul id="lista"></ul>
+
+  <p><strong>Total: R$ <span id="total">0.00</span></strong></p>
+
+  <button
+    id="btnWhatsapp"
+    class="btn-whatsapp"
+    onclick="abrirModal()"
+    disabled
+  >
+    Enviar pelo WhatsApp
+  </button>
+
+  <button class="btn-trocar-nome" onclick="trocarNome()">
+    Trocar nome da cliente
+  </button>
+
+  <button class="continuar" onclick="toggleCarrinho()">
+    Continuar comprando
+  </button>
+
+  <div id="sugestoesMaisVendidos" class="sugestoes-wrapper">
+    <div class="sugestoes-linha"></div>
+  </div>
+
+  <!-- MODAL DADOS DO CLIENTE -->
+  <div id="modalCliente" class="modal">
+    <div class="modal-box">
+
+      <h3>Finalizar Pedido</h3>
+
+      <input id="cliNome" type="text" placeholder="👤 Nome completo">
+      <input id="cliTel" type="tel" placeholder="📞 Telefone / WhatsApp">
+      <input id="cliEnd" type="text" placeholder="📍 Endereço completo">
+
+      <select id="cliPag">
+        <option value="">💳 Forma de pagamento</option>
+        <option value="Pix">Pix</option>
+        <option value="Pix na Entrega">Pix na Entrega</option>
+        <option value="Dinheiro">Dinheiro</option>
+        <option value="Cartão de Débito">Cartão de Débito</option>
+        <option value="Cartão de Crédito">Cartão de Crédito</option>
+      </select>
+
+      <button class="btn-confirmar" onclick="confirmarPedido()">
+        Confirmar Pedido
+      </button>
+      <button class="btn-cancelar" onclick="fecharModal()">
+        Cancelar
+      </button>
+
+    </div>
+  </div>
+</div>
 
 <!-- FIREBASE COMPAT -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
