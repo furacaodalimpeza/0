@@ -1234,23 +1234,35 @@ input[type="search"]::-webkit-search-cancel-button {
   margin-top: 20px;
 }
 
+.sugestoes-wrapper {
+  margin-top: 20px;
+}
+
 .sugestoes-linha {
   display: flex;
   gap: 14px;
   overflow-x: auto;
-  padding: 10px 0;
+  padding-bottom: 10px;
 }
 
 .sugestao-card {
   min-width: 180px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 10px;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .sugestao-card img {
   width: 100%;
-  max-height: 120px;
-  object-fit: contain;
-  border-radius: 8px;
+  height: 140px;
+  object-fit: cover;   /* 🔥 preenche tudo */
+  border-radius: 10px;
+  display: block;
 }
 
 .sugestao-card h4 {
@@ -5207,9 +5219,6 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <ul id="lista"></ul>
-  <div id="sugestoesMaisVendidos" class="sugestoes-wrapper">
-  <div class="sugestoes-linha"></div>
-</div>
 <p><strong>Total: R$ <span id="total">0.00</span></strong></p>
 
 <button
@@ -5228,6 +5237,10 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 <button class="continuar" onclick="toggleCarrinho()">Continuar comprando</button>
 </div>
 
+  <div id="sugestoesMaisVendidos" class="sugestoes-wrapper">
+  <div class="sugestoes-linha"></div>
+</div>
+  
 <!-- MODAL DADOS DO CLIENTE -->
 <div id="modalCliente" class="modal">
   <div class="modal-box">
