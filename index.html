@@ -1230,49 +1230,53 @@ input[type="search"]::-webkit-search-cancel-button {
   background: #f5f5f5;
 }
 
-  #sugestoesMaisVendidos {
+/* CONTAINER DAS SUGESTÕES */
+#sugestoesMaisVendidos {
   margin-top: 20px;
   padding: 10px;
   background: #fff8e1;
   border-radius: 10px;
+  width: 100%;
+  overflow: hidden;
 }
 
-.sugestao-item {
-  padding: 5px 0;
-  font-size: 14px;
-}
-
- .sugestoes-linha {
+/* LINHA HORIZONTAL (lado a lado + arrastar) */
+.sugestoes-linha {
   display: flex;
-  flex-direction: row;   /* força lado a lado */
-  gap: 15px;
-  overflow-x: auto;      /* barra para arrastar */
-  padding: 10px;
+  flex-wrap: nowrap;       /* 🔥 nunca quebra linha */
+  gap: 16px;
+  overflow-x: auto;        /* 🔥 barra lateral */
+  padding: 10px 0;
 }
 
+/* CARD DO PRODUTO */
 .sugestao-card {
-  min-width: 230px;
-  max-width: 230px;
+  flex: 0 0 240px;         /* 🔥 largura fixa */
+  max-width: 240px;
   background: #fff;
   border-radius: 16px;
   padding: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  text-align: center;
 }
 
+/* IMAGEM OCUPA TODA A ÁREA BRANCA */
 .sugestao-card img {
   width: 100%;
-  height: 180px;          /* ocupa a parte branca */
-  object-fit: cover;     /* preenche igual no site */
+  height: 180px;
+  object-fit: cover;       /* 🔥 igual aos produtos do site */
   border-radius: 12px;
   margin-bottom: 8px;
   display: block;
 }
 
+/* TÍTULO */
 .sugestao-card h4 {
   margin: 8px 0;
   color: #0b5cff;
 }
 
+/* LINHA TAMANHO + BOTÃO */
 .sugestao-card .linha {
   display: flex;
   justify-content: space-between;
@@ -1280,6 +1284,7 @@ input[type="search"]::-webkit-search-cancel-button {
   margin-top: 6px;
 }
 
+/* BOTÃO */
 .sugestao-card button {
   background: #22c55e;
   color: #fff;
@@ -1287,40 +1292,6 @@ input[type="search"]::-webkit-search-cancel-button {
   padding: 6px 10px;
   border-radius: 8px;
   cursor: pointer;
-}
-
-  /* CONTAINER DAS SUGESTÕES */
-#sugestoesMaisVendidos {
-  width: 100%;
-  overflow: hidden;
-}
-
-/* LINHA HORIZONTAL */
-.sugestoes-linha {
-  display: flex !important;
-  flex-wrap: nowrap !important;   /* 🔥 impede quebrar linha */
-  gap: 16px;
-  overflow-x: auto;
-  padding: 10px 0;
-}
-
-/* CARD INDIVIDUAL */
-.sugestao-card {
-  flex: 0 0 240px;                /* 🔥 largura fixa */
-  max-width: 240px;
-  background: #fff;
-  border-radius: 18px;
-  padding: 12px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-}
-
-/* IMAGEM GRANDE IGUAL AO SITE */
-.sugestao-card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;              /* 🔥 ocupa tudo */
-  border-radius: 14px;
-  display: block;
 }
 
 </style>
@@ -5965,7 +5936,6 @@ function mostrarAvaliacoes() {
       let soma = 0;
 
       snapshot.forEach(doc => {
-  if (idsCarrinho.includes(doc.id)) return;
         
         const a = doc.data();
 
