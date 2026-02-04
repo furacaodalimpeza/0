@@ -5457,14 +5457,15 @@ function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecion
   if (item) {
     item.qtd++;
   } else {
-    carrinho.push({ 
-      id, 
-     nome: nome,
-      preco, 
-      qtd: 1,
-      imagem,
-      tamanhos
-    });
+   carrinho.push({ 
+  id, 
+  nome,
+  preco, 
+  qtd: 1,
+  imagem,
+  tamanhos,
+  tamanhoSelecionado // 🔥 FALTAVA ISSO
+});
   }
 
   // 🔥 TEM QUE FICAR FORA DO ELSE
@@ -5715,7 +5716,8 @@ async function confirmarPedido() {
 
 carrinho.forEach(p => {
   const subtotal = p.preco * p.qtd;
-  msg += `• ${p.nome} — ${p.qtd}x (R$ ${subtotal.toFixed(2)})\n`;
+  const tamanho = p.tamanhoSelecionado ? ` (${p.tamanhoSelecionado})` : "";
+msg += `• ${p.nome}${tamanho} — ${p.qtd}x (R$ ${subtotal.toFixed(2)})\n`;
 });
 
   msg += `
