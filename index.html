@@ -1289,6 +1289,40 @@ input[type="search"]::-webkit-search-cancel-button {
   cursor: pointer;
 }
 
+  /* CONTAINER DAS SUGESTÕES */
+#sugestoesMaisVendidos {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* LINHA HORIZONTAL */
+.sugestoes-linha {
+  display: flex !important;
+  flex-wrap: nowrap !important;   /* 🔥 impede quebrar linha */
+  gap: 16px;
+  overflow-x: auto;
+  padding: 10px 0;
+}
+
+/* CARD INDIVIDUAL */
+.sugestao-card {
+  flex: 0 0 240px;                /* 🔥 largura fixa */
+  max-width: 240px;
+  background: #fff;
+  border-radius: 18px;
+  padding: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+/* IMAGEM GRANDE IGUAL AO SITE */
+.sugestao-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;              /* 🔥 ocupa tudo */
+  border-radius: 14px;
+  display: block;
+}
+
 </style>
 </head>
 
@@ -5931,7 +5965,8 @@ function mostrarAvaliacoes() {
       let soma = 0;
 
       snapshot.forEach(doc => {
-
+  if (idsCarrinho.includes(doc.id)) return;
+        
         const a = doc.data();
 
         if (!a.nota) return; // ignora sem nota
@@ -6237,56 +6272,61 @@ const sugestoesFixas = [
   select.value = "";
 }
 
-   function mostrarMaisVendidos() {
+function mostrarMaisVendidos() {
 
   const box = document.getElementById("sugestoesMaisVendidos");
   if (!box) return;
 
-if (carrinho.length === 0) {
-  mostrarSugestoesFixas();
-  return;
-}
+  const idsCarrinho = carrinho.map(p =>
+    p.id.split("-").slice(0, -1).join("-")
+  );
+
+  if (carrinho.length === 0) {
+    mostrarSugestoesFixas();
+    return;
+  }
 
   db.collection("maisVendidos")
     .orderBy("quantidade", "desc")
-    .limit(3)
+    .limit(6)
     .get()
     .then(snapshot => {
 
       box.innerHTML = `
-        <h4>🔥 Reparando nas suas compras, temos também:</h4>
+        <h4>🔥 Sugestões para você</h4>
+        <div class="sugestoes-linha">
       `;
 
       snapshot.forEach(doc => {
+
+        // ❌ NÃO MOSTRA SE JÁ ESTIVER NO CARRINHO
+        if (idsCarrinho.includes(doc.id)) return;
 
         const p = doc.data();
 
         box.innerHTML += `
           <div class="sugestao-card">
-            
-            <img src="${p.imagem}" style="width:60px; margin-bottom:5px;">
+            <img src="${p.imagem}">
+            <h4>${p.nome}</h4>
 
-            <div><strong>${p.nome}</strong></div>
-
-            ${
-              p.tamanhos && p.tamanhos.length > 0
-                ? `
-                  <select onchange="adicionarSugestao('${doc.id}', this)">
-                    <option value="">Selecionar tamanho</option>
-                    ${p.tamanhos.map(t => `
-                      <option value="${t.preco}|${t.tamanho}">
-                        ${t.tamanho} - R$ ${t.preco}
-                      </option>
-                    `).join("")}
-                  </select>
-                `
-                : ""
-            }
-
+            ${p.tamanhos.map(t => `
+              <div class="linha">
+                <span>${t.tamanho} — R$ ${t.preco.toFixed(2)}</span>
+                <button onclick="addProduto(
+                  '${doc.id}-${t.tamanho.toLowerCase()}',
+                  '${p.nome}',
+                  ${t.preco},
+                  '${p.imagem}',
+                  [],
+                  '${t.tamanho}'
+                )">Adicionar</button>
+              </div>
+            `).join("")}
           </div>
         `;
       });
 
+      box.innerHTML += `</div>`;
     });
 }
 
