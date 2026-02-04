@@ -6162,7 +6162,7 @@ function esconderPainelAdmin() {
   });
 }
 
-  function carregarPedidosAdmin() {
+function carregarPedidosAdmin() {
   if (!isAdmin()) return;
 
   const painel = document.getElementById("listaPedidosAdmin");
@@ -6177,23 +6177,26 @@ function esconderPainelAdmin() {
       painel.innerHTML = "";
 
       snapshot.forEach(doc => {
-        const p = doc.data();
 
+        const p = doc.data();
         let produtosHTML = "";
 
+        // 🔥 MONTA OS PRODUTOS PRIMEIRO
         if (p.itens && p.itens.length > 0) {
           p.itens.forEach(item => {
-           produtosHTML += `
-  <div class="item-pedido">
-    <strong>${item.nome}</strong><br>
-    Tamanho: ${item.tamanhoSelecionado || "-"} <br>
-    Quantidade: ${item.qtd} <br>
-    Preço: R$ ${(item.qtd * item.preco).toFixed(2)}
-  </div>
-  <hr>
-`;
+            produtosHTML += `
+              <div class="item-pedido">
+                <strong>${item.nome}</strong><br>
+                Tamanho: ${item.tamanhoSelecionado || "-"} <br>
+                Quantidade: ${item.qtd} <br>
+                Preço: R$ ${(item.qtd * item.preco).toFixed(2)}
+              </div>
+              <hr>
+            `;
+          });
+        }
 
-
+        // 🔥 SÓ DEPOIS INSERE O CARD
         painel.innerHTML += `
           <div class="card-pedido-admin">
 
@@ -6219,6 +6222,7 @@ function esconderPainelAdmin() {
 
           </div>
         `;
+
       });
 
     });
