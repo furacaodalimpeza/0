@@ -5729,65 +5729,39 @@ Pedido confirmado. Obrigado pela preferência, em breve entraremos em contato.
   // ✅ CODIFICA A MENSAGEM (ESSENCIAL)
   const msgFinal = encodeURIComponent(msg);
 
-  // 🔥 ABRE WHATSAPP SEM BLOQUEIO
-window.location.href =
-  "https://wa.me/5515996585967?text=" + msgFinal;
-
 try {
-  // 1️⃣ baixa o estoque no Firebase
   await baixarEstoquePedido();
+
+  await db.collection("pedidos").add({
+    numero: numeroPedido,
+    cliente: nome,
+    telefone: tel,
+    endereco: end,
+    pagamento: pag,
+    itens: JSON.parse(JSON.stringify(carrinho)),
+    total: totalGeral,
+    data: firebase.firestore.FieldValue.serverTimestamp(),
+    status: "Novo"
+  });
+
 } catch (err) {
-  alert("ERRO: " + err);
-  console.error("ERRO COMPLETO:", err);
+  alert("Erro ao finalizar pedido: " + err);
   return;
 }
 
-  // 2️⃣ SALVA O PEDIDO PARA O ADMIN
-await db.collection("pedidos").add({
-  numero: numeroPedido,
-  cliente: nome,
-  telefone: tel,
-  endereco: end,
-  pagamento: pag,
-  itens: JSON.parse(JSON.stringify(carrinho)),
-  total: totalGeral,
-  data: firebase.firestore.FieldValue.serverTimestamp(),
-  status: "Novo"
-});
-
-  for (const item of carrinho) {
-
-  const ref = db.collection("maisVendidos").doc(item.id);
-
-  await db.runTransaction(async (transaction) => {
-    const doc = await transaction.get(ref);
-
-    if (!doc.exists) {
-      transaction.set(ref, {
-  nome: item.nome,
-  imagem: item.imagem || "",
-  tamanhos: item.tamanhos || [],
-  quantidade: item.qtd
-});
-    } else {
-      const atual = doc.data().quantidade || 0;
-      transaction.update(ref, {
-  quantidade: atual + item.qtd
-});
-    }
-  });
-
-}
-
-  // MOSTRA TELA DE SUCESSO
+// ✅ MOSTRA TELA DE SUCESSO
 document.getElementById("telaSucesso").style.display = "flex";
+
+// ✅ ABRE WHATSAPP SEM SAIR DO SITE
+window.open(
+  "https://wa.me/5515996585967?text=" + msgFinal,
+  "_blank"
+);
 
 // LIMPA CARRINHO
 carrinho = [];
 atualizar();
 fecharModal();
-
-}
 
   function voltarComprar() {
   document.getElementById("telaSucesso").style.display = "none";
