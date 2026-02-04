@@ -1287,6 +1287,45 @@ input[type="search"]::-webkit-search-cancel-button {
   cursor: pointer;
 }
 
+  .card-pedido-admin {
+  position: relative;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 18px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  border-left: 6px solid #1e88e5;
+  transition: 0.2s ease;
+}
+
+.card-pedido-admin:hover {
+  transform: translateY(-3px);
+}
+
+.card-pedido-admin h3 {
+  margin-top: 0;
+  color: #1e88e5;
+}
+
+.btn-excluir-pedido {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.btn-excluir-pedido:hover {
+  background: #cc0000;
+}
+
 </style>
 </head>
 
@@ -6105,31 +6144,54 @@ function esconderPainelAdmin() {
   });
 }
 
-   function carregarPedidosAdmin() {
+  function carregarPedidosAdmin() {
   if (!isAdmin()) return;
 
   const painel = document.getElementById("listaPedidosAdmin");
-  if (!painel) return; // ✅ coloca AQUI
+  if (!painel) return;
 
   painel.innerHTML = "Carregando pedidos...";
 
   db.collection("pedidos")
     .orderBy("data", "desc")
     .onSnapshot(snapshot => {
+
       painel.innerHTML = "";
 
       snapshot.forEach(doc => {
         const p = doc.data();
 
         painel.innerHTML += `
-          <div class="pedido-admin">
-            <strong>Pedido Nº ${p.numero}</strong><br>
-            Cliente: ${p.cliente}<br>
-            Total: R$ ${(p.total || 0).toFixed(2)}<br>
-            Status: ${p.status}<br>
+          <div class="card-pedido-admin">
+            
+            <button class="btn-excluir-pedido"
+              onclick="removerPedidoAdmin('${doc.id}')">
+              ✖
+            </button>
+
+            <h3>Pedido Nº ${p.numero}</h3>
+
+            <p><strong>Cliente:</strong> ${p.cliente}</p>
+            <p><strong>Total:</strong> R$ ${(p.total || 0).toFixed(2)}</p>
+            <p><strong>Status:</strong> ${p.status}</p>
+
           </div>
         `;
       });
+
+    });
+}
+
+  function removerPedidoAdmin(id) {
+
+  if (!confirm("Deseja remover este pedido?")) return;
+
+  db.collection("pedidos").doc(id).delete()
+    .then(() => {
+      console.log("Pedido removido");
+    })
+    .catch(err => {
+      alert("Erro ao remover: " + err.message);
     });
 }
   
