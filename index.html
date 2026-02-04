@@ -6183,18 +6183,16 @@ function esconderPainelAdmin() {
 
         if (p.itens && p.itens.length > 0) {
           p.itens.forEach(item => {
-            produtosHTML += `
-              <div class="item-pedido">
-                <strong>${item.nome}</strong><br>
-                Tamanho: ${item.tamanhoSelecionado || "-"} <br>
-                Quantidade: ${item.qtd} <br>
-                Preço Unitário: R$ ${item.preco.toFixed(2)} <br>
-                Subtotal: R$ ${(item.qtd * item.preco).toFixed(2)}
-              </div>
-              <hr>
-            `;
-          });
-        }
+           produtosHTML += `
+  <div class="item-pedido">
+    <strong>${item.nome}</strong><br>
+    Tamanho: ${item.tamanhoSelecionado || "-"} <br>
+    Quantidade: ${item.qtd} <br>
+    Preço: R$ ${(item.qtd * item.preco).toFixed(2)}
+  </div>
+  <hr>
+`;
+
 
         painel.innerHTML += `
           <div class="card-pedido-admin">
