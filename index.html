@@ -5445,7 +5445,8 @@ function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecion
   preco = Number(preco);
   if (isNaN(preco)) return;
 
-  if (estoque.hasOwnProperty(id)) {
+  // 🔥 Só controla estoque se o produto existir na coleção estoque
+  if (estoque[id] !== undefined) {
     if (estoqueDisponivel(id) <= 0) {
       alert("Quantidade máxima em estoque atingida");
       return;
@@ -5457,22 +5458,20 @@ function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecion
   if (item) {
     item.qtd++;
   } else {
-   carrinho.push({ 
-  id, 
-  nome,
-  preco, 
-  qtd: 1,
-  imagem,
-  tamanhos,
-  tamanhoSelecionado // 🔥 FALTAVA ISSO
-});
+    carrinho.push({ 
+      id, 
+      nome,
+      preco, 
+      qtd: 1,
+      imagem,
+      tamanhos,
+      tamanhoSelecionado
+    });
   }
 
-  // 🔥 TEM QUE FICAR FORA DO ELSE
   atualizar();
-  atualizarEstoqueTela();
-  bloquearBotoesZerados();
 }
+
   
 // FUNÇÃO PARA ATUALIZAR CARRINHO
 function atualizar() {
