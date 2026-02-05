@@ -5717,8 +5717,9 @@ async function baixarEstoquePedido() {
       const doc = await transaction.get(ref);
 
       if (!doc.exists) {
-        throw `Produto ${item.nome} sem controle de estoque cadastrado!`;
-      }
+  // Produto não tem controle de estoque
+  continue;
+}
 
       const qtdAtual = Number(doc.data().quantidade);
 
