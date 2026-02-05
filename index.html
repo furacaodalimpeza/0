@@ -5711,15 +5711,22 @@ async function baixarEstoquePedido() {
 
   await db.runTransaction(async (transaction) => {
 
-    for (const item of carrinho) {
+    const docsLidos = [];
 
+    // ✅ 1° PASSO — LER TUDO PRIMEIRO
+    for (const item of carrinho) {
       const ref = db.collection("estoque").doc(item.id);
       const doc = await transaction.get(ref);
 
+      docsLidos.push({ item, ref, doc });
+    }
+
+    // ✅ 2° PASSO — VALIDAR E ATUALIZAR
+    for (const { item, ref, doc } of docsLidos) {
+
       if (!doc.exists) {
-  // Produto não tem controle de estoque
-  continue;
-}
+        continue; // não controla estoque
+      }
 
       const qtdAtual = Number(doc.data().quantidade);
 
