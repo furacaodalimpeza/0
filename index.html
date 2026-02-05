@@ -6181,13 +6181,23 @@ function carregarPedidosAdmin() {
         const p = doc.data();
         let produtosHTML = "";
 
-        // 🔥 MONTA OS PRODUTOS PRIMEIRO
+        // 🔥 MONTA OS PRODUTOS
         if (p.itens && p.itens.length > 0) {
           p.itens.forEach(item => {
+
+            let mostrarTamanho = "";
+
+            if (
+              item.tamanhoSelecionado &&
+              !item.nome.toLowerCase().includes(item.tamanhoSelecionado.toLowerCase())
+            ) {
+              mostrarTamanho = `Tamanho: ${item.tamanhoSelecionado}<br>`;
+            }
+
             produtosHTML += `
               <div class="item-pedido">
                 <strong>${item.nome}</strong><br>
-                Tamanho: ${item.tamanhoSelecionado || "-"} <br>
+                ${mostrarTamanho}
                 Quantidade: ${item.qtd} <br>
                 Preço: R$ ${(item.qtd * item.preco).toFixed(2)}
               </div>
@@ -6196,7 +6206,7 @@ function carregarPedidosAdmin() {
           });
         }
 
-        // 🔥 SÓ DEPOIS INSERE O CARD
+        // 🔥 CRIA O CARD UMA ÚNICA VEZ
         painel.innerHTML += `
           <div class="card-pedido-admin">
 
