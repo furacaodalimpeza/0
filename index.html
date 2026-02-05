@@ -5716,13 +5716,15 @@ async function baixarEstoquePedido() {
       const ref = db.collection("estoque").doc(item.id);
       const doc = await transaction.get(ref);
 
-      // 🔥 Se o produto NÃO tiver controle de estoque, ignora
       if (!doc.exists) {
-        console.log("Produto sem controle de estoque:", item.nome);
-        continue;
+        throw `Produto ${item.nome} sem controle de estoque cadastrado!`;
       }
 
-      const qtdAtual = Number(doc.data().quantidade) || 0;
+      const qtdAtual = Number(doc.data().quantidade);
+
+      if (isNaN(qtdAtual)) {
+        throw `Estoque inválido para ${item.nome}`;
+      }
 
       if (qtdAtual < item.qtd) {
         throw `Estoque insuficiente para ${item.nome}`;
@@ -5734,6 +5736,7 @@ async function baixarEstoquePedido() {
     }
 
   });
+
 }
 
   let carrinho = [];
@@ -5747,7 +5750,7 @@ function bloquearBotoesZerados() {
     const btn = document.getElementById("btn-" + id);
     if (!btn) continue;
 
-    if (estoque[id] <= 0) {
+    if (estoqueDisponivel(id) <= 0) {
       btn.disabled = true;
       btn.innerText = "Esgotado";
     } else {
@@ -6002,6 +6005,9 @@ function fecharModal() {
 
 async function confirmarPedido() {
 
+  const btnConfirmar = document.querySelector("#modalCliente button");
+if (btnConfirmar) btnConfirmar.disabled = true;
+
   const cliNome = document.getElementById("cliNome");
   const cliTel = document.getElementById("cliTel");
   const cliEnd = document.getElementById("cliEnd");
@@ -6012,10 +6018,11 @@ async function confirmarPedido() {
   const end = cliEnd.value.trim();
   const pag = cliPag.value;
 
-  if (!nome || !tel || !end || !pag) {
-    alert("Preencha todos os campos!");
-    return;
-  }
+ if (!nome || !tel || !end || !pag) {
+  alert("Preencha todos os campos!");
+  if (btnConfirmar) btnConfirmar.disabled = false;
+  return;
+}
 
   const numeroPedido = gerarNumeroPedido();
   localStorage.setItem("pedidoAtual", numeroPedido);
@@ -6077,6 +6084,8 @@ window.open(
 // LIMPA CARRINHO
 carrinho = [];
 atualizar();
+atualizarEstoqueTela();
+bloquearBotoesZerados();
 fecharModal();
 }
   
@@ -6582,7 +6591,7 @@ function mostrarSugestoesFixas() {
   const imagem = card.querySelector("img").src;
 
   addProduto(
-    id + "_" + tamanho,
+    id + "-" + tamanho.toLowerCase(),
     nome,
     Number(preco),
     imagem,
