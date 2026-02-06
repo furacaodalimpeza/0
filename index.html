@@ -6030,8 +6030,7 @@ function filtrarProdutos() {
   limpar.style.display = "none";
 }
 
-  // ABRIR / FECHAR CARRINHO
-function toggleCarrinho() {
+ function toggleCarrinho() {
 
   const carrinho = document.getElementById("carrinho");
   carrinho.classList.toggle("aberto");
@@ -6042,18 +6041,26 @@ function toggleCarrinho() {
   const adminBtns = document.getElementById("adminFabContainer");
 
   if (aberto) {
+
     if (btnTopo) btnTopo.style.display = "none";
     if (adminBtns) adminBtns.style.display = "none";
+
     document.body.style.overflow = "hidden";
+
   } else {
-    if (btnTopo) btnTopo.style.display = "flex";
+
+    document.body.style.overflow = "auto";
+
+    if (window.scrollY > 300 && btnTopo) {
+      btnTopo.style.display = "flex";
+    }
+
     if (isAdmin() && adminBtns) {
       adminBtns.style.display = "block";
     }
-    document.body.style.overflow = "auto";
+
   }
 }
-
 
 // ALTERAR QUANTIDADE
 function alterarQtd(index, valor) {
@@ -6448,14 +6455,24 @@ function responderAvaliacao(idDoc) {
 
   // MOSTRAR / ESCONDER BOTÃO VOLTAR AO TOPO
 window.addEventListener("scroll", () => {
+
   const btn = document.getElementById("btnTopo");
-  if (!btn) return;
+  const carrinho = document.getElementById("carrinho");
+
+  if (!btn || !carrinho) return;
+
+  // 🚫 Se carrinho estiver aberto, não mostra botão nenhum
+  if (carrinho.classList.contains("aberto")) {
+    btn.style.display = "none";
+    return;
+  }
 
   if (window.scrollY > 300) {
     btn.style.display = "flex";
   } else {
     btn.style.display = "none";
   }
+
 });
 
   function alterarEstoqueAdmin(id, valor) {
@@ -6647,23 +6664,48 @@ panel.innerHTML = html;
       .then(snapshot => {
 
         const lista = document.getElementById("miniPedidos");
+if (!lista) return;
 
         snapshot.forEach(doc => {
           const p = doc.data();
 
-          lista.innerHTML += `
-            <div style="margin-bottom:10px; padding:8px; background:#f5f5f5; border-radius:8px;">
-              <strong>Pedido ${p.numero}</strong><br>
-              ${p.cliente}<br>
-              R$ ${(p.total || 0).toFixed(2)}
-            </div>
-          `;
+          let itensHTML = "";
+
+if (p.itens && Array.isArray(p.itens)) {
+
+  p.itens.forEach(item => {
+
+    itensHTML += `
+      <div style="font-size:13px; margin-left:8px; margin-top:4px;">
+       • ${item.nome || "Produto"}
+${item.tamanhoSelecionado ? ` (${item.tamanhoSelecionado})` : ""}
+| Qtd: ${item.qtd || 0}
+| Subtotal: R$ ${((item.preco || 0) * (item.qtd || 0)).toFixed(2)}
+      </div>
+    `;
+
+  });
+
+}
+
+lista.innerHTML += `
+  <div style="margin-bottom:10px; padding:10px; background:#f5f5f5; border-radius:8px;">
+    <strong>Pedido ${p.numero}</strong><br>
+    <small>${p.cliente}</small>
+    <div style="margin-top:6px;">
+      ${itensHTML}
+    </div>
+    <div style="margin-top:6px; font-weight:bold;">
+      Total: R$ ${(p.total || 0).toFixed(2)}
+    </div>
+  </div>
+`;
         });
 
       });
+
   }
 
-  toggleAdminFab();
 }
 
 function fecharMiniAdmin() {
