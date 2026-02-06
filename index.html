@@ -6720,39 +6720,42 @@ lista.innerHTML += `
     background:#ffffff;
     border-radius:16px;
     box-shadow:0 6px 18px rgba(0,0,0,0.08);
-    position:relative;
   ">
 
-    <!-- Botão excluir -->
-    <button onclick="excluirPedido('${doc.id}')"
-      style="
-        position:absolute;
-        top:10px;
-        right:10px;
-        background:#ff4d4d;
-        border:none;
-        color:white;
-        width:26px;
-        height:26px;
-        border-radius:50%;
-        cursor:pointer;
-        font-size:14px;
-      ">
-      ✕
-    </button>
-
     <div style="display:flex; justify-content:space-between; align-items:center;">
-      <strong style="font-size:17px;">Pedido ${p.numero}</strong>
-      <span style="
-        font-size:12px;
-        padding:4px 8px;
-        border-radius:8px;
-        background:${p.status === "Novo" ? "#e6f3ff" : "#e8f5e9"};
-        color:${p.status === "Novo" ? "#007bff" : "#2e7d32"};
-        font-weight:600;
-      ">
-        ${p.status || "Novo"}
-      </span>
+
+      <div style="display:flex; align-items:center; gap:10px;">
+        <strong style="font-size:17px;">Pedido ${p.numero}</strong>
+
+        <span style="
+          font-size:12px;
+          padding:4px 10px;
+          border-radius:8px;
+          background:${p.status === "Novo" ? "#e6f3ff" : "#e8f5e9"};
+          color:${p.status === "Novo" ? "#007bff" : "#2e7d32"};
+          font-weight:600;
+        ">
+          ${p.status || "Novo"}
+        </span>
+      </div>
+
+      <button onclick="excluirPedido('${doc.id}')"
+        style="
+          background:#ff4d4d;
+          border:none;
+          color:white;
+          width:28px;
+          height:28px;
+          border-radius:50%;
+          cursor:pointer;
+          font-size:14px;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+        ">
+        ✕
+      </button>
+
     </div>
 
     <div style="margin-top:6px; font-size:13px; color:#666;">
@@ -6802,6 +6805,7 @@ lista.innerHTML += `
 
   </div>
 `;
+
         });
 
       });
