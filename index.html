@@ -1369,6 +1369,41 @@ input[type="search"]::-webkit-search-cancel-button {
   transform: scale(1.1);
 }
 
+  .painel-admin {
+  display: none;
+  background: #fff;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 12px;
+}
+
+.admin-abas {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.admin-abas button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #eee;
+}
+
+.admin-abas button.ativa {
+  background: #1e88e5;
+  color: white;
+}
+
+.admin-conteudo {
+  display: none;
+}
+
+.admin-conteudo.ativa {
+  display: block;
+}
+
 </style>
 </head>
 
@@ -5704,7 +5739,8 @@ auth.onAuthStateChanged(user => {
       adminLogado = false;
       esconderPainelAdmin();
       document.getElementById("adminFloatingBtns").style.display = "none";
-      document.getElementById("btnAdminFlutuante").style.display = "block";
+     const btnAdmin = document.getElementById("btnAdminFlutuante");
+if (btnAdmin) btnAdmin.style.display = "block";
       auth.signOut();
 
     }
@@ -5996,8 +6032,28 @@ function filtrarProdutos() {
 
   // ABRIR / FECHAR CARRINHO
 function toggleCarrinho() {
-  document.getElementById("carrinho").classList.toggle("aberto");
+
+  const carrinho = document.getElementById("carrinho");
+  carrinho.classList.toggle("aberto");
+
+  const aberto = carrinho.classList.contains("aberto");
+
+  const btnTopo = document.getElementById("btnTopo");
+  const adminBtns = document.getElementById("adminFloatingBtns");
+
+  if (aberto) {
+    if (btnTopo) btnTopo.style.display = "none";
+    if (adminBtns) adminBtns.style.display = "none";
+    document.body.style.overflow = "hidden";
+  } else {
+    if (btnTopo) btnTopo.style.display = "flex";
+    if (isAdmin() && adminBtns) {
+      adminBtns.style.display = "flex";
+    }
+    document.body.style.overflow = "auto";
+  }
 }
+
 
 // ALTERAR QUANTIDADE
 function alterarQtd(index, valor) {
@@ -6110,6 +6166,7 @@ try {
 
 } catch (err) {
   alert("Erro ao finalizar pedido: " + err);
+  if (btnConfirmar) btnConfirmar.disabled = false;
   return;
 }
 
@@ -6643,30 +6700,35 @@ function mostrarSugestoesFixas() {
   select.value = "";
 }
 
-function abrirPainelEstoque() {
+  function abrirAbaAdmin(id, btn) {
+
+  document.querySelectorAll(".admin-conteudo").forEach(el =>
+    el.classList.remove("ativa")
+  );
+
+  document.getElementById(id).classList.add("ativa");
+
+  document.querySelectorAll(".admin-abas button").forEach(b =>
+    b.classList.remove("ativa")
+  );
+
+  btn.classList.add("ativa");
+}
+
+  function abrirPainelEstoque() {
   if (!isAdmin()) return;
 
-  document.getElementById("painelAdmin").style.display = "block";
-  window.scrollTo({
-    top: document.getElementById("painelAdmin").offsetTop,
-    behavior: "smooth"
-  });
+  mostrarPainelAdmin();
+  abrirAbaAdmin("abaEstoque", document.querySelector(".admin-abas button:nth-child(1)"));
 }
 
 function abrirPainelPedidos() {
   if (!isAdmin()) return;
 
-  document.getElementById("painelAdmin").style.display = "block";
-
-  setTimeout(() => {
-    window.scrollTo({
-      top: document.getElementById("listaPedidosAdmin").offsetTop,
-      behavior: "smooth"
-    });
-  }, 200);
+  mostrarPainelAdmin();
+  abrirAbaAdmin("abaPedidos", document.querySelector(".admin-abas button:nth-child(2)"));
 }
 
-  
 </script>
  <!-- 🔐 BOTÃO ADMIN FLUTUANTE -->
 <button id="btnAdminFlutuante" onclick="toggleLoginAdmin()">
@@ -6690,22 +6752,30 @@ function abrirPainelPedidos() {
 
 </div>
 
-   <!-- 🔐 PAINEL ADMIN -->
-<div id="painelAdmin" style="
-  display:none;
-  background:#fff;
-  padding:20px;
-  margin:20px;
-  border-radius:12px;
-">
+  <!-- 🔐 PAINEL ADMIN -->
+<div id="painelAdmin" class="painel-admin">
 
-  <h2>📦 Painel de Estoque (Admin)</h2>
-  <div id="listaEstoqueAdmin"></div>
+  <div class="admin-abas">
+    <button onclick="abrirAbaAdmin('abaEstoque', this)" class="ativa">
+      📦 Estoque
+    </button>
 
-  <hr style="margin:30px 0;">
+    <button onclick="abrirAbaAdmin('abaPedidos', this)">
+      🧾 Pedidos
+    </button>
+  </div>
 
-  <h2>🧾 Pedidos Recebidos</h2>
-  <div id="listaPedidosAdmin"></div>
+  <!-- ABA ESTOQUE -->
+  <div id="abaEstoque" class="admin-conteudo ativa">
+    <h2>Painel de Estoque</h2>
+    <div id="listaEstoqueAdmin"></div>
+  </div>
+
+  <!-- ABA PEDIDOS -->
+  <div id="abaPedidos" class="admin-conteudo">
+    <h2>Pedidos Recebidos</h2>
+    <div id="listaPedidosAdmin"></div>
+  </div>
 
 </div>
 
