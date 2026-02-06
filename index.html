@@ -6700,17 +6700,65 @@ ${item.tamanhoSelecionado ? ` (${item.tamanhoSelecionado})` : ""}
 }
 
 lista.innerHTML += `
-  <div style="margin-bottom:10px; padding:10px; background:#f5f5f5; border-radius:8px;">
-    <strong>Pedido ${p.numero}</strong><br>
-    <small>${p.cliente}</small>
-    <div style="margin-top:6px;">
-      ${itensHTML}
+  <div style="
+    margin-bottom:15px;
+    padding:14px;
+    background:#ffffff;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.06);
+  ">
+
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <strong style="font-size:15px;">Pedido ${p.numero}</strong>
+      <span style="font-size:13px; color:#666;">${p.cliente}</span>
     </div>
-    <div style="margin-top:6px; font-weight:bold;">
-      Total: R$ ${(p.total || 0).toFixed(2)}
+
+    <div style="margin-top:10px; border-top:1px solid #eee; padding-top:8px;">
+      ${p.itens.map(item => `
+        <div style="
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          margin-bottom:6px;
+          font-size:13px;
+        ">
+          <div>
+            ${item.nome}
+            ${item.tamanhoSelecionado ? ` (${item.tamanhoSelecionado})` : ""}
+            <span style="
+              background:#f0f0f0;
+              padding:2px 6px;
+              border-radius:6px;
+              font-size:11px;
+              margin-left:6px;
+            ">
+              x${item.qtd}
+            </span>
+          </div>
+
+          <div style="font-weight:500;">
+            R$ ${((item.preco || 0) * (item.qtd || 0)).toFixed(2)}
+          </div>
+        </div>
+      `).join("")}
     </div>
+
+    <div style="
+      margin-top:10px;
+      padding-top:8px;
+      border-top:1px solid #ddd;
+      display:flex;
+      justify-content:space-between;
+      font-weight:bold;
+      font-size:15px;
+    ">
+      <span>Total</span>
+      <span>R$ ${(p.total || 0).toFixed(2)}</span>
+    </div>
+
   </div>
 `;
+
         });
 
       });
