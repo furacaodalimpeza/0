@@ -6142,26 +6142,40 @@ if (btnConfirmar) btnConfirmar.disabled = true;
   const numeroPedido = gerarNumeroPedido();
   localStorage.setItem("pedidoAtual", numeroPedido);
 
- let msg = `PEDIDO Nº ${numeroPedido} - FURACAO DA LIMPEZA
+let msg = `
+━━━━━━━━━━━━━━━━━━━━━━━━
+*FURACAO DA LIMPEZA*
+━━━━━━━━━━━━━━━━━━━━━━━━
 
-CLIENTE: ${nome}
-TELEFONE: ${tel}
-ENDERECO: ${end}
-PAGAMENTO: ${pag}
+*PEDIDO Nº ${numeroPedido}*
 
-ITENS DO PEDIDO:
+━━━━━━━━━━━━━━━━━━━━━━━━
+*DADOS DO CLIENTE*
+━━━━━━━━━━━━━━━━━━━━━━━━
+*Cliente:* ${nome}
+*Telefone:* ${tel}
+*Endereço:* ${end}
+*Pagamento:* ${pag}
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+*ITENS DO PEDIDO*
+━━━━━━━━━━━━━━━━━━━━━━━━
 `;
 
-carrinho.forEach(p => {
-  const subtotal = p.preco * p.qtd;
-  const tamanho = p.tamanhoSelecionado ? ` (${p.tamanhoSelecionado})` : "";
-msg += `• ${p.nome}${tamanho} — ${p.qtd}x (R$ ${subtotal.toFixed(2)})\n`;
+carrinho.forEach(item => {
+  msg += `• ${item.nome}${item.tamanhoSelecionado ? ` (${item.tamanhoSelecionado})` : ""}
+  ${item.qtd}x — R$ ${((item.preco || 0) * (item.qtd || 0)).toFixed(2)}\n`;
 });
 
 msg += `
-TOTAL: R$ ${totalGeral.toFixed(2)}
+━━━━━━━━━━━━━━━━━━━━━━━━
+*TOTAL: R$ ${totalGeral.toFixed(2)}*
+━━━━━━━━━━━━━━━━━━━━━━━━
 
-Pedido confirmado. Obrigado pela preferência, em breve entraremos em contato.
+Pedido confirmado com sucesso.
+
+Agradecemos pela preferência.
+Em breve entraremos em contato para finalizar seu atendimento.
 `;
 
   // ✅ CODIFICA A MENSAGEM (ESSENCIAL)
