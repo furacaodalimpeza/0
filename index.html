@@ -1344,64 +1344,64 @@ input[type="search"]::-webkit-search-cancel-button {
   margin-top: 10px;
 }
 
-  .admin-floating {
+ .admin-fab-container {
   position: fixed;
   bottom: 20px;
   left: 20px;
-  display: none;
-  gap: 10px;
   z-index: 9999;
 }
 
-.admin-floating button {
-  width: 55px;
-  height: 55px;
+.admin-fab-main {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   border: none;
-  font-size: 22px;
-  cursor: pointer;
   background: #1e88e5;
   color: white;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+  transition: 0.3s;
 }
 
-.admin-floating button:hover {
+.admin-fab-main:hover {
   transform: scale(1.1);
 }
 
-  .painel-admin {
+.admin-fab-menu {
   display: none;
-  background: #fff;
-  padding: 20px;
-  margin: 20px;
-  border-radius: 12px;
-}
-
-.admin-abas {
-  display: flex;
+  flex-direction: column;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
-.admin-abas button {
-  padding: 10px 20px;
+.admin-fab-menu button {
+  padding: 10px 15px;
+  border-radius: 20px;
   border: none;
-  border-radius: 8px;
+  background: white;
   cursor: pointer;
-  background: #eee;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  font-size: 14px;
 }
 
-.admin-abas button.ativa {
-  background: #1e88e5;
-  color: white;
-}
-
-.admin-conteudo {
+  .mini-admin-panel {
+  position: fixed;
+  bottom: 100px;
+  left: 20px;
+  width: 320px;
+  max-height: 400px;
+  overflow-y: auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  padding: 15px;
   display: none;
+  z-index: 9998;
 }
 
-.admin-conteudo.ativa {
-  display: block;
+  #adminFabContainer {
+  display: none;
 }
 
 </style>
@@ -5711,10 +5711,12 @@ auth.onAuthStateChanged(user => {
 
   if (!user) {
     adminLogado = false;
-    esconderPainelAdmin();
-    document.getElementById("loginAdmin").style.display = "none";
-    document.body.style.overflow = "auto";
-    document.getElementById("adminFloatingBtns").style.display = "none";
+
+    document.getElementById("adminFabContainer").style.display = "none";
+
+    const btnAdmin = document.getElementById("btnAdminFlutuante");
+    if (btnAdmin) btnAdmin.style.display = "block";
+
     return;
   }
 
@@ -5722,25 +5724,26 @@ auth.onAuthStateChanged(user => {
 
     if (doc.exists) {
 
-      // ✅ É ADMIN
       adminLogado = true;
-      mostrarPainelAdmin();
-      carregarEstoqueAdmin();
-      carregarPedidosAdmin();
+
+      document.getElementById("adminFabContainer").style.display = "block";
+
+      const btnAdmin = document.getElementById("btnAdminFlutuante");
+      if (btnAdmin) btnAdmin.style.display = "none";
+
       document.getElementById("loginAdmin").style.display = "none";
-      document.getElementById("btnAdminFlutuante").style.display = "none";
-      document.getElementById("adminFloatingBtns").style.display = "flex";
 
       console.log("ADMIN LOGADO");
 
     } else {
 
-      // ❌ NÃO É ADMIN
       adminLogado = false;
-      esconderPainelAdmin();
-      document.getElementById("adminFloatingBtns").style.display = "none";
-     const btnAdmin = document.getElementById("btnAdminFlutuante");
-if (btnAdmin) btnAdmin.style.display = "block";
+
+      document.getElementById("adminFabContainer").style.display = "none";
+
+      const btnAdmin = document.getElementById("btnAdminFlutuante");
+      if (btnAdmin) btnAdmin.style.display = "block";
+
       auth.signOut();
 
     }
@@ -5761,10 +5764,6 @@ if (!window._estoqueListener) {
 
     atualizarEstoqueTela();
     bloquearBotoesZerados();
-
-    if (isAdmin()) {
-      carregarEstoqueAdmin();
-    }
   });
 } // 👈 FECHA O IF AQUI
 
@@ -6039,7 +6038,7 @@ function toggleCarrinho() {
   const aberto = carrinho.classList.contains("aberto");
 
   const btnTopo = document.getElementById("btnTopo");
-  const adminBtns = document.getElementById("adminFloatingBtns");
+  const adminBtns = document.getElementById("adminFabContainer");
 
   if (aberto) {
     if (btnTopo) btnTopo.style.display = "none";
@@ -6048,7 +6047,7 @@ function toggleCarrinho() {
   } else {
     if (btnTopo) btnTopo.style.display = "flex";
     if (isAdmin() && adminBtns) {
-      adminBtns.style.display = "flex";
+      adminBtns.style.display = "block";
     }
     document.body.style.overflow = "auto";
   }
@@ -6458,41 +6457,6 @@ window.addEventListener("scroll", () => {
   }
 });
 
-  function mostrarPainelAdmin() {
-  if (!isAdmin()) return; // 🔒 BLINDAGEM AQUI
-
-  const painel = document.getElementById("painelAdmin");
-  if (painel) painel.style.display = "block";
-}
-
-function esconderPainelAdmin() {
-  const painel = document.getElementById("painelAdmin");
-  if (painel) painel.style.display = "none";
-}
-
-  function carregarEstoqueAdmin() {
-  const lista = document.getElementById("listaEstoqueAdmin");
-  if (!lista) return;
-
-  lista.innerHTML = "";
-
-  for (let id in estoque) {
-    lista.innerHTML += `
-      <div style="display:flex; gap:10px; align-items:center; margin-bottom:10px;">
-        <strong>${id}</strong>
-
-        <input
-          type="number"
-          min="0"
-          value="${estoque[id]}"
-          onchange="alterarEstoqueAdmin('${id}', this.value)"
-          style="width:80px;"
-        >
-      </div>
-    `;
-  }
-}
-
   function alterarEstoqueAdmin(id, valor) {
   if (!isAdmin()) return; // 🔒 só admin
 
@@ -6527,82 +6491,6 @@ function esconderPainelAdmin() {
   abaAtiva.querySelectorAll(".produto").forEach(p => {
     p.style.display = "block";
   });
-}
-
-function carregarPedidosAdmin() {
-  if (!isAdmin()) return;
-
-  const painel = document.getElementById("listaPedidosAdmin");
-  if (!painel) return;
-
-  painel.innerHTML = "Carregando pedidos...";
-
-  db.collection("pedidos")
-    .orderBy("data", "desc")
-    .onSnapshot(snapshot => {
-
-      painel.innerHTML = "";
-
-      snapshot.forEach(doc => {
-
-        const p = doc.data();
-        let produtosHTML = "";
-
-        // 🔥 MONTA OS PRODUTOS
-        if (p.itens && p.itens.length > 0) {
-          p.itens.forEach(item => {
-
-            let mostrarTamanho = "";
-
-            if (
-              item.tamanhoSelecionado &&
-              !item.nome.toLowerCase().includes(item.tamanhoSelecionado.toLowerCase())
-            ) {
-              mostrarTamanho = `Tamanho: ${item.tamanhoSelecionado}<br>`;
-            }
-
-            produtosHTML += `
-              <div class="item-pedido">
-                <strong>${item.nome}</strong><br>
-                ${mostrarTamanho}
-                Quantidade: ${item.qtd} <br>
-                Preço: R$ ${(item.qtd * item.preco).toFixed(2)}
-              </div>
-              <hr>
-            `;
-          });
-        }
-
-        // 🔥 CRIA O CARD UMA ÚNICA VEZ
-        painel.innerHTML += `
-          <div class="card-pedido-admin">
-
-            <button class="btn-excluir-pedido"
-              onclick="removerPedidoAdmin('${doc.id}')">
-              ✖
-            </button>
-
-            <h3>Pedido Nº ${p.numero}</h3>
-
-            <p><strong>Cliente:</strong> ${p.cliente}</p>
-            <p><strong>Endereço:</strong> ${p.endereco || "-"}</p>
-
-            <div class="produtos-box">
-              ${produtosHTML}
-            </div>
-
-            <p class="total-geral">
-              Total Geral: R$ ${(p.total || 0).toFixed(2)}
-            </p>
-
-            <p><strong>Status:</strong> ${p.status}</p>
-
-          </div>
-        `;
-
-      });
-
-    });
 }
 
   function removerPedidoAdmin(id) {
@@ -6700,33 +6588,70 @@ function mostrarSugestoesFixas() {
   select.value = "";
 }
 
-  function abrirAbaAdmin(id, btn) {
+  function toggleAdminFab() {
+  const menu = document.getElementById("adminFabMenu");
+  if (!menu) return;
 
-  document.querySelectorAll(".admin-conteudo").forEach(el =>
-    el.classList.remove("ativa")
-  );
-
-  document.getElementById(id).classList.add("ativa");
-
-  document.querySelectorAll(".admin-abas button").forEach(b =>
-    b.classList.remove("ativa")
-  );
-
-  btn.classList.add("ativa");
+  if (menu.style.display === "flex") {
+    menu.style.display = "none";
+  } else {
+    menu.style.display = "flex";
+  }
 }
 
-  function abrirPainelEstoque() {
-  if (!isAdmin()) return;
+  function abrirMiniAba(tipo) {
 
-  mostrarPainelAdmin();
-  abrirAbaAdmin("abaEstoque", document.querySelector(".admin-abas button:nth-child(1)"));
-}
+  const panel = document.getElementById("miniAdminPanel");
+  if (!panel) return;
 
-function abrirPainelPedidos() {
-  if (!isAdmin()) return;
+  panel.style.display = "block";
 
-  mostrarPainelAdmin();
-  abrirAbaAdmin("abaPedidos", document.querySelector(".admin-abas button:nth-child(2)"));
+  if (tipo === "estoque") {
+    let html = "<h3>📦 Estoque</h3>";
+
+    for (let id in estoque) {
+      html += `
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <span>${id}</span>
+          <input type="number"
+            value="${estoque[id]}"
+            min="0"
+            style="width:70px"
+            onchange="alterarEstoqueAdmin('${id}', this.value)">
+        </div>
+      `;
+    }
+
+    panel.innerHTML = html;
+  }
+
+  if (tipo === "pedidos") {
+    panel.innerHTML = "<h3>🧾 Pedidos</h3><div id='miniPedidos'></div>";
+
+    db.collection("pedidos")
+      .orderBy("data", "desc")
+      .limit(10)
+      .get()
+      .then(snapshot => {
+
+        const lista = document.getElementById("miniPedidos");
+
+        snapshot.forEach(doc => {
+          const p = doc.data();
+
+          lista.innerHTML += `
+            <div style="margin-bottom:10px; padding:8px; background:#f5f5f5; border-radius:8px;">
+              <strong>Pedido ${p.numero}</strong><br>
+              ${p.cliente}<br>
+              R$ ${(p.total || 0).toFixed(2)}
+            </div>
+          `;
+        });
+
+      });
+  }
+
+  toggleAdminFab();
 }
 
 </script>
@@ -6748,33 +6673,6 @@ function abrirPainelPedidos() {
 
     <button class="btn-entrar" onclick="loginAdmin()">Entrar</button>
     <button class="btn-fechar" onclick="toggleLoginAdmin()">Fechar</button>
-  </div>
-
-</div>
-
-  <!-- 🔐 PAINEL ADMIN -->
-<div id="painelAdmin" class="painel-admin">
-
-  <div class="admin-abas">
-    <button onclick="abrirAbaAdmin('abaEstoque', this)" class="ativa">
-      📦 Estoque
-    </button>
-
-    <button onclick="abrirAbaAdmin('abaPedidos', this)">
-      🧾 Pedidos
-    </button>
-  </div>
-
-  <!-- ABA ESTOQUE -->
-  <div id="abaEstoque" class="admin-conteudo ativa">
-    <h2>Painel de Estoque</h2>
-    <div id="listaEstoqueAdmin"></div>
-  </div>
-
-  <!-- ABA PEDIDOS -->
-  <div id="abaPedidos" class="admin-conteudo">
-    <h2>Pedidos Recebidos</h2>
-    <div id="listaPedidosAdmin"></div>
   </div>
 
 </div>
@@ -6920,11 +6818,29 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
-<!-- 🔥 BOTÕES FLUTUANTES ADMIN -->
-<div id="adminFloatingBtns" class="admin-floating">
-  <button onclick="abrirPainelEstoque()">📦</button>
-  <button onclick="abrirPainelPedidos()">🧾</button>
+<div class="admin-fab-container" id="adminFabContainer">
+
+  <!-- Botão principal -->
+  <button class="admin-fab-main" onclick="toggleAdminFab()">
+    ⚙️
+  </button>
+
+  <!-- Menu que abre -->
+  <div class="admin-fab-menu" id="adminFabMenu">
+
+    <button onclick="abrirMiniAba('estoque')">
+      📦 Estoque
+    </button>
+
+    <button onclick="abrirMiniAba('pedidos')">
+      🧾 Pedidos
+    </button>
+
+  </div>
+
 </div>
-  
+
+  <div id="miniAdminPanel" class="mini-admin-panel"></div>
+
 </body>
 </html>
