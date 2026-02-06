@@ -5712,7 +5712,8 @@ auth.onAuthStateChanged(user => {
   if (!user) {
     adminLogado = false;
 
-    document.getElementById("adminFabContainer").style.display = "none";
+   const adminFab = document.getElementById("adminFabContainer");
+if (adminFab) adminFab.style.display = "none";
 
     const btnAdmin = document.getElementById("btnAdminFlutuante");
     if (btnAdmin) btnAdmin.style.display = "block";
@@ -6604,10 +6605,20 @@ function mostrarSugestoesFixas() {
   const panel = document.getElementById("miniAdminPanel");
   if (!panel) return;
 
-  panel.style.display = "block";
+ panel.style.display = "block";
+
+let html = `
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+    <strong>${tipo === "estoque" ? "📦 Estoque" : "🧾 Pedidos"}</strong>
+    <button onclick="fecharMiniAdmin()" 
+      style="background:none;border:none;font-size:18px;cursor:pointer;">
+      ❌
+    </button>
+  </div>
+`;
 
   if (tipo === "estoque") {
-    let html = "<h3>📦 Estoque</h3>";
+    html += "";
 
     for (let id in estoque) {
       html += `
@@ -6626,7 +6637,8 @@ function mostrarSugestoesFixas() {
   }
 
   if (tipo === "pedidos") {
-    panel.innerHTML = "<h3>🧾 Pedidos</h3><div id='miniPedidos'></div>";
+   html += "<div id='miniPedidos'></div>";
+panel.innerHTML = html;
 
     db.collection("pedidos")
       .orderBy("data", "desc")
@@ -6652,6 +6664,14 @@ function mostrarSugestoesFixas() {
   }
 
   toggleAdminFab();
+}
+
+function fecharMiniAdmin() {
+  const panel = document.getElementById("miniAdminPanel");
+  if (!panel) return;
+
+  panel.style.display = "none";
+  panel.innerHTML = "";
 }
 
 </script>
