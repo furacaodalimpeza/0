@@ -1344,6 +1344,31 @@ input[type="search"]::-webkit-search-cancel-button {
   margin-top: 10px;
 }
 
+  .admin-floating {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: none;
+  gap: 10px;
+  z-index: 9999;
+}
+
+.admin-floating button {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  background: #1e88e5;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.admin-floating button:hover {
+  transform: scale(1.1);
+}
+
 </style>
 </head>
 
@@ -5649,32 +5674,40 @@ firebase.initializeApp(firebaseConfig);
 
 auth.onAuthStateChanged(user => {
 
- if (!user) {
-  adminLogado = false;
-  esconderPainelAdmin();
-  document.getElementById("loginAdmin").style.display = "none";
-  document.body.style.overflow = "auto"; // ✅ DESCONGELA
-  return;
-}
+  if (!user) {
+    adminLogado = false;
+    esconderPainelAdmin();
+    document.getElementById("loginAdmin").style.display = "none";
+    document.body.style.overflow = "auto";
+    document.getElementById("adminFloatingBtns").style.display = "none";
+    return;
+  }
 
   db.collection("admins").doc(user.uid).get().then(doc => {
+
     if (doc.exists) {
+
+      // ✅ É ADMIN
       adminLogado = true;
       mostrarPainelAdmin();
       carregarEstoqueAdmin();
       carregarPedidosAdmin();
       document.getElementById("loginAdmin").style.display = "none";
-      console.log("ADMIN LOGADO");
       document.getElementById("btnAdminFlutuante").style.display = "none";
-  } else {
-  adminLogado = false;
-  esconderPainelAdmin();
-  document.getElementById("loginAdmin").style.display = "none";
-      document.body.style.overflow = "auto"; // ✅ DESCONGELA
-  alert("Este usuário não é administrador");
-  auth.signOut(); // 🔴 ADICIONE ESTA LINHA
+      document.getElementById("adminFloatingBtns").style.display = "flex";
+
+      console.log("ADMIN LOGADO");
+
+    } else {
+
+      // ❌ NÃO É ADMIN
+      adminLogado = false;
+      esconderPainelAdmin();
+      document.getElementById("adminFloatingBtns").style.display = "none";
       document.getElementById("btnAdminFlutuante").style.display = "block";
-}
+      auth.signOut();
+
+    }
 
   });
 
@@ -6610,6 +6643,30 @@ function mostrarSugestoesFixas() {
   select.value = "";
 }
 
+function abrirPainelEstoque() {
+  if (!isAdmin()) return;
+
+  document.getElementById("painelAdmin").style.display = "block";
+  window.scrollTo({
+    top: document.getElementById("painelAdmin").offsetTop,
+    behavior: "smooth"
+  });
+}
+
+function abrirPainelPedidos() {
+  if (!isAdmin()) return;
+
+  document.getElementById("painelAdmin").style.display = "block";
+
+  setTimeout(() => {
+    window.scrollTo({
+      top: document.getElementById("listaPedidosAdmin").offsetTop,
+      behavior: "smooth"
+    });
+  }, 200);
+}
+
+  
 </script>
  <!-- 🔐 BOTÃO ADMIN FLUTUANTE -->
 <button id="btnAdminFlutuante" onclick="toggleLoginAdmin()">
@@ -6793,5 +6850,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<!-- 🔥 BOTÕES FLUTUANTES ADMIN -->
+<div id="adminFloatingBtns" class="admin-floating">
+  <button onclick="abrirPainelEstoque()">📦</button>
+  <button onclick="abrirPainelPedidos()">🧾</button>
+</div>
+  
 </body>
 </html>
