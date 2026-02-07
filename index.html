@@ -1891,6 +1891,7 @@ data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de 
 </div>
 
 <div class="produto limpeza"
+  data-id="desinfetante-dove"
 data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, dove">
 
 <img src="img/desinfetante-dove.jpg" alt="Desinfetante Dove">
@@ -6988,7 +6989,7 @@ function carregarFavoritos() {
 
 document.addEventListener("DOMContentLoaded", carregarFavoritos);
 
-  function abrirFavoritos() {
+ function abrirFavoritos() {
 
   const modal = document.getElementById("modalFavoritos");
   const lista = document.getElementById("listaFavoritos");
@@ -7011,8 +7012,8 @@ document.addEventListener("DOMContentLoaded", carregarFavoritos);
         const img = produto.querySelector("img")?.src || "";
 
         lista.innerHTML += `
-          <div class="favorito-item">
-            <img src="${img}" style="width:50px; border-radius:8px;">
+          <div class="favorito-item" style="display:flex; gap:10px; align-items:center;">
+            <img src="${img}" style="width:50px; height:50px; object-fit:cover; border-radius:8px;">
             <div>${nome}</div>
           </div>
         `;
