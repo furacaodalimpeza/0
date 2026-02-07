@@ -1514,6 +1514,24 @@ input[type="search"]::-webkit-search-cancel-button {
   border-bottom: 1px solid #eee;
 }
 
+  .favorito-item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.favorito-item img {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.favorito-item .acoes button {
+  margin-top: 6px;
+  width: 100%;
+}
+
 </style>
 </head>
 
@@ -1600,6 +1618,13 @@ input[type="search"]::-webkit-search-cancel-button {
   
 <!-- produtos limpeza -->
 <div class="produto limpeza"
+     data-id="desinfetante-cha"
+     data-nome="Desinfetante Concentrado Chá Branco"
+     data-imagem="img/desinfetante-cha.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":10},
+       {"tamanho":"5L","preco":24}
+     ]'
      data-nomes="desinfetante cha branco, desinfetante chá branco, cha branco concentrado, chá branco concentrado, desinfetante concentrado, desinfetante perfumado">
 
   <img src="img/desinfetante-cha.jpg" alt="Desinfetante Concentrado Chá Branco">
@@ -1647,7 +1672,14 @@ input[type="search"]::-webkit-search-cancel-button {
 </div>
 
     
- <div class="produto limpeza"
+<div class="produto limpeza"
+     data-id="desinfetante-top"
+     data-nome="Desinfetante Top Flour"
+     data-imagem="img/desinfetante-top.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
 data-nomes="desinfetante, top flour, limpa tudo, limpeza">
 
 <img src="img/desinfetante-top.jpg" alt="Desinfetante Top Flour">
@@ -1691,6 +1723,13 @@ data-nomes="desinfetante, top flour, limpa tudo, limpeza">
 </div>
 
 <div class="produto limpeza"
+     data-id="desinfetante-jorge"
+     data-nome="Desinfetante Jorge Tadeu"
+     data-imagem="img/jorge-tadeu.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
 data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, jorge tadeu">
 
 <img src="img/jorge-tadeu.jpg" alt="Desinfetante Jorge Tadeu">
@@ -1731,6 +1770,13 @@ data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de 
 </div>
 
 <div class="produto limpeza"
+     data-id="desinfetante-amazon"
+     data-nome="Desinfetante Amazon"
+     data-imagem="img/desinfetante-amazon.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
 data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, amazon">
 
 <img src="img/desinfetante-amazon.jpg" alt="Desinfetante Amazon">
@@ -1771,6 +1817,13 @@ data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de 
 </div>
 
 <div class="produto limpeza"
+     data-id="desinfetante-bambu"
+     data-nome="Desinfetante Bambu"
+     data-imagem="img/desinfetante-bambu.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
 data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, bambu">
 
 <img src="img/desinfetante-bambu.jpg" alt="Desinfetante Bambu">
@@ -1811,6 +1864,13 @@ data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de 
 </div>
 
 <div class="produto limpeza"
+     data-id="desinfetante-pinho"
+     data-nome="Desinfetante Pinho Sol"
+     data-imagem="img/desinfetante-pinho.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
 data-nomes="desinfetante pinho sol, desinfetante, limpeza, cheiroso">
 
 <img src="img/desinfetante-pinho.jpg" alt="Desinfetante Pinho Sol">
@@ -1851,6 +1911,13 @@ data-nomes="desinfetante pinho sol, desinfetante, limpeza, cheiroso">
 </div>
     
 <div class="produto limpeza"
+     data-id="desinfetante-casa"
+     data-nome="Desinfetante Casa Limpa"
+     data-imagem="img/desinfetante-casa.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
 data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, casa limpa">
 
 <img src="img/desinfetante-casa.jpg" alt="Desinfetante Casa Limpa">
@@ -1891,7 +1958,13 @@ data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de 
 </div>
 
 <div class="produto limpeza"
-  data-id="desinfetante-dove"
+     data-id="desinfetante-dove"
+     data-nome="Desinfetante Dove"
+     data-imagem="img/desinfetante-dove.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
 data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, dove">
 
 <img src="img/desinfetante-dove.jpg" alt="Desinfetante Dove">
@@ -1935,6 +2008,13 @@ data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de 
 </div>
 
 <div class="produto limpeza"
+     data-id="desinfetante-eucalipto"
+     data-nome="Desinfetante Eucalipto"
+     data-imagem="img/desinfetante-eucalipto.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
 data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, eucalipto">
 
 <img src="img/desinfetante-eucalipto.jpg" alt="Desinfetante Eucalipto">
@@ -1975,6 +2055,13 @@ data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de 
 </div>
 
 <div class="produto limpeza"
+     data-id="desinfetante-jasmin"
+     data-nome="Desinfetante Jasmin"
+     data-imagem="img/desinfetante-jasmin.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
 data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, jasmin">
 
 <img src="img/desinfetante-jasmin.jpg" alt="Desinfetante Jasmin">
@@ -2015,6 +2102,13 @@ data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de 
 </div>
 
 <div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
 data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, lavanda">
 
 <img src="img/desinfetante-lavanda.jpg" alt="Desinfetante Lavanda">
@@ -2055,6 +2149,13 @@ data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de 
 </div>
 
 <div class="produto limpeza"
+     data-id="desinfetante-talco"
+     data-nome="Desinfetante Talco"
+     data-imagem="img/desinfetante-talco.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
 data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, talco">
 
 <img src="img/desinfetante-talco.jpg" alt="Desinfetante Talco">
@@ -2095,6 +2196,13 @@ data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de 
 </div>
 
 <div class="produto limpeza"
+     data-id="desinfetante-algas"
+     data-nome="Desinfetante Algas"
+     data-imagem="img/desinfetante-algas.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
 data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, algas">
 
 <img src="img/desinfetante-algas.jpg" alt="Desinfetante Algas">
@@ -2196,6 +2304,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
+     data-id="cloro-liquido"
+     data-nome="Cloro Liquido"
+     data-imagem="img/cloro.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":13},
+       {"tamanho":"5L","preco":26}
+     ]'
      data-nomes="cloro liquido, cloro líquido, cloro, agua sanitaria, água sanitária, cândida, candida, clineza, limpeza pesada, branqueador, desinfecção">
   
   <img src="img/cloro.jpg" alt="Cloro Liquido Clineza">
@@ -2241,6 +2356,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
+     data-id="candida"
+     data-nome="Candida"
+     data-imagem="img/candida.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":12}
+     ]'
      data-nomes="candida, cândida, agua sanitaria, água sanitária, cloro, limpeza pesada, branqueador, limpeza">
 
   <img src="img/candida.jpg" alt="Candida">
@@ -2289,6 +2411,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 
 <!-- Candida Colorida -->
 <div class="produto limpeza"
+     data-id="candida-colorida"
+     data-nome="Candida Colorida"
+     data-imagem="img/candida-colorida.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":11},
+       {"tamanho":"5L","preco":22}
+     ]'
      data-nomes="candida colorida, cândida colorida, sem cloro, roupas coloridas, limpeza leve, branqueador sem cloro, limpeza">
 
   <img src="img/candida-colorida.jpg" alt="Candida Colorida">
@@ -2329,6 +2458,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 
 <!-- Candida Colorida Azul -->
 <div class="produto limpeza"
+     data-id="candida-azul"
+     data-nome="Candida Colorida Azul"
+     data-imagem="img/candida-azul.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":9},
+       {"tamanho":"5L","preco":20}
+     ]'
      data-nomes="candida colorida azul, cândida colorida azul, azul, sem cloro, roupas coloridas, limpeza leve, branqueador sem cloro, limpeza">
 
   <img src="img/candida-azul.jpg" alt="Candida Colorida Azul">
@@ -2369,6 +2505,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 
 <!-- Sabão Líquido Bonrruque -->
 <div class="produto limpeza"
+     data-id="sabao-liquido-bonrruque"
+     data-nome="Sabao Liquido Bonrruque"
+     data-imagem="img/sabao-liquidio-bonrruque.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":12},
+       {"tamanho":"5L","preco":25}
+     ]'
      data-nomes="sabao liquido bonrruque, sabão líquido bonrruque, bonrruque, lava roupas, branqueador, limpeza pesada">
 
   <img src="img/sabao-liquido-bonrruque.jpg" alt="Sabao Liquido Bonrruque">
@@ -2409,6 +2552,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 
 <!-- Sabão Líquido Clineza -->
 <div class="produto limpeza"
+     data-id="sabao-liquido-clineza"
+     data-nome="Sabao Liquido Clineza"
+     data-imagem="img/sabao-liquido-clineza.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":13},
+       {"tamanho":"5L","preco":27}
+     ]'
      data-nomes="sabao liquido clineza, sabão líquido clineza, clineza, lava roupas, limpeza, uso diario">
 
   <img src="img/sabao-liquido-clineza.jpg" alt="Sabao Liquido Clineza">
@@ -2448,6 +2598,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
  
 <div class="produto limpeza"
+     data-id="sabao-de-coco"
+     data-nome="Sabao de Coco"
+     data-imagem="img/sabao-de-coco.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":12},
+       {"tamanho":"5L","preco":25}
+     ]'
      data-nomes="sabao de coco, sabão de coco, sabao coco, sabão coco, lava roupas, limpeza, uso diario, roupas brancas, roupas delicadas">
 
   <img src="img/sabao-de-coco.jpg" alt="Sabao de Coco">
@@ -2488,6 +2645,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 
 
 <div class="produto limpeza"
+     data-id="detergente-pequeno"
+     data-nome="Detergente Pequeno"
+     data-imagem="img/detergente-pequeno.jpg"
+     data-tamanhos='[
+       {"tamanho":"Candura","preco":3},
+       {"tamanho":"Ypê","preco":3.5}
+     ]'
      data-nomes="detergente pequeno, detergente 500ml, detergente econômico, detergente cozinha, detergente louça, limpeza diaria">
 
   <img src="img/detergente-pequeno.jpg" alt="Detergente Pequeno">
@@ -2527,6 +2691,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
+     data-id="detergente-neutro"
+     data-nome="Detergente Neutro"
+     data-imagem="img/detergente-neutro.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":10},
+       {"tamanho":"5L","preco":20}
+     ]'
      data-nomes="detergente neutro, detergente sem perfume, detergente suave, detergente louça, limpeza, uso diario">
 
   <img src="img/detergente-neutro.jpg" alt="Detergente Neutro">
@@ -2566,6 +2737,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
+     data-id="detergente-concentrado"
+     data-nome="Detergente Concentrado"
+     data-imagem="img/detergente-concentrado.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":12},
+       {"tamanho":"5L","preco":25}
+     ]'
      data-nomes="detergente concentrado, detergente rendimento, detergente forte, detergente louça, limpeza pesada, uso profissional">
 
   <img src="img/detergente-concentrado.jpg" alt="Detergente Concentrado">
@@ -2605,6 +2783,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
+     data-id="detergentes"
+     data-nome="Detergentes"
+     data-imagem="img/detergentes.jpg"
+     data-tamanhos='[
+       {"tamanho":"Maçã 2L","preco":10},
+       {"tamanho":"Limão 2L","preco":10}
+     ]'
      data-nomes="detergente com fragrancia, detergente perfumado, detergente sabor limão, detergente sabor maçã, detergente louça, limpeza">
 
   <img src="img/detergentes.jpg" alt="Detergente">
@@ -2644,6 +2829,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
+     data-id="detergente-amoniaco"
+     data-nome="Detergente Amoniaco"
+     data-imagem="img/limpa-tudo.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":15},
+       {"tamanho":"5L","preco":32}
+     ]'
      data-nomes="detergente amoniaco, detergente com amoníaco, limpa tudo, detergente limpa tudo, limpeza pesada, cozinha, banheiro, uso profissional">
 
   <img src="img/limpa-tudo.jpg" alt="Detergente Amoníaco">
@@ -2687,6 +2879,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
+     data-id="amaciante"
+     data-nome="Amaciante"
+     data-imagem="img/amaciante.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":10},
+       {"tamanho":"5L","preco":20}
+     ]'
      data-nomes="amaciante, amaciante confort, confort, amaciante roupas, perfume para roupas, maciez, uso diario">
 
   <img src="img/amaciante.jpg" alt="Amaciante">
@@ -2726,7 +2925,14 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
-     data-nomes="amaciante concentrado, amaciante branco, amaciante downy, downy, amaciante rendimento, perfume intenso, roupas, uso profissional">
+     data-id="amaciante-concentrado"
+     data-nome="Amaciante Concentrado"
+     data-imagem="img/amaciante-concentrado.jpg"
+     data-tamanhos='[
+       {"tamanho":"Downy 2L","preco":15},
+       {"tamanho":"Branco 2L","preco":16}
+     ]'
+  data-nomes="amaciante concentrado, amaciante branco, amaciante downy, downy, amaciante rendimento, perfume intenso, roupas, uso profissional">
 
   <img src="img/amaciante-concentrado.jpg" alt="Amaciante Concentrado">
   <span class="icone-busca">🔍</span>
@@ -2765,7 +2971,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
-     data-nomes="amaciante clineza, clineza, amaciante perfumado, roupas, limpeza">
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'     data-nomes="amaciante clineza, clineza, amaciante perfumado, roupas, limpeza">
 
   <img src="img/amaciante-clineza.jpg" alt="Amaciante Clineza">
   <span class="icone-busca">🔍</span>
@@ -2804,7 +3016,14 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
-     data-nomes="lava canil, limpeza pesada, limpeza pet, desinfetante canil, quintal">
+     data-id="lava-canil"
+     data-nome="Lava Canil"
+     data-imagem="img/lava-canil.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":16},
+       {"tamanho":"5L","preco":32}
+     ]'   
+  data-nomes="lava canil, limpeza pesada, limpeza pet, desinfetante canil, quintal">
 
   <img src="img/lava-canil.jpg" alt="Lava Canil">
   <span class="icone-busca">🔍</span>
@@ -2843,7 +3062,14 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
-     data-nomes="veja multiuso pequeno, veja pequeno, multiuso, limpeza rapida, casa">
+     data-id="veja-pequeno"
+     data-nome="Veja Multiuso Pequeno"
+     data-imagem="img/multiuso.jpg"
+     data-tamanhos='[
+       {"tamanho":"Verde 500ML","preco":6},
+       {"tamanho":Azul 500ML","preco":6}
+     ]'     
+  data-nomes="veja multiuso pequeno, veja pequeno, multiuso, limpeza rapida, casa">
 
   <img src="img/multiuso.jpg" alt="Veja Multiuso Pequeno">
   <span class="icone-busca">🔍</span>
@@ -2882,7 +3108,14 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
-     data-nomes="veja multiuso bonrruque, veja bonrruque, multiuso forte, limpeza pesada">
+     data-id="veja-bonrruque"
+     data-nome="Veja Multiuso Bonrruque"
+     data-imagem="img/veja.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":12},
+       {"tamanho":5L","preco":25}
+     ]'    
+  data-nomes="veja multiuso bonrruque, veja bonrruque, multiuso forte, limpeza pesada">
 
   <img src="img/veja.jpg" alt="Veja Multiuso Bonrruque">
   <span class="icone-busca">🔍</span>
@@ -2921,7 +3154,14 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
-     data-nomes="veja multiuso clineza, clineza, multiuso, limpeza geral, casa">
+     data-id="veja-clineza"
+     data-nome="Veja Multiuso Clineza"
+     data-imagem="img/veja-multiuso.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":12},
+       {"tamanho":5L","preco":25}
+     ]'     
+  data-nomes="veja multiuso clineza, clineza, multiuso, limpeza geral, casa">
 
   <img src="img/veja-multiuso.jpg" alt="Veja Multiuso Clineza">
   <span class="icone-busca">🔍</span>
@@ -2960,6 +3200,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
+     data-id="pinho-gel"
+     data-nome="Pinho em Gel"
+     data-imagem="img/pinho-gel.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":16},
+       {"tamanho":"5L","preco":32}
+     ]'
      data-nomes="pinho em gel, limpeza pesada, banheiro, quintal">
 
   <img src="img/pinho-gel.jpg" alt="Pinho em Gel">
@@ -3002,6 +3249,14 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
+     data-id="cloro-gel"
+     data-nome="Cloro em Gel"
+     data-imagem="img/cloro-em-gel.jpg"
+     data-tamanhos='[
+       {"tamanho":"1L","preco":9},
+       {"tamanho":"2L","preco":16},
+       {"tamanho":"5L","preco":32}
+     ]'
      data-nomes="cloro em gel, cloro gel, limpeza pesada, banheiro">
 
   <img src="img/cloro-em-gel.jpg" alt="Cloro em Gel">
@@ -3061,6 +3316,14 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
+     data-id="desengordurante"
+     data-nome="Desengordurante"
+     data-imagem="img/desengordurante.jpg"
+     data-tamanhos='[
+       {"tamanho":"1L","preco":12},
+       {"tamanho":"2L","preco":22},
+       {"tamanho":"5L","preco":40}
+     ]'
      data-nomes="desengordurante, tira gordura, limpeza pesada, cozinha, limpa tudo">
 
   <img src="img/desengordurante.jpg" alt="Desengordurante">
@@ -3117,6 +3380,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
      data-nomes="soda liquida, soda caustica, desentupidor, limpeza pesada, uso profissional">
 
   <img src="img/soda.jpg" alt="Soda Líquida">
@@ -3159,6 +3429,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
+     data-id="sabao-querosene"
+     data-nome="Sabao Querosene"
+     data-imagem="img/querosene.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":14},
+       {"tamanho":"5L","preco":28}
+     ]'
      data-nomes="sabao querosene, sabão liquido, limpeza pesada, roupas, uso diario">
 
   <img src="img/querosene.jpg" alt="Sabão Querosene">
@@ -3198,6 +3475,14 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
+     data-id="alcool-perfumado"
+     data-nome="Alcool Perfumado"
+     data-imagem="img/alcool-perfumado.jpg"
+     data-tamanhos='[
+       {"tamanho":"Transparente 2L","preco":10},
+       {"tamanho":"2L","preco":10},
+       {"tamanho":"5L","preco":23}
+     ]'
      data-nomes="alcool perfumado, álcool perfumado, limpeza, perfume, casa">
 
   <img src="img/alcool-perfumado.jpg" alt="Álcool Perfumado">
@@ -3257,6 +3542,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
+     data-id="alcool-concentrado"
+     data-nome="Alcool Concentrado"
+     data-imagem="img/alcool-concentrado.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":12},
+       {"tamanho":"5L","preco":22}
+     ]'
      data-nomes="alcool perfumado concentrado, alcool concentrado, limpeza, casa">
 
   <img src="img/alcool-concentrado.jpg" alt="Álcool Perfumado Concentrado">
@@ -3265,29 +3557,29 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 
   <div class="variacoes">
     <div class="linha">
-      <span>1L — R$ 12,00</span>
+      <span>2L — R$ 13,00</span>
       <button onclick="addProduto(
-        'alcool-concentrado-1l',
-        'Álcool Concentrado 1L',
+        'alcool-concentrado-2l',
+        'Álcool Concentrado 2L',
         12,
         'img/alcool-concentrado.jpg',
         [
-          { tamanho: '1L', preco: 12 },
-          { tamanho: '2L', preco: 22 }
+          { tamanho: '2L', preco: 13 },
+          { tamanho: '5L', preco: 30 }
         ],
         '1L'
       )">Adicionar</button>
     </div>
     <div class="linha">
-      <span>2L — R$ 22,00</span>
+      <span>5L — R$ 30,00</span>
       <button onclick="addProduto(
         'alcool-concentrado-2l',
         'Álcool Concentrado 2L',
         22,
         'img/alcool-concentrado.jpg',
         [
-          { tamanho: '1L', preco: 12 },
-          { tamanho: '2L', preco: 22 }
+          { tamanho: '2L', preco: 13 },
+          { tamanho: '5L', preco: 30 }
         ],
         '2L'
       )">Adicionar</button>
@@ -3296,6 +3588,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
+     data-id="alcool-70"
+     data-nome="Alcool 70%"
+     data-imagem="img/alcool-70.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":12},
+       {"tamanho":"5L","preco":22}
+     ]'
      data-nomes="alcool 70, alcool 70%, desinfetante, limpeza, casa, hospital">
 
   <img src="img/alcool-70.jpg" alt="Álcool 70%">
@@ -3304,21 +3603,21 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 
   <div class="variacoes">
     <div class="linha">
-      <span>1L — R$ 10,00</span>
+      <span>1L — R$ 12,00</span>
       <button onclick="addProduto(
         'alcool-70-1l',
         'Álcool 70% 1L',
         10,
         'img/alcool-70.jpg',
         [
-          { tamanho: '1L', preco: 10 },
-          { tamanho: '2L', preco: 18 }
+          { tamanho: '1L', preco: 12 },
+          { tamanho: '5L', preco: 40 }
         ],
         '1L'
       )">Adicionar</button>
     </div>
     <div class="linha">
-      <span>2L — R$ 18,00</span>
+      <span>5L — R$ 40,00</span>
       <button onclick="addProduto(
         'alcool-70-2l',
         'Álcool 70% 2L',
@@ -3326,7 +3625,7 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
         'img/alcool-70.jpg',
         [
           { tamanho: '1L', preco: 10 },
-          { tamanho: '2L', preco: 18 }
+          { tamanho: '5L', preco: 40 }
         ],
         '2L'
       )">Adicionar</button>
@@ -3335,6 +3634,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
+     data-id="alcool-gel"
+     data-nome="Alcool em Gel"
+     data-imagem="img/alcool-gel.jpg"
+     data-tamanhos='[
+       {"tamanho":"500ML","preco":13},
+       {"tamanho":"5L","preco":45}
+     ]'
      data-nomes="alcool em gel, alcool gel, higienizante, limpeza, desinfetante">
 
   <img src="img/alcool-gel.jpg" alt="Álcool em Gel">
@@ -3343,29 +3649,29 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 
   <div class="variacoes">
     <div class="linha">
-      <span>500ML — R$ 12,00</span>
+      <span>500ML — R$ 13,00</span>
       <button onclick="addProduto(
         'alcool-gel-500ml',
         'Álcool em Gel 500ML',
         12,
         'img/alcool-gel.jpg',
         [
-          { tamanho: '500ML', preco: 12 },
-          { tamanho: '1L', preco: 20 }
+          { tamanho: '500ML', preco: 13 },
+          { tamanho: '5L', preco: 45 }
         ],
         '500ML'
       )">Adicionar</button>
     </div>
     <div class="linha">
-      <span>1L — R$ 20,00</span>
+      <span>5L — R$ 45,00</span>
       <button onclick="addProduto(
         'alcool-gel-1l',
         'Álcool em Gel 1L',
         20,
         'img/alcool-em-gel.jpg',
         [
-          { tamanho: '500ML', preco: 12 },
-          { tamanho: '1L', preco: 20 }
+          { tamanho: '500ML', preco: 13 },
+          { tamanho: '5L', preco: 45 }
         ],
         '1L'
       )">Adicionar</button>
@@ -3375,6 +3681,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 
 <!-- Limpa Alumínio -->
 <div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
      data-nomes="limpa aluminio, alumínio, brilho, panelas, limpeza pesada">
   <img src="img/limpa-aluminio.jpg" alt="Limpa Alumínio">
   <span class="icone-busca">🔍</span>
@@ -3403,6 +3716,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 
 <!-- Limpa Pedra -->
 <div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
      data-nomes="limpa pedra, limpeza externa, quintal, piso rustico">
   <img src="img/limpa-pedra.jpg" alt="Limpa Pedra">
   <span class="icone-busca">🔍</span>
@@ -3448,6 +3768,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 
 <!-- Limpa Piso -->
 <div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
      data-nomes="limpa piso, limpeza piso, ceramica, porcelanato, casa">
   <img src="img/limpa-piso.jpg" alt="Limpa Piso">
   <span class="icone-busca">🔍</span>
@@ -3470,7 +3797,15 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 
 
 <!-- Maridão -->
-<div class="produto limpeza" data-nomes="maridão, limpa tudo, limpeza pesada, desengordurante, casa">
+<div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
+  data-nomes="maridão, limpa tudo, limpeza pesada, desengordurante, casa">
   <img src="img/maridao.jpg" alt="Maridão">
   <span class="icone-busca">🔍</span>
   <p class="descricao-produto">Ideal para limpar box de banheiro, azulejo e eliminar gorduras.</p>
@@ -3492,7 +3827,15 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <!-- Cera Optimo -->
-<div class="produto limpeza" data-nomes="cera optimo, cera piso, brilho, proteção, limpeza">
+<div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
+  data-nomes="cera optimo, cera piso, brilho, proteção, limpeza">
   <img src="img/cera-optimo.jpg" alt="Cera Óptimo">
   <span class="icone-busca">🔍</span>
   <p class="descricao-produto">Ideal para perfumar o piso e dar brilho.</p>
@@ -3514,7 +3857,15 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <!-- Cera Incolor -->
-<div class="produto limpeza" data-nomes="cera incolor, cera neutra, brilho piso, proteção">
+<div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
+  data-nomes="cera incolor, cera neutra, brilho piso, proteção">
   <img src="img/cera-incolor.jpg" alt="Cera Incolor">
   <span class="icone-busca">🔍</span>
   <p class="descricao-produto">Com alto poder para dar brilho em seu piso.</p>
@@ -3536,7 +3887,15 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <!-- Óleo de Peroba -->
-<div class="produto limpeza" data-nomes="oleo de peroba, óleo peroba, madeira, brilho, lustra moveis">
+<div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
+  data-nomes="oleo de peroba, óleo peroba, madeira, brilho, lustra moveis">
   <img src="img/oleo-peroba.jpg" alt="Óleo de Peroba">
   <span class="icone-busca">🔍</span>
   <h3>Óleo de Peroba</h3>
@@ -3557,7 +3916,15 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <!-- Lustra Móveis -->
-<div class="produto limpeza" data-nomes="lustra moveis, lustra móveis, brilho madeira, limpeza, casa">
+<div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
+  data-nomes="lustra moveis, lustra móveis, brilho madeira, limpeza, casa">
   <img src="img/lustra-moveis.jpg" alt="Lustra Móveis">
   <span class="icone-busca">🔍</span>
   <h3>Lustra Móveis</h3>
@@ -3578,7 +3945,15 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <!-- Removedor -->
-<div class="produto limpeza" data-nomes="removedor, tira manchas, removedor sujeira pesada, limpeza">
+<div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
+  data-nomes="removedor, tira manchas, removedor sujeira pesada, limpeza">
   <img src="img/removedor.jpg" alt="Removedor">
   <span class="icone-busca">🔍</span>
   <h3>Removedor</h3>
@@ -3605,7 +3980,15 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <!-- Limpa Vidro -->
-<div class="produto limpeza" data-nomes="limpa vidro, vidro, espelho, limpeza, brilho">
+<div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
+  data-nomes="limpa vidro, vidro, espelho, limpeza, brilho">
   <img src="img/limpa-vidro.jpg" alt="Limpa Vidro">
   <span class="icone-busca">🔍</span>
   <h3>Limpa Vidro</h3>
@@ -3619,7 +4002,14 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
   </div>
 </div>
 
-    <div class="produto limpeza"
+   <div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
      data-nomes="alcool perfumado concentrado, alcool concentrado, limpeza, casa">
 
   <img src="img/inspira-gel.jpg" alt="Inspira Gel de Pinho">
@@ -3644,7 +4034,15 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
     
 <!-- Sapólio Cremoso -->
-<div class="produto limpeza" data-nomes="sapolio cremoso, sapólio, limpeza pesada, inox, banheiro">
+<div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
+  data-nomes="sapolio cremoso, sapólio, limpeza pesada, inox, banheiro">
   <img src="img/sapolio.jpg" alt="Sapólio Cremoso">
   <span class="icone-busca">🔍</span>
   <h3>Sapólio Cremoso</h3>
@@ -3665,7 +4063,15 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <!-- Sabonete Líquido Dove -->
-<div class="produto limpeza" data-nomes="sabonete liquido dove, dove, higiene pessoal, sabonete hidratante">
+<div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
+  data-nomes="sabonete liquido dove, dove, higiene pessoal, sabonete hidratante">
   <img src="img/sabonete-liquido-dove.jpg" alt="Sabonete Líquido Dove">
   <span class="icone-busca">🔍</span>
   <h3>Sabonete Líquido Dove</h3>
@@ -3686,7 +4092,15 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <!-- Sabonete Líquido Erva Doce -->
-<div class="produto limpeza" data-nomes="sabonete liquido erva doce, erva doce, higiene, sabonete suave">
+<div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
+  data-nomes="sabonete liquido erva doce, erva doce, higiene, sabonete suave">
   <img src="img/sabonete-liquido-erva-doce.jpg" alt="Sabonete Líquido Erva Doce">
   <span class="icone-busca">🔍</span>
   <h3>Sabonete Líquido Erva Doce</h3>
@@ -3707,7 +4121,15 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <!-- Percabonato -->
-<div class="produto limpeza" data-nomes="percarbonato, tira manchas, roupas brancas, limpeza pesada">
+<div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
+  data-nomes="percarbonato, tira manchas, roupas brancas, limpeza pesada">
   <img src="img/percabonato.jpg" alt="Percabonato">
   <span class="icone-busca">🔍</span>
   <p class="descricao-produto">
@@ -3725,7 +4147,15 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <!-- Bicarbonato -->
-<div class="produto limpeza" data-nomes="bicarbonato, bicarbonato sodio, limpeza, neutraliza odor">
+<div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
+  data-nomes="bicarbonato, bicarbonato sodio, limpeza, neutraliza odor">
   <img src="img/bircabonato.jpg" alt="Bicarbonato">
   <span class="icone-busca">🔍</span>
   <p class="descricao-produto">
@@ -3743,7 +4173,15 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <!-- Creolinha -->
-<div class="produto limpeza" data-nomes="creolinha, desinfetante forte, limpeza pesada">
+<div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
+  data-nomes="creolinha, desinfetante forte, limpeza pesada">
   <img src="img/creolina.jpg" alt="Creolinha">
   <span class="icone-busca">🔍</span>
   <h3>Creolinha 900ML</h3>
@@ -3758,6 +4196,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
      data-nomes="inseticida, inseticida spray, mata inseto, repelente, mosquito">
 
   <img src="img/inseticida.jpg" alt="Insenticida 350ML">
@@ -3782,7 +4227,15 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
     
 <!-- Dulbarmiga -->
-<div class="produto limpeza" data-nomes="dulbarmiga, inseticida formiga, veneno formiga, controle pragas">
+<div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
+  data-nomes="dulbarmiga, inseticida formiga, veneno formiga, controle pragas">
   <img src="img/dulbarmiga.jpg" alt="Dulbarmiga Inseticida">
   <span class="icone-busca">🔍</span>
   <h3>Dulbarmiga Inseticida</h3>
@@ -3800,7 +4253,15 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <!-- FormixGel -->
-<div class="produto limpeza" data-nomes="formixgel, veneno formiga, inseticida gel, controle formigas">
+<div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
+  data-nomes="formixgel, veneno formiga, inseticida gel, controle formigas">
   <img src="img/formax.jpg" alt="FormixGel Veneno de Formiga">
   <span class="icone-busca">🔍</span>
   <h3>FormixGel Veneno de Formiga</h3>
@@ -3815,7 +4276,15 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <!-- Kit Banho Cachorro -->
-<div class="produto limpeza" data-nomes="kit banho cachorro, banho pet, higiene pet, shampoo cachorro">
+<div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
+  data-nomes="kit banho cachorro, banho pet, higiene pet, shampoo cachorro">
   <img src="img/kit-banho-cachorro.jpg" alt="Kit Banho para Cachorro">
   <span class="icone-busca">🔍</span>
   <h3>Kit Banho Para Cachorro</h3>
@@ -4311,6 +4780,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
      data-nomes="evita cheiro de mofo, anti mofo, evita mofo, desumidificador, armario">
 
   <img src="img/evita-cheiro-mofo.jpg" alt="Evita Cheiro de Mofo Frescor">
@@ -4335,6 +4811,14 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div class="produto limpeza"
+     data-id="desinfetante-lavanda"
+     data-nome="Desinfetante Lavanda"
+     data-imagem="img/desinfetante-lavanda.jpg"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
+  
      data-nomes="evita mofo, anti mofo, desumidificador, armario, guarda roupa, umidade">
 
   <img src="img/evita-mofo.jpg" alt="Evita Mofo Frescor">
@@ -4850,7 +5334,7 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
   </div>
 </div>
 
-<div class="produto limpeza"
+<div class="produto casa"
      data-nomes="mop, esfregão, rodo mop, mop giratório, mop limpeza, mop com balde, esfregao giratorio">
   <img src="img/mop.jpg" alt="Mop Giratorio">
   <span class="icone-busca">🔍</span>
@@ -6989,39 +7473,73 @@ function carregarFavoritos() {
 
 document.addEventListener("DOMContentLoaded", carregarFavoritos);
 
- function abrirFavoritos() {
+function abrirFavoritos() {
 
   const modal = document.getElementById("modalFavoritos");
   const lista = document.getElementById("listaFavoritos");
 
   const favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
-
   lista.innerHTML = "";
 
   if (favoritos.length === 0) {
     lista.innerHTML = "<p>Você ainda não favoritou nenhum produto.</p>";
-  } else {
-
-    favoritos.forEach(id => {
-
-      const produto = document.querySelector(`[data-id="${id}"]`);
-
-      if (produto) {
-
-        const nome = produto.querySelector("h3")?.innerText || "Produto";
-        const img = produto.querySelector("img")?.src || "";
-
-        lista.innerHTML += `
-          <div class="favorito-item" style="display:flex; gap:10px; align-items:center;">
-            <img src="${img}" style="width:50px; height:50px; object-fit:cover; border-radius:8px;">
-            <div>${nome}</div>
-          </div>
-        `;
-      }
-
-    });
-
   }
+
+  favoritos.forEach(id => {
+
+    const produto = document.querySelector(`[data-id="${id}"]`);
+    if (!produto) return;
+
+    const nome = produto.dataset.nome;
+    const imagem = produto.dataset.imagem;
+    const tamanhos = JSON.parse(produto.dataset.tamanhos || "[]");
+
+    let htmlTamanhos = "";
+
+    // 🔥 SE TIVER TAMANHOS
+    if (tamanhos.length > 0) {
+      tamanhos.forEach(t => {
+        htmlTamanhos += `
+          <button onclick="addProduto(
+            '${id}-${t.tamanho.toLowerCase()}',
+            '${nome} ${t.tamanho}',
+            ${t.preco},
+            '${imagem}',
+            [],
+            '${t.tamanho}'
+          )">
+            ${t.tamanho} — R$ ${t.preco.toFixed(2)}
+          </button>
+        `;
+      });
+    } else {
+      // 🔥 PRODUTO SEM TAMANHO
+      const preco = Number(produto.dataset.preco || 0);
+
+      htmlTamanhos = `
+        <button onclick="addProduto(
+          '${id}',
+          '${nome}',
+          ${preco},
+          '${imagem}'
+        )">
+          Adicionar ao carrinho
+        </button>
+      `;
+    }
+
+    lista.innerHTML += `
+      <div class="favorito-item">
+        <img src="${imagem}">
+        <div class="info">
+          <strong>${nome}</strong>
+          <div class="acoes">
+            ${htmlTamanhos}
+          </div>
+        </div>
+      </div>
+    `;
+  });
 
   modal.style.display = "flex";
   document.body.style.overflow = "hidden";
