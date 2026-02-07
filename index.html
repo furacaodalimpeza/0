@@ -1466,6 +1466,54 @@ input[type="search"]::-webkit-search-cancel-button {
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
+  #btnFavoritos {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: none;
+  font-size: 22px;
+  background: #ff4081;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 999;
+}
+
+.modal-favoritos {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.favoritos-box {
+  background: white;
+  width: 90%;
+  max-width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.favoritos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.favorito-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
 </style>
 </head>
 
@@ -6337,7 +6385,7 @@ function atualizarEstoqueTela() {
     }
   }
 }
-  
+
 // VOLTAR AO TOPO
 function voltarTopo() {
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -6940,6 +6988,49 @@ function carregarFavoritos() {
 
 document.addEventListener("DOMContentLoaded", carregarFavoritos);
 
+  function abrirFavoritos() {
+
+  const modal = document.getElementById("modalFavoritos");
+  const lista = document.getElementById("listaFavoritos");
+
+  const favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+
+  lista.innerHTML = "";
+
+  if (favoritos.length === 0) {
+    lista.innerHTML = "<p>Você ainda não favoritou nenhum produto.</p>";
+  } else {
+
+    favoritos.forEach(id => {
+
+      const produto = document.querySelector(`[data-id="${id}"]`);
+
+      if (produto) {
+
+        const nome = produto.querySelector("h3")?.innerText || "Produto";
+        const img = produto.querySelector("img")?.src || "";
+
+        lista.innerHTML += `
+          <div class="favorito-item">
+            <img src="${img}" style="width:50px; border-radius:8px;">
+            <div>${nome}</div>
+          </div>
+        `;
+      }
+
+    });
+
+  }
+
+  modal.style.display = "flex";
+  document.body.style.overflow = "hidden";
+}
+
+function fecharFavoritos() {
+  document.getElementById("modalFavoritos").style.display = "none";
+  document.body.style.overflow = "auto";
+}
+
 </script>
  <!-- 🔐 BOTÃO ADMIN FLUTUANTE -->
 <button id="btnAdminFlutuante" onclick="toggleLoginAdmin()">
@@ -7040,6 +7131,11 @@ document.addEventListener("DOMContentLoaded", carregarFavoritos);
   <!-- BOTÃO VOLTAR AO TOPO -->
 <button id="btnTopo" onclick="voltarTopo()">
   ⬆️ <span>Voltar ao topo</span>
+</button>
+
+   <!-- ❤️ BOTÃO FAVORITOS -->
+<button id="btnFavoritos" onclick="abrirFavoritos()">
+  ❤️
 </button>
 
   <!-- TELA DE SUCESSO -->
@@ -7157,6 +7253,22 @@ document.addEventListener("DOMContentLoaded", () => {
   <!-- 🔔 NOTIFICAÇÃO AO ADICIONAR -->
 <div id="toastAdd" class="toast-add">
   ✔️ Produto adicionado ao carrinho
+</div>
+
+  <!-- ❤️ MODAL FAVORITOS -->
+<div id="modalFavoritos" class="modal-favoritos">
+
+  <div class="favoritos-box">
+
+    <div class="favoritos-header">
+      <h3>❤️ Meus Favoritos</h3>
+      <button onclick="fecharFavoritos()">✖</button>
+    </div>
+
+    <div id="listaFavoritos"></div>
+
+  </div>
+
 </div>
 
 </body>
