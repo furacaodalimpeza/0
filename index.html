@@ -8038,8 +8038,8 @@ document.addEventListener("DOMContentLoaded", () => {
   mostrarProdutosAbaAtiva();
   atualizarEstoqueTela();
   mostrarSugestoesFixas();
+   
   mostrarAvaliacoes();
-  atualizarMedia();
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
@@ -8161,7 +8161,8 @@ function mostrarAvaliacoes() {
 
   db.collection("avaliacoes")
     .orderBy("data", "desc")
-    .onSnapshot(snapshot => {
+    .get()
+    .then(snapshot => {
 
       todasAvaliacoes = [];
       let soma = 0;
