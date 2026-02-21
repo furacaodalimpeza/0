@@ -1405,24 +1405,25 @@ input[type="search"]::-webkit-search-cancel-button {
   display: none;
 }
 
-  .toast-add {
+ .toast-add {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 100px; /* 🔥 sobe mais */
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
   background: #1e88e5;
   color: white;
-  padding: 15px 20px;
+  padding: 14px 22px;
   border-radius: 12px;
-  font-weight: bold;
+  font-weight: 600;
   opacity: 0;
-  transform: translateY(20px);
+  pointer-events: none;
   transition: all 0.3s ease;
-  z-index: 9999;
+  z-index: 9999; /* 🔥 garante que fique acima de tudo */
 }
 
 .toast-add.show {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(-50%) translateY(0);
 }
 
   .sobre-loja {
@@ -7542,7 +7543,8 @@ if (adminFab) adminFab.style.display = "none";
 
       adminLogado = true;
 
-      document.getElementById("adminFabContainer").style.display = "block";
+     const adminFab = document.getElementById("adminFabContainer");
+if (adminFab) adminFab.style.display = "block";
 
       const btnAdmin = document.getElementById("btnAdminFlutuante");
       if (btnAdmin) btnAdmin.style.display = "none";
@@ -8668,15 +8670,24 @@ function fecharMiniAdmin() {
   panel.innerHTML = "";
 }
 
-  function mostrarToast() {
+let toastTimeout;
+
+function mostrarToast() {
   const toast = document.getElementById("toastAdd");
   if (!toast) return;
 
+  // 🔥 Cancela animação anterior
+  clearTimeout(toastTimeout);
+
+  // 🔥 Reinicia animação imediatamente
+  toast.classList.remove("show");
+  void toast.offsetWidth; // força reflow
   toast.classList.add("show");
 
-  setTimeout(() => {
+  // 🔥 Novo timer
+  toastTimeout = setTimeout(() => {
     toast.classList.remove("show");
-  }, 2000);
+  }, 1500);
 }
 
   function toggleFavorito(btn, id) {
