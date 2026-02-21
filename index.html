@@ -8061,14 +8061,11 @@ function atualizarEstoqueTela() {
 // VOLTAR AO TOPO
 function voltarTopo() {
 
-  // 🔓 Libera qualquer travamento de scroll
-  document.body.style.overflow = "";
-  document.documentElement.style.overflow = "";
+  // Garante que nada está travando o scroll
+  document.body.style.overflow = "auto";
+  document.documentElement.style.overflow = "auto";
 
-  // 🔼 Força o topo no body e no html
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
-
+  // Sobe suavemente
   window.scrollTo({
     top: 0,
     behavior: "smooth"
