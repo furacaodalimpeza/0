@@ -512,47 +512,36 @@ body {
   transform: scale(0.95);
 }
 
-  #totalFlutuante {
+  #barraCarrinho {
   position: fixed;
-  top: 70px;          /* fica abaixo do botão carrinho */
-  right: 20px;
-  background: linear-gradient(180deg, #25d366, #1ebe5d);
-  color: #fff;
-  padding: 10px 14px;
-  border-radius: 14px;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e88e5;
+  color: white;
   display: none;
-  flex-direction: column;
-  gap: 2px;
-  font-size: 13px;
+  align-items: center;
+  gap: 15px;
+  padding: 14px 20px;
+  border-radius: 40px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  z-index: 9999;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#barraCarrinho .valor {
+  font-size: 16px;
+}
+
+#btnFinalizarDireto {
+  background: white;
+  color: #1e88e5;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 20px;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 6px 16px rgba(0,0,0,.3);
-  z-index: 3000;
-}
-
-
-  /* ANIMAÇÃO DO TOTAL QUANDO MUDA */
-#totalFlutuante.animar {
-  animation: totalPulse 0.4s ease;
-}
-
-@keyframes totalPulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.15);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-  @media (max-width: 600px) {
-  #totalFlutuante {
-    top: 75px;
-    right: 14px;
-  }
 }
 
 .barra-pesquisa {
@@ -7467,6 +7456,17 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
   </div>
 </div>
 
+<div id="barraCarrinho" onclick="toggleCarrinho()">
+  🛒 <span id="contador">0</span>
+  <div class="valor">
+    R$ <span id="totalFlutuanteValor">0.00</span>
+  </div>
+
+  <button id="btnFinalizarDireto" onclick="abrirModal(); event.stopPropagation();">
+    Finalizar
+  </button>
+</div>
+  
 <!-- FIREBASE COMPAT -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
@@ -8674,22 +8674,26 @@ let toastTimeout;
 
 function mostrarToast() {
   const toast = document.getElementById("toastAdd");
+  const som = document.getElementById("somAdd");
   if (!toast) return;
 
-  // 🔥 Cancela animação anterior
+  // 🔊 Toca som
+  if (som) {
+    som.currentTime = 0;
+    som.play().catch(() => {});
+  }
+
   clearTimeout(toastTimeout);
 
-  // 🔥 Reinicia animação imediatamente
   toast.classList.remove("show");
-  void toast.offsetWidth; // força reflow
+  void toast.offsetWidth;
   toast.classList.add("show");
 
-  // 🔥 Novo timer
   toastTimeout = setTimeout(() => {
     toast.classList.remove("show");
-  }, 1500);
+  }, 1200);
 }
-
+  
   function toggleFavorito(btn, id) {
 
   let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
@@ -9045,5 +9049,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </div>
 
+<audio id="somAdd" preload="auto">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7f0b1f2c3e.mp3?filename=click-124467.mp3" type="audio/mpeg">
+</audio>
+  
 </body>
 </html>
