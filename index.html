@@ -6786,13 +6786,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
      data-id="essencia-senamax"
      data-nome="Essência Senamax"
      data-imagem="img/essencia-senamax.jpg"
-     data-tamanhos='[
-       {"tamanho":"Senamax Chá Branco 120ML","preco":16},
-       {"tamanho":"Senamax Orquídea Negra 120ML","preco":16},
-       {"tamanho":"Senamax Lavanda 120ML","preco":16},
-       {"tamanho":"Senamax Oleo de Eucalipto 120ML","preco":16},
-       {"tamanho":"Senamax Flores de Algodão 120ML","preco":16},
-     ]'
+    data-tamanhos='[
+  {"tamanho":"Senamax Chá Branco 120ML","preco":16},
+  {"tamanho":"Senamax Orquídea Negra 120ML","preco":16},
+  {"tamanho":"Senamax Lavanda 120ML","preco":16},
+  {"tamanho":"Senamax Oleo de Eucalipto 120ML","preco":16},
+  {"tamanho":"Senamax Flores de Algodão 120ML","preco":16}
+]'
    data-nomes="essencia senamax, fragrancia senamax, aroma senamax">
   <img src="img/essencia-senamax.jpg" alt="Essência SenaMax 120ML">
   <span class="icone-busca">🔍</span>
@@ -8289,13 +8289,13 @@ window.addEventListener("scroll", () => {
 
   if (!btn) return;
 
-  // 🚫 Se algum modal estiver aberto, não mostra
-  if (
+  const algumModalAberto =
     (carrinho && carrinho.classList.contains("aberto")) ||
-    (modalCliente && modalCliente.style.display === "flex") ||
-    (loginAdmin && loginAdmin.style.display === "flex") ||
-    (modalFavoritos && modalFavoritos.style.display === "flex")
-  ) {
+    (modalCliente && getComputedStyle(modalCliente).display !== "none") ||
+    (loginAdmin && getComputedStyle(loginAdmin).display !== "none") ||
+    (modalFavoritos && getComputedStyle(modalFavoritos).display !== "none");
+
+  if (algumModalAberto) {
     btn.style.display = "none";
     return;
   }
