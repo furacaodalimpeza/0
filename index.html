@@ -8061,15 +8061,15 @@ function atualizarEstoqueTela() {
 // VOLTAR AO TOPO
 function voltarTopo() {
 
-  // Garante que nada está travando o scroll
-  document.body.style.overflow = "auto";
-  document.documentElement.style.overflow = "auto";
+  // 🔥 Força liberar qualquer travamento
+  document.body.style.overflow = "";
+  document.documentElement.style.overflow = "";
 
-  // Sobe suavemente
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+  // 🔥 Remove possíveis classes que travam scroll
+  document.body.classList.remove("no-scroll");
+
+  // 🔥 Sobe instantaneamente (mais confiável que smooth)
+  window.scrollTo(0, 0);
 
 }
   
