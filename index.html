@@ -593,9 +593,9 @@ mark {
 }
 
   /* BOTÃO VOLTAR AO TOPO */
-  #btnTopo {
+ #btnTopo {
   position: fixed;
-  bottom: 20px;          /* MAIS BAIXO */
+  bottom: 20px;
   right: 16px;
   background: linear-gradient(180deg, #25d366, #1ebe5d);
   color: #fff;
@@ -609,8 +609,9 @@ mark {
   gap: 6px;
   cursor: pointer;
   box-shadow: 0 6px 18px rgba(0,0,0,.3);
-  z-index: 4000;
-  animation: topoPulse 1.6s infinite;
+
+  z-index: 999999; /* 🔥 AQUI É A CORREÇÃO */
+  pointer-events: auto;
 }
 
 /* ANIMAÇÃO */
@@ -1532,6 +1533,20 @@ input[type="search"]::-webkit-search-cancel-button {
   width: 100%;
 }
 
+  .modal,
+.modal-favoritos,
+.login-admin-modal,
+.tela-sucesso {
+  pointer-events: none;
+}
+
+.modal[style*="display: flex"],
+.modal-favoritos[style*="display: flex"],
+.login-admin-modal[style*="display: flex"],
+.tela-sucesso[style*="display: flex"] {
+  pointer-events: auto;
+}
+  
 </style>
 </head>
 
@@ -1591,10 +1606,14 @@ input[type="search"]::-webkit-search-cancel-button {
 
 <div class="barra-pesquisa" style="position:relative;">
  <input 
-  type="search"
+  type="text"
   id="pesquisaProduto" 
   placeholder="🔍 Pesquise um produto"
   oninput="filtrarProdutos()"
+  autocomplete="off"
+  autocorrect="off"
+  autocapitalize="off"
+  spellcheck="false"
 >
   <span id="limparBusca" onclick="limparBusca()">✖</span>
 </div>
@@ -8061,15 +8080,24 @@ function atualizarEstoqueTela() {
 // VOLTAR AO TOPO
 function voltarTopo() {
 
-  // 🔥 Força liberar qualquer travamento
-  document.body.style.overflow = "";
-  document.documentElement.style.overflow = "";
+  // 🔥 Remove foco de qualquer input (principalmente a busca)
+  if (document.activeElement) {
+    document.activeElement.blur();
+  }
 
-  // 🔥 Remove possíveis classes que travam scroll
-  document.body.classList.remove("no-scroll");
+  // 🔥 Fecha teclado do celular
+  const inputBusca = document.getElementById("pesquisaProduto");
+  if (inputBusca) inputBusca.blur();
 
-  // 🔥 Sobe instantaneamente (mais confiável que smooth)
-  window.scrollTo(0, 0);
+  // 🔥 Libera qualquer travamento
+  document.body.style.overflow = "auto";
+  document.documentElement.style.overflow = "auto";
+
+  // 🔥 Sobe suavemente
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 
 }
   
