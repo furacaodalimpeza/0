@@ -8684,7 +8684,7 @@ function abrirFavoritos() {
   const lista = document.getElementById("listaFavoritos");
 
   // 🔥 SE JÁ ESTIVER ABERTO, FECHA
-  if (modal.style.display === "flex") {
+  if (getComputedStyle(modal).display === "flex") {
     fecharFavoritos();
     return;
   }
@@ -8741,9 +8741,28 @@ function abrirFavoritos() {
   document.body.style.overflow = "hidden";
 }
 
+  // 🔥 GARANTE QUE NUNCA FIQUE TRAVADO
+window.addEventListener("click", function(e) {
+  const modal = document.getElementById("modalFavoritos");
+  if (!modal) return;
+
+  if (e.target === modal) {
+    fecharFavoritos();
+  }
+});
+  
 function fecharFavoritos() {
-  document.getElementById("modalFavoritos").style.display = "none";
+
+  const modal = document.getElementById("modalFavoritos");
+
+  if (!modal) return;
+
+  modal.style.display = "none";
+
+  // 🔥 FORÇA LIBERAR SCROLL
   document.body.style.overflow = "auto";
+  document.documentElement.style.overflow = "auto";
+
 }
 
 </script>
