@@ -8060,13 +8060,17 @@ function atualizarEstoqueTela() {
 
 // VOLTAR AO TOPO
 function voltarTopo() {
-  document.documentElement.scrollTo({
+
+  // 🔓 Garante que o scroll esteja liberado
+  document.body.style.overflow = "auto";
+  document.documentElement.style.overflow = "auto";
+
+  // 🔼 Força o scroll
+  window.scrollTo({
     top: 0,
     behavior: "smooth"
   });
 
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
 }
   
 // ENVIAR AVALIAÇÃO
@@ -8275,11 +8279,19 @@ window.addEventListener("scroll", () => {
 
   const btn = document.getElementById("btnTopo");
   const carrinho = document.getElementById("carrinho");
+  const modalCliente = document.getElementById("modalCliente");
+  const loginAdmin = document.getElementById("loginAdmin");
+  const modalFavoritos = document.getElementById("modalFavoritos");
 
-  if (!btn || !carrinho) return;
+  if (!btn) return;
 
-  // 🚫 Se carrinho estiver aberto, não mostra botão nenhum
-  if (carrinho.classList.contains("aberto")) {
+  // 🚫 Se algum modal estiver aberto, não mostra
+  if (
+    (carrinho && carrinho.classList.contains("aberto")) ||
+    (modalCliente && modalCliente.style.display === "flex") ||
+    (loginAdmin && loginAdmin.style.display === "flex") ||
+    (modalFavoritos && modalFavoritos.style.display === "flex")
+  ) {
     btn.style.display = "none";
     return;
   }
