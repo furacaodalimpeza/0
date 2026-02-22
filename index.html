@@ -1536,7 +1536,32 @@ input[type="search"]::-webkit-search-cancel-button {
 .tela-sucesso[style*="display: flex"] {
   pointer-events: auto;
 }
-  
+
+  #barraCarrinho {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #1e88e5;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 -4px 15px rgba(0,0,0,0.2);
+  cursor: pointer;
+  z-index: 999;
+}
+
+#barraCarrinho span {
+  font-weight: bold;
+}
+
+#barraCarrinho:hover {
+  background: #1565c0;
+}
 </style>
 </head>
 
@@ -2462,8 +2487,8 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
      data-nome="Candida Colorida"
      data-imagem="img/candida-colorida.jpg"
      data-tamanhos='[
-       {"tamanho":"2L","preco":11},
-       {"tamanho":"5L","preco":22}
+       {"tamanho":"2L","preco":12},
+       {"tamanho":"5L","preco":24}
      ]'
      data-nomes="candida colorida, cândida colorida, sem cloro, roupas coloridas, limpeza leve, branqueador sem cloro, limpeza">
 
@@ -2476,29 +2501,29 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 
   <div class="variacoes">
     <div class="linha">
-      <span>2L — R$ 11,00</span>
+      <span>2L — R$ 12,00</span>
       <button onclick="addProduto(
         'candida-colorida-2l',
         'Candida Colorida',
-        11,
+        12,
         'img/candida-colorida.jpg',
         [
-          { tamanho: '2L', preco: 11 },
-          { tamanho: '5L', preco: 22 }
+          { tamanho: '2L', preco: 12 },
+          { tamanho: '5L', preco: 24 }
         ],
         '2L'
       )">Adicionar</button>
     </div>
     <div class="linha">
-      <span>5L — R$ 22,00</span>
+      <span>5L — R$ 24,00</span>
       <button onclick="addProduto(
         'candida-colorida-5l',
         'Candida Colorida',
-        22,
+        24,
         'img/candida-colorida.jpg',
         [
-          { tamanho: '2L', preco: 11 },
-          { tamanho: '5L', preco: 22 }
+          { tamanho: '2L', preco: 12 },
+          { tamanho: '5L', preco: 24 }
         ],
         '5L'
       )">Adicionar</button>
@@ -3009,7 +3034,7 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
      data-nome="Amaciante Concentrado"
      data-imagem="img/amaciante-concentrado.jpg"
      data-tamanhos='[
-       {"tamanho":"Downy 2L","preco":15},
+       {"tamanho":"Downy 2L","preco":16},
        {"tamanho":"Branco 2L","preco":16}
      ]'
   data-nomes="amaciante concentrado, amaciante branco, amaciante downy, downy, amaciante rendimento, perfume intenso, roupas, uso profissional">
@@ -3023,14 +3048,14 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 
   <div class="variacoes">
     <div class="linha">
-      <span>Downy 2L — R$ 15,00</span>
+      <span>Downy 2L — R$ 16,00</span>
       <button onclick="addProduto(
         'amaciante-downy-2l',
         'Amaciante Downy 2L',
-        15,
+        16,
         'img/amaciante-concentrado.jpg',
         [
-          { tamanho: 'Downy 2L', preco: 15 },
+          { tamanho: 'Downy 2L', preco: 16 },
           { tamanho: 'Amac. Branco 2L', preco: 16 }
         ],
         'Downy 2L'
@@ -3044,7 +3069,7 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
         16,
         'img/amaciante-concentrado.jpg',
         [
-          { tamanho: 'Downy 2L', preco: 15 },
+          { tamanho: 'Downy 2L', preco: 16 },
           { tamanho: 'Amac. Branco 2L', preco: 16 }
         ],
         'Amac. Branco 2L'
@@ -3544,8 +3569,8 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
      data-nome="Sabao Querosene"
      data-imagem="img/querosene.jpg"
      data-tamanhos='[
-       {"tamanho":"2L","preco":14},
-       {"tamanho":"5L","preco":28}
+       {"tamanho":"2L","preco":18},
+       {"tamanho":"5L","preco":40}
      ]'
      data-nomes="sabao querosene, sabão liquido, limpeza pesada, roupas, uso diario">
 
@@ -3558,29 +3583,29 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 
   <div class="variacoes">
     <div class="linha">
-      <span>2L — R$ 14,00</span>
+      <span>2L — R$ 18,00</span>
       <button onclick="addProduto(
         'sabao-querosene-2l',
         'Sabão Querosene 2L',
-        14,
+        18,
         'img/querosene.jpg',
         [
-          { tamanho: '2L', preco: 14 },
-          { tamanho: '5L', preco: 28 }
+          { tamanho: '2L', preco: 18 },
+          { tamanho: '5L', preco: 40 }
         ],
         '2L'
       )">Adicionar</button>
     </div>
     <div class="linha">
-      <span>5L — R$ 28,00</span>
+      <span>5L — R$ 40,00</span>
       <button onclick="addProduto(
         'sabao-querosene-5l',
         'Sabão Querosene 5L',
-        28,
+        40,
         'img/sabao-querosene.jpg',
         [
-          { tamanho: '2L', preco: 14 },
-          { tamanho: '5L', preco: 28 }
+          { tamanho: '2L', preco: 18 },
+          { tamanho: '5L', preco: 40 }
         ],
         '5L'
       )">Adicionar</button>
@@ -3681,27 +3706,27 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
       <button onclick="addProduto(
         'alcool-concentrado-2l',
         'Álcool Concentrado 2L',
-        12,
-        'img/alcool-concentrado.jpg',
-        [
-          { tamanho: '2L', preco: 13 },
-          { tamanho: '5L', preco: 30 }
-        ],
-        '1L'
-      )">Adicionar</button>
-    </div>
-    <div class="linha">
-      <span>5L — R$ 30,00</span>
-      <button onclick="addProduto(
-        'alcool-concentrado-2l',
-        'Álcool Concentrado 2L',
-        22,
+        13,
         'img/alcool-concentrado.jpg',
         [
           { tamanho: '2L', preco: 13 },
           { tamanho: '5L', preco: 30 }
         ],
         '2L'
+      )">Adicionar</button>
+    </div>
+    <div class="linha">
+      <span>5L — R$ 30,00</span>
+      <button onclick="addProduto(
+        'alcool-concentrado-5l',
+        'Álcool Concentrado 5L',
+        30,
+        'img/alcool-concentrado.jpg',
+        [
+          { tamanho: '2L', preco: 13 },
+          { tamanho: '5L', preco: 30 }
+        ],
+        '5L'
       )">Adicionar</button>
     </div>
   </div>
@@ -3779,7 +3804,7 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
       <button onclick="addProduto(
         'alcool-gel-500ml',
         'Álcool em Gel 500ML',
-        12,
+        13,
         'img/alcool-gel.jpg',
         [
           { tamanho: '500ML', preco: 13 },
@@ -3791,15 +3816,15 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
     <div class="linha">
       <span>5L — R$ 45,00</span>
       <button onclick="addProduto(
-        'alcool-gel-1l',
-        'Álcool em Gel 1L',
-        20,
+        'alcool-gel-5l',
+        'Álcool em Gel 5L',
+        45,
         'img/alcool-em-gel.jpg',
         [
           { tamanho: '500ML', preco: 13 },
           { tamanho: '5L', preco: 45 }
         ],
-        '1L'
+        '5L'
       )">Adicionar</button>
     </div>
   </div>
@@ -7403,17 +7428,15 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 
   <ul id="lista"></ul>
 
-  <p><strong>Total: R$ <span id="total">0.00</span></strong></p>
-
   <button
-    id="btnWhatsapp"
-    class="btn-whatsapp"
-    onclick="abrirModal()"
-    disabled
-  >
-    Enviar pelo WhatsApp
-  </button>
-
+  id="btnWhatsapp"
+  class="btn-whatsapp"
+  onclick="abrirModal()"
+  disabled
+>
+  Finalizar Pedido
+</button>
+  
   <button class="btn-trocar-nome" onclick="trocarNome()">
     Trocar nome da cliente
   </button>
@@ -7457,14 +7480,20 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
 </div>
 
 <div id="barraCarrinho" onclick="toggleCarrinho()">
-  🛒 <span id="contador">0</span>
-  <div class="valor">
-    R$ <span id="totalFlutuanteValor">0.00</span>
+
+  <div class="lado-esquerdo">
+    🛒 <span id="contador">0</span>
   </div>
 
-  <button id="btnFinalizarDireto" onclick="abrirModal(); event.stopPropagation();">
+  <div class="lado-direito">
+    Total: R$ <span id="totalFlutuanteValor">0.00</span>
+  </div>
+
+  <button id="btnFinalizarDireto"
+          onclick="abrirModal(); event.stopPropagation();">
     Finalizar
   </button>
+
 </div>
   
 <!-- FIREBASE COMPAT -->
@@ -7734,17 +7763,20 @@ if (topo) topo.innerText = nome;
   btnWhatsapp.classList.remove("ativo");
 }
 
-    const totalFlutuante = document.getElementById("totalFlutuante");
+  const barraCarrinho = document.getElementById("barraCarrinho");
 const totalFlutuanteValor = document.getElementById("totalFlutuanteValor");
 
-if (totalFlutuante && totalFlutuanteValor) {
+if (barraCarrinho && totalFlutuanteValor) {
+
   totalFlutuanteValor.innerText = totalGeral.toFixed(2);
-  totalFlutuante.style.display = carrinho.length ? "flex" : "none";
+
+  // Mostra a barra só se tiver item
+  barraCarrinho.style.display = carrinho.length ? "flex" : "none";
 
   if (totalGeral !== ultimoTotal) {
-    totalFlutuante.classList.remove("animar");
-    void totalFlutuante.offsetWidth;
-    totalFlutuante.classList.add("animar");
+    barraCarrinho.classList.remove("animar");
+    void barraCarrinho.offsetWidth;
+    barraCarrinho.classList.add("animar");
     ultimoTotal = totalGeral;
   }
 }
@@ -8675,12 +8707,19 @@ let toastTimeout;
 function mostrarToast() {
   const toast = document.getElementById("toastAdd");
   const som = document.getElementById("somAdd");
+
   if (!toast) return;
 
-  // 🔊 Toca som
+  // 🔊 TOCAR SOM CORRETAMENTE
   if (som) {
+    som.pause();
     som.currentTime = 0;
-    som.play().catch(() => {});
+
+    som.play().then(() => {
+      console.log("Som tocou");
+    }).catch((err) => {
+      console.log("Erro ao tocar som:", err);
+    });
   }
 
   clearTimeout(toastTimeout);
