@@ -512,24 +512,6 @@ body {
   transform: scale(0.95);
 }
 
-  #barraCarrinho {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #1e88e5;
-  color: white;
-  display: none;
-  align-items: center;
-  gap: 15px;
-  padding: 14px 20px;
-  border-radius: 40px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-  z-index: 9999;
-  cursor: pointer;
-  font-weight: bold;
-}
-
 #barraCarrinho .valor {
   font-size: 16px;
 }
@@ -1595,12 +1577,7 @@ input[type="search"]::-webkit-search-cancel-button {
 <div id="btnCarrinho" class="carrinho-btn" onclick="toggleCarrinho()">
 🛒 Carrinho <span id="contador">0</span>
 </div>
-
-  <div id="totalFlutuante" onclick="toggleCarrinho()">
-  <span>💰 Total</span>
-  <strong>R$ <span id="totalFlutuanteValor">0.00</span></strong>
-  </div>
-
+  
 <div class="abas">
   <div class="linha-abas">
     <button onclick="mostrarCategoria('limpeza',this)">Produtos de Limpeza</button>
@@ -7720,7 +7697,6 @@ function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecion
 // FUNÇÃO PARA ATUALIZAR CARRINHO
 function atualizar() {
   const lista = document.getElementById("lista");
-  const totalEl = document.getElementById("total");
   const contador = document.getElementById("contador");
   const btnWhatsapp = document.getElementById("btnWhatsapp");
 
@@ -7747,7 +7723,6 @@ function atualizar() {
     `;
   });
 
-  totalEl.innerText = totalGeral.toFixed(2);
   if (contador) contador.innerText = itens;
 
   const nome = localStorage.getItem("nomeCliente") || "não informado";
