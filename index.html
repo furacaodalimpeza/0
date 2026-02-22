@@ -7754,7 +7754,11 @@ if (barraCarrinho && totalFlutuanteValor) {
   totalFlutuanteValor.innerText = totalGeral.toFixed(2);
 
   // Mostra a barra só se tiver item
-  barraCarrinho.style.display = carrinho.length ? "flex" : "none";
+if (carrinho.length > 0) {
+  barraCarrinho.style.display = "flex";
+} else {
+  barraCarrinho.style.display = "none";
+}
 
   if (totalGeral !== ultimoTotal) {
     barraCarrinho.classList.remove("animar");
