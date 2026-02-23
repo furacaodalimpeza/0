@@ -1524,13 +1524,13 @@ input[type="search"]::-webkit-search-cancel-button {
   pointer-events: auto;
 }
 
-   #barraCarrinho {
+ #barraCarrinho {
   position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  max-width: 500px;
+
+  top: 85px;        /* 👈 fica abaixo do carrinho */
+  right: 20px;      /* 👈 mesmo alinhamento do botão carrinho */
+
+  width: 300px;
 
   background: #1e63c6;
   color: white;
@@ -1540,9 +1540,10 @@ input[type="search"]::-webkit-search-cancel-button {
 
   display: flex;
   align-items: center;
-  justify-content: space-between; /* 🔥 separa bem */
+  justify-content: space-between;
 
   box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  z-index: 2999; /* menor que o carrinho (3000) */
 }
 
   #barraCarrinho .lado-direito {
