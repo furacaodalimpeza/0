@@ -7675,6 +7675,7 @@ let ultimoTotal = 0;
   
 // FUNÇÃO PARA ADICIONAR PRODUTO
 function bloquearBotoesZerados() {
+if (estoque) {
   for (let id in estoque) {
     const btn = document.getElementById("btn-" + id);
     if (!btn) continue;
@@ -7732,12 +7733,14 @@ function atualizar() {
   lista.innerHTML = "";
   totalGeral = 0;
   let itens = 0;
-
+  
+let pedidosHTML = "";
+  
   carrinho.forEach((p,i)=>{
     totalGeral += p.preco * p.qtd;
     itens += p.qtd;
 
-    lista.innerHTML += `
+    pedidosHTML += `
       <li class="item-carrinho">
         <div>
           <strong>${p.nome}</strong><br>
@@ -7751,7 +7754,8 @@ function atualizar() {
       </li>
     `;
   });
-
+lista.innerHTML = pedidosHTML;
+  
 if (contador) {
   contador.innerText = itens > 0 ? itens : "";
 }
@@ -8623,7 +8627,12 @@ async function mostrarSugestoesFixas() {
    
 let html = `
   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-    <strong>${tipo === "estoque" ? "📦 Estoque" : "🧾 Pedidos"}</strong>
+  
+   <strong>
+  ${tipo === "estoque" ? "📦 Estoque" :
+    tipo === "pedidos" ? "🧾 Pedidos" :
+    "📊 Dashboard"}
+</strong>
 
     <div style="display:flex; gap:8px;">
       <button onclick="sairAdmin()"
@@ -8678,7 +8687,9 @@ panel.innerHTML = html;
 
         const lista = document.getElementById("miniPedidos");
 if (!lista) return;
-
+        
+let pedidosHTML = "";
+ 
         snapshot.forEach(doc => {
           const p = doc.data();
 
@@ -8701,7 +8712,7 @@ ${item.tamanhoSelecionado ? ` (${item.tamanhoSelecionado})` : ""}
 
 }
 
-lista.innerHTML += `
+pedidosHTML += `
   <div style="
     margin-bottom:18px;
     padding:18px;
@@ -8823,11 +8834,72 @@ color:${
 `;
 
         });
-
+        
+ lista.innerHTML = pedidosHTML;
+        
       });
 
   }
 
+if (tipo === "dashboard") {
+
+  const user = auth.currentUser;
+  if (!user) return;
+
+  db.collection("admins").doc(user.uid).get().then(doc => {
+
+    if (!doc.exists || doc.data().role !== "chefe") {
+      panel.innerHTML = html + `
+        <div style="padding:15px; color:red;">
+          Apenas o admin chefe pode acessar o dashboard.
+        </div>
+      `;
+      return;
+    }
+
+    html += "<div id='miniDashboard'></div>";
+    panel.innerHTML = html;
+
+    db.collection("pedidos").get().then(snapshot => {
+
+      let totalVendas = 0;
+      let totalPedidos = snapshot.size;
+
+      snapshot.forEach(doc => {
+        totalVendas += doc.data().total || 0;
+      });
+
+      document.getElementById("miniDashboard").innerHTML = `
+        <div style="padding:15px; font-size:15px;">
+          <div style="
+  background:#f5f9ff;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:10px;
+">
+  <div style="font-size:13px; color:#666;">Total de pedidos</div>
+  <div style="font-size:22px; font-weight:bold;">${totalPedidos}</div>
+</div>
+
+<div style="
+  background:#e8f5e9;
+  padding:15px;
+  border-radius:12px;
+">
+  <div style="font-size:13px; color:#666;">Total vendido</div>
+  <div style="font-size:22px; font-weight:bold;">
+    R$ ${totalVendas.toFixed(2)}
+  </div>
+</div>
+           
+        </div>
+      `;
+    });
+
+  });
+
+}
+   
 }
 
   function excluirPedido(id) {
@@ -8844,7 +8916,7 @@ color:${
 }
 
 function mudarStatus(pedidoId, novoStatus, telefone, numeroPedido) {
-  db.collection("pedidos").doc(pedidoId).update({ status: novoStatus });
+   if (!isAdmin()) return;
 
   if (novoStatus === "A caminho" && telefone) {
     telefone = telefone.replace(/\D/g,"");
@@ -9033,41 +9105,6 @@ function fecharFavoritos() {
   // 🔥 FORÇA LIBERAR SCROLL
   document.body.style.overflow = "auto";
   document.documentElement.style.overflow = "auto";
-
-}
-
-  function abrirDashboard() {
-
-  if (!isAdmin()) return;
-
-  const user = auth.currentUser;
-  if (!user) return;
-
-  db.collection("admins").doc(user.uid).get().then(doc => {
-
-    if (!doc.exists || doc.data().role !== "chefe") {
-      alert("Apenas o admin chefe pode acessar o dashboard");
-      return;
-    }
-
-    db.collection("pedidos").get().then(snapshot => {
-
-      let totalVendas = 0;
-      let totalPedidos = snapshot.size;
-
-      snapshot.forEach(doc => {
-        totalVendas += doc.data().total || 0;
-      });
-
-      alert(
-        "📊 DASHBOARD\n\n" +
-        "Pedidos: " + totalPedidos +
-        "\nTotal vendido: R$ " + totalVendas.toFixed(2)
-      );
-
-    });
-
-  });
 
 }
 
@@ -9284,25 +9321,28 @@ document.addEventListener("DOMContentLoaded", () => {
     ⚙️
   </button>
 
-  <!-- Menu que abre -->
+  <!-- Menu -->
   <div class="admin-fab-menu" id="adminFabMenu">
 
-    <button onclick="abrirMiniAba('estoque')">
+    <button id="btnEstoque" onclick="abrirMiniAba('estoque')">
       📦 Estoque
     </button>
 
-    <button onclick="abrirMiniAba('pedidos')">
+    <button id="btnPedidos" onclick="abrirMiniAba('pedidos')">
       🧾 Pedidos
     </button>
 
-    <button id="btnDashboard" style="display:none;" onclick="abrirDashboard()">
-  📊 Dashboard
+    <button id="btnDashboard"
+        onclick="abrirMiniAba('dashboard')"
+        style="display:none;">
+  📊
 </button>
+    
   </div>
-
 </div>
 
-  <div id="miniAdminPanel" class="mini-admin-panel"></div>
+<!-- PAINEL MINI ADMIN -->
+<div id="miniAdminPanel" class="mini-admin-panel"></div>
 
   <!-- 🔔 NOTIFICAÇÃO AO ADICIONAR -->
 <div id="toastAdd" class="toast-add">
