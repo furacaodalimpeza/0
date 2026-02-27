@@ -8624,10 +8624,26 @@ async function mostrarSugestoesFixas() {
 let html = `
   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
     <strong>${tipo === "estoque" ? "📦 Estoque" : "🧾 Pedidos"}</strong>
-    <button onclick="fecharMiniAdmin()" 
-      style="background:none;border:none;font-size:18px;cursor:pointer;">
-      ❌
-    </button>
+
+    <div style="display:flex; gap:8px;">
+      <button onclick="sairAdmin()"
+        style="
+          background:#ff4d4d;
+          border:none;
+          color:white;
+          padding:4px 10px;
+          border-radius:8px;
+          cursor:pointer;
+          font-size:12px;
+        ">
+        🚪 Sair
+      </button>
+
+      <button onclick="fecharMiniAdmin()" 
+        style="background:none;border:none;font-size:18px;cursor:pointer;">
+        ❌
+      </button>
+    </div>
   </div>
 `;
 
@@ -8840,6 +8856,8 @@ function mudarStatus(pedidoId, novoStatus, telefone, numeroPedido) {
 
     window.open(`https://wa.me/${telefone}?text=${msg}`, "_blank");
   }
+  
+  abrirMiniAba("pedidos");
 }
   
 function fecharMiniAdmin() {
@@ -8851,6 +8869,25 @@ function fecharMiniAdmin() {
   panel.dataset.tipo = ""; // 🔥 importante
 }
 
+document.addEventListener("click", function(event) {
+
+  const panel = document.getElementById("miniAdminPanel");
+  const btnEstoque = document.getElementById("btnEstoque");
+  const btnPedidos = document.getElementById("btnPedidos");
+
+  if (!panel || panel.style.display !== "block") return;
+
+  const clicouDentro =
+    panel.contains(event.target) ||
+    (btnEstoque && btnEstoque.contains(event.target)) ||
+    (btnPedidos && btnPedidos.contains(event.target));
+
+  if (!clicouDentro) {
+    fecharMiniAdmin();
+  }
+
+});
+  
 let toastTimeout;
 
 function mostrarToast() {
@@ -9032,6 +9069,17 @@ function fecharFavoritos() {
 
   });
 
+}
+
+function sairAdmin() {
+  if (!confirm("Deseja sair da conta admin?")) return;
+
+  auth.signOut().then(() => {
+    alert("Admin desconectado com sucesso");
+    fecharMiniAdmin();
+  }).catch((error) => {
+    alert("Erro ao sair: " + error.message);
+  });
 }
   
 </script>
