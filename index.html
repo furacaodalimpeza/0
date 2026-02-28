@@ -7684,6 +7684,9 @@ auth.onAuthStateChanged(user => {
   if (!user) {
     adminLogado = false;
 
+const btnSair = document.getElementById("btnSairAdmin");
+if (btnSair) btnSair.style.display = "none";
+    
    const adminFab = document.getElementById("adminFabContainer");
 if (adminFab) adminFab.style.display = "none";
 
@@ -7698,6 +7701,9 @@ if (adminFab) adminFab.style.display = "none";
     if (doc.exists) {
       adminLogado = true;
 
+const btnSair = document.getElementById("btnSairAdmin");
+if (btnSair) btnSair.style.display = "block";
+      
 const role = doc.data().role;
 
 if (role === "chefe") {
@@ -8757,11 +8763,6 @@ function abrirMiniAba(tipo) {
           "📊 Dashboard"}
       </strong>
 
-      <div style="display:flex; gap:8px;">
-        <button class="btn-sair-admin" onclick="sairAdmin()">
-          🚪 Sair
-        </button>
-
         <button onclick="fecharMiniAdmin()" style="
           background:none;
           border:none;
@@ -9458,6 +9459,10 @@ document.addEventListener("DOMContentLoaded", () => {
         onclick="abrirMiniAba('dashboard')"
         style="display:none;">
   📊
+</button>
+
+    <button id="btnSairAdmin" onclick="sairAdmin()" style="display:none;">
+  🚪 Sair
 </button>
     
   </div>
