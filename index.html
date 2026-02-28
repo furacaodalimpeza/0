@@ -8597,12 +8597,17 @@ window.addEventListener("scroll", () => {
 }
 
   function removerPedidoAdmin(id) {
+  if (!isAdmin()) {
+    alert("Apenas administradores podem excluir pedidos.");
+    return;
+  }
 
   if (!confirm("Deseja remover este pedido?")) return;
 
   db.collection("pedidos").doc(id).delete()
     .then(() => {
-      console.log("Pedido removido");
+      alert("Pedido removido com sucesso!");
+      abrirMiniAba("pedidos"); // atualiza a lista
     })
     .catch(err => {
       alert("Erro ao remover: " + err.message);
