@@ -8986,7 +8986,41 @@ if (tipo === "dashboard") {
     }
 
    const conteudo = document.getElementById("miniAdminConteudo");
-conteudo.innerHTML = "<div id='miniDashboard'></div>";
+conteudo.innerHTML = `
+  <div id="miniDashboard">
+
+    <div style="margin-bottom:15px;">
+      <select id="filtroMes" onchange="carregarGraficoProdutos()" 
+        style="padding:8px; border-radius:8px; border:1px solid #ccc;">
+        <option value="0">Janeiro</option>
+        <option value="1">Fevereiro</option>
+        <option value="2">Março</option>
+        <option value="3">Abril</option>
+        <option value="4">Maio</option>
+        <option value="5">Junho</option>
+        <option value="6">Julho</option>
+        <option value="7">Agosto</option>
+        <option value="8">Setembro</option>
+        <option value="9">Outubro</option>
+        <option value="10">Novembro</option>
+        <option value="11">Dezembro</option>
+      </select>
+    </div>
+
+    <div style="margin-bottom:15px;">
+      <canvas id="graficoProdutos" height="200"></canvas>
+    </div>
+
+    <div id="resumoFinanceiro"></div>
+    <div id="resumoDashboard"></div>
+
+  </div>
+`;
+    
+setTimeout(() => {
+  document.getElementById("filtroMes").value = new Date().getMonth();
+  carregarGraficoProdutos();
+}, 200);
     
     db.collection("pedidos").get().then(snapshot => {
 
@@ -8997,31 +9031,32 @@ conteudo.innerHTML = "<div id='miniDashboard'></div>";
         totalVendas += doc.data().total || 0;
       });
 
-      document.getElementById("miniDashboard").innerHTML = `
-        <div style="padding:15px; font-size:15px;">
-          <div style="
-  background:#f5f9ff;
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:10px;
-">
-  <div style="font-size:13px; color:#666;">Total de pedidos</div>
-  <div style="font-size:22px; font-weight:bold;">${totalPedidos}</div>
-</div>
-
-<div style="
-  background:#e8f5e9;
-  padding:15px;
-  border-radius:12px;
-">
-  <div style="font-size:13px; color:#666;">Total vendido</div>
-  <div style="font-size:22px; font-weight:bold;">
-    R$ ${totalVendas.toFixed(2)}
+      document.getElementById("resumoDashboard").innerHTML = `
+  <div style="
+    background:#f5f9ff;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:10px;
+  ">
+    <div style="font-size:13px; color:#666;">Total de pedidos</div>
+    <div style="font-size:22px; font-weight:bold;">${totalPedidos}</div>
   </div>
-</div>
-           
-        </div>
-      `;
+
+  <div style="
+    background:#e8f5e9;
+    padding:15px;
+    border-radius:12px;
+  ">
+    <div style="font-size:13px; color:#666;">Total vendido</div>
+    <div style="font-size:22px; font-weight:bold;">
+      R$ ${totalVendas.toFixed(2)}
+    </div>
+  </div>
+`;
+      setTimeout(() => {
+  carregarGraficoProdutos();
+}, 200);
+      
     });
 
   });
@@ -9069,6 +9104,123 @@ function mudarStatus(pedidoId, novoStatus, telefone, numeroPedido) {
   });
 
 }
+
+let graficoProdutos;
+
+async function carregarGraficoProdutos() {
+
+  const snapshot = await db.collection("pedidos").get();
+
+  let contagem = {};
+  let rendaAno = 0;
+
+  // Array com 12 meses zerados
+  let rendaPorMes = Array(12).fill(0);
+
+  const anoAtual = new Date().getFullYear();
+
+  snapshot.forEach(doc => {
+
+    const pedido = doc.data();
+
+    if (!pedido.itens || !pedido.data) return;
+
+    const dataPedido = pedido.data.toDate();
+
+    if (dataPedido.getFullYear() === anoAtual) {
+
+      const mes = dataPedido.getMonth();
+
+      const total = pedido.total || 0;
+
+      rendaPorMes[mes] += total;
+      rendaAno += total;
+
+      pedido.itens.forEach(item => {
+        if (!contagem[item.nome]) {
+          contagem[item.nome] = 0;
+        }
+        contagem[item.nome] += item.qtd || 0;
+      });
+
+    }
+
+  });
+
+  // 🔥 ORDENAR PRODUTOS
+  const ordenado = Object.entries(contagem)
+    .sort((a, b) => b[1] - a[1]);
+
+  const nomes = ordenado.map(item => item[0]);
+  const valores = ordenado.map(item => item[1]);
+
+  const ctx = document.getElementById("graficoProdutos");
+
+  if (graficoProdutos) {
+    graficoProdutos.destroy();
+  }
+
+  graficoProdutos = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: nomes,
+      datasets: [{
+        label: "Quantidade vendida",
+        data: valores
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false }
+      }
+    }
+  });
+
+  // 🔥 MOSTRAR RESUMO FINANCEIRO
+  const nomesMeses = [
+    "Janeiro","Fevereiro","Março","Abril","Maio","Junho",
+    "Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"
+  ];
+
+  let htmlMeses = "";
+
+  rendaPorMes.forEach((valor, i) => {
+    htmlMeses += `
+      <div style="
+        background:#f8f9fa;
+        padding:8px 12px;
+        border-radius:8px;
+        margin-bottom:6px;
+        display:flex;
+        justify-content:space-between;
+      ">
+        <span>${nomesMeses[i]}</span>
+        <strong>R$ ${valor.toFixed(2)}</strong>
+      </div>
+    `;
+  });
+
+  document.getElementById("resumoFinanceiro").innerHTML = `
+    <div style="
+      background:#d4edda;
+      padding:15px;
+      border-radius:12px;
+      margin-top:15px;
+      margin-bottom:15px;
+    ">
+      <div style="font-size:14px; color:#555;">
+        Total do Ano (${anoAtual})
+      </div>
+      <div style="font-size:26px; font-weight:bold;">
+        R$ ${rendaAno.toFixed(2)}
+      </div>
+    </div>
+
+    ${htmlMeses}
+  `;
+
+}
   
 function fecharMiniAdmin() {
   const panel = document.getElementById("miniAdminPanel");
@@ -9084,13 +9236,15 @@ document.addEventListener("click", function(event) {
   const panel = document.getElementById("miniAdminPanel");
   const btnEstoque = document.getElementById("btnEstoque");
   const btnPedidos = document.getElementById("btnPedidos");
+  const btnDashboard = document.getElementById("btnDashboard"); // 🔥 ADICIONADO
 
   if (!panel || panel.style.display !== "block") return;
 
   const clicouDentro =
     panel.contains(event.target) ||
     (btnEstoque && btnEstoque.contains(event.target)) ||
-    (btnPedidos && btnPedidos.contains(event.target));
+    (btnPedidos && btnPedidos.contains(event.target)) ||
+    (btnDashboard && btnDashboard.contains(event.target)); // 🔥 ADICIONADO
 
   if (!clicouDentro) {
     fecharMiniAdmin();
@@ -9500,6 +9654,8 @@ document.addEventListener("DOMContentLoaded", () => {
 <audio id="somAdd" preload="auto">
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7f0b1f2c3e.mp3?filename=click-124467.mp3" type="audio/mpeg">
 </audio>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
 </body>
 </html>
