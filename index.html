@@ -7675,17 +7675,18 @@ let ultimoTotal = 0;
   
 // FUNÇÃO PARA ADICIONAR PRODUTO
 function bloquearBotoesZerados() {
-if (estoque) {
-  for (let id in estoque) {
-    const btn = document.getElementById("btn-" + id);
-    if (!btn) continue;
+  if (estoque) {
+    for (let id in estoque) {
+      const btn = document.getElementById("btn-" + id);
+      if (!btn) continue;
 
-    if (estoqueDisponivel(id) <= 0) {
-      btn.disabled = true;
-      btn.innerText = "Esgotado";
-    } else {
-      btn.disabled = false;
-      btn.innerText = "Adicionar";
+      if (estoqueDisponivel(id) <= 0) {
+        btn.disabled = true;
+        btn.innerText = "Esgotado";
+      } else {
+        btn.disabled = false;
+        btn.innerText = "Adicionar";
+      }
     }
   }
 }
@@ -8524,56 +8525,53 @@ async function mostrarSugestoesFixas() {
 
   // 2️⃣ Buscar mais vendidos do Firebase
   const snapshot = await db.collection("maisVendidos")
-    .orderBy("quantidade", "desc")
-    .limit(10)
-    .get();
+  .orderBy("quantidade", "desc")
+  .limit(10)
+  .get();
 
-  const contador = {};
+const maisVendidos = [];
 
-  snapshot.forEach(doc => {
-    const pedido = doc.data();
+snapshot.forEach(doc => {
+  const id = doc.id;
+  const quantidade = doc.data().quantidade || 0;
 
-    if (pedido.itens && Array.isArray(pedido.itens)) {
-      pedido.itens.forEach(item => {
-        if (!contador[item.id]) {
-          contador[item.id] = {
-            nome: item.nome,
-            imagem: item.imagem,
-            preco: item.preco,
-            totalCompras: 0
-          };
-        }
-        contador[item.id].totalCompras += item.qtd || 1;
-      });
-    }
+  const produto = document.querySelector(`.produto[data-id="${id}"]`);
+  if (!produto) return;
+
+  const tamanhos = JSON.parse(produto.dataset.tamanhos || "[]");
+
+  maisVendidos.push({
+    id,
+    nome: produto.dataset.nome,
+    imagem: produto.dataset.imagem,
+    preco: Number(tamanhos[0]?.preco || 0),
+    totalCompras: quantidade
   });
+});
 
-  const maisVendidos = Object.entries(contador)
-    .sort((a, b) => b[1].totalCompras - a[1].totalCompras)
-    .map(entry => ({ id: entry[0], ...entry[1] }));
 
-  // 3️⃣ Junta produtos fixos + mais vendidos e filtra duplicados e itens no carrinho
-  const todosSugeridos = [...sugeridos, ...maisVendidos]
-    .filter((p, i, arr) => !idsNoCarrinho.includes(p.id)) // não está no carrinho
-    .filter((p, i, arr) => arr.findIndex(x => x.id === p.id) === i); // remove duplicados
+// Junta produtos fixos + mais vendidos
+const todosSugeridos = [...sugeridos, ...maisVendidos]
+  .filter(p => !idsNoCarrinho.includes(p.id))
+  .filter((p, i, arr) => arr.findIndex(x => x.id === p.id) === i);
 
-  // 4️⃣ Mostra só os 6 primeiros
-  todosSugeridos.slice(0, 6).forEach(p => {
-    linha.innerHTML += `
-      <div class="sugestao-card">
-        <img src="${p.imagem}" />
-        <div>${p.nome}</div>
-        <div>R$ ${p.preco.toFixed(2)}</div>
-        <button onclick="addProduto(
-          '${p.id}',
-          '${p.nome}',
-          ${p.preco},
-          '${p.imagem}'
-        )">Adicionar</button>
-      </div>
-    `;
-  });
-}
+
+// Mostra só os 6 primeiros
+todosSugeridos.slice(0, 6).forEach(p => {
+  linha.innerHTML += `
+    <div class="sugestao-card">
+      <img src="${p.imagem}" />
+      <div>${p.nome}</div>
+      <div>R$ ${p.preco.toFixed(2)}</div>
+      <button onclick="addProduto(
+        '${p.id}',
+        '${p.nome}',
+        ${p.preco},
+        '${p.imagem}'
+      )">Adicionar</button>
+    </div>
+  `;
+});
 
     function adicionarSugestao(id, select) {
 
@@ -9280,7 +9278,7 @@ function sairAdmin() {
 
   <div id="seloVerificado">✔️ Verificado</div>
 
-  <script>
+ <script>
 document.addEventListener("DOMContentLoaded", () => {
 
   const estrelas = document.querySelectorAll(".avaliar-loja .estrelas span");
@@ -9294,22 +9292,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  estrelas.forEach((estrela, i) => {
+  estrelas.forEach((estrela) => {
     estrela.addEventListener("click", () => {
-      estrelaSelecionada = i + 1;
+      estrelaSelecionada = Number(estrela.dataset.index);
       atualizarEstrelas(estrelaSelecionada);
-    });
-
-    estrela.addEventListener("mouseenter", () => {
-      atualizarEstrelas(i + 1);
     });
   });
-
-  document
-    .querySelector(".avaliar-loja .estrelas")
-    .addEventListener("mouseleave", () => {
-      atualizarEstrelas(estrelaSelecionada);
-    });
 
 });
 </script>
