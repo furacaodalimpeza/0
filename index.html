@@ -1573,6 +1573,132 @@ input[type="search"]::-webkit-search-cancel-button {
 
   box-sizing: border-box; /* 🔥 ESSA LINHA RESOLVE */
 }
+
+.mini-admin-panel {
+  position: fixed;
+  right: 20px;
+  bottom: 90px;
+  width: 370px;
+  max-height: 75vh;
+  overflow-y: auto;
+  background: #f9fbff;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  padding: 18px;
+  z-index: 9999;
+  animation: slideUp .25s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity:0; }
+  to { transform: translateY(0); opacity:1; }
+}
+
+.mini-admin-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.mini-admin-header strong {
+  font-size:18px;
+}
+
+.btn-sair-admin {
+  background:#ff4d4d;
+  border:none;
+  color:white;
+  padding:6px 12px;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:12px;
+  transition:.2s;
+}
+
+.btn-sair-admin:hover {
+  background:#e63a3a;
+}
+
+.pedido-card {
+  background:white;
+  border-radius:16px;
+  padding:16px;
+  margin-bottom:15px;
+  box-shadow:0 6px 15px rgba(0,0,0,0.07);
+}
+
+.pedido-topo {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+.pedido-numero {
+  font-size:16px;
+  font-weight:bold;
+}
+
+.status-badge {
+  font-size:11px;
+  padding:4px 8px;
+  border-radius:8px;
+  font-weight:600;
+}
+
+.status-Novo { background:#e6f3ff; color:#007bff; }
+.status-Enviado { background:#fff3e0; color:#ef6c00; }
+.status-A-caminho { background:#ede7f6; color:#6a1b9a; }
+.status-Entregue { background:#e8f5e9; color:#2e7d32; }
+
+.pedido-total {
+  margin-top:10px;
+  font-weight:bold;
+  display:flex;
+  justify-content:space-between;
+}
+
+.status-botoes {
+  margin-top:10px;
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+
+.status-botoes button {
+  border:none;
+  padding:5px 8px;
+  border-radius:8px;
+  font-size:11px;
+  cursor:pointer;
+  background:#f0f0f0;
+}
+
+.status-botoes button:hover {
+  background:#dbeafe;
+}
+.mini-admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.btn-sair-admin {
+  background: #ff4d4d;
+  border: none;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+}
   
 </style>
 </head>
@@ -8609,75 +8735,70 @@ todosSugeridos.slice(0, 6).forEach(p => {
   }
 }
 
- function abrirMiniAba(tipo) {
+function abrirMiniAba(tipo) {
 
   const panel = document.getElementById("miniAdminPanel");
   if (!panel) return;
 
-  // 🔥 SE JÁ ESTIVER ABERTO COM O MESMO TIPO, FECHA
   if (panel.style.display === "block" && panel.dataset.tipo === tipo) {
     fecharMiniAdmin();
     return;
   }
 
-  // guarda qual aba está aberta
   panel.dataset.tipo = tipo;
-
   panel.style.display = "block";
-   
-let html = `
-  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-  
-   <strong>
-  ${tipo === "estoque" ? "📦 Estoque" :
-    tipo === "pedidos" ? "🧾 Pedidos" :
-    "📊 Dashboard"}
-</strong>
 
-    <div style="display:flex; gap:8px;">
-      <button onclick="sairAdmin()"
-        style="
-          background:#ff4d4d;
+  // 🔥 Estrutura fixa
+  panel.innerHTML = `
+    <div class="mini-admin-header">
+      <strong>
+        ${tipo === "estoque" ? "📦 Estoque" :
+          tipo === "pedidos" ? "🧾 Pedidos" :
+          "📊 Dashboard"}
+      </strong>
+
+      <div style="display:flex; gap:8px;">
+        <button class="btn-sair-admin" onclick="sairAdmin()">
+          🚪 Sair
+        </button>
+
+        <button onclick="fecharMiniAdmin()" style="
+          background:none;
           border:none;
-          color:white;
-          padding:4px 10px;
-          border-radius:8px;
-          cursor:pointer;
-          font-size:12px;
-        ">
-        🚪 Sair
-      </button>
-
-      <button onclick="fecharMiniAdmin()" 
-        style="background:none;border:none;font-size:18px;cursor:pointer;">
-        ❌
-      </button>
+          font-size:18px;
+          cursor:pointer;">
+          ❌
+        </button>
+      </div>
     </div>
-  </div>
-`;
 
-  if (tipo === "estoque") {
-    html += "";
+    <div id="miniAdminConteudo"></div>
+  `;
 
-    for (let id in estoque) {
-      html += `
-        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-          <span>${id}</span>
-          <input type="number"
-            value="${estoque[id]}"
-            min="0"
-            style="width:70px"
-            onchange="alterarEstoqueAdmin('${id}', this.value)">
-        </div>
-      `;
-    }
+ if (tipo === "estoque") {
 
-    panel.innerHTML = html;
+  const conteudo = document.getElementById("miniAdminConteudo");
+  let html = "";
+
+  for (let id in estoque) {
+    html += `
+      <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+        <span>${id}</span>
+        <input type="number"
+          value="${estoque[id]}"
+          min="0"
+          style="width:70px"
+          onchange="alterarEstoqueAdmin('${id}', this.value)">
+      </div>
+    `;
   }
 
+  conteudo.innerHTML = html;
+}
+
   if (tipo === "pedidos") {
-   html += "<div id='miniPedidos'></div>";
-panel.innerHTML = html;
+   const conteudo = document.getElementById("miniAdminConteudo");
+conteudo.innerHTML = "<div id='miniPedidos'></div>";
 
     db.collection("pedidos")
       .orderBy("data", "desc")
@@ -8727,23 +8848,24 @@ pedidosHTML += `
         <strong style="font-size:17px;">Pedido ${p.numero}</strong>
 
         <span style="
-          font-size:12px;
-          padding:4px 10px;
-          border-radius:8px;
-         background:${
-  p.status === "Novo" ? "#e6f3ff" :
-  p.status === "Enviado" ? "#fff3e0" :
-  p.status === "A caminho" ? "#ede7f6" :
-  "#e8f5e9"
-};
-color:${
-  p.status === "Novo" ? "#007bff" :
-  p.status === "Enviado" ? "#ef6c00" :
-  p.status === "A caminho" ? "#6a1b9a" :
-  "#2e7d32"
-};
-          ${p.status || "Novo"}
-        </span>
+  font-size:12px;
+  padding:4px 10px;
+  border-radius:8px;
+  background:${
+    p.status === "Novo" ? "#e6f3ff" :
+    p.status === "Enviado" ? "#fff3e0" :
+    p.status === "A caminho" ? "#ede7f6" :
+    "#e8f5e9"
+  };
+  color:${
+    p.status === "Novo" ? "#007bff" :
+    p.status === "Enviado" ? "#ef6c00" :
+    p.status === "A caminho" ? "#6a1b9a" :
+    "#2e7d32"
+  };
+">
+  ${p.status || "Novo"}
+</span>
       </div>
 
       <button onclick="removerPedidoAdmin('${doc.id}')"
@@ -8849,17 +8971,17 @@ if (tipo === "dashboard") {
   db.collection("admins").doc(user.uid).get().then(doc => {
 
     if (!doc.exists || doc.data().role !== "chefe") {
-      panel.innerHTML = html + `
-        <div style="padding:15px; color:red;">
-          Apenas o admin chefe pode acessar o dashboard.
-        </div>
-      `;
+      panel.innerHTML += `
+  <div style="padding:15px; color:red;">
+    Apenas o admin chefe pode acessar o dashboard.
+  </div>
+`;
       return;
     }
 
-    html += "<div id='miniDashboard'></div>";
-    panel.innerHTML = html;
-
+   const conteudo = document.getElementById("miniAdminConteudo");
+conteudo.innerHTML = "<div id='miniDashboard'></div>";
+    
     db.collection("pedidos").get().then(snapshot => {
 
       let totalVendas = 0;
