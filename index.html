@@ -8914,20 +8914,30 @@ if (tipo === "dashboard") {
 }
 
 function mudarStatus(pedidoId, novoStatus, telefone, numeroPedido) {
-   if (!isAdmin()) return;
 
-  if (novoStatus === "A caminho" && telefone) {
-    telefone = telefone.replace(/\D/g,"");
-    if (!telefone.startsWith("55")) telefone = "55"+telefone;
+  if (!isAdmin()) return;
 
-    const msg = encodeURIComponent(
-      `Olá! 🚚\n\nSeu pedido Nº ${numeroPedido} já está a caminho!\nEm breve estaremos chegando.`
-    );
+  db.collection("pedidos").doc(pedidoId).update({
+    status: novoStatus
+  }).then(() => {
 
-    window.open(`https://wa.me/${telefone}?text=${msg}`, "_blank");
-  }
-  
-  abrirMiniAba("pedidos");
+    if (novoStatus === "A caminho" && telefone) {
+      telefone = telefone.replace(/\D/g,"");
+      if (!telefone.startsWith("55")) telefone = "55"+telefone;
+
+      const msg = encodeURIComponent(
+        `Olá! 🚚\n\nSeu pedido Nº ${numeroPedido} já está a caminho!\nEm breve estaremos chegando.`
+      );
+
+      window.open(`https://wa.me/${telefone}?text=${msg}`, "_blank");
+    }
+
+    abrirMiniAba("pedidos");
+
+  }).catch(err => {
+    alert("Erro ao atualizar status: " + err.message);
+  });
+
 }
   
 function fecharMiniAdmin() {
