@@ -1364,17 +1364,17 @@ input[type="search"]::-webkit-search-cancel-button {
 
   .mini-admin-panel {
   position: fixed;
-  bottom: 100px;
-  left: 20px;
-  width: 320px;
-  max-height: 400px;
-  overflow-y: auto;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
+  max-width: 500px;
+  max-height: 90vh; /* 👈 limita altura */
+  overflow-y: auto; /* 👈 scroll interno */
+  background: #fff;
+  border-radius: 16px;
   padding: 15px;
-  display: none;
-  z-index: 9998;
+  z-index: 9999;
 }
 
   #adminFabContainer {
@@ -8607,7 +8607,7 @@ window.addEventListener("scroll", () => {
   db.collection("pedidos").doc(id).delete()
     .then(() => {
       alert("Pedido removido com sucesso!");
-      abrirMiniAba("pedidos"); // atualiza a lista
+      carregarPedidosAdmin(); // atualiza a lista
     })
     .catch(err => {
       alert("Erro ao remover: " + err.message);
@@ -8760,26 +8760,22 @@ function abrirMiniAba(tipo) {
   panel.style.display = "block";
 
   // 🔥 Estrutura fixa
-  panel.innerHTML = `
-    <div class="mini-admin-header">
-      <strong>
-        ${tipo === "estoque" ? "📦 Estoque" :
-          tipo === "pedidos" ? "🧾 Pedidos" :
-          "📊 Dashboard"}
-      </strong>
+ panel.innerHTML = `
+  <div class="mini-admin-header">
+    <strong>
+      ${tipo === "estoque" ? "📦 Estoque" :
+        tipo === "pedidos" ? "🧾 Pedidos" :
+        "📊 Dashboard"}
+    </strong>
 
-        <button onclick="fecharMiniAdmin()" style="
-          background:none;
-          border:none;
-          font-size:18px;
-          cursor:pointer;">
-          ❌
-        </button>
-      </div>
-    </div>
+    <button onclick="fecharMiniAdmin()" 
+      style="background:none;border:none;font-size:18px;cursor:pointer;">
+      ❌
+    </button>
+  </div>
 
-    <div id="miniAdminConteudo"></div>
-  `;
+  <div id="miniAdminConteudo"></div>
+`;
 
  if (tipo === "estoque") {
 
@@ -8802,172 +8798,12 @@ function abrirMiniAba(tipo) {
   conteudo.innerHTML = html;
 }
 
-  if (tipo === "pedidos") {
-   const conteudo = document.getElementById("miniAdminConteudo");
-conteudo.innerHTML = "<div id='miniPedidos'></div>";
+ if (tipo === "pedidos") {
+  const conteudo = document.getElementById("miniAdminConteudo");
+  conteudo.innerHTML = "<div id='miniPedidos'></div>";
 
-    db.collection("pedidos")
-      .orderBy("data", "desc")
-      .limit(10)
-      .get()
-      .then(snapshot => {
-
-        const lista = document.getElementById("miniPedidos");
-if (!lista) return;
-        
-let pedidosHTML = "";
- 
-        snapshot.forEach(doc => {
-          const p = doc.data();
-
-          let itensHTML = "";
-
-if (p.itens && Array.isArray(p.itens)) {
-
-  p.itens.forEach(item => {
-
-    itensHTML += `
-      <div style="font-size:13px; margin-left:8px; margin-top:4px;">
-       • ${item.nome || "Produto"}
-${item.tamanhoSelecionado ? ` (${item.tamanhoSelecionado})` : ""}
-| Qtd: ${item.qtd || 0}
-| Subtotal: R$ ${((item.preco || 0) * (item.qtd || 0)).toFixed(2)}
-      </div>
-    `;
-
-  });
-
+  carregarPedidosAdmin();
 }
-
-pedidosHTML += `
-  <div style="
-    margin-bottom:18px;
-    padding:18px;
-    background:#ffffff;
-    border-radius:16px;
-    box-shadow:0 6px 18px rgba(0,0,0,0.08);
-  ">
-
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-
-      <div style="display:flex; align-items:center; gap:10px;">
-        <strong style="font-size:17px;">Pedido ${p.numero}</strong>
-
-        <span style="
-  font-size:12px;
-  padding:4px 10px;
-  border-radius:8px;
-  background:${
-    p.status === "Novo" ? "#e6f3ff" :
-    p.status === "Enviado" ? "#fff3e0" :
-    p.status === "A caminho" ? "#ede7f6" :
-    "#e8f5e9"
-  };
-  color:${
-    p.status === "Novo" ? "#007bff" :
-    p.status === "Enviado" ? "#ef6c00" :
-    p.status === "A caminho" ? "#6a1b9a" :
-    "#2e7d32"
-  };
-">
-  ${p.status || "Novo"}
-</span>
-      </div>
-
-      <button onclick="removerPedidoAdmin('${doc.id}')"
-        style="
-          background:#ff4d4d;
-          border:none;
-          color:white;
-          width:28px;
-          height:28px;
-          border-radius:50%;
-          cursor:pointer;
-          font-size:14px;
-          display:flex;
-          align-items:center;
-          justify-content:center;
-        ">
-        ✕
-      </button>
-
-    </div>
-
-    <div style="margin-top:6px; font-size:13px; color:#666;">
-      ${p.cliente}
-    </div>
-
-    <div style="margin-top:12px; border-top:1px solid #eee; padding-top:10px;">
-      ${(p.itens || []).map(item => `
-        <div style="
-          display:flex;
-          justify-content:space-between;
-          align-items:center;
-          margin-bottom:8px;
-        ">
-          <div style="font-size:14px;">
-            ${item.nome}
-            ${item.tamanhoSelecionado ? ` (${item.tamanhoSelecionado})` : ""}
-            <span style="
-              background:#f0f0f0;
-              padding:3px 7px;
-              border-radius:10px;
-              font-size:12px;
-              margin-left:6px;
-            ">
-              x${item.qtd}
-            </span>
-          </div>
-          <div style="font-weight:600;">
-            R$ ${((item.preco || 0) * (item.qtd || 0)).toFixed(2)}
-          </div>
-        </div>
-      `).join("")}
-    </div>
-
-    <div style="
-      margin-top:14px;
-      padding-top:10px;
-      border-top:1px solid #ddd;
-      display:flex;
-      justify-content:space-between;
-      font-weight:bold;
-      font-size:16px;
-    ">
-      <span>Total</span>
-      <span>R$ ${(p.total || 0).toFixed(2)}</span>
-    </div>
-
-<div style="margin-top:12px; display:flex; gap:6px; flex-wrap:wrap;">
-
-  <button onclick="mudarStatus('${doc.id}','Novo','${p.telefone}','${p.numero}')">
-  Novo
-</button>
-
-<button onclick="mudarStatus('${doc.id}','Enviado','${p.telefone}','${p.numero}')">
-  Enviado
-</button>
-
-<button onclick="mudarStatus('${doc.id}','A caminho','${p.telefone}','${p.numero}')">
-  A caminho
-</button>
-
-<button onclick="mudarStatus('${doc.id}','Entregue','${p.telefone}','${p.numero}')">
-  Entregue
-</button>
-
-</div>
-
-  </div>
-`;
-
-        });
-        
- lista.innerHTML = pedidosHTML;
-        
-      });
-
-  }
 
 if (tipo === "dashboard") {
 
@@ -9111,50 +8947,55 @@ async function carregarGraficoProdutos() {
 
   const snapshot = await db.collection("pedidos").get();
 
-  let contagem = {};
-  let rendaAno = 0;
+  const mesSelecionado = Number(
+    document.getElementById("filtroMes").value
+  );
 
-  // Array com 12 meses zerados
-  let rendaPorMes = Array(12).fill(0);
+  let contagem = {};
+  let rendaMes = 0;
+  let rendaAno = 0;
 
   const anoAtual = new Date().getFullYear();
 
   snapshot.forEach(doc => {
 
     const pedido = doc.data();
-
-    if (!pedido.itens || !pedido.data) return;
+    if (!pedido.data) return;
 
     const dataPedido = pedido.data.toDate();
 
-    if (dataPedido.getFullYear() === anoAtual) {
+    if (dataPedido.getFullYear() !== anoAtual) return;
 
-      const mes = dataPedido.getMonth();
+    const mes = dataPedido.getMonth();
+    const total = pedido.total || 0;
 
-      const total = pedido.total || 0;
+    // soma ano inteiro
+    rendaAno += total;
 
-      rendaPorMes[mes] += total;
-      rendaAno += total;
+    // soma mês selecionado
+    if (mes === mesSelecionado) {
+      rendaMes += total;
 
-      pedido.itens.forEach(item => {
-        if (!contagem[item.nome]) {
-          contagem[item.nome] = 0;
-        }
-        contagem[item.nome] += item.qtd || 0;
-      });
-
+      if (pedido.itens) {
+        pedido.itens.forEach(item => {
+          if (!contagem[item.nome]) {
+            contagem[item.nome] = 0;
+          }
+          contagem[item.nome] += item.qtd || 0;
+        });
+      }
     }
 
   });
 
-  // 🔥 ORDENAR PRODUTOS
+  // ordenar do mais vendido para o menos
   const ordenado = Object.entries(contagem)
     .sort((a, b) => b[1] - a[1]);
 
   const nomes = ordenado.map(item => item[0]);
   const valores = ordenado.map(item => item[1]);
 
-  const ctx = document.getElementById("graficoProdutos");
+  const ctx = document.getElementById("graficoProdutos").getContext("2d");
 
   if (graficoProdutos) {
     graficoProdutos.destroy();
@@ -9171,55 +9012,34 @@ async function carregarGraficoProdutos() {
     },
     options: {
       responsive: true,
-      plugins: {
-        legend: { display: false }
-      }
+      plugins: { legend: { display: false } }
     }
-  });
-
-  // 🔥 MOSTRAR RESUMO FINANCEIRO
-  const nomesMeses = [
-    "Janeiro","Fevereiro","Março","Abril","Maio","Junho",
-    "Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"
-  ];
-
-  let htmlMeses = "";
-
-  rendaPorMes.forEach((valor, i) => {
-    htmlMeses += `
-      <div style="
-        background:#f8f9fa;
-        padding:8px 12px;
-        border-radius:8px;
-        margin-bottom:6px;
-        display:flex;
-        justify-content:space-between;
-      ">
-        <span>${nomesMeses[i]}</span>
-        <strong>R$ ${valor.toFixed(2)}</strong>
-      </div>
-    `;
   });
 
   document.getElementById("resumoFinanceiro").innerHTML = `
     <div style="
+      background:#e3f2fd;
+      padding:12px;
+      border-radius:12px;
+      margin-bottom:10px;
+    ">
+      <div>Mês selecionado</div>
+      <strong style="font-size:20px;">
+        R$ ${rendaMes.toFixed(2)}
+      </strong>
+    </div>
+
+    <div style="
       background:#d4edda;
       padding:15px;
       border-radius:12px;
-      margin-top:15px;
-      margin-bottom:15px;
     ">
-      <div style="font-size:14px; color:#555;">
-        Total do Ano (${anoAtual})
-      </div>
-      <div style="font-size:26px; font-weight:bold;">
+      <div>Total do Ano (${anoAtual})</div>
+      <strong style="font-size:24px;">
         R$ ${rendaAno.toFixed(2)}
-      </div>
+      </strong>
     </div>
-
-    ${htmlMeses}
   `;
-
 }
   
 function fecharMiniAdmin() {
@@ -9409,6 +9229,117 @@ function sairAdmin() {
   }).catch((error) => {
     alert("Erro ao sair: " + error.message);
   });
+}
+
+function carregarPedidosAdmin() {
+
+  const lista = document.getElementById("miniPedidos");
+  if (!lista) return;
+
+  db.collection("pedidos")
+    .orderBy("data", "desc")
+    .limit(10)
+    .get()
+    .then(snapshot => {
+
+      let pedidosHTML = "";
+
+      snapshot.forEach(doc => {
+        const p = doc.data();
+
+       pedidosHTML += `
+  <div style="margin-bottom:15px; padding:15px; background:#fff; border-radius:12px;">
+    <strong>Pedido ${p.numero}</strong>
+
+    <button onclick="exportarPedidoPDF('${doc.id}')"
+      style="margin-left:10px; background:#1e63c6; color:white; border:none; padding:5px 10px; border-radius:6px;">
+      📄 PDF
+    </button>
+
+    <button onclick="removerPedidoAdmin('${doc.id}')"
+      style="float:right; background:red; color:white; border:none; border-radius:50%; width:25px; height:25px;">
+      ✕
+    </button>
+    
+            <button onclick="removerPedidoAdmin('${doc.id}')"
+              style="float:right; background:red; color:white; border:none; border-radius:50%; width:25px; height:25px;">
+              ✕
+            </button>
+
+            <div style="margin-top:8px;">
+              Total: R$ ${(p.total || 0).toFixed(2)}
+            </div>
+          </div>
+        `;
+      });
+
+      lista.innerHTML = pedidosHTML;
+
+    });
+}
+
+async function exportarPedidoPDF(pedidoId) {
+
+  const { jsPDF } = window.jspdf;
+
+  const docSnap = await db.collection("pedidos").doc(pedidoId).get();
+
+  if (!docSnap.exists) {
+    alert("Pedido não encontrado");
+    return;
+  }
+
+  const pedido = docSnap.data();
+
+  const doc = new jsPDF();
+  let totalGeral = 0;
+
+  // CABEÇALHO
+  doc.setFontSize(18);
+  doc.text("Furacão da Limpeza", 105, 15, { align: "center" });
+
+  doc.setFontSize(12);
+  doc.text("NOTA DE PEDIDO", 105, 22, { align: "center" });
+
+  doc.line(10, 25, 200, 25);
+
+  // CLIENTE
+  doc.setFontSize(10);
+  doc.text(`Cliente: ${pedido.cliente}`, 10, 35);
+  doc.text(`Telefone: ${pedido.telefone}`, 10, 41);
+  doc.text(`Endereço: ${pedido.endereco}`, 10, 47);
+
+  doc.text("Empresa: Furacão da Limpeza", 120, 35);
+  doc.text(`Pedido Nº: ${pedido.numero}`, 120, 41);
+
+  doc.line(10, 55, 200, 55);
+
+  // TABELA
+  const tabela = pedido.itens.map(item => {
+
+    const subtotal = (item.qtd || 0) * (item.preco || 0);
+    totalGeral += subtotal;
+
+    return [
+      item.qtd,
+      item.nome,
+      `R$ ${item.preco.toFixed(2)}`,
+      `R$ ${subtotal.toFixed(2)}`
+    ];
+  });
+
+  doc.autoTable({
+    startY: 60,
+    head: [["Qtd", "Produto", "Preço", "Subtotal"]],
+    body: tabela
+  });
+
+  let finalY = doc.lastAutoTable.finalY + 10;
+
+  doc.setFontSize(12);
+  doc.text(`Valor Total: R$ ${totalGeral.toFixed(2)}`, 140, finalY);
+
+  doc.save(`pedido-${pedido.numero}.pdf`);
 }
   
 </script>
@@ -9656,6 +9587,9 @@ document.addEventListener("DOMContentLoaded", () => {
 </audio>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
   
 </body>
 </html>
