@@ -1362,21 +1362,6 @@ input[type="search"]::-webkit-search-cancel-button {
   font-size: 14px;
 }
 
-  .mini-admin-panel {
-  position: fixed;
-  top: 5%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 95%;
-  max-width: 500px;
-  max-height: 90vh; /* 👈 limita altura */
-  overflow-y: auto; /* 👈 scroll interno */
-  background: #fff;
-  border-radius: 16px;
-  padding: 15px;
-  z-index: 9999;
-}
-
   #adminFabContainer {
   display: none;
 }
@@ -1575,6 +1560,8 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .mini-admin-panel {
+  display: none; /* 🔥 importante */
+
   position: fixed;
   right: 20px;
   bottom: 90px;
@@ -1586,7 +1573,6 @@ input[type="search"]::-webkit-search-cancel-button {
   box-shadow: 0 15px 40px rgba(0,0,0,0.15);
   padding: 18px;
   z-index: 9999;
-  animation: slideUp .25s ease;
 }
 
 @keyframes slideUp {
@@ -1698,6 +1684,9 @@ input[type="search"]::-webkit-search-cancel-button {
   border-radius: 8px;
   cursor: pointer;
   font-size: 12px;
+}
+.mini-admin-panel {
+  display: none;
 }
   
 </style>
