@@ -8394,7 +8394,9 @@ document.getElementById("msgObrigadoAvaliacao").style.display = "block";
 
 // CALCULAR MÉDIA
 function atualizarMedia() {
-  db.collection("avaliacoes").get().then(snapshot => {
+  db.collection("avaliacoes")
+    .limit(50) // 🔥 limita leitura
+    .get()
     let total = 0;
     let soma = 0;
 
@@ -8420,6 +8422,7 @@ function mostrarAvaliacoes() {
 
   db.collection("avaliacoes")
     .orderBy("data", "desc")
+    .limit(20) // 🔥 IMPORTANTE
     .get()
     .then(snapshot => {
 
@@ -8865,7 +8868,11 @@ setTimeout(() => {
   carregarGraficoProdutos();
 }, 200);
     
-    db.collection("pedidos").get().then(snapshot => {
+    db.collection("pedidos")
+  .orderBy("data", "desc")
+  .limit(100) // 🔥 limita leitura
+  .get()
+  .then(snapshot => {
 
       let totalVendas = 0;
       let totalPedidos = snapshot.size;
