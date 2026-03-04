@@ -8248,9 +8248,8 @@ try {
   return;
 }
 
-// ✅ MOSTRA TELA DE SUCESSO
 document.getElementById("telaSucesso").style.display = "flex";
-
+  
 // ✅ ABRE WHATSAPP SEM SAIR DO SITE
 window.open(
   "https://wa.me/5515996585967?text=" + msgFinal,
@@ -9487,6 +9486,26 @@ return [
 
   doc.save(`pedido-${pedido.numero}.pdf`);
 }
+
+// 🔥 ANTI TRAVAMENTO GLOBAL
+function liberarScroll() {
+  document.body.style.overflow = "auto";
+  document.documentElement.style.overflow = "auto";
+}
+
+// Sempre que fechar qualquer coisa, libera
+window.addEventListener("click", function() {
+  setTimeout(() => {
+    if (
+      !document.getElementById("modalCliente")?.style.display.includes("flex") &&
+      !document.getElementById("loginAdmin")?.style.display.includes("flex") &&
+      !document.getElementById("modalFavoritos")?.style.display.includes("flex") &&
+      !document.getElementById("carrinho")?.classList.contains("aberto")
+    ) {
+      liberarScroll();
+    }
+  }, 50);
+});
   
 </script>
  <!-- 🔐 BOTÃO ADMIN FLUTUANTE -->
