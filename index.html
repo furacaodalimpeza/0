@@ -8395,27 +8395,31 @@ document.getElementById("msgObrigadoAvaliacao").style.display = "block";
 // CALCULAR MÉDIA
 function atualizarMedia() {
   db.collection("avaliacoes")
-    .limit(50) // 🔥 limita leitura
+    .limit(50)
     .get()
-    let total = 0;
-    let soma = 0;
+    .then(snapshot => {
 
-    snapshot.forEach(doc => {
-      soma += Number(doc.data().nota);
-      total++;
+      let total = 0;
+      let soma = 0;
+
+      snapshot.forEach(doc => {
+        soma += Number(doc.data().nota || 0);
+        total++;
+      });
+
+      if (total === 0) return;
+
+      const media = (soma / total).toFixed(1);
+
+      document.getElementById("mediaAvaliacao").innerText = media;
+      document.getElementById("totalAvaliacoes").innerText = total;
+
+    })
+    .catch(error => {
+      console.error("Erro ao atualizar média:", error);
     });
-
-    if (total === 0) return;
-
-    const media = (soma / total).toFixed(1);
-
-    document.getElementById("mediaAvaliacao").innerHTML =
-      renderEstrelas(media) + ` <span>(${media})</span>`;
-
-    document.getElementById("totalAvaliacoes").innerText = total;
-  });
 }
-
+  
 let todasAvaliacoes = [];
 
 function mostrarAvaliacoes() {
@@ -9072,7 +9076,9 @@ const ticketMedio = totalPedidosMes > 0
   : 0;
 
 const meta = 10000; // você pode mudar depois
-const percentualMeta = ((rendaMes / meta) * 100).toFixed(1);
+const percentualMeta = meta > 0
+  ? ((rendaMes / meta) * 100).toFixed(1)
+  : 0;
   
   document.getElementById("resumoFinanceiro").innerHTML = `
 
