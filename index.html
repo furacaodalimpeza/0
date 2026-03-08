@@ -9437,6 +9437,7 @@ async function exportarPedidoPDF(pedidoId) {
   }
 
   const pedido = docSnap.data();
+  const dataEmissao = new Date().toLocaleDateString("pt-BR");
   let totalGeral = 0;
 
   const logo = new Image();
@@ -9450,7 +9451,7 @@ async function exportarPedidoPDF(pedidoId) {
     doc.setFillColor(30, 99, 198);
     doc.rect(0, 0, 210, 25, "F");
 
-    doc.addImage(logo, "JPEG", 10, 5, 25, 15);
+   doc.addImage(logo, "JPEG", 10, 3, 40, 20);
 
     doc.setTextColor(255,255,255);
 
@@ -9467,8 +9468,10 @@ async function exportarPedidoPDF(pedidoId) {
     doc.setFontSize(12);
     doc.text(`Cliente: ${pedido.cliente}`, 10, 40);
     doc.text(`Telefone: ${pedido.telefone}`, 10, 46);
-    doc.text(`Endereço: ${pedido.endereco}`, 10, 52);
+   doc.text(`Endereço: ${pedido.endereco}`, 10, 52);
 
+doc.text(`Data de emissão: ${dataEmissao}`, 10, 68);
+    
    doc.text("Empresa: Furacão da Limpeza", 120, 40);
 doc.text("Inscrição Estadual: 669.691.141.112", 120, 46);
 doc.text("CEP: 18078-535", 120, 52);
