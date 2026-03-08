@@ -9457,19 +9457,23 @@ async function exportarPedidoPDF(pedidoId) {
     doc.setFontSize(18);
     doc.text("Furacão da Limpeza", 105, 12, { align: "center" });
 
-    doc.setFontSize(12);
-    doc.text("NOTA DE PEDIDO", 105, 19, { align: "center" });
+   doc.setFontSize(12);
+   
+    doc.text(`NOTA DE PEDIDO Nº ${pedido.numero}`, 105, 19, { align: "center" });
 
     doc.setTextColor(0,0,0);
 
     // CLIENTE
-    doc.setFontSize(10);
+    doc.setFontSize(12);
     doc.text(`Cliente: ${pedido.cliente}`, 10, 40);
     doc.text(`Telefone: ${pedido.telefone}`, 10, 46);
     doc.text(`Endereço: ${pedido.endereco}`, 10, 52);
 
-    doc.text("Empresa: Furacão da Limpeza", 120, 40);
-    doc.text(`Pedido Nº: ${pedido.numero}`, 120, 46);
+   doc.text("Empresa: Furacão da Limpeza", 120, 40);
+doc.text("Inscrição Estadual: 669.691.141.112", 120, 46);
+doc.text("CEP: 18078-535", 120, 52);
+doc.text("Estado: São Paulo", 120, 58);
+doc.text("Email: furacaodalimpeza027@gmail.com", 120, 64);
 
     doc.line(10, 58, 200, 58);
 
