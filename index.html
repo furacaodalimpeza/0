@@ -9458,17 +9458,29 @@ async function exportarPedidoPDF(pedidoId) {
     doc.setFontSize(18);
     doc.text("Furacão da Limpeza", 105, 12, { align: "center" });
 
+const iconTelefone = new Image();
+iconTelefone.src = "img/telefone.png";
+
+const iconEndereco = new Image();
+iconEndereco.src = "img/endereco.png";
+    
    doc.setFontSize(12);
    
     doc.text(`NOTA DE PEDIDO Nº ${pedido.numero}`, 105, 19, { align: "center" });
 
     doc.setTextColor(0,0,0);
 
+doc.setFillColor(245,245,245);
+doc.rect(0, 25, 210, 50, "F");
+    
     // CLIENTE
     doc.setFontSize(12);
     doc.text(`Cliente: ${pedido.cliente}`, 10, 40);
-    doc.text(`Telefone: ${pedido.telefone}`, 10, 46);
-   doc.text(`Endereço: ${pedido.endereco}`, 10, 52);
+   doc.addImage(iconTelefone, "PNG", 10, 42, 5, 5);
+doc.text(`${pedido.telefone}`, 18, 46);
+
+doc.addImage(iconEndereco, "PNG", 10, 48, 5, 5);
+doc.text(`${pedido.endereco}`, 18, 52);
 
 doc.setFillColor(240,240,240);
 doc.roundedRect(10, 62, 90, 12, 2, 2, "F");
@@ -9487,7 +9499,9 @@ doc.text("CEP: 18078-535", 120, 52);
 doc.text("Estado: São Paulo", 120, 58);
 doc.text("Email: furacaodalimpeza027@gmail.com", 120, 64);
 
-   doc.line(10, 76, 200, 76);
+   doc.setDrawColor(30,99,198);
+doc.setLineWidth(1);
+doc.line(10, 76, 200, 76);
 
     // TABELA
     const tabela = pedido.itens.map(item => {
@@ -9503,6 +9517,12 @@ doc.text("Email: furacaodalimpeza027@gmail.com", 120, 64);
       ];
     });
 
+doc.setGState(new doc.GState({opacity: 0.08}));
+
+doc.addImage(logo, "JPEG", 55, 110, 100, 60);
+
+doc.setGState(new doc.GState({opacity: 1}));
+    
     doc.autoTable({
       startY: 82,
       head: [["Qtd", "Produto", "Preço", "Subtotal"]],
