@@ -9470,7 +9470,16 @@ async function exportarPedidoPDF(pedidoId) {
     doc.text(`Telefone: ${pedido.telefone}`, 10, 46);
    doc.text(`Endereço: ${pedido.endereco}`, 10, 52);
 
-doc.text(`Data de emissão: ${dataEmissao}`, 10, 68);
+doc.setFillColor(240,240,240);
+doc.roundedRect(10, 62, 90, 12, 2, 2, "F");
+
+doc.setFontSize(14);
+doc.setFont(undefined, "bold");
+
+doc.text(`Data de emissão: ${dataEmissao}`, 15, 69);
+    
+doc.setFontSize(12);
+doc.setFont(undefined, "normal");
     
    doc.text("Empresa: Furacão da Limpeza", 120, 40);
 doc.text("Inscrição Estadual: 669.691.141.112", 120, 46);
@@ -9478,7 +9487,7 @@ doc.text("CEP: 18078-535", 120, 52);
 doc.text("Estado: São Paulo", 120, 58);
 doc.text("Email: furacaodalimpeza027@gmail.com", 120, 64);
 
-    doc.line(10, 72, 200, 72);
+   doc.line(10, 76, 200, 76);
 
     // TABELA
     const tabela = pedido.itens.map(item => {
@@ -9495,7 +9504,7 @@ doc.text("Email: furacaodalimpeza027@gmail.com", 120, 64);
     });
 
     doc.autoTable({
-      startY: 78,
+      startY: 82,
       head: [["Qtd", "Produto", "Preço", "Subtotal"]],
       body: tabela,
       theme: "grid",
@@ -9510,16 +9519,28 @@ doc.text("Email: furacaodalimpeza027@gmail.com", 120, 64);
 
     let finalY = doc.lastAutoTable.finalY + 10;
 
-    doc.setFillColor(230,240,255);
-    doc.rect(120, finalY - 5, 80, 12, "F");
+    doc.setFillColor(30, 99, 198);
+doc.roundedRect(120, finalY - 6, 80, 14, 3, 3, "F");
 
-    doc.setFontSize(13);
-    doc.setFont(undefined, "bold");
+doc.setTextColor(255,255,255);
+doc.setFontSize(14);
+doc.setFont(undefined, "bold");
 
-    doc.text(`TOTAL: R$ ${totalGeral.toFixed(2)}`, 160, finalY + 3, {
-      align: "center"
-    });
+doc.text(`TOTAL: R$ ${totalGeral.toFixed(2)}`, 160, finalY + 3, {
+  align: "center"
+});
 
+doc.setTextColor(0,0,0);
+doc.setFontSize(9);
+doc.setTextColor(120);
+
+doc.text(
+  "Furacão da Limpeza • Sorocaba - SP • furacaodalimpeza027@gmail.com",
+  105,
+  290,
+  { align: "center" }
+);
+    
     doc.save(`pedido-${pedido.numero}.pdf`);
 
   };
