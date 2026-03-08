@@ -9385,21 +9385,48 @@ function carregarPedidosAdmin() {
             box-shadow:0 4px 10px rgba(0,0,0,0.05);
           ">
 
-            <div style="display:flex; justify-content:space-between;">
-              <strong>Pedido Nº ${p.numero}</strong>
+           <div style="display:flex; justify-content:space-between; align-items:center;">
 
-              <div>
-                <button onclick="exportarPedidoPDF('${doc.id}')"
-                  style="background:#1e63c6;color:white;border:none;padding:5px 10px;border-radius:6px;">
-                  📄 PDF
-                </button>
+<strong>
+  Pedido Nº ${p.numero}
+  <span style="
+    margin-left:8px;
+    padding:4px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+    color:${
+      p.status === "entregue" ? "#1b5e20" :
+      p.status === "A caminho" ? "#0d47a1" :
+      "#e65100"
+    };
+    background:${
+      p.status === "entregue" ? "#c8e6c9" :
+      p.status === "A caminho" ? "#bbdefb" :
+      "#ffe0b2"
+    };
+  ">
+    ${
+      p.status === "entregue" ? "📦 Entregue" :
+      p.status === "A caminho" ? "🚚 A caminho" :
+      "🆕 Novo"
+    }
+  </span>
+</strong>
 
-                <button onclick="removerPedidoAdmin('${doc.id}')"
-                  style="background:red;color:white;border:none;border-radius:50%;width:25px;height:25px;margin-left:5px;">
-                  ✕
-                </button>
-              </div>
-            </div>
+  <div>
+    <button onclick="exportarPedidoPDF('${doc.id}')"
+      style="background:#1e63c6;color:white;border:none;padding:5px 10px;border-radius:6px;">
+      📄 PDF
+    </button>
+
+    <button onclick="removerPedidoAdmin('${doc.id}')"
+      style="background:red;color:white;border:none;border-radius:50%;width:25px;height:25px;margin-left:5px;">
+      ✕
+    </button>
+  </div>
+
+</div>
 
             <div style="margin-top:10px; font-size:14px;">
               👤 <strong>${p.cliente}</strong><br>
@@ -9415,6 +9442,37 @@ function carregarPedidosAdmin() {
             <div style="margin-top:10px; font-weight:bold;">
               Total: R$ ${(p.total || 0).toFixed(2)}
             </div>
+
+<div style="margin-top:10px; display:flex; gap:6px; flex-wrap:wrap;">
+
+<button onclick="mudarStatus(
+'${doc.id}',
+'novo',
+'${p.telefone}',
+'${p.numero}'
+)">
+🆕 Novo
+</button>
+
+<button onclick="mudarStatus(
+'${doc.id}',
+'A caminho',
+'${p.telefone}',
+'${p.numero}'
+)">
+🚚 A caminho
+</button>
+
+<button onclick="mudarStatus(
+'${doc.id}',
+'entregue',
+'${p.telefone}',
+'${p.numero}'
+)">
+📦 Entregue
+</button>
+
+</div>
 
           </div>
         `;
