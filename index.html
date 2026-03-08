@@ -7605,10 +7605,10 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
     Total: R$ <span id="totalFlutuanteValor">0.00</span>
   </div>
 
-  <button id="btnFinalizarDireto"
-        onclick="event.stopPropagation(); abrirModal();">
-    Finalizar
-  </button>
+ <button id="btnFinalizarDireto"
+onclick="event.stopPropagation(); if(carrinho.length>0){abrirModal();}">
+Finalizar
+</button>
 
 </div>
   
@@ -9497,14 +9497,19 @@ function liberarScroll() {
 // Sempre que fechar qualquer coisa, libera
 window.addEventListener("click", function() {
   setTimeout(() => {
-    if (
-      !document.getElementById("modalCliente")?.style.display.includes("flex") &&
-      !document.getElementById("loginAdmin")?.style.display.includes("flex") &&
-      !document.getElementById("modalFavoritos")?.style.display.includes("flex") &&
-      !document.getElementById("carrinho")?.classList.contains("aberto")
-    ) {
-      liberarScroll();
-    }
+   const modalCliente = document.getElementById("modalCliente");
+const loginAdmin = document.getElementById("loginAdmin");
+const modalFavoritos = document.getElementById("modalFavoritos");
+const carrinhoEl = document.getElementById("carrinho");
+
+if (
+  (!modalCliente || modalCliente.style.display !== "flex") &&
+  (!loginAdmin || loginAdmin.style.display !== "flex") &&
+  (!modalFavoritos || modalFavoritos.style.display !== "flex") &&
+  (!carrinhoEl || !carrinhoEl.classList.contains("aberto"))
+) {
+  liberarScroll();
+}
   }, 50);
 });
   
@@ -9752,7 +9757,7 @@ document.addEventListener("DOMContentLoaded", () => {
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7f0b1f2c3e.mp3?filename=click-124467.mp3" type="audio/mpeg">
 </audio>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+ 
   
 </body>
 </html>
