@@ -7765,7 +7765,8 @@ if (!window._estoqueListener) {
   atualizarEstoqueTela();
   bloquearBotoesZerados();
 });
-  
+
+  } 
 function estoqueDisponivel(id) {
   const item = carrinho.find(p => p.id === id);
   const reservado = item ? item.qtd : 0;
@@ -9751,9 +9752,6 @@ document.addEventListener("DOMContentLoaded", () => {
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7f0b1f2c3e.mp3?filename=click-124467.mp3" type="audio/mpeg">
 </audio>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
   
 </body>
