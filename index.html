@@ -9458,6 +9458,9 @@ async function exportarPedidoPDF(pedidoId) {
     doc.setFontSize(18);
     doc.text("Furacão da Limpeza", 105, 12, { align: "center" });
 
+    const iconCliente = new Image();
+iconCliente.src = "img/cliente.png";
+
 const iconTelefone = new Image();
 iconTelefone.src = "img/telefone.png";
 
@@ -9470,12 +9473,14 @@ iconEndereco.src = "img/endereco.png";
 
     doc.setTextColor(0,0,0);
 
-doc.setFillColor(245,245,245);
-doc.rect(0, 25, 210, 50, "F");
+// FUNDO CLIENTE
+doc.setFillColor(235,242,255);
+doc.roundedRect(8, 34, 90, 24, 3, 3, "F");
     
     // CLIENTE
     doc.setFontSize(12);
-    doc.text(`Cliente: ${pedido.cliente}`, 10, 40);
+    doc.addImage(iconCliente, "PNG", 10, 36, 5, 5);
+doc.text(`${pedido.cliente}`, 18, 40);
    doc.addImage(iconTelefone, "PNG", 10, 42, 5, 5);
 doc.text(`${pedido.telefone}`, 18, 46);
 
@@ -9483,25 +9488,24 @@ doc.addImage(iconEndereco, "PNG", 10, 48, 5, 5);
 doc.text(`${pedido.endereco}`, 18, 52);
 
 doc.setFillColor(240,240,240);
-doc.roundedRect(10, 62, 90, 12, 2, 2, "F");
+doc.roundedRect(8, 60, 94, 14, 3, 3, "F");
 
 doc.setFontSize(14);
 doc.setFont(undefined, "bold");
 
 doc.text(`Data de emissão: ${dataEmissao}`, 15, 69);
+
+doc.setFillColor(235,242,255);
+doc.roundedRect(118, 34, 84, 34, 3, 3, "F");
     
 doc.setFontSize(12);
 doc.setFont(undefined, "normal");
-    
+
    doc.text("Empresa: Furacão da Limpeza", 120, 40);
 doc.text("Inscrição Estadual: 669.691.141.112", 120, 46);
 doc.text("CEP: 18078-535", 120, 52);
 doc.text("Estado: São Paulo", 120, 58);
 doc.text("Email: furacaodalimpeza027@gmail.com", 120, 64);
-
-   doc.setDrawColor(30,99,198);
-doc.setLineWidth(1);
-doc.line(10, 76, 200, 76);
 
     // TABELA
     const tabela = pedido.itens.map(item => {
