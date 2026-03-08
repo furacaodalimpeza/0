@@ -9437,57 +9437,88 @@ async function exportarPedidoPDF(pedidoId) {
   }
 
   const pedido = docSnap.data();
-
-  const doc = new jsPDF();
   let totalGeral = 0;
 
-  // CABEÇALHO
-  doc.setFontSize(18);
-  doc.text("Furacão da Limpeza", 105, 15, { align: "center" });
+  const logo = new Image();
+  logo.src = "img/fundo-limpeza.jpg";
 
-  doc.setFontSize(12);
-  doc.text("NOTA DE PEDIDO", 105, 22, { align: "center" });
+  logo.onload = function () {
 
-  doc.line(10, 25, 200, 25);
+    const doc = new jsPDF();
 
-  // CLIENTE
-  doc.setFontSize(10);
-  doc.text(`Cliente: ${pedido.cliente}`, 10, 35);
-  doc.text(`Telefone: ${pedido.telefone}`, 10, 41);
-  doc.text(`Endereço: ${pedido.endereco}`, 10, 47);
+    // CABEÇALHO
+    doc.setFillColor(30, 99, 198);
+    doc.rect(0, 0, 210, 25, "F");
 
-  doc.text("Empresa: Furacão da Limpeza", 120, 35);
-  doc.text(`Pedido Nº: ${pedido.numero}`, 120, 41);
+    doc.addImage(logo, "JPEG", 10, 5, 25, 15);
 
-  doc.line(10, 55, 200, 55);
+    doc.setTextColor(255,255,255);
 
-  // TABELA
-  const tabela = pedido.itens.map(item => {
+    doc.setFontSize(18);
+    doc.text("Furacão da Limpeza", 105, 12, { align: "center" });
 
-    const subtotal = (item.qtd || 0) * (item.preco || 0);
-    totalGeral += subtotal;
-return [
-  item.qtd,
-  item.nome,
-  `R$ ${(item.preco || 0).toFixed(2)}`,
-  `R$ ${subtotal.toFixed(2)}`
-];
-  });
+    doc.setFontSize(12);
+    doc.text("NOTA DE PEDIDO", 105, 19, { align: "center" });
 
-  doc.autoTable({
-    startY: 60,
-    head: [["Qtd", "Produto", "Preço", "Subtotal"]],
-    body: tabela
-  });
+    doc.setTextColor(0,0,0);
 
-  let finalY = doc.lastAutoTable.finalY + 10;
+    // CLIENTE
+    doc.setFontSize(10);
+    doc.text(`Cliente: ${pedido.cliente}`, 10, 40);
+    doc.text(`Telefone: ${pedido.telefone}`, 10, 46);
+    doc.text(`Endereço: ${pedido.endereco}`, 10, 52);
 
-  doc.setFontSize(12);
-  doc.text(`Valor Total: R$ ${totalGeral.toFixed(2)}`, 140, finalY);
+    doc.text("Empresa: Furacão da Limpeza", 120, 40);
+    doc.text(`Pedido Nº: ${pedido.numero}`, 120, 46);
 
-  doc.save(`pedido-${pedido.numero}.pdf`);
+    doc.line(10, 58, 200, 58);
+
+    // TABELA
+    const tabela = pedido.itens.map(item => {
+
+      const subtotal = (item.qtd || 0) * (item.preco || 0);
+      totalGeral += subtotal;
+
+      return [
+        item.qtd,
+        item.nome,
+        `R$ ${(item.preco || 0).toFixed(2)}`,
+        `R$ ${subtotal.toFixed(2)}`
+      ];
+    });
+
+    doc.autoTable({
+      startY: 63,
+      head: [["Qtd", "Produto", "Preço", "Subtotal"]],
+      body: tabela,
+      theme: "grid",
+      headStyles: {
+        fillColor: [30, 99, 198],
+        textColor: 255
+      },
+      alternateRowStyles: {
+        fillColor: [240,240,240]
+      }
+    });
+
+    let finalY = doc.lastAutoTable.finalY + 10;
+
+    doc.setFillColor(230,240,255);
+    doc.rect(120, finalY - 5, 80, 12, "F");
+
+    doc.setFontSize(13);
+    doc.setFont(undefined, "bold");
+
+    doc.text(`TOTAL: R$ ${totalGeral.toFixed(2)}`, 160, finalY + 3, {
+      align: "center"
+    });
+
+    doc.save(`pedido-${pedido.numero}.pdf`);
+
+  };
+
 }
-
+  
 // 🔥 ANTI TRAVAMENTO GLOBAL
 function liberarScroll() {
   document.body.style.overflow = "auto";
