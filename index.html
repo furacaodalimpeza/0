@@ -7284,52 +7284,6 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
   </div>
 </div>
   
-<!-- Bom Ar Coala -->
- <div class="produto essencias"
-     data-id="bom-ar"
-     data-nome="Bom Ar Coala"
-     data-imagem="img/bom-ar-coala.jpg"
-     data-tamanhos='[
-       {"tamanho":" Chá Branco 400ML","preco":20},
-       {"tamanho":" Orquídea Negra 400ML","preco":20},
-       {"tamanho":" Ameixa Dourada 400ML","preco":20},
-       {"tamanho":" Flores de Cacto 400ML","preco":20}
-     ]'
-   data-nomes="bom ar coala, aromatizador coala, cheirinho ambiente">
-  <img src="img/bom-ar-coala.jpg" alt="Bom Ar Coala">
-  <span class="icone-busca">🔍</span>
-  <button class="btn-favorito" onclick="toggleFavorito(this, 'bom-ar')">
-  🤍
-</button>
-  <h3>Bom Ar Coala 400ML</h3>
-  <div class="variacoes">
-    <div class="linha">
-      <span>Bom Ar Coala Orquídea Negra — R$ 20,00</span>
-      <button onclick="addProduto(
-        'bom-ar-coala-orquidea-negra','Bom Ar Coala Orquídea Negra',20,'img/bom-ar-coala.jpg',
-        [{tamanho:'Coala Orquídea Negra 400ML', preco:20}],'Orquídea Negra')">Adicionar</button>
-    </div>
-    <div class="linha">
-      <span>Bom Ar Coala Chá Branco — R$ 20,00</span>
-      <button onclick="addProduto(
-        'bom-ar-coala-cha-branco','Bom Ar Coala Chá Branco',20,'img/bom-ar-coala.jpg',
-        [{tamanho:'Coala Chá Branco 400ML', preco:20}],'Chá Branco')">Adicionar</button>
-    </div>
-    <div class="linha">
-      <span>Bom Ar Coala Flores de Cacto — R$ 20,00</span>
-      <button onclick="addProduto(
-        'bom-ar-coala-flores-cacto','Bom Ar Coala Flores de Cacto',20,'img/bom-ar-coala.jpg',
-        [{tamanho:'Coala Flores de Cacto 400ML', preco:20}],'Flores de Cacto')">Adicionar</button>
-    </div>
-    <div class="linha">
-      <span>Bom Ar Coala Ameixa Dourada — R$ 20,00</span>
-      <button onclick="addProduto(
-        'bom-ar-coala-ameixa-dourada','Bom Ar Coala Ameixa Dourada',20,'img/bom-ar-coala.jpg',
-        [{tamanho:'Coala Ameixa Dourada 400ML', preco:20}],'Ameixa Dourada')">Adicionar</button>
-    </div>
-  </div>
-</div>
-  
   </div>
  </div>
 
@@ -8283,7 +8237,7 @@ try {
 
 } catch (err) {
   console.error("ERRO PEDIDO:", err);
-  alert("Erro ao finalizar pedido: " + err.message);
+  alert("Erro ao finalizar pedido: " + err);
   if (btnConfirmar) btnConfirmar.disabled = false;
   return;
 }
