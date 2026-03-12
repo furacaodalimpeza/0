@@ -1691,6 +1691,24 @@ input[type="search"]::-webkit-search-cancel-button {
   cursor: pointer;
   font-size: 12px;
 }
+
+.selo-novo{
+  position:absolute;
+  top:8px;
+  left:8px;
+  background:#ff3b3b;
+  color:white;
+  font-size:11px;
+  font-weight:bold;
+  padding:4px 8px;
+  border-radius:20px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.2);
+  z-index:2;
+}
+
+.produto{
+  position:relative;
+}
   
 </style>
 </head>
@@ -1772,7 +1790,67 @@ input[type="search"]::-webkit-search-cancel-button {
 <div id="limpeza" class="categoria ativa">
   <h2>Produtos de Limpeza</h2>
   <div class="produtos">
+
+<div class="produto limpeza"
+     data-id="desinfetante-Cereja-Avela"
+     data-nome="Desinfetante Cereja e Avelã"
+     data-imagem="img/desinfetante-Cereja-Avela.jpg"
+     data-novo="2026-03-12"
+     data-tamanhos='[
+       {"tamanho":"2L","preco":6},
+       {"tamanho":"5L","preco":15}
+     ]'
+     data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, cereja, avela">
+
+  <!-- selo -->
+  <span class="selo-novo">NOVO</span>
+
+  <img src="img/desinfetante-Cereja-Avela.jpg" alt="Desinfetante Cereja e Avelã">
   
+  <span class="icone-busca">🔍</span>
+
+  <button class="btn-favorito" onclick="toggleFavorito(this, 'desinfetante-Cereja-Avela')">
+    🤍
+  </button>
+
+  <h3>Desinfetante Cereja e Avelã</h3>
+
+  <div class="variacoes">
+
+    <div class="linha">
+      <span>2L — R$ 7,00</span>
+      <button onclick="addProduto(
+        'desinfetante-cereja-avela-2l',
+        'Desinfetante Cereja e Avelã',
+        7,
+        'img/desinfetante-Cereja-Avela.jpg',
+        [
+          { tamanho: '2L', preco: 7 },
+          { tamanho: '5L', preco: 17 }
+        ],
+        '2L'
+      )">Adicionar</button>
+    </div>
+
+    <div class="linha">
+      <span>5L — R$ 17,00</span>
+      <button onclick="addProduto(
+        'desinfetante-cereja-avela-5l',
+        'Desinfetante Cereja e Avelã',
+        17,
+        'img/desinfetante-Cereja-Avela.jpg',
+        [
+          { tamanho: '2L', preco: 7 },
+          { tamanho: '5L', preco: 17 }
+        ],
+        '5L'
+      )">Adicionar</button>
+    </div>
+
+  </div>
+
+</div>
+    
 <!-- produtos limpeza -->
 <div class="produto limpeza"
      data-id="desinfetante-cha"
@@ -2364,55 +2442,6 @@ data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de 
       'Desinfetante Talco',
       15,
       'img/desinfetante-talco.jpg',
-      [
-        { tamanho: '2L', preco: 6 },
-        { tamanho: '5L', preco: 15 }
-      ],
-      '5L'
-    )">Adicionar</button>
-  </div>
-</div>
-</div>
-
-<div class="produto limpeza"
-     data-id="desinfetante-algas"
-     data-nome="Desinfetante Algas"
-     data-imagem="img/desinfetante-algas.jpg"
-     data-tamanhos='[
-       {"tamanho":"2L","preco":6},
-       {"tamanho":"5L","preco":15}
-     ]'
-data-nomes="desinfetante, desinfetante liquido, limpa tudo, limpeza, produto de limpeza, cheiroso, algas">
-
-<img src="img/desinfetante-algas.jpg" alt="Desinfetante Algas">
-<span class="icone-busca">🔍</span>
-<button class="btn-favorito" onclick="toggleFavorito(this, 'desinfetante-algas')">
-  🤍
-</button>
-<h3>Desinfetante Algas</h3>
-
-<div class="variacoes">
-  <div class="linha">
-    <span>2L — R$ 6,00</span>
-    <button onclick="addProduto(
-      'desinfetante-algas-2l',
-      'Desinfetante Algas',
-      6,
-      'img/desinfetante-algas.jpg',
-      [
-        { tamanho: '2L', preco: 6 },
-        { tamanho: '5L', preco: 15 }
-      ],
-      '2L'
-    )">Adicionar</button>
-  </div>
-  <div class="linha">
-    <span>5L — R$ 15,00</span>
-    <button onclick="addProduto(
-      'desinfetante-algas-5l',
-      'Desinfetante Algas',
-      15,
-      'img/desinfetante-algas.jpg',
       [
         { tamanho: '2L', preco: 6 },
         { tamanho: '5L', preco: 15 }
@@ -8235,7 +8264,7 @@ try {
       pagamento: pag,
       itens: JSON.parse(JSON.stringify(carrinho)),
       total: totalGeral,
-      data: new Date(),
+      data: firebase.firestore.FieldValue.serverTimestamp(),
       status: "novo"
     });
 
@@ -9662,6 +9691,28 @@ if (
   liberarScroll();
 }
   }, 50);
+});
+
+document.querySelectorAll(".produto").forEach(produto => {
+
+  const dataNovo = produto.dataset.novo;
+  if (!dataNovo) return;
+
+  const hoje = new Date();
+  const dataProduto = new Date(dataNovo);
+
+  const dias = (hoje - dataProduto) / (1000 * 60 * 60 * 24);
+
+  if (dias <= 7) {
+
+    const selo = document.createElement("span");
+    selo.className = "selo-novo";
+    selo.innerText = "NOVO";
+
+    produto.appendChild(selo);
+
+  }
+
 });
   
 </script>
