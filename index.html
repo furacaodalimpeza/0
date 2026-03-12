@@ -8235,7 +8235,7 @@ try {
       pagamento: pag,
       itens: JSON.parse(JSON.stringify(carrinho)),
       total: totalGeral,
-      data: firebase.firestore.FieldValue.serverTimestamp(),
+      data: new Date(),
       status: "novo"
     });
 
@@ -8253,7 +8253,8 @@ try {
   });
 
 } catch (err) {
-  alert("Erro ao finalizar pedido: " + err);
+  console.error("ERRO PEDIDO:", err);
+  alert("Erro ao finalizar pedido: " + err.message);
   if (btnConfirmar) btnConfirmar.disabled = false;
   return;
 }
