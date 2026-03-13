@@ -8420,28 +8420,27 @@ function atualizarMedia() {
     });
 }
   
-let todasAvaliacoes = [];
-
 function mostrarAvaliacoes() {
 
   db.collection("avaliacoes")
-    .limit(20)
+    .orderBy("data", "desc")
+    .limit(20) // 🔥 IMPORTANTE
     .get()
     .then(snapshot => {
-
-      console.log("Avaliações encontradas:", snapshot.size);
 
       todasAvaliacoes = [];
       let soma = 0;
 
       snapshot.forEach(doc => {
-
+        
         const a = doc.data();
 
-        if (!a.nota) return;
+        if (!a.nota) return; // ignora sem nota
 
         a.id = doc.id;
         a.nota = Number(a.nota);
+
+        if (a.nota < 1 || a.nota > 5) return;
 
         soma += a.nota;
         todasAvaliacoes.push(a);
@@ -8458,10 +8457,6 @@ function mostrarAvaliacoes() {
       document.getElementById("totalAvaliacoes").innerText = total;
 
       filtrarEstrelas(0);
-
-    })
-    .catch(error => {
-      console.error("Erro:", error);
     });
 }
 
