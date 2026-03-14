@@ -8301,12 +8301,16 @@ function fecharModal() {
 
 async function confirmarPedido() {
 
+  if (window.enviandoPedido) return;
+window.enviandoPedido = true;
+
   const btnConfirmar = document.querySelector("#modalCliente .btn-confirmar");
 if (btnConfirmar) btnConfirmar.disabled = true;
 
 if (carrinho.length === 0) {
   alert("Carrinho vazio!");
   if (btnConfirmar) btnConfirmar.disabled = false;
+  window.enviandoPedido = false;
   return;
 }
   
@@ -8323,6 +8327,7 @@ if (carrinho.length === 0) {
  if (!nome || !tel || !end || !pag) {
   alert("Preencha todos os campos!");
   if (btnConfirmar) btnConfirmar.disabled = false;
+   window.enviandoPedido = false;
   return;
 }
 
@@ -8424,6 +8429,7 @@ try {
 } catch (err) {
   console.error("ERRO PEDIDO:", err);
   alert("Erro ao finalizar pedido: " + err);
+  window.enviandoPedido = false;
   if (btnConfirmar) btnConfirmar.disabled = false;
   return;
 }
@@ -8442,6 +8448,8 @@ atualizar();
 atualizarEstoqueTela();
 bloquearBotoesZerados();
 fecharModal();
+
+  window.enviandoPedido = false;
 }
   
   function voltarComprar() {
