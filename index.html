@@ -1709,6 +1709,15 @@ input[type="search"]::-webkit-search-cancel-button {
 .produto{
   position:relative;
 }
+
+ .cliente-verificado{
+  background:#e8f5e9;
+  color:#1b5e20;
+  font-size:11px;
+  padding:3px 8px;
+  border-radius:20px;
+  margin-left:6px;
+}
   
 </style>
 </head>
@@ -7800,11 +7809,11 @@ async function baixarEstoquePedido() {
   });
 
 }
-
-  let carrinho = [];
+let carrinho = [];
 let totalGeral = 0;
 let estrelaSelecionada = 0;
 let ultimoTotal = 0;
+let todasAvaliacoes = [];
   
 // FUNÇÃO PARA ADICIONAR PRODUTO
 function bloquearBotoesZerados() {
@@ -8363,14 +8372,17 @@ if (!nome) {
   return;
 }
 
-  db.collection("avaliacoes").add({
+ db.collection("avaliacoes").add({
   idPedido: localStorage.getItem("pedidoAtual"),
   userId: getUserId(),
   nome: nome,
   nota: estrelaSelecionada,
   comentario: comentario,
-  admin: isAdmin(),
+  verificado: true,
   data: firebase.firestore.FieldValue.serverTimestamp()
+})
+.then(() => {
+  mostrarAvaliacoes();
 });
 
   localStorage.setItem("avaliado_" + pedidoAtual, "true");
@@ -8422,11 +8434,10 @@ function atualizarMedia() {
   
 function mostrarAvaliacoes() {
 
-  db.collection("avaliacoes")
-    .orderBy("data", "desc")
-    .limit(20) // 🔥 IMPORTANTE
-    .get()
-    .then(snapshot => {
+ db.collection("avaliacoes")
+.orderBy("data","desc")
+.limit(20)
+.onSnapshot(snapshot => {
 
       todasAvaliacoes = [];
       let soma = 0;
@@ -8477,23 +8488,43 @@ function filtrarEstrelas(nota) {
     card.classList.add("avaliacao-card");
     if(a.admin) card.classList.add("avaliacao-admin");
 
-    card.innerHTML = `
-      <div class="estrelas">${renderEstrelas(a.nota)}</div>
-      <p>${a.comentario || "Sem comentário"}</p>
-      <strong>— ${a.nome}</strong>
-      ${souAdmin && !a.respostaAdmin ? `<textarea id="resp_${a.id}" placeholder="Responder avaliação..."></textarea>
-      <button onclick="responderAvaliacao('${a.id}')">Responder</button>` : ""}
-      ${a.respostaAdmin ? `<div class="resposta-admin"><strong>Resposta da loja:</strong><p>${a.respostaAdmin}</p></div>` : ""}
-    `;
+   card.innerHTML = `
+  <div class="estrelas">${renderEstrelas(a.nota)}</div>
+  <p>${a.comentario || "Sem comentário"}</p>
+ <strong>
+— ${a.nome}
+${a.verificado ? '<span class="cliente-verificado">✔️ Cliente verificado</span>' : ''}
+</strong>
 
-    container.appendChild(card); // ✅ Adiciona sempre dentro do container certo
-  });
+  ${souAdmin ? `
+    <button onclick="removerAvaliacao('${a.id}','${a.userId}')">
+      🗑️ Remover
+    </button>
+  ` : ""}
+
+  ${souAdmin && !a.respostaAdmin ? `
+    <textarea id="resp_${a.id}" placeholder="Responder avaliação..."></textarea>
+    <button onclick="responderAvaliacao('${a.id}')">Responder</button>
+  ` : ""}
+
+  ${a.respostaAdmin ? `
+    <div class="resposta-admin">
+      <strong>Resposta da loja:</strong>
+      <p>${a.respostaAdmin}</p>
+    </div>
+  ` : ""}
+`;
+
+    container.appendChild(card);
+
+});
 }
+  
+function removerAvaliacao(idDoc, userId) {
 
-function removerAvaliacao(idDoc, donoId) {
   const meuId = getUserId();
 
-  if (!isAdmin() && donoId !== meuId) {
+  if (!isAdmin() && userId !== meuId) {
     alert("Você não pode remover este comentário.");
     return;
   }
@@ -8501,7 +8532,10 @@ function removerAvaliacao(idDoc, donoId) {
   if (!confirm("Deseja remover este comentário?")) return;
 
   db.collection("avaliacoes").doc(idDoc).delete()
-    .then(() => alert("Comentário removido"))
+    .then(() => {
+      alert("Comentário removido");
+      mostrarAvaliacoes();
+    })
     .catch(() => alert("Erro ao remover"));
 }
   
@@ -8541,7 +8575,9 @@ function responderAvaliacao(idDoc) {
 
   return html;
 }
-
+    
+     
+    
   // MOSTRAR / ESCONDER BOTÃO VOLTAR AO TOPO
 window.addEventListener("scroll", () => {
 
@@ -8982,7 +9018,7 @@ let maiorQuantidade = 0;
   snapshot.forEach(doc => {
 
     const pedido = doc.data();
-    if (!pedido.data) return;  const dataPedido = pedido.data.toDate ? pedido.data.toDate() : new Date();
+    if (!pedido.data) return;   
 
 const dataPedido = pedido.data.toDate();
 
