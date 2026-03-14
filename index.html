@@ -1868,6 +1868,32 @@ input[type="search"]::-webkit-search-cancel-button {
   background:#144a96;
 
 }
+
+.pedido-novo {
+  animation: aparecerPedido 0.6s ease;
+  border: 2px solid #4caf50;
+}
+
+@keyframes aparecerPedido {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.pedido-novo {
+  animation: aparecerPedido 0.5s ease, piscar 1s 3;
+}
+
+@keyframes piscar {
+  0% { background:#e8f5e9; }
+  50% { background:#ffffff; }
+  100% { background:#e8f5e9; }
+}
   
 </style>
 </head>
@@ -9532,6 +9558,9 @@ function sairAdmin() {
   });
 }
 
+  let pedidosJaCarregados = new Set();
+let primeiroCarregamentoPedidos = true;
+  
 function carregarPedidosAdmin() {
 
   const lista = document.getElementById("miniPedidos");
@@ -9540,15 +9569,42 @@ function carregarPedidosAdmin() {
   db.collection("pedidos")
     .orderBy("data", "desc")
     .limit(20)
-    .get()
-    .then(snapshot => {
+   .onSnapshot(snapshot => {
 
-      let pedidosHTML = "";
+primeiroCarregamentoPedidos = false;
 
+  let pedidosHTML = "";
+
+  if (snapshot.empty) {
+    lista.innerHTML = `
+      <div style="
+        padding:20px;
+        text-align:center;
+        color:#777;
+        font-size:14px;
+      ">
+        📭 Nenhum pedido encontrado
+      </div>
+    `;
+    return;
+  }
+
+let temPedidoNovo = false;
+     
       snapshot.forEach(doc => {
+
+        const isNovo = !pedidosJaCarregados.has(doc.id);
+
+pedidosJaCarregados.add(doc.id);
 
         const p = doc.data();
 
+       let classeNovo = "";
+
+if (isNovo && !primeiroCarregamentoPedidos) {
+  classeNovo = "pedido-novo";
+  temPedidoNovo = true;
+}
         let itensHTML = "";
 
         if (p.itens && p.itens.length > 0) {
@@ -9562,14 +9618,14 @@ function carregarPedidosAdmin() {
           });
         }
 
-        pedidosHTML += `
-          <div style="
-            margin-bottom:15px;
-            padding:15px;
-            background:#fff;
-            border-radius:12px;
-            box-shadow:0 4px 10px rgba(0,0,0,0.05);
-          ">
+       pedidosHTML += `
+<div class="${classeNovo}" style="
+  margin-bottom:15px;
+  padding:15px;
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.05);
+">
 
            <div style="display:flex; justify-content:space-between; align-items:center;">
 
@@ -9664,8 +9720,16 @@ function carregarPedidosAdmin() {
         `;
       });
 
-      lista.innerHTML = pedidosHTML;
+if (temPedidoNovo) {
+  const som = document.getElementById("somPedido");
+  if (som) {
+    som.currentTime = 0;
+    som.play().catch(()=>{});
+  }
+}
 
+lista.innerHTML = pedidosHTML || "📭 Nenhum pedido encontrado";
+    
     });
 }
 
@@ -9870,7 +9934,74 @@ function removerFavorito(id) {
 
   localStorage.setItem("favoritos", JSON.stringify(favoritos));
 
-  abrirFavoritos(); // atualiza lista
+  // atualiza apenas a lista sem fechar o modal
+  atualizarListaFavoritos();
+}
+
+  function atualizarListaFavoritos(){
+
+  const lista = document.getElementById("listaFavoritos");
+  if(!lista) return;
+
+  const favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+
+  lista.innerHTML = "";
+
+  if(favoritos.length === 0){
+    lista.innerHTML = "<p>Você ainda não favoritou nenhum produto.</p>";
+    return;
+  }
+
+  favoritos.forEach(id => {
+
+    const produto = document.querySelector(`.produto[data-id="${id}"]`);
+    if(!produto) return;
+
+    const nome = produto.dataset.nome;
+    const imagem = produto.dataset.imagem;
+    const tamanhos = JSON.parse(produto.dataset.tamanhos || "[]");
+
+    let htmlTamanhos = "";
+
+    tamanhos.forEach(t => {
+
+      htmlTamanhos += `
+      <button onclick="addProduto(
+        '${id}-${t.tamanho.toLowerCase()}',
+        '${nome} ${t.tamanho}',
+        ${t.preco},
+        '${imagem}',
+        [],
+        '${t.tamanho}'
+      )">
+        ${t.tamanho} — R$ ${t.preco.toFixed(2)}
+      </button>
+      `;
+
+    });
+
+    lista.innerHTML += `
+    <div class="favorito-item">
+
+      <img src="${imagem}">
+
+      <div class="info">
+        <strong>${nome}</strong>
+
+        <div class="acoes">
+          ${htmlTamanhos}
+        </div>
+      </div>
+
+      <button class="remover-favorito"
+        onclick="removerFavorito('${id}')">
+        ✖
+      </button>
+
+    </div>
+    `;
+
+  });
 
 }
   
@@ -10118,7 +10249,9 @@ document.addEventListener("DOMContentLoaded", () => {
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7f0b1f2c3e.mp3?filename=click-124467.mp3" type="audio/mpeg">
 </audio>
 
- 
+ <audio id="somPedido" preload="auto">
+  <source src="som/pedido.mp3" type="audio/mpeg">
+</audio>
   
 </body>
 </html>
