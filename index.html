@@ -1478,15 +1478,14 @@ input[type="search"]::-webkit-search-cancel-button {
   align-items:center;
   gap:12px;
 
-  background:#ffffff;
-
+  background:white;
   padding:12px;
 
   border-radius:14px;
 
   margin-bottom:12px;
 
-  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
 
   position:relative;
 
@@ -1494,11 +1493,10 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .favorito-item img{
 
-  width:60px;
-  height:60px;
+  width:65px;
+  height:65px;
 
   border-radius:10px;
-
   object-fit:cover;
 
 }
@@ -1506,15 +1504,27 @@ input[type="search"]::-webkit-search-cancel-button {
 .favorito-item .info{
 
   flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
 
 }
 
-.favorito-item strong{
+.favorito-item .info strong{
 
-  font-size:16px;
+  font-size:15px;
+  color:#1e63c6;
 
 }
 
+.favorito-item .acoes{
+
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+
+}
+  
   .modal,
 .modal-favoritos,
 .login-admin-modal,
@@ -1772,7 +1782,7 @@ input[type="search"]::-webkit-search-cancel-button {
   font-size:18px;
 }
 
-.produto button{
+.linha button{
 
   width:100%;
   padding:8px;
@@ -1795,7 +1805,6 @@ input[type="search"]::-webkit-search-cancel-button {
 .remover-favorito{
 
   position:absolute;
-
   top:6px;
   right:6px;
 
@@ -1814,11 +1823,9 @@ input[type="search"]::-webkit-search-cancel-button {
 
   cursor:pointer;
 
-}
-
-.remover-favorito:hover{
-
-  background:#d93636;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
 }
 
@@ -1831,6 +1838,29 @@ input[type="search"]::-webkit-search-cancel-button {
 .favorito-item:hover{
 
   transform:scale(1.02);
+
+}
+
+.favorito-item .acoes button{
+
+  background:#1e63c6;
+  color:white;
+
+  border:none;
+
+  padding:4px 8px;
+
+  font-size:12px;
+
+  border-radius:6px;
+
+  cursor:pointer;
+
+}
+
+.favorito-item .acoes button:hover{
+
+  background:#144a96;
 
 }
   
