@@ -8982,7 +8982,7 @@ let maiorQuantidade = 0;
   snapshot.forEach(doc => {
 
     const pedido = doc.data();
-    if (!pedido.data || !pedido.data.toDate) return;
+    if (!pedido.data) return;  const dataPedido = pedido.data.toDate ? pedido.data.toDate() : new Date();
 
 const dataPedido = pedido.data.toDate();
 
