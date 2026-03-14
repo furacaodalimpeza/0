@@ -9571,8 +9571,6 @@ function carregarPedidosAdmin() {
     .limit(20)
    .onSnapshot(snapshot => {
 
-primeiroCarregamentoPedidos = false;
-
   let pedidosHTML = "";
 
   if (snapshot.empty) {
@@ -9728,8 +9726,11 @@ if (temPedidoNovo) {
   }
 }
 
-lista.innerHTML = pedidosHTML || "📭 Nenhum pedido encontrado";
-    
+if (lista.innerHTML !== pedidosHTML) {
+  lista.innerHTML = pedidosHTML || "📭 Nenhum pedido encontrado";
+}
+
+     primeiroCarregamentoPedidos = false;
     });
 }
 
