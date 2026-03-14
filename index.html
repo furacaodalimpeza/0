@@ -7886,8 +7886,8 @@ let pedidosHTML = "";
     pedidosHTML += `
       <li class="item-carrinho">
         <div>
-          <strong>${p.nome}</strong><br>
-          R$ ${(p.preco * p.qtd).toFixed(2)}
+        <strong>${p.nome}</strong><br>
+${p.qtd}x • R$ ${(p.preco * p.qtd).toFixed(2)}
         </div>
         <div>
           <button onclick="alterarQtd(${i},-1)">➖</button>
