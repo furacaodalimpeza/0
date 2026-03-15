@@ -8434,8 +8434,12 @@ try {
 
   });
   
-catch (err) {
+} catch (err) {
   console.error("ERRO PEDIDO:", err);
+  alert("Erro ao finalizar pedido: " + err);
+  window.enviandoPedido = false;
+  if (btnConfirmar) btnConfirmar.disabled = false;
+  return;
 }
   
 document.getElementById("telaSucesso").style.display = "flex";
