@@ -8383,60 +8383,36 @@ Em breve entraremos em contato para finalizar seu atendimento.
 
 try {
 
-  await db.runTransaction(async (transaction) => {
+ // 🔒 BAIXAR ESTOQUE
+await baixarEstoquePedido();
 
-    // 🔒 1️⃣ VALIDAR E BAIXAR ESTOQUE
-    for (const item of carrinho) {
+// 🧾 CRIAR PEDIDO
+await db.collection("pedidos").add({
+  numero: numeroPedido,
+  cliente: nome,
+  telefone: tel,
+  endereco: end,
+  pagamento: pag,
+  itens: JSON.parse(JSON.stringify(carrinho)),
+  total: totalGeral,
+  data: firebase.firestore.FieldValue.serverTimestamp(),
+  status: "novo"
+});
 
-      const ref = db.collection("estoque").doc(item.id);
-      const doc = await transaction.get(ref);
+// 📊 ATUALIZAR MAIS VENDIDOS
+for (const item of carrinho) {
 
-     if (!doc.exists) {
-  continue; // produto não controla estoque
+  const vendasRef = db.collection("maisVendidos").doc(item.id);
+
+  await vendasRef.set({
+    quantidade: firebase.firestore.FieldValue.increment(item.qtd)
+  }, { merge: true });
+
 }
-      
-      const atual = doc.data().quantidade || 0;
-
-      if (atual < item.qtd) {
-        throw `Estoque insuficiente para ${item.nome}`;
-      }
-
-      transaction.update(ref, {
-        quantidade: atual - item.qtd
-      });
-    }
-
-    // 🧾 2️⃣ CRIAR PEDIDO
-    const pedidoRef = db.collection("pedidos").doc();
-
-    transaction.set(pedidoRef, {
-      numero: numeroPedido,
-      cliente: nome,
-      telefone: tel,
-      endereco: end,
-      pagamento: pag,
-      itens: JSON.parse(JSON.stringify(carrinho)),
-      total: totalGeral,
-      data: firebase.firestore.FieldValue.serverTimestamp(),
-      status: "novo"
-    });
-
-    // 📊 3️⃣ ATUALIZAR MAIS VENDIDOS
-    for (const item of carrinho) {
-
-      const vendasRef = db.collection("maisVendidos").doc(item.id);
-
-      transaction.set(vendasRef, {
-        quantidade: firebase.firestore.FieldValue.increment(item.qtd)
-      }, { merge: true });
-
-    }
-
-  });
   
 } catch (err) {
   console.error("ERRO PEDIDO:", err);
-  alert("Erro ao finalizar pedido: " + err);
+  alert("Erro ao finalizar pedido: " + err.message);
   window.enviandoPedido = false;
   if (btnConfirmar) btnConfirmar.disabled = false;
   return;
