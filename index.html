@@ -8302,6 +8302,13 @@ function fecharModal() {
 
 async function confirmarPedido() {
 
+setTimeout(() => {
+  if (window.enviandoPedido) {
+    alert("A conexão está lenta. Tente novamente.");
+    window.enviandoPedido = false;
+  }
+}, 15000);
+  
   if (window.enviandoPedido) return;
 window.enviandoPedido = true;
 
@@ -9915,6 +9922,8 @@ if (
   }, 50);
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+
 document.querySelectorAll(".produto").forEach(produto => {
 
   const dataNovo = produto.dataset.novo;
@@ -9934,6 +9943,8 @@ document.querySelectorAll(".produto").forEach(produto => {
     produto.appendChild(selo);
 
   }
+
+});
 
 });
 
