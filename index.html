@@ -8383,7 +8383,7 @@ Em breve entraremos em contato para finalizar seu atendimento.
 
 try {
 
- // 🔒 BAIXAR ESTOQUE
+// 🔒 BAIXAR ESTOQUE
 await baixarEstoquePedido();
 
 // 🧾 CRIAR PEDIDO
@@ -8393,7 +8393,12 @@ await db.collection("pedidos").add({
   telefone: tel,
   endereco: end,
   pagamento: pag,
-  itens: JSON.parse(JSON.stringify(carrinho)),
+  itens: carrinho.map(i => ({
+    id: i.id,
+    nome: i.nome,
+    preco: i.preco,
+    qtd: i.qtd
+  })),
   total: totalGeral,
   data: firebase.firestore.FieldValue.serverTimestamp(),
   status: "novo"
@@ -8409,12 +8414,17 @@ for (const item of carrinho) {
   }, { merge: true });
 
 }
-  
+
 } catch (err) {
+
   console.error("ERRO PEDIDO:", err);
-  alert("Erro ao finalizar pedido: " + err.message);
+
+  alert("Erro ao finalizar pedido: " + (err.message || err));
+
   window.enviandoPedido = false;
+
   if (btnConfirmar) btnConfirmar.disabled = false;
+
   return;
 }
   
@@ -10169,20 +10179,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const estrelas = document.querySelectorAll(".avaliar-loja .estrelas span");
 
-  function atualizarEstrelas(nota) {
-    estrelas.forEach((estrela, i) => {
-      estrela.classList.remove("ativa");
-      if (i < nota) {
-        estrela.classList.add("ativa");
-      }
-    });
-  }
-
   estrelas.forEach((estrela) => {
+
     estrela.addEventListener("click", () => {
+
       estrelaSelecionada = Number(estrela.dataset.index);
-      atualizarEstrelas(estrelaSelecionada);
+
+      estrelas.forEach(e => e.classList.remove("ativa"));
+
+      for (let i = 0; i < estrelaSelecionada; i++) {
+        estrelas[i].classList.add("ativa");
+      }
+
     });
+
   });
 
 });
