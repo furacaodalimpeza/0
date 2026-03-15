@@ -8433,15 +8433,16 @@ try {
     }
 
   });
+  
+catch (err) {
 
-} catch (err) {
   console.error("ERRO PEDIDO:", err);
-  alert("Erro ao finalizar pedido: " + err);
-  window.enviandoPedido = false;
-  if (btnConfirmar) btnConfirmar.disabled = false;
-  return;
-}
+  alert("Erro ao enviar pedido: " + err.message);
 
+  if (btnConfirmar) btnConfirmar.disabled = false;
+
+}
+  
 document.getElementById("telaSucesso").style.display = "flex";
   
 // ✅ ABRE WHATSAPP SEM SAIR DO SITE
