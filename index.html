@@ -7936,9 +7936,13 @@ if (!window._estoqueListener) {
 });
 
   } 
+  
 function estoqueDisponivel(id) {
-  const item = carrinho.find(p => p.id === id);
-  const reservado = item ? item.qtd : 0;
+
+  const reservado = carrinho
+    .filter(p => p.id === id)
+    .reduce((total, p) => total + p.qtd, 0);
+
   return (estoque[id] ?? 0) - reservado;
 }
   
@@ -7968,11 +7972,13 @@ function bloquearBotoesZerados() {
 
 function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecionado = "") {
 
+const idBase = id;
+
   preco = Number(preco);
   if (isNaN(preco)) return;
 
   // 🔥 Só controla estoque se o produto existir na coleção estoque
-  if (typeof estoque[id] === "number") {
+  if (typeof estoque[idBase] === "number") {
   if (estoqueDisponivel(id) <= 0) {
     alert("Quantidade máxima em estoque atingida");
     return;
@@ -8216,7 +8222,9 @@ function alterarQtd(index, valor) {
   const item = carrinho[index];
 
   // 🔒 BLOQUEIA SE TENTAR PASSAR DO ESTOQUE
-  if (valor > 0 && estoque.hasOwnProperty(item.id)) {
+const idBase = item.id;
+  
+if (valor > 0 && estoque.hasOwnProperty(idBase)) {
     if (estoqueDisponivel(item.id) <= 0) {
       alert("Quantidade máxima em estoque atingida");
       return;
