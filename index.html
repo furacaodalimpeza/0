@@ -7843,8 +7843,15 @@ firebase.initializeApp(firebaseConfig);
     return id;
   }
 
-const user = auth.currentUser;
-if (!user) throw "Não autenticado";
+auth.onAuthStateChanged(user => {
+  if (!user) {
+    console.log("Usuário não logado");
+    return;
+  }
+
+  console.log("Usuário logado:", user.uid);
+});
+  
 auth.onAuthStateChanged(user => {
 
   if (!user) {
