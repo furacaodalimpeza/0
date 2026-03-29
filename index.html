@@ -7843,10 +7843,8 @@ firebase.initializeApp(firebaseConfig);
     return id;
   }
 
-  function isAdmin() {
-    return adminLogado === true;
-  }
-
+const user = auth.currentUser;
+if (!user) throw "Não autenticado";
 auth.onAuthStateChanged(user => {
 
   if (!user) {
@@ -7948,45 +7946,23 @@ function estoqueDisponivel(id) {
 
 async function baixarEstoquePedido() {
 
-  if (carrinho.length === 0) return;
+  for (const item of carrinho) {
 
-  await db.runTransaction(async (transaction) => {
+    const ref = db.collection("estoque").doc(item.id);
 
-    const docsLidos = [];
-
-    // ✅ 1° PASSO — LER TUDO PRIMEIRO
-    for (const item of carrinho) {
-      const ref = db.collection("estoque").doc(item.id);
-      const doc = await transaction.get(ref);
-
-      docsLidos.push({ item, ref, doc });
-    }
-
-    // ✅ 2° PASSO — VALIDAR E ATUALIZAR
-    for (const { item, ref, doc } of docsLidos) {
-
-      if (!doc.exists) {
-        continue; // não controla estoque
-      }
-
-      const qtdAtual = Number(doc.data().quantidade);
-
-      if (isNaN(qtdAtual)) {
-        throw `Estoque inválido para ${item.nome}`;
-      }
-
-      if (qtdAtual < item.qtd) {
-        throw `Estoque insuficiente para ${item.nome}`;
-      }
-
-      transaction.update(ref, {
-        quantidade: qtdAtual - item.qtd
+    try {
+      await ref.update({
+        quantidade: firebase.firestore.FieldValue.increment(-item.qtd)
       });
+    } catch (err) {
+      console.error("Erro ao atualizar estoque:", item.id, err);
+      throw "Erro ao atualizar estoque";
     }
 
-  });
+  }
 
 }
+  
 let carrinho = [];
 let totalGeral = 0;
 let estrelaSelecionada = 0;
@@ -8302,6 +8278,14 @@ function fecharModal() {
 
 async function confirmarPedido() {
 
+const user = auth.currentUser;
+
+if (!user) {
+  alert("Erro de autenticação. Faça login novamente.");
+  window.enviandoPedido = false;
+  return;
+}
+  
 setTimeout(() => {
   if (window.enviandoPedido) {
     alert("A conexão está lenta. Tente novamente.");
@@ -8415,11 +8399,10 @@ for (const item of carrinho) {
 
 }
 
-} catch (err) {
-
-  console.error("ERRO PEDIDO:", err);
-
-  alert("Erro ao finalizar pedido: " + (err.message || err));
+catch (err) {
+  console.error("ERRO COMPLETO:", err);
+  alert("Erro ao finalizar pedido: " + JSON.stringify(err));
+}
 
   window.enviandoPedido = false;
 
