@@ -7953,18 +7953,42 @@ function estoqueDisponivel(id) {
 
 async function baixarEstoquePedido() {
 
+try {
+
+  // 🔒 BAIXAR ESTOQUE
+  await baixarEstoquePedido();
+
+  // 🧾 CRIAR PEDIDO
+  await db.collection("pedidos").add({
+    numero: numeroPedido,
+    cliente: nome,
+    telefone: tel,
+    endereco: end,
+    pagamento: pag,
+    itens: carrinho.map(i => ({
+      id: i.id,
+      nome: i.nome,
+      preco: i.preco,
+      qtd: i.qtd
+    })),
+    total: totalGeral,
+    data: firebase.firestore.FieldValue.serverTimestamp(),
+    status: "novo"
+  });
+
+  // 📊 MAIS VENDIDOS
   for (const item of carrinho) {
+    const vendasRef = db.collection("maisVendidos").doc(item.id);
 
-    const ref = db.collection("estoque").doc(item.id);
+    await vendasRef.set({
+      quantidade: firebase.firestore.FieldValue.increment(item.qtd)
+    }, { merge: true });
+  }
 
-    try {
-      await ref.update({
-        quantidade: firebase.firestore.FieldValue.increment(-item.qtd)
-      });
-    } catch (err) {
-      console.error("Erro ao atualizar estoque:", item.id, err);
-      throw "Erro ao atualizar estoque";
-    }
+} catch (err) {
+  console.error("ERRO COMPLETO:", err);
+  alert("Erro ao finalizar pedido: " + JSON.stringify(err));
+}
 
   }
 
