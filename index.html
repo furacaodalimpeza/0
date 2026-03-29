@@ -7842,15 +7842,6 @@ firebase.initializeApp(firebaseConfig);
     }
     return id;
   }
-
-auth.onAuthStateChanged(user => {
-  if (!user) {
-    console.log("Usuário não logado");
-    return;
-  }
-
-  console.log("Usuário logado:", user.uid);
-});
   
 auth.onAuthStateChanged(user => {
 
@@ -7949,49 +7940,6 @@ function estoqueDisponivel(id) {
   const item = carrinho.find(p => p.id === id);
   const reservado = item ? item.qtd : 0;
   return (estoque[id] ?? 0) - reservado;
-}
-
-async function baixarEstoquePedido() {
-
-try {
-
-  // 🔒 BAIXAR ESTOQUE
-  await baixarEstoquePedido();
-
-  // 🧾 CRIAR PEDIDO
-  await db.collection("pedidos").add({
-    numero: numeroPedido,
-    cliente: nome,
-    telefone: tel,
-    endereco: end,
-    pagamento: pag,
-    itens: carrinho.map(i => ({
-      id: i.id,
-      nome: i.nome,
-      preco: i.preco,
-      qtd: i.qtd
-    })),
-    total: totalGeral,
-    data: firebase.firestore.FieldValue.serverTimestamp(),
-    status: "novo"
-  });
-
-  // 📊 MAIS VENDIDOS
-  for (const item of carrinho) {
-    const vendasRef = db.collection("maisVendidos").doc(item.id);
-
-    await vendasRef.set({
-      quantidade: firebase.firestore.FieldValue.increment(item.qtd)
-    }, { merge: true });
-  }
-
-} catch (err) {
-  console.error("ERRO COMPLETO:", err);
-  alert("Erro ao finalizar pedido: " + JSON.stringify(err));
-}
-
-  }
-
 }
   
 let carrinho = [];
@@ -8324,10 +8272,10 @@ setTimeout(() => {
   }
 }, 15000);
   
-  if (window.enviandoPedido) return;
+if (window.enviandoPedido) return;
 window.enviandoPedido = true;
 
-  const btnConfirmar = document.querySelector("#modalCliente .btn-confirmar");
+const btnConfirmar = document.querySelector("#modalCliente .btn-confirmar");
 if (btnConfirmar) btnConfirmar.disabled = true;
 
 if (carrinho.length === 0) {
@@ -8337,25 +8285,25 @@ if (carrinho.length === 0) {
   return;
 }
   
-  const cliNome = document.getElementById("cliNome");
-  const cliTel = document.getElementById("cliTel");
-  const cliEnd = document.getElementById("cliEnd");
-  const cliPag = document.getElementById("cliPag");
+const cliNome = document.getElementById("cliNome");
+const cliTel = document.getElementById("cliTel");
+const cliEnd = document.getElementById("cliEnd");
+const cliPag = document.getElementById("cliPag");
 
-  const nome = cliNome.value.trim();
-  const tel = cliTel.value.trim();
-  const end = cliEnd.value.trim();
-  const pag = cliPag.value;
+const nome = cliNome.value.trim();
+const tel = cliTel.value.trim();
+const end = cliEnd.value.trim();
+const pag = cliPag.value;
 
- if (!nome || !tel || !end || !pag) {
+if (!nome || !tel || !end || !pag) {
   alert("Preencha todos os campos!");
   if (btnConfirmar) btnConfirmar.disabled = false;
-   window.enviandoPedido = false;
+  window.enviandoPedido = false;
   return;
 }
 
-  const numeroPedido = gerarNumeroPedido();
-  localStorage.setItem("pedidoAtual", numeroPedido);
+const numeroPedido = gerarNumeroPedido();
+localStorage.setItem("pedidoAtual", numeroPedido);
 
 let msg = `
 ━━━━━━━━━━━━━━━━━━━
@@ -8393,58 +8341,53 @@ Agradecemos pela preferência.
 Em breve entraremos em contato para finalizar seu atendimento.
 `;
 
-  // ✅ CODIFICA A MENSAGEM (ESSENCIAL)
-  const msgFinal = encodeURIComponent(msg);
+const msgFinal = encodeURIComponent(msg);
 
 try {
 
-// 🔒 BAIXAR ESTOQUE
-await baixarEstoquePedido();
+  // 🔒 (SE NÃO EXISTIR ESSA FUNÇÃO, COMENTA ESSA LINHA)
+  // await baixarEstoquePedido();
 
-// 🧾 CRIAR PEDIDO
-await db.collection("pedidos").add({
-  numero: numeroPedido,
-  cliente: nome,
-  telefone: tel,
-  endereco: end,
-  pagamento: pag,
-  itens: carrinho.map(i => ({
-    id: i.id,
-    nome: i.nome,
-    preco: i.preco,
-    qtd: i.qtd
-  })),
-  total: totalGeral,
-  data: firebase.firestore.FieldValue.serverTimestamp(),
-  status: "novo"
-});
+  // 🧾 CRIAR PEDIDO
+  await db.collection("pedidos").add({
+    numero: numeroPedido,
+    cliente: nome,
+    telefone: tel,
+    endereco: end,
+    pagamento: pag,
+    itens: carrinho.map(i => ({
+      id: i.id,
+      nome: i.nome,
+      preco: i.preco,
+      qtd: i.qtd
+    })),
+    total: totalGeral,
+    data: firebase.firestore.FieldValue.serverTimestamp(),
+    status: "novo"
+  });
 
-// 📊 ATUALIZAR MAIS VENDIDOS
-for (const item of carrinho) {
+  // 📊 ATUALIZAR MAIS VENDIDOS
+  for (const item of carrinho) {
+    const vendasRef = db.collection("maisVendidos").doc(item.id);
 
-  const vendasRef = db.collection("maisVendidos").doc(item.id);
+    await vendasRef.set({
+      quantidade: firebase.firestore.FieldValue.increment(item.qtd)
+    }, { merge: true });
+  }
 
-  await vendasRef.set({
-    quantidade: firebase.firestore.FieldValue.increment(item.qtd)
-  }, { merge: true });
-
-}
-
-catch (err) {
+} catch (err) {
   console.error("ERRO COMPLETO:", err);
   alert("Erro ao finalizar pedido: " + JSON.stringify(err));
-}
 
   window.enviandoPedido = false;
-
   if (btnConfirmar) btnConfirmar.disabled = false;
-
   return;
 }
-  
+
+// ✅ AGORA SIM EXECUTA (ANTES NÃO EXECUTAVA)
 document.getElementById("telaSucesso").style.display = "flex";
-  
-// ✅ ABRE WHATSAPP SEM SAIR DO SITE
+
+// ✅ WHATSAPP
 window.open(
   "https://wa.me/5515996585967?text=" + msgFinal,
   "_blank"
@@ -8457,7 +8400,8 @@ atualizarEstoqueTela();
 bloquearBotoesZerados();
 fecharModal();
 
-  window.enviandoPedido = false;
+window.enviandoPedido = false;
+if (btnConfirmar) btnConfirmar.disabled = false;
 }
   
   function voltarComprar() {
@@ -10025,6 +9969,10 @@ function removerFavorito(id) {
 
   });
 
+}
+
+function isAdmin() {
+  return adminLogado === true;
 }
   
 </script>
