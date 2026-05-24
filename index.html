@@ -8369,14 +8369,6 @@ function fecharModal() {
 }
 
 async function confirmarPedido() {
-
-const user = auth.currentUser;
-
-if (!user) {
-  alert("Erro de autenticação. Faça login novamente.");
-  window.enviandoPedido = false;
-  return;
-}
   
 setTimeout(() => {
   if (window.enviandoPedido) {
@@ -8501,8 +8493,8 @@ try {
 document.getElementById("telaSucesso").style.display = "flex";
 
 // ✅ WHATSAPP
-window.open(
-  "https://wa.me/5515996585967?text=" + msgFinal,
+window.location.href =
+  "https://wa.me/5515996585967?text=" + msgFinal;
   "_blank"
 );
 
