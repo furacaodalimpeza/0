@@ -8210,13 +8210,7 @@ function estoqueDisponivel(idBase) {
     .reduce((soma, p) => soma + p.qtd, 0);
 
   return (estoque[idBase] || 0) - quantidadeNoCarrinho;
-}
 
-  const reservado = carrinho
-    .filter(p => p.id.split("-")[0] === id)
-    .reduce((total, p) => total + p.qtd, 0);
-
-  return estoque[id] - reservado;
 }
   
 let carrinho = [];
@@ -8610,9 +8604,9 @@ for (const item of carrinho) {
 
   const idBase = item.id.split("-")[0];
 
-const ref = db.collection("estoque").doc(idBase);
-    .doc(idBase)
-    .get();
+const doc = await db.collection("estoque")
+  .doc(idBase)
+  .get();
 
  if (!doc.exists) {
   continue; // produto sem controle de estoque
@@ -10348,8 +10342,6 @@ async function finalizarPedidoComEstoque(dadosPedido) {
     for (const item of carrinho) {
 
       const idBase = item.id;
-
-      const ref = db.collection("estoque").doc(idBase);
 
       const doc = await transaction.get(ref);
 
