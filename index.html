@@ -10338,14 +10338,15 @@ async function finalizarPedidoComEstoque(dadosPedido) {
 
   await db.runTransaction(async (transaction) => {
 
-    // Verifica estoque
     for (const item of carrinho) {
 
-      const idBase = item.id;
+      const idBase = item.id.split("-")[0];
+
+      const ref = db.collection("estoque").doc(idBase);
 
       const doc = await transaction.get(ref);
 
-      // Produto sem controle de estoque
+      // produto sem controle de estoque
       if (!doc.exists) continue;
 
       const atual = doc.data().quantidade || 0;
@@ -10361,7 +10362,6 @@ async function finalizarPedidoComEstoque(dadosPedido) {
       });
     }
 
-    // Cria pedido
     const pedidoRef = db.collection("pedidos").doc();
 
     transaction.set(pedidoRef, dadosPedido);
