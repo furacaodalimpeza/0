@@ -8044,6 +8044,15 @@ firebase.initializeApp(firebaseConfig);
 
  auth.signInWithEmailAndPassword(email, senha)
  .then((cred) => {
+
+  if (!cred.user.emailVerified) {
+
+    alert("Confirme seu e-mail primeiro");
+
+    auth.signOut();
+
+    return;
+  }
   console.log("Login OK:", cred.user.uid);
   alert("Admin logado com sucesso");
   toggleLoginAdmin(); // 👈 FECHA A TELA DE LOGIN
@@ -8055,7 +8064,11 @@ firebase.initializeApp(firebaseConfig);
 }
 
   let adminLogado = false;
-
+  
+function isAdmin() {
+  return adminLogado === true;
+}
+  
   function getUserId() {
     let id = localStorage.getItem("userId");
     if (!id) {
@@ -8078,6 +8091,9 @@ if (adminFab) adminFab.style.display = "none";
 
     const btnAdmin = document.getElementById("btnAdminFlutuante");
     if (btnAdmin) btnAdmin.style.display = "block";
+
+    const btnDashboard = document.getElementById("btnDashboard");
+if (btnDashboard) btnDashboard.style.display = "none";
 
     return;
   }
@@ -8447,14 +8463,14 @@ function alterarQtd(index, valor) {
   const item = carrinho[index];
 
   // 🔒 BLOQUEIA SE TENTAR PASSAR DO ESTOQUE
-const idBase = item.id;
-  
+const idBase = item.id.split("-")[0];
+
 if (valor > 0 && estoque.hasOwnProperty(idBase)) {
-    if (estoqueDisponivel(item.id) <= 0) {
-      alert("Quantidade máxima em estoque atingida");
-      return;
+    if (estoqueDisponivel(idBase) <= 0) {
+        alert("Quantidade máxima em estoque atingida");
+        return;
     }
-  }
+}
 
   item.qtd += valor;
 
@@ -8527,6 +8543,30 @@ if (!nome || !tel || !end || !pag) {
   return;
 }
 
+for (const item of carrinho) {
+
+  const idBase = item.id.split("-")[0];
+
+  const doc = await db.collection("estoque")
+    .doc(idBase)
+    .get();
+
+  const atual = doc.data()?.quantidade || 0;
+
+ if (atual < item.qtd) {
+
+  alert(`${item.nome} não possui estoque suficiente`);
+
+  window.enviandoPedido = false;
+
+  if (btnConfirmar) {
+    btnConfirmar.disabled = false;
+  }
+
+  return;
+}
+}
+  
 const numeroPedido = gerarNumeroPedido();
 localStorage.setItem("pedidoAtual", numeroPedido);
 
@@ -8571,25 +8611,26 @@ const msgFinal = encodeURIComponent(msg);
 try {
 
   // 🔒 (SE NÃO EXISTIR ESSA FUNÇÃO, COMENTA ESSA LINHA)
-  // await baixarEstoquePedido();
 
   // 🧾 CRIAR PEDIDO
-  await db.collection("pedidos").add({
-    numero: numeroPedido,
-    cliente: nome,
-    telefone: tel,
-    endereco: end,
-    pagamento: pag,
-    itens: carrinho.map(i => ({
-      id: i.id,
-      nome: i.nome,
-      preco: i.preco,
-      qtd: i.qtd
-    })),
-    total: totalGeral,
-    data: firebase.firestore.FieldValue.serverTimestamp(),
-    status: "novo"
-  });
+ const dadosPedido = {
+  numero: numeroPedido,
+  cliente: nome,
+  telefone: tel,
+  endereco: end,
+  pagamento: pag,
+  itens: carrinho.map(i => ({
+    id: i.id,
+    nome: i.nome,
+    preco: i.preco,
+    qtd: i.qtd
+  })),
+  total: totalGeral,
+  data: firebase.firestore.FieldValue.serverTimestamp(),
+  status: "novo"
+};
+
+await finalizarPedidoComEstoque(dadosPedido);
 
   // 📊 ATUALIZAR MAIS VENDIDOS
   for (const item of carrinho) {
@@ -8831,6 +8872,12 @@ function mostrarAvaliacoes() {
     });
 }
 
+function escaparHTML(texto) {
+  const div = document.createElement("div");
+  div.textContent = texto || "";
+  return div.innerHTML;
+}
+  
 function filtrarEstrelas(nota) {
   const container = document.getElementById("listaAvaliacoes");
   container.innerHTML = ""; // limpa apenas dentro do container
@@ -8850,9 +8897,9 @@ function filtrarEstrelas(nota) {
 
    card.innerHTML = `
   <div class="estrelas">${renderEstrelas(a.nota)}</div>
-  <p>${a.comentario || "Sem comentário"}</p>
+  <p>${escaparHTML(a.comentario || "Sem comentário")}</p>
  <strong>
-— ${a.nome}
+— ${escaparHTML(a.nome)}
 ${a.verificado ? '<span class="cliente-verificado">✔️ Cliente verificado</span>' : ''}
 </strong>
 
@@ -9380,6 +9427,8 @@ let maiorQuantidade = 0;
     const pedido = doc.data();
     if (!pedido.data) return;   
 
+if (!pedido.data) return;
+
 const dataPedido = pedido.data.toDate();
 
     if (dataPedido.getFullYear() !== anoAtual) return;
@@ -9744,13 +9793,18 @@ function sairAdmin() {
 
   let pedidosJaCarregados = new Set();
 let primeiroCarregamentoPedidos = true;
-  
-function carregarPedidosAdmin() {
+let unsubscribePedidos = null;
+
+ function carregarPedidosAdmin() {
 
   const lista = document.getElementById("miniPedidos");
   if (!lista) return;
 
-  db.collection("pedidos")
+  if (unsubscribePedidos) {
+    unsubscribePedidos();
+  }
+
+  unsubscribePedidos = db.collection("pedidos")
     .orderBy("data", "desc")
     .limit(20)
    .onSnapshot(snapshot => {
@@ -10194,8 +10248,42 @@ function removerFavorito(id) {
 
 }
 
-function isAdmin() {
-  return adminLogado === true;
+async function finalizarPedidoComEstoque(dadosPedido) {
+
+  await db.runTransaction(async (transaction) => {
+
+    // Verifica estoque
+    for (const item of carrinho) {
+
+      const idBase = item.id.split("-")[0];
+
+      const ref = db.collection("estoque").doc(idBase);
+
+      const doc = await transaction.get(ref);
+
+      // Produto sem controle de estoque
+      if (!doc.exists) continue;
+
+      const atual = doc.data().quantidade || 0;
+
+      if (atual < item.qtd) {
+        throw new Error(
+          `${item.nome} não possui estoque suficiente`
+        );
+      }
+
+      transaction.update(ref, {
+        quantidade: atual - item.qtd
+      });
+    }
+
+    // Cria pedido
+    const pedidoRef = db.collection("pedidos").doc();
+
+    transaction.set(pedidoRef, dadosPedido);
+
+  });
+
 }
   
 </script>
