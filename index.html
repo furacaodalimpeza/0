@@ -8205,10 +8205,15 @@ if (!window._estoqueListener) {
   
 function estoqueDisponivel(idBase) {
 
+  // produto sem controle de estoque
+  if (!estoque.hasOwnProperty(idBase)) {
+    return 999999;
+  }
+
   const estoqueAtual = Number(estoque[idBase] || 0);
 
   const quantidadeNoCarrinho = carrinho
-.filter(p => obterIdBase(p.id) === idBase)
+    .filter(p => obterIdBase(p.id) === idBase)
     .reduce((soma, p) => soma + Number(p.qtd || 0), 0);
 
   return estoqueAtual - quantidadeNoCarrinho;
@@ -8231,8 +8236,11 @@ const idBase = obterIdBase(produto.dataset.id);
     const btn = produto.querySelector(".btn-add");
 
     if (!btn) return;
-    if (disponivel <= 0) {
-
+if (
+  estoque.hasOwnProperty(idBase) &&
+  disponivel <= 0
+) {
+  
       btn.disabled = true;
       btn.innerText = "Esgotado";
 
@@ -9232,8 +9240,8 @@ const todosSugeridos = [...sugeridos, ...maisVendidos]
 
 // Mostra só os 6 primeiros
 todosSugeridos
- .filter(p => {
-  const idBase = p.obterIdBase(id);
+.filter(p => {
+  const idBase = obterIdBase(p.id);
 
   if (estoque.hasOwnProperty(idBase)) {
     return estoque[idBase] > 0;
