@@ -8553,10 +8553,13 @@ for (const item of carrinho) {
     .doc(idBase)
     .get();
 
-  const atual = doc.data()?.quantidade || 0;
+ if (!doc.exists) {
+  continue; // produto sem controle de estoque
+}
 
- if (atual < item.qtd) {
+const atual = doc.data().quantidade || 0;
 
+if (atual < item.qtd) {
   alert(`${item.nome} não possui estoque suficiente`);
 
   window.enviandoPedido = false;
