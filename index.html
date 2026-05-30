@@ -8282,21 +8282,39 @@ function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecion
 
   }
 
-  let item = carrinho.find(p => p.id === id);
+ let item = carrinho.find(p => p.id === id);
 
-  if (item) {
-    item.qtd++;
-  } else {
-    carrinho.push({
-      id,
-      nome,
-      preco,
-      qtd: 1,
-      imagem,
-      tamanhos,
-      tamanhoSelecionado
-    });
+if (item) {
+
+  const quantidadeNoCarrinho = carrinho
+    .filter(p => p.id.split("-")[0] === idBase)
+    .reduce((soma, p) => soma + p.qtd, 0);
+
+  if (
+    estoque.hasOwnProperty(idBase) &&
+    quantidadeNoCarrinho >= estoque[idBase]
+  ) {
+    alert(`❌ Estoque máximo atingido (${estoque[idBase]} unidades)`);
+    return;
   }
+
+  item.qtd++;
+
+}
+
+} else {
+
+  carrinho.push({
+    id,
+    nome,
+    preco,
+    qtd: 1,
+    imagem,
+    tamanhos,
+    tamanhoSelecionado
+  });
+
+}
 
   atualizar();
   mostrarToast();
@@ -8522,8 +8540,13 @@ function alterarQtd(index, valor) {
 const idBase = item.id.split("-")[0];
 
 if (valor > 0 && estoque.hasOwnProperty(idBase)) {
-    if (estoqueDisponivel(idBase) <= 0) {
-        alert("Quantidade máxima em estoque atingida");
+
+    const quantidadeNoCarrinho = carrinho
+      .filter(p => p.id.split("-")[0] === idBase)
+      .reduce((soma, p) => soma + p.qtd, 0);
+
+    if (quantidadeNoCarrinho >= estoque[idBase]) {
+        alert(`❌ Estoque máximo: ${estoque[idBase]} unidades`);
         return;
     }
 }
@@ -8770,15 +8793,13 @@ function atualizarEstoqueTela() {
   for (let id in estoque) {
 
     const el = document.getElementById("estoque-" + id);
-
     const card = document.querySelector(`.produto[data-id="${id}"]`);
 
     if (!card) continue;
 
-   if (
-  estoque.hasOwnProperty(id) &&
-  estoqueDisponivel(id) <= 0
-) {
+    const disponivel = estoqueDisponivel(id);
+
+    if (disponivel <= 0) {
 
       if (el) {
         el.innerText = "📦 Esgotado";
