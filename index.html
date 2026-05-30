@@ -1895,8 +1895,16 @@ input[type="search"]::-webkit-search-cancel-button {
   100% { background:#e8f5e9; }
 }
 
-button:disabled {
-  opacity: 0.4;
+.produto-esgotado {
+  opacity: 0.45;
+  filter: grayscale(100%);
+}
+
+.produto-esgotado img {
+  opacity: 0.6;
+}
+
+.produto-esgotado .btn-add {
   cursor: not-allowed;
 }
   
@@ -8199,25 +8207,45 @@ let todasAvaliacoes = [];
   
 // FUNÇÃO PARA ADICIONAR PRODUTO
 function bloquearBotoesZerados() {
-  if (estoque) {
-    for (let id in estoque) {
-      const btn = document.getElementById("btn-" + id);
-      if (!btn) continue;
 
-      if (estoqueDisponivel(id) <= 0) {
-        btn.disabled = true;
-        btn.innerText = "Esgotado";
-      } else {
-        btn.disabled = false;
-        btn.innerText = "Adicionar";
-      }
+  document.querySelectorAll(".produto").forEach(produto => {
+
+    const id = produto.dataset.id;
+
+    const btn = produto.querySelector(".btn-add");
+
+    if (!btn) return;
+
+    const disponivel = estoqueDisponivel(id);
+
+    if (disponivel <= 0) {
+
+      btn.disabled = true;
+      btn.innerText = "Esgotado";
+
+      produto.classList.add("produto-esgotado");
+
+    } else {
+
+      btn.disabled = false;
+      btn.innerText = "Adicionar";
+
+      produto.classList.remove("produto-esgotado");
+
     }
-  }
+
+  });
+
 }
 
 function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecionado = "") {
 
   const idBase = id.split("-")[0];
+
+   if ((estoque[idBase] ?? 0) <= 0) {
+    alert("❌ Produto esgotado");
+    return;
+  }
 
   preco = Number(preco);
 
