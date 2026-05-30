@@ -8108,9 +8108,11 @@ if (btnSair) btnSair.style.display = "block";
       
 const role = doc.data().role;
 
-if (role === "chefe") {
-  const btnDashboard = document.getElementById("btnDashboard");
-  if (btnDashboard) btnDashboard.style.display = "block";
+const btnDashboard = document.getElementById("btnDashboard");
+
+if (btnDashboard) {
+  btnDashboard.style.display =
+    role === "chefe" ? "block" : "none";
 }
       
      const adminFab = document.getElementById("adminFabContainer");
@@ -8545,7 +8547,7 @@ if (!nome || !tel || !end || !pag) {
 
 for (const item of carrinho) {
 
-  const idBase = item.id.split("-")[0];
+  const idBase = item.id;
 
   const doc = await db.collection("estoque")
     .doc(idBase)
@@ -9111,10 +9113,11 @@ async function mostrarSugestoesFixas() {
   const idsNoCarrinho = carrinho.map(item => item.id);
 
   // 1️⃣ Começa com os produtos fixos
-  let sugeridos = sugestoesFixas
-    .filter(p => !idsNoCarrinho.includes(p.id))
-    .map(p => ({ ...p, totalCompras: 0 })); // totalCompras pra padronizar
-
+ let sugeridos = sugestoesFixas
+  .filter(p => !idsNoCarrinho.includes(p.id))
+  .filter(p => (estoque[p.id] ?? 0) > 0)
+  .map(p => ({ ...p, totalCompras: 0 }));
+  
   // 2️⃣ Buscar mais vendidos do Firebase
   const snapshot = await db.collection("maisVendidos")
   .orderBy("quantidade", "desc")
@@ -9149,21 +9152,30 @@ const todosSugeridos = [...sugeridos, ...maisVendidos]
 
 
 // Mostra só os 6 primeiros
-todosSugeridos.slice(0, 6).forEach(p => {
-  linha.innerHTML += `
-    <div class="sugestao-card">
-      <img src="${p.imagem}" />
-      <div>${p.nome}</div>
-      <div>R$ ${p.preco.toFixed(2)}</div>
-      <button onclick="addProduto(
-        '${p.id}',
-        '${p.nome}',
-        ${p.preco},
-        '${p.imagem}'
-      )">Adicionar</button>
-    </div>
-  `;
-});
+todosSugeridos
+  .filter(p => {
+    if (estoque.hasOwnProperty(p.id)) {
+      return estoque[p.id] > 0;
+    }
+    return true;
+  })
+  .slice(0, 6)
+  .forEach(p => {
+
+    linha.innerHTML += `
+      <div class="sugestao-card">
+        <img src="${p.imagem}" />
+        <div>${p.nome}</div>
+        <div>R$ ${p.preco.toFixed(2)}</div>
+        <button onclick="addProduto(
+          '${p.id}',
+          '${p.nome}',
+          ${p.preco},
+          '${p.imagem}'
+        )">Adicionar</button>
+      </div>
+    `;
+  });
   
   }
 
@@ -10255,7 +10267,7 @@ async function finalizarPedidoComEstoque(dadosPedido) {
     // Verifica estoque
     for (const item of carrinho) {
 
-      const idBase = item.id.split("-")[0];
+      const idBase = item.id;
 
       const ref = db.collection("estoque").doc(idBase);
 
