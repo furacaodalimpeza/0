@@ -8208,7 +8208,7 @@ function estoqueDisponivel(idBase) {
   const estoqueAtual = Number(estoque[idBase] || 0);
 
   const quantidadeNoCarrinho = carrinho
-    .filter(p => p.id.split("-")[0] === idBase)
+.filter(p => obterIdBase(p.id) === idBase)
     .reduce((soma, p) => soma + Number(p.qtd || 0), 0);
 
   return estoqueAtual - quantidadeNoCarrinho;
@@ -8225,8 +8225,8 @@ function bloquearBotoesZerados() {
 
   document.querySelectorAll(".produto").forEach(produto => {
 
-   const idBase = produto.dataset.id.split("-")[0];
-const disponivel = estoqueDisponivel(idBase);
+const idBase = obterIdBase(produto.dataset.id);
+    const disponivel = estoqueDisponivel(idBase);
 
     const btn = produto.querySelector(".btn-add");
 
@@ -8253,14 +8253,14 @@ const disponivel = estoqueDisponivel(idBase);
 
 function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecionado = "") {
 
-  const idBase = id.split("-")[0];
+  const idBase = obterIdBase(id);
 
   preco = Number(preco);
   if (isNaN(preco)) return;
 
   // 🔒 Quantidade total desse produto no carrinho
   const quantidadeNoCarrinho = carrinho
-    .filter(p => p.id.split("-")[0] === idBase)
+.filter(p => obterIdBase(p.id) === idBase)
     .reduce((soma, p) => soma + p.qtd, 0);
 
   // 🔒 Bloqueia ao atingir o estoque
@@ -8513,12 +8513,11 @@ function alterarQtd(index, valor) {
   const item = carrinho[index];
 
   // 🔒 BLOQUEIA SE TENTAR PASSAR DO ESTOQUE
-const idBase = item.id.split("-")[0];
-
+const idBase = obterIdBase(item.id);
 if (valor > 0 && estoque.hasOwnProperty(idBase)) {
 
     const quantidadeNoCarrinho = carrinho
-      .filter(p => p.id.split("-")[0] === idBase)
+.filter(p => obterIdBase(p.id) === idBase)
       .reduce((soma, p) => soma + p.qtd, 0);
 
     const estoqueAtual = Number(estoque[idBase] || 0);
@@ -8605,8 +8604,8 @@ if (!nome || !tel || !end || !pag) {
 
 for (const item of carrinho) {
 
-  const idBase = item.id.split("-")[0];
-
+const idBase = obterIdBase(item.id);
+  
 const doc = await db.collection("estoque")
   .doc(idBase)
   .get();
@@ -9193,8 +9192,8 @@ async function mostrarSugestoesFixas() {
  let sugeridos = sugestoesFixas
   .filter(p => !idsNoCarrinho.includes(p.id))
   .filter(p => {
-  const idBase = p.id.split("-")[0];
-  return (estoque[idBase] ?? 0) > 0;
+const idBase = obterIdBase(p.id);
+    return (estoque[idBase] ?? 0) > 0;
 })
   .map(p => ({ ...p, totalCompras: 0 }));
   
@@ -9234,7 +9233,7 @@ const todosSugeridos = [...sugeridos, ...maisVendidos]
 // Mostra só os 6 primeiros
 todosSugeridos
  .filter(p => {
-  const idBase = p.id.split("-")[0];
+  const idBase = p.obterIdBase(id);
 
   if (estoque.hasOwnProperty(idBase)) {
     return estoque[idBase] > 0;
@@ -10349,8 +10348,8 @@ async function finalizarPedidoComEstoque(dadosPedido) {
 
     for (const item of dadosPedido.itens) {
 
-      const idBase = item.id.split("-")[0];
-
+const idBase = obterIdBase(item.id);
+      
       const ref = db.collection("estoque").doc(idBase);
 
       const doc = await transaction.get(ref);
@@ -10562,6 +10561,18 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
+
+ function obterIdBase(id) {
+  const partes = id.split("-");
+
+  if (partes.length > 1) {
+    partes.pop();
+    return partes.join("-");
+  }
+
+  return id;
+}
+  
 </script>
 
 <div class="admin-fab-container" id="adminFabContainer">
