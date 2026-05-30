@@ -8282,7 +8282,7 @@ function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecion
 
   }
 
- let item = carrinho.find(p => p.id === id);
+let item = carrinho.find(p => p.id === id);
 
 if (item) {
 
@@ -8300,8 +8300,6 @@ if (item) {
 
   item.qtd++;
 
-}
-
 } else {
 
   carrinho.push({
@@ -8316,8 +8314,8 @@ if (item) {
 
 }
 
-  atualizar();
-  mostrarToast();
+atualizar();
+mostrarToast();
 }
 
   
