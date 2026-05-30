@@ -8077,27 +8077,31 @@ function bloquearBotoesZerados() {
 
 function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecionado = "") {
 
-const idBase = id.split("-")[0];
+  const idBase = id.split("-")[0];
+
   preco = Number(preco);
+
   if (isNaN(preco)) return;
 
-  // 🔥 Só controla estoque se o produto existir na coleção estoque
+  // Controle de estoque
   if (typeof estoque[idBase] === "number") {
-if (estoqueDisponivel(idBase) <= 0)
-  alert("Quantidade máxima em estoque atingida");
-    return;
+
+    if (estoqueDisponivel(idBase) <= 0) {
+      alert("Quantidade máxima em estoque atingida");
+      return;
+    }
+
   }
-}
-  
+
   let item = carrinho.find(p => p.id === id);
 
   if (item) {
     item.qtd++;
   } else {
-    carrinho.push({ 
-      id, 
+    carrinho.push({
+      id,
       nome,
-      preco, 
+      preco,
       qtd: 1,
       imagem,
       tamanhos,
@@ -8494,7 +8498,6 @@ document.getElementById("telaSucesso").style.display = "flex";
 // ✅ WHATSAPP
 window.location.href =
   "https://wa.me/5515996585967?text=" + msgFinal;
-);
 
 // LIMPA CARRINHO
 carrinho = [];
