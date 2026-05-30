@@ -8205,11 +8205,16 @@ if (!window._estoqueListener) {
   
 function estoqueDisponivel(id) {
 
+  // produto sem controle de estoque
+  if (!estoque.hasOwnProperty(id)) {
+    return Infinity;
+  }
+
   const reservado = carrinho
     .filter(p => p.id.split("-")[0] === id)
     .reduce((total, p) => total + p.qtd, 0);
 
-  return (estoque[id] ?? 0) - reservado;
+  return estoque[id] - reservado;
 }
   
 let carrinho = [];
@@ -8255,10 +8260,13 @@ function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecion
 
   const idBase = id.split("-")[0];
 
-   if ((estoque[idBase] ?? 0) <= 0) {
-    alert("❌ Produto esgotado");
-    return;
-  }
+  if (
+  estoque.hasOwnProperty(idBase) &&
+  estoque[idBase] <= 0
+) {
+  alert("❌ Produto esgotado");
+  return;
+}
 
   preco = Number(preco);
 
@@ -8767,9 +8775,10 @@ function atualizarEstoqueTela() {
 
     if (!card) continue;
 
-    const disponivel = estoqueDisponivel(id);
-
-    if (disponivel <= 0) {
+   if (
+  estoque.hasOwnProperty(id) &&
+  estoqueDisponivel(id) <= 0
+) {
 
       if (el) {
         el.innerText = "📦 Esgotado";
