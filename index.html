@@ -10571,9 +10571,21 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
  function obterIdBase(id) {
-  const partes = id.split("-");
 
-  if (partes.length > 1) {
+  const sufixosTamanho = [
+    "pequeno",
+    "medio",
+    "grande",
+    "1l",
+    "2l",
+    "5l",
+    "500ml"
+  ];
+
+  const partes = id.split("-");
+  const ultimo = partes[partes.length - 1].toLowerCase();
+
+  if (sufixosTamanho.includes(ultimo)) {
     partes.pop();
     return partes.join("-");
   }
