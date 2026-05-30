@@ -8224,14 +8224,12 @@ function bloquearBotoesZerados() {
 
   document.querySelectorAll(".produto").forEach(produto => {
 
-    const id = produto.dataset.id;
+   const idBase = produto.dataset.id.split("-")[0];
+const disponivel = estoqueDisponivel(idBase);
 
     const btn = produto.querySelector(".btn-add");
 
     if (!btn) return;
-
-    const disponivel = estoqueDisponivel(id);
-
     if (disponivel <= 0) {
 
       btn.disabled = true;
@@ -9189,7 +9187,10 @@ async function mostrarSugestoesFixas() {
   // 1️⃣ Começa com os produtos fixos
  let sugeridos = sugestoesFixas
   .filter(p => !idsNoCarrinho.includes(p.id))
-  .filter(p => (estoque[p.id] ?? 0) > 0)
+  .filter(p => {
+  const idBase = p.id.split("-")[0];
+  return (estoque[idBase] ?? 0) > 0;
+})
   .map(p => ({ ...p, totalCompras: 0 }));
   
   // 2️⃣ Buscar mais vendidos do Firebase
@@ -9227,12 +9228,15 @@ const todosSugeridos = [...sugeridos, ...maisVendidos]
 
 // Mostra só os 6 primeiros
 todosSugeridos
-  .filter(p => {
-    if (estoque.hasOwnProperty(p.id)) {
-      return estoque[p.id] > 0;
-    }
-    return true;
-  })
+ .filter(p => {
+  const idBase = p.id.split("-")[0];
+
+  if (estoque.hasOwnProperty(idBase)) {
+    return estoque[idBase] > 0;
+  }
+
+  return true;
+})
   .slice(0, 6)
   .forEach(p => {
 
@@ -10338,7 +10342,7 @@ async function finalizarPedidoComEstoque(dadosPedido) {
 
   await db.runTransaction(async (transaction) => {
 
-    for (const item of carrinho) {
+    for (const item of dadosPedido.itens) {
 
       const idBase = item.id.split("-")[0];
 
