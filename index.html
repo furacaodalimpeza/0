@@ -8203,12 +8203,14 @@ if (!window._estoqueListener) {
 
   } 
   
-function estoqueDisponivel(id) {
+function estoqueDisponivel(idBase) {
 
-  // produto sem controle de estoque
-  if (!estoque.hasOwnProperty(id)) {
-    return Infinity;
-  }
+  const quantidadeNoCarrinho = carrinho
+    .filter(p => p.id.split("-")[0] === idBase)
+    .reduce((soma, p) => soma + p.qtd, 0);
+
+  return (estoque[idBase] || 0) - quantidadeNoCarrinho;
+}
 
   const reservado = carrinho
     .filter(p => p.id.split("-")[0] === id)
@@ -8260,36 +8262,15 @@ function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecion
 
   const idBase = id.split("-")[0];
 
-  if (
-  estoque.hasOwnProperty(idBase) &&
-  estoque[idBase] <= 0
-) {
-  alert("❌ Produto esgotado");
-  return;
-}
-
   preco = Number(preco);
-
   if (isNaN(preco)) return;
 
-  // Controle de estoque
-  if (typeof estoque[idBase] === "number") {
-
-    if (estoqueDisponivel(idBase) <= 0) {
-      alert("Quantidade máxima em estoque atingida");
-      return;
-    }
-
-  }
-
-let item = carrinho.find(p => p.id === id);
-
-if (item) {
-
+  // 🔒 Quantidade total desse produto no carrinho
   const quantidadeNoCarrinho = carrinho
     .filter(p => p.id.split("-")[0] === idBase)
     .reduce((soma, p) => soma + p.qtd, 0);
 
+  // 🔒 Bloqueia ao atingir o estoque
   if (
     estoque.hasOwnProperty(idBase) &&
     quantidadeNoCarrinho >= estoque[idBase]
@@ -8298,24 +8279,26 @@ if (item) {
     return;
   }
 
-  item.qtd++;
+  let item = carrinho.find(p => p.id === id);
 
-} else {
+  if (item) {
+    item.qtd++;
+  } else {
+    carrinho.push({
+      id,
+      nome,
+      preco,
+      qtd: 1,
+      imagem,
+      tamanhos,
+      tamanhoSelecionado
+    });
+  }
 
-  carrinho.push({
-    id,
-    nome,
-    preco,
-    qtd: 1,
-    imagem,
-    tamanhos,
-    tamanhoSelecionado
-  });
-
-}
-
-atualizar();
-mostrarToast();
+  atualizar();
+  atualizarEstoqueTela();
+  bloquearBotoesZerados();
+  mostrarToast();
 }
 
   
@@ -8563,9 +8546,12 @@ if (valor > 0 && estoque.hasOwnProperty(idBase)) {
 // REMOVER ITEM
 function remover(index) {
   carrinho.splice(index, 1);
-  atualizar();
-}
 
+  atualizar();
+  atualizarEstoqueTela();
+  bloquearBotoesZerados();
+}
+  
 function abrirModal() {
   if (carrinho.length === 0) {
     alert("🛒 Seu carrinho está vazio.");
@@ -8622,9 +8608,9 @@ if (!nome || !tel || !end || !pag) {
 
 for (const item of carrinho) {
 
-  const idBase = item.id;
+  const idBase = item.id.split("-")[0];
 
-  const doc = await db.collection("estoque")
+const ref = db.collection("estoque").doc(idBase);
     .doc(idBase)
     .get();
 
