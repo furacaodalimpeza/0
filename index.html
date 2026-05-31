@@ -8311,7 +8311,10 @@ ${p.qtd}x • R$ ${(p.preco * p.qtd).toFixed(2)}
       </li>
     `;
   });
-lista.innerHTML = pedidosHTML;
+lista.replaceChildren();
+const temp = document.createElement("div");
+temp.innerHTML = pedidosHTML;
+lista.appendChild(temp);
   
 if (contador) {
   contador.innerText = itens > 0 ? itens : "";
@@ -10053,9 +10056,10 @@ if (temPedidoNovo) {
   }
 }
 
-if (lista.innerHTML !== pedidosHTML) {
-  lista.innerHTML = pedidosHTML || "📭 Nenhum pedido encontrado";
-}
+if (lista.dataset.hash === pedidosHTML.length.toString()) return;
+
+lista.dataset.hash = pedidosHTML.length.toString();
+lista.innerHTML = pedidosHTML;
 
      primeiroCarregamentoPedidos = false;
     });
