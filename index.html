@@ -8220,10 +8220,14 @@ let estrelaSelecionada = 0;
 let ultimoTotal = 0;
 let todasAvaliacoes = [];
   
+function getProdutos() {
+  return document.querySelectorAll(".produto");
+}
+
 // FUNÇÃO PARA ADICIONAR PRODUTO
 function bloquearBotoesZerados() {
 
-  document.querySelectorAll(".produto").forEach(produto => {
+  getProdutos().forEach(produto => {
 
     const idBase = obterIdBase(produto.dataset.id);
     const disponivel = estoqueDisponivel(idBase);
@@ -8311,10 +8315,7 @@ ${p.qtd}x • R$ ${(p.preco * p.qtd).toFixed(2)}
       </li>
     `;
   });
-lista.replaceChildren();
-const temp = document.createElement("div");
-temp.innerHTML = pedidosHTML;
-lista.appendChild(temp);
+lista.innerHTML = pedidosHTML;
   
 if (contador) {
   contador.innerText = itens > 0 ? itens : "";
@@ -8766,7 +8767,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   mostrarCategoria("limpeza", document.querySelector(".abas button"));
   mostrarProdutosAbaAtiva();
   atualizarEstoqueTela();
+setTimeout(() => {
   mostrarSugestoesFixas();
+}, 300);
   atualizar();
   mostrarAvaliacoes();
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -10049,18 +10052,33 @@ if (isNovo && !primeiroCarregamentoPedidos) {
       });
 
 if (temPedidoNovo) {
+
   const som = document.getElementById("somPedido");
-  if (som) {
+
+  if (som && !som.dataset.tocando) {
+
+    som.dataset.tocando = "1";
+
     som.currentTime = 0;
-    som.play().catch(()=>{});
+
+    som.play().catch(() => {});
+
+    setTimeout(() => {
+      som.dataset.tocando = "";
+    }, 2000);
+
   }
 }
 
-if (lista.dataset.hash === pedidosHTML.length.toString()) return;
+const novoHash = pedidosHTML.length + "_" + snapshot.size;
 
-lista.dataset.hash = pedidosHTML.length.toString();
-lista.innerHTML = pedidosHTML;
+if (lista.dataset.hash === novoHash) return;
 
+lista.dataset.hash = novoHash;
+setTimeout(() => {
+  lista.innerHTML = pedidosHTML;
+}, 0);
+     
      primeiroCarregamentoPedidos = false;
     });
 }
@@ -10238,7 +10256,7 @@ if (
 
 document.addEventListener("DOMContentLoaded", () => {
 
-document.querySelectorAll(".produto").forEach(produto => {
+getProdutos().forEach(produto => {
 
   const dataNovo = produto.dataset.novo;
   if (!dataNovo) return;
