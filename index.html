@@ -8056,6 +8056,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
   window.enviandoPedido = false;
 
+  const produtoCache = {};
   const db = firebase.firestore();
   const auth = firebase.auth();
 
@@ -8168,6 +8169,7 @@ if (adminFab) adminFab.style.display = "none";
 
 });
 
+  let ultimoCarrinhoHash = "";
 let estoque = {};
 let estoqueAnterior = {};
 
@@ -8227,7 +8229,7 @@ function getProdutos() {
 // FUNÇÃO PARA ADICIONAR PRODUTO
 function bloquearBotoesZerados() {
 
-  getProdutos().forEach(produto => {
+  document.querySelectorAll(".produto").forEach(produto => {
 
     const idBase = obterIdBase(produto.dataset.id);
     const disponivel = estoqueDisponivel(idBase);
@@ -8235,15 +8237,10 @@ function bloquearBotoesZerados() {
     const btn = produto.querySelector(".btn-add");
     if (!btn) return;
 
-    if (disponivel <= 0) {
-      btn.disabled = true;
-      btn.innerText = "Esgotado";
-      produto.classList.add("produto-esgotado");
-    } else {
-      btn.disabled = false;
-      btn.innerText = "Adicionar";
-      produto.classList.remove("produto-esgotado");
-    }
+    btn.disabled = disponivel <= 0;
+    btn.innerText = disponivel <= 0 ? "Esgotado" : "Adicionar";
+
+    produto.classList.toggle("produto-esgotado", disponivel <= 0);
   });
 }
 
@@ -8287,6 +8284,13 @@ function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecion
   
 // FUNÇÃO PARA ATUALIZAR CARRINHO
 function atualizar() {
+
+const novoHash = JSON.stringify(carrinho);
+
+if (novoHash === ultimoCarrinhoHash) return;
+
+ultimoCarrinhoHash = novoHash;
+  
   const lista = document.getElementById("lista");
   const contador = document.getElementById("contador");
   const btnWhatsapp = document.getElementById("btnWhatsapp");
@@ -8917,7 +8921,17 @@ function mostrarAvaliacoes() {
  db.collection("avaliacoes")
 .orderBy("data","desc")
 .limit(20)
+let timeoutAvaliacoes;
+
 .onSnapshot(snapshot => {
+
+  clearTimeout(timeoutAvaliacoes);
+
+  timeoutAvaliacoes = setTimeout(() => {
+    processarAvaliacoes(snapshot);
+  }, 200);
+
+});
 
       todasAvaliacoes = [];
       let soma = 0;
@@ -9065,8 +9079,22 @@ function responderAvaliacao(idDoc) {
      
     
   // MOSTRAR / ESCONDER BOTÃO VOLTAR AO TOPO
+let scrollTimeout;
+
 window.addEventListener("scroll", () => {
 
+  clearTimeout(scrollTimeout);
+
+  scrollTimeout = setTimeout(() => {
+
+    const btn = document.getElementById("btnTopo");
+    if (!btn) return;
+
+    btn.style.display = window.scrollY > 300 ? "flex" : "none";
+
+  }, 50);
+
+});
   const btn = document.getElementById("btnTopo");
   const carrinho = document.getElementById("carrinho");
   const modalCliente = document.getElementById("modalCliente");
@@ -10419,6 +10447,24 @@ async function carregarEstoque() {
   });
 
   console.log("✔ Estoque carregado:", estoqueCache);
+}
+
+
+  function processarAvaliacoes(snapshot) {
+
+  todasAvaliacoes = [];
+  let soma = 0;
+
+  snapshot.forEach(doc => {
+    const a = doc.data();
+
+    if (!a.nota) return;
+
+    soma += a.nota;
+    todasAvaliacoes.push(a);
+  });
+
+  filtrarEstrelas(0);
 }
   
 </script>
