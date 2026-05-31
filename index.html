@@ -8712,8 +8712,26 @@ await finalizarPedidoComEstoque(dadosPedido);
   }
 
 } catch (err) {
+
   console.error("ERRO COMPLETO:", err);
-  alert("Erro ao finalizar pedido: " + JSON.stringify(err));
+  console.error("MENSAGEM:", err.message);
+  console.error("CODIGO:", err.code);
+  console.error("STACK:", err.stack);
+
+  alert(
+    "Erro ao finalizar pedido\n\n" +
+    "Mensagem: " + err.message +
+    "\nCódigo: " + err.code
+  );
+
+  window.enviandoPedido = false;
+
+  if (btnConfirmar) {
+    btnConfirmar.disabled = false;
+  }
+
+  return;
+}
 
   window.enviandoPedido = false;
   if (btnConfirmar) btnConfirmar.disabled = false;
@@ -10356,8 +10374,14 @@ async function finalizarPedidoComEstoque(dadosPedido) {
 
     for (const item of dadosPedido.itens) {
 
-const idBase = obterIdBase(item.id);
-      
+      const idBase = obterIdBase(item.id);
+
+      console.log("================================");
+      console.log("Produto:", item.nome);
+      console.log("ID:", item.id);
+      console.log("ID BASE:", idBase);
+      console.log("QTD:", item.qtd);
+
       const ref = db.collection("estoque").doc(idBase);
 
       const doc = await transaction.get(ref);
@@ -10367,17 +10391,33 @@ const idBase = obterIdBase(item.id);
 
       const atual = doc.data().quantidade || 0;
 
+      console.log("ESTOQUE FIREBASE:", atual);
+      console.log("TIPO ESTOQUE:", typeof atual);
+      console.log("TIPO QTD:", typeof item.qtd);
+
       if (atual < item.qtd) {
         throw new Error(
           `${item.nome} não possui estoque suficiente`
         );
       }
 
+      const novoEstoque = atual - item.qtd;
+
+      console.log("NOVO ESTOQUE:", novoEstoque);
+
+      if (isNaN(novoEstoque)) {
+        throw new Error(
+          "Novo estoque virou NaN para o produto: " +
+          item.nome
+        );
+      }
+
       transaction.update(ref, {
-        quantidade: atual - item.qtd
+        quantidade: novoEstoque
       });
     }
 
+    // SALVA O PEDIDO UMA ÚNICA VEZ
     const pedidoRef = db.collection("pedidos").doc();
 
     transaction.set(pedidoRef, dadosPedido);
