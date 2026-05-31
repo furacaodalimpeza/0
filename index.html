@@ -9194,7 +9194,8 @@ async function mostrarSugestoesFixas() {
   .filter(p => !idsNoCarrinho.includes(p.id))
   .filter(p => {
 const idBase = obterIdBase(p.id);
-    return (estoque vindo do Firestore (doc.data().quantidade) ?? 0) > 0;
+    const idBase = obterIdBase(p.id);
+return (estoqueCache[idBase] ?? 0) > 0;
 })
   .map(p => ({ ...p, totalCompras: 0 }));
   
@@ -9236,12 +9237,9 @@ todosSugeridos
 .filter(p => {
   const idBase = obterIdBase(p.id);
 
-  if (estoque.hasOwnProperty(idBase)) {
-    return estoque vindo do Firestore (doc.data().quantidade) > 0;
-  }
-
-  return true;
+  return (estoqueCache[idBase] ?? 0) > 0;
 })
+  
   .slice(0, 6)
   .forEach(p => {
 
