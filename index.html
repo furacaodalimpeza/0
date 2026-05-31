@@ -8090,6 +8090,7 @@ firebase.initializeApp(firebaseConfig);
   });
 }
 
+  let carrinhoVersion = 0;
   let ultimoCarrinhoHash = "";
 let estoqueCache = {};
   let adminLogado = false;
@@ -8176,16 +8177,18 @@ let estoqueTimeout;
 if (!window._estoqueListener) {
   window._estoqueListener = true;
 
-  db.collection("estoque").onSnapshot(snapshot => {
+ db.collection("estoque").onSnapshot(snapshot => {
 
-    snapshot.forEach(doc => {
-      estoqueCache[doc.id] = doc.data().quantidade || 0;
-    });
-
-    safeEstoqueUpdate(); // 🔥 IMPORTANTE
-
+  snapshot.forEach(doc => {
+    estoqueCache[doc.id] = doc.data().quantidade || 0;
   });
-}
+
+  requestAnimationFrame(() => {
+    atualizarEstoqueTela();
+    bloquearBotoesZerados();
+  });
+
+});
   
 function estoqueDisponivel(idBase) {
 
@@ -8257,19 +8260,17 @@ function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecion
     });
   }
 
- safeUpdate();
-  mostrarToast();
+carrinhoVersion++;
+safeUpdate();
+mostrarToast();
 }
 
   
 // FUNÇÃO PARA ATUALIZAR CARRINHO
 function atualizar() {
 
-const novoHash = carrinho.length + "_" + totalGeral;
-
-if (novoHash === ultimoCarrinhoHash) return;
-
-ultimoCarrinhoHash = novoHash;
+if (window._lastCarrinhoSize === carrinho.length) return;
+window._lastCarrinhoSize = carrinho.length;
   
   const lista = document.getElementById("lista");
   const contador = document.getElementById("contador");
@@ -8469,8 +8470,8 @@ function filtrarProdutos() {
       btnTopo.style.display = "flex";
     }
 
-if (isAdmin() && adminBtns)
-  adminBtns.style.display = "block";
+    if (isAdmin() && adminBtns) {
+      adminBtns.style.display = "block";
     }
   }
 }
@@ -8755,17 +8756,14 @@ setTimeout(() => {
 
 function atualizarEstoqueTela() {
 
-const ids = Object.keys(estoqueCache);
+  for (const id in estoqueCache) {
 
-for (let i = 0; i < ids.length; i++) {
-  const id = ids[i];
-  
-    const el = document.getElementById("estoque-" + id);
     const card = document.querySelector(`.produto[data-id="${id}"]`);
-
     if (!card) continue;
 
     const disponivel = estoqueDisponivel(id);
+
+    const el = document.getElementById("estoque-" + id);
 
     if (el) {
       el.innerText = disponivel <= 0
@@ -8773,11 +8771,7 @@ for (let i = 0; i < ids.length; i++) {
         : "📦 Estoque: " + disponivel;
     }
 
-    if (disponivel <= 0) {
-      card.classList.add("produto-esgotado");
-    } else {
-      card.classList.remove("produto-esgotado");
-    }
+    card.classList.toggle("produto-esgotado", disponivel <= 0);
   }
 }
   
@@ -9292,7 +9286,7 @@ for (let id in estoqueCache) {
       <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
         <span>${id}</span>
         <input type="number"
-          value="${estoque[id]}"
+          value="${estoqueCache[id] || 0}"
           min="0"
           style="width:70px"
           onchange="alterarEstoqueAdmin('${id}', this.value)">
@@ -10409,16 +10403,18 @@ function processarAvaliacoes(snapshot) {
 
 let renderTimeout;
 
-let renderTimeout;
-
 function safeUpdate() {
-  clearTimeout(renderTimeout);
+  if (window._renderLock) return;
 
-  renderTimeout = setTimeout(() => {
+  window._renderLock = true;
+
+  requestAnimationFrame(() => {
     atualizar();
     bloquearBotoesZerados();
     atualizarEstoqueTela();
-  }, 80);
+
+    window._renderLock = false;
+  });
 }
 
 function safeEstoqueUpdate() {
