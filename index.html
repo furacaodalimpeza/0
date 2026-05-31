@@ -10370,60 +10370,54 @@ function removerFavorito(id) {
 
 async function finalizarPedidoComEstoque(dadosPedido) {
 
-  await db.runTransaction(async (transaction) => {
+  return db.runTransaction(async (transaction) => {
+
+    if (!dadosPedido || !Array.isArray(dadosPedido.itens)) {
+      throw new Error("Pedido inválido");
+    }
 
     for (const item of dadosPedido.itens) {
 
-      const idBase = obterIdBase(item.id);
+      if (!item || !item.id) {
+        throw new Error("Item inválido no carrinho");
+      }
 
-      console.log("================================");
-      console.log("Produto:", item.nome);
-      console.log("ID:", item.id);
-      console.log("ID BASE:", idBase);
-      console.log("QTD:", item.qtd);
+      const idBase = String(obterIdBase(item.id || "")).trim();
+      const qtd = Number(item.qtd);
+
+      if (!idBase) {
+        throw new Error("ID do produto inválido: " + item.id);
+      }
+
+      if (!qtd || isNaN(qtd)) {
+        throw new Error("Quantidade inválida: " + item.id);
+      }
 
       const ref = db.collection("estoque").doc(idBase);
 
       const doc = await transaction.get(ref);
 
-      // produto sem controle de estoque
       if (!doc.exists) continue;
 
-      const atual = doc.data().quantidade || 0;
+      const atual = Number(doc.data().quantidade || 0);
 
-      console.log("ESTOQUE FIREBASE:", atual);
-      console.log("TIPO ESTOQUE:", typeof atual);
-      console.log("TIPO QTD:", typeof item.qtd);
-
-      if (atual < item.qtd) {
-        throw new Error(
-          `${item.nome} não possui estoque suficiente`
-        );
-      }
-
-      const novoEstoque = atual - item.qtd;
-
-      console.log("NOVO ESTOQUE:", novoEstoque);
-
-      if (isNaN(novoEstoque)) {
-        throw new Error(
-          "Novo estoque virou NaN para o produto: " +
-          item.nome
-        );
+      if (atual < qtd) {
+        throw new Error(`${item.nome} não possui estoque suficiente`);
       }
 
       transaction.update(ref, {
-        quantidade: novoEstoque
+        quantidade: atual - qtd
       });
     }
 
-    // SALVA O PEDIDO UMA ÚNICA VEZ
     const pedidoRef = db.collection("pedidos").doc();
 
-    transaction.set(pedidoRef, dadosPedido);
+    transaction.set(pedidoRef, {
+      ...dadosPedido,
+      data: firebase.firestore.FieldValue.serverTimestamp()
+    });
 
   });
-
 }
   
 </script>
