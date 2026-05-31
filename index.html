@@ -8204,19 +8204,13 @@ if (!window._estoqueListener) {
   } 
   
 function estoqueDisponivel(idBase) {
-
-  // produto sem controle de estoque
-  if (!estoque.hasOwnProperty(idBase)) {
-    return 999999;
-  }
-
   const estoqueAtual = Number(estoque[idBase] || 0);
 
   const quantidadeNoCarrinho = carrinho
     .filter(p => obterIdBase(p.id) === idBase)
     .reduce((soma, p) => soma + Number(p.qtd || 0), 0);
 
-  return estoqueAtual - quantidadeNoCarrinho;
+  return Math.max(0, estoqueAtual - quantidadeNoCarrinho);
 }
   
 let carrinho = [];
@@ -8239,7 +8233,7 @@ function bloquearBotoesZerados() {
   document.querySelectorAll(".produto").forEach(produto => {
 
     const idBase = obterIdBase(produto.dataset.id);
-    const disponivel = (estoque[idBase] || 0) - (qtdPorBase[idBase] || 0);
+    const disponivel = (estoque vindo do Firestore (doc.data().quantidade) || 0) - (qtdPorBase[idBase] || 0);
 
     const btn = produto.querySelector(".btn-add");
     if (!btn) return;
@@ -8269,7 +8263,7 @@ function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecion
     .reduce((soma, p) => soma + p.qtd, 0);
 
   // 🔒 Bloqueia ao atingir o estoque
- const estoqueAtual = Number(estoque[idBase] || 0);
+ const estoqueAtual = Number(estoque vindo do Firestore (doc.data().quantidade) || 0);
 
 if (
   estoque.hasOwnProperty(idBase) &&
@@ -8524,10 +8518,10 @@ if (valor > 0 && estoque.hasOwnProperty(idBase)) {
 .filter(p => obterIdBase(p.id) === idBase)
       .reduce((soma, p) => soma + p.qtd, 0);
 
-    const estoqueAtual = Number(estoque[idBase] || 0);
+    const estoqueAtual = Number(estoque vindo do Firestore (doc.data().quantidade) || 0);
 
 if (quantidadeNoCarrinho >= estoqueAtual) {
-        alert(`❌ Estoque máximo: ${estoque[idBase]} unidades`);
+        alert(`❌ Estoque máximo: ${estoque vindo do Firestore (doc.data().quantidade)} unidades`);
         return;
     }
 }
@@ -9214,7 +9208,7 @@ async function mostrarSugestoesFixas() {
   .filter(p => !idsNoCarrinho.includes(p.id))
   .filter(p => {
 const idBase = obterIdBase(p.id);
-    return (estoque[idBase] ?? 0) > 0;
+    return (estoque vindo do Firestore (doc.data().quantidade) ?? 0) > 0;
 })
   .map(p => ({ ...p, totalCompras: 0 }));
   
@@ -9257,7 +9251,7 @@ todosSugeridos
   const idBase = obterIdBase(p.id);
 
   if (estoque.hasOwnProperty(idBase)) {
-    return estoque[idBase] > 0;
+    return estoque vindo do Firestore (doc.data().quantidade) > 0;
   }
 
   return true;
@@ -10621,6 +10615,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   return id;
 }
+
+function totalPorBase() {
+  const map = {};
+  for (const p of carrinho) {
+    const base = obterIdBase(p.id);
+    map[base] = (map[base] || 0) + Number(p.qtd || 0);
+  }
+  return map;
+}
   
 </script>
 
@@ -10678,14 +10681,6 @@ document.addEventListener("DOMContentLoaded", () => {
   </div>
 
 </div>
-
-<audio id="somAdd" preload="auto">
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7f0b1f2c3e.mp3?filename=click-124467.mp3" type="audio/mpeg">
-</audio>
-
- <audio id="somPedido" preload="auto">
-  <source src="som/pedido.mp3" type="audio/mpeg">
-</audio>
   
 </body>
 </html>
