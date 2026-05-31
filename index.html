@@ -8468,36 +8468,33 @@ function filtrarProdutos() {
 
  function toggleCarrinho() {
 
-const carrinhoEl = document.getElementById("carrinho");
-   carrinho.classList.toggle("aberto");
+  const carrinhoEl = document.getElementById("carrinho");
+  if (!carrinhoEl) return;
 
-  const aberto = carrinho.classList.contains("aberto");
+  carrinhoEl.classList.toggle("aberto");
+
+  const aberto = carrinhoEl.classList.contains("aberto");
 
   const btnTopo = document.getElementById("btnTopo");
   const adminBtns = document.getElementById("adminFabContainer");
 
   if (aberto) {
-
     if (btnTopo) btnTopo.style.display = "none";
     if (adminBtns) adminBtns.style.display = "none";
-
     document.body.style.overflow = "hidden";
-
   } else {
-
     document.body.style.overflow = "auto";
 
     if (window.scrollY > 300 && btnTopo) {
       btnTopo.style.display = "flex";
     }
 
-    if (isAdmin() && adminBtns) {
+    if (isAdmin && adminBtns) {
       adminBtns.style.display = "block";
     }
-
   }
 }
-
+  
 // ALTERAR QUANTIDADE
 function alterarQtd(index, valor) {
 
