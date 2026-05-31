@@ -8683,20 +8683,19 @@ try {
   // 🔒 (SE NÃO EXISTIR ESSA FUNÇÃO, COMENTA ESSA LINHA)
 
   // 🧾 CRIAR PEDIDO
- const dadosPedido = {
+const dadosPedido = {
   numero: numeroPedido,
-  cliente: nome,
-  telefone: tel,
-  endereco: end,
-  pagamento: pag,
+  cliente: String(nome),
+  telefone: String(tel),
+  endereco: String(end),
+  pagamento: String(pag),
   itens: carrinho.map(i => ({
-    id: i.id,
-    nome: i.nome,
-    preco: i.preco,
-    qtd: i.qtd
+    id: String(i.id),
+    nome: String(i.nome),
+    preco: Number(i.preco || 0),
+    qtd: Number(i.qtd || 0)
   })),
-  total: totalGeral,
-  data: firebase.firestore.FieldValue.serverTimestamp(),
+  total: Number(totalGeral || 0),
   status: "novo"
 };
 
@@ -10378,12 +10377,12 @@ async function finalizarPedidoComEstoque(dadosPedido) {
 
     for (const item of dadosPedido.itens) {
 
-      if (!item || !item.id) {
-        throw new Error("Item inválido no carrinho");
-      }
+     const idBase = String(obterIdBase(item.id)).trim();
+const qtd = Number(item.qtd);
 
-      const idBase = String(obterIdBase(item.id || "")).trim();
-      const qtd = Number(item.qtd);
+if (!idBase || !Number.isFinite(qtd)) {
+  throw new Error("Item inválido no carrinho");
+}
 
       if (!idBase) {
         throw new Error("ID do produto inválido: " + item.id);
