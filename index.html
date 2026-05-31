@@ -8089,7 +8089,8 @@ firebase.initializeApp(firebaseConfig);
     alert("E-mail ou senha inválidos");
   });
 }
-
+  
+let estoqueCache = {};
   let adminLogado = false;
   
 function isAdmin() {
@@ -8275,9 +8276,7 @@ function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecion
     });
   }
 
-  atualizar();
-  atualizarEstoqueTela();
-  bloquearBotoesZerados();
+ safeUpdate();
   mostrarToast();
 }
 
@@ -8519,9 +8518,7 @@ function alterarQtd(index, valor) {
   }
 
   requestAnimationFrame(() => {
-  atualizar();
-  atualizarEstoqueTela();
-  bloquearBotoesZerados();
+ safeUpdate();
 });
 }
 
@@ -8529,9 +8526,7 @@ function alterarQtd(index, valor) {
 function remover(index) {
   carrinho.splice(index, 1);
 
-  atualizar();
-  atualizarEstoqueTela();
-  bloquearBotoesZerados();
+  safeUpdate();
 }
   
 function abrirModal() {
@@ -8726,10 +8721,9 @@ window.location.href =
 
 // LIMPA CARRINHO
 carrinho = [];
-atualizar();
-atualizarEstoqueTela();
-bloquearBotoesZerados();
-fecharModal();
+  
+safeUpdate();
+  fecharModal();
 
 window.enviandoPedido = false;
 if (btnConfirmar) btnConfirmar.disabled = false;
@@ -8934,38 +8928,6 @@ function mostrarAvaliacoes() {
 
 }
 
-      todasAvaliacoes = [];
-      let soma = 0;
-
-      snapshot.forEach(doc => {
-        
-        const a = doc.data();
-
-        if (!a.nota) return; // ignora sem nota
-
-        a.id = doc.id;
-        a.nota = Number(a.nota);
-
-        if (a.nota < 1 || a.nota > 5) return;
-
-        soma += a.nota;
-        todasAvaliacoes.push(a);
-
-      });
-
-      const total = todasAvaliacoes.length;
-
-      const media = total > 0
-        ? (soma / total).toFixed(1)
-        : "0.0";
-
-      document.getElementById("mediaAvaliacao").innerText = media;
-      document.getElementById("totalAvaliacoes").innerText = total;
-
-      filtrarEstrelas(0);
-    });
-}
-
 function escaparHTML(texto) {
   const div = document.createElement("div");
   div.textContent = texto || "";
@@ -9098,7 +9060,7 @@ if (!btn) {
 
 });
   const btn = document.getElementById("btnTopo");
-  const carrinho = document.getElementById("carrinho");
+const carrinhoEl = document.getElementById("carrinho");
   const modalCliente = document.getElementById("modalCliente");
   const loginAdmin = document.getElementById("loginAdmin");
   const modalFavoritos = document.getElementById("modalFavoritos");
@@ -10450,8 +10412,7 @@ async function carregarEstoque() {
   console.log("✔ Estoque carregado:", estoqueCache);
 }
 
-
-  function processarAvaliacoes(snapshot) {
+function processarAvaliacoes(snapshot) {
 
   todasAvaliacoes = [];
   let soma = 0;
@@ -10461,11 +10422,35 @@ async function carregarEstoque() {
 
     if (!a.nota) return;
 
+    a.id = doc.id;
+    a.nota = Number(a.nota);
+
+    if (a.nota < 1 || a.nota > 5) return;
+
     soma += a.nota;
     todasAvaliacoes.push(a);
   });
 
+  const total = todasAvaliacoes.length;
+
+  const media = total > 0 ? (soma / total).toFixed(1) : "0.0";
+
+  document.getElementById("mediaAvaliacao").innerText = media;
+  document.getElementById("totalAvaliacoes").innerText = total;
+
   filtrarEstrelas(0);
+}
+
+let renderTimeout;
+
+function safeUpdate() {
+  clearTimeout(renderTimeout);
+
+  renderTimeout = setTimeout(() => {
+    atualizar();
+    bloquearBotoesZerados();
+    atualizarEstoqueTela();
+  }, 50);
 }
   
 </script>
