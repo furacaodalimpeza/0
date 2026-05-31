@@ -8089,7 +8089,8 @@ firebase.initializeApp(firebaseConfig);
     alert("E-mail ou senha inválidos");
   });
 }
-  
+
+  let ultimoCarrinhoHash = "";
 let estoqueCache = {};
   let adminLogado = false;
   
@@ -8170,11 +8171,6 @@ if (adminFab) adminFab.style.display = "none";
 
 });
 
-  let ultimoCarrinhoHash = "";
-
-if (!window._estoqueListener) {
-  window._estoqueListener = true;
-
 let estoqueTimeout;
 
 if (!window._estoqueListener) {
@@ -8183,29 +8179,10 @@ if (!window._estoqueListener) {
   db.collection("estoque").onSnapshot(snapshot => {
 
     snapshot.forEach(doc => {
-      const id = doc.id;
-      const quantidadeAtual = doc.data().quantidade || 0;
-
-      const quantidadeAntes = estoqueAnterior[id] ?? quantidadeAtual;
-
-      if (
-        quantidadeAntes > 0 &&
-        quantidadeAtual === 0 &&
-        isAdmin()
-      ) {
-        alert("🚨 Estoque zerado: " + id);
-      }
-
-      estoqueCache[id] = quantidadeAtual;
-      estoqueAnterior[id] = quantidadeAtual;
+      estoqueCache[doc.id] = doc.data().quantidade || 0;
     });
 
-    clearTimeout(estoqueTimeout);
-
-    estoqueTimeout = setTimeout(() => {
-      atualizarEstoqueTela();
-      bloquearBotoesZerados();
-    }, 100);
+    safeEstoqueUpdate(); // 🔥 IMPORTANTE
 
   });
 }
@@ -8492,8 +8469,8 @@ function filtrarProdutos() {
       btnTopo.style.display = "flex";
     }
 
-    if (isAdmin && adminBtns) {
-      adminBtns.style.display = "block";
+if (isAdmin() && adminBtns)
+  adminBtns.style.display = "block";
     }
   }
 }
@@ -8778,8 +8755,11 @@ setTimeout(() => {
 
 function atualizarEstoqueTela() {
 
-  for (let id in estoqueCache) {
+const ids = Object.keys(estoqueCache);
 
+for (let i = 0; i < ids.length; i++) {
+  const id = ids[i];
+  
     const el = document.getElementById("estoque-" + id);
     const card = document.querySelector(`.produto[data-id="${id}"]`);
 
@@ -9042,29 +9022,10 @@ function responderAvaliacao(idDoc) {
 
   return html;
 }
-    
-     
-    
-  // MOSTRAR / ESCONDER BOTÃO VOLTAR AO TOPO
-let scrollTimeout;
-
-window.addEventListener("scroll", () => {
-
-  clearTimeout(scrollTimeout);
-
-  scrollTimeout = setTimeout(() => {
-
-    const btn = document.getElementById("btnTopo");
-if (!btn) {
-  console.warn("Botão não encontrado");
-}
-    btn.style.display = window.scrollY > 300 ? "flex" : "none";
-
-  }, 50);
-
-});
+  
+ function controlarBotaoTopo() {
   const btn = document.getElementById("btnTopo");
-const carrinhoEl = document.getElementById("carrinho");
+  const carrinhoEl = document.getElementById("carrinho");
   const modalCliente = document.getElementById("modalCliente");
   const loginAdmin = document.getElementById("loginAdmin");
   const modalFavoritos = document.getElementById("modalFavoritos");
@@ -9072,7 +9033,7 @@ const carrinhoEl = document.getElementById("carrinho");
   if (!btn) return;
 
   const algumModalAberto =
-    (carrinho && carrinho.classList.contains("aberto")) ||
+    (carrinhoEl && carrinhoEl.classList.contains("aberto")) ||
     (modalCliente && getComputedStyle(modalCliente).display !== "none") ||
     (loginAdmin && getComputedStyle(loginAdmin).display !== "none") ||
     (modalFavoritos && getComputedStyle(modalFavoritos).display !== "none");
@@ -9087,9 +9048,10 @@ const carrinhoEl = document.getElementById("carrinho");
   } else {
     btn.style.display = "none";
   }
+}
 
-});
-
+window.addEventListener("scroll", controlarBotaoTopo);
+  
   function alterarEstoqueAdmin(id, valor) {
   if (!isAdmin()) return; // 🔒 só admin
 
@@ -9325,8 +9287,8 @@ function abrirMiniAba(tipo) {
   const conteudo = document.getElementById("miniAdminConteudo");
   let html = "";
 
-  for (let id in estoque) {
-    html += `
+for (let id in estoqueCache) {
+  html += `
       <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
         <span>${id}</span>
         <input type="number"
@@ -10447,16 +10409,31 @@ function processarAvaliacoes(snapshot) {
 
 let renderTimeout;
 
+let renderTimeout;
+
 function safeUpdate() {
   clearTimeout(renderTimeout);
 
-  requestAnimationFrame(() => {
-  atualizar();
-  bloquearBotoesZerados();
-  atualizarEstoqueTela();
-});
+  renderTimeout = setTimeout(() => {
+    atualizar();
+    bloquearBotoesZerados();
+    atualizarEstoqueTela();
+  }, 80);
+}
+
+function safeEstoqueUpdate() {
+  clearTimeout(window._estoqueTimer);
+
+  window._estoqueTimer = setTimeout(() => {
+    requestAnimationFrame(() => {
+      atualizarEstoqueTela();
+      bloquearBotoesZerados();
+    });
+  }, 150);
+}
   
 </script>
+  
  <!-- 🔐 BOTÃO ADMIN FLUTUANTE -->
 <button id="btnAdminFlutuante" onclick="toggleLoginAdmin()">
   🔐
