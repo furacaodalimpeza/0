@@ -8228,35 +8228,32 @@ let todasAvaliacoes = [];
 // FUNÇÃO PARA ADICIONAR PRODUTO
 function bloquearBotoesZerados() {
 
+  // pré-calcula carrinho por base UMA vez
+  const qtdPorBase = {};
+
+  for (const p of carrinho) {
+    const base = obterIdBase(p.id);
+    qtdPorBase[base] = (qtdPorBase[base] || 0) + Number(p.qtd || 0);
+  }
+
   document.querySelectorAll(".produto").forEach(produto => {
 
-const idBase = obterIdBase(produto.dataset.id);
-    const disponivel = estoqueDisponivel(idBase);
+    const idBase = obterIdBase(produto.dataset.id);
+    const disponivel = (estoque[idBase] || 0) - (qtdPorBase[idBase] || 0);
 
     const btn = produto.querySelector(".btn-add");
-
     if (!btn) return;
-if (
-  estoque.hasOwnProperty(idBase) &&
-  disponivel <= 0
-) {
-  
+
+    if (estoque.hasOwnProperty(idBase) && disponivel <= 0) {
       btn.disabled = true;
       btn.innerText = "Esgotado";
-
       produto.classList.add("produto-esgotado");
-
     } else {
-
       btn.disabled = false;
       btn.innerText = "Adicionar";
-
       produto.classList.remove("produto-esgotado");
-
     }
-
   });
-
 }
 
 function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecionado = "") {
@@ -8382,7 +8379,6 @@ if (carrinho.length > 0) {
   }
 }
   
-  mostrarSugestoesFixas();
 }
   
 // TROCAR NOME
