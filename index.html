@@ -8468,8 +8468,8 @@ function filtrarProdutos() {
 
  function toggleCarrinho() {
 
-  const carrinho = document.getElementById("carrinho");
-  carrinho.classList.toggle("aberto");
+const carrinhoEl = document.getElementById("carrinho");
+   carrinho.classList.toggle("aberto");
 
   const aberto = carrinho.classList.contains("aberto");
 
@@ -8521,9 +8521,11 @@ function alterarQtd(index, valor) {
     carrinho.splice(index, 1);
   }
 
+  requestAnimationFrame(() => {
   atualizar();
   atualizarEstoqueTela();
   bloquearBotoesZerados();
+});
 }
 
 // REMOVER ITEM
@@ -8918,20 +8920,22 @@ function atualizarMedia() {
   
 function mostrarAvaliacoes() {
 
- db.collection("avaliacoes")
-.orderBy("data","desc")
-.limit(20)
-let timeoutAvaliacoes;
+  let timeout;
 
-.onSnapshot(snapshot => {
+  db.collection("avaliacoes")
+    .orderBy("data", "desc")
+    .limit(20)
+    .onSnapshot(snapshot => {
 
-  clearTimeout(timeoutAvaliacoes);
+      clearTimeout(timeout);
 
-  timeoutAvaliacoes = setTimeout(() => {
-    processarAvaliacoes(snapshot);
-  }, 200);
+      timeout = setTimeout(() => {
+        processarAvaliacoes(snapshot);
+      }, 200);
 
-});
+    });
+
+}
 
       todasAvaliacoes = [];
       let soma = 0;
@@ -9088,8 +9092,9 @@ window.addEventListener("scroll", () => {
   scrollTimeout = setTimeout(() => {
 
     const btn = document.getElementById("btnTopo");
-    if (!btn) return;
-
+if (!btn) {
+  console.warn("Botão não encontrado");
+}
     btn.style.display = window.scrollY > 300 ? "flex" : "none";
 
   }, 50);
@@ -9222,7 +9227,7 @@ async function mostrarSugestoesFixas() {
   .filter(p => !idsNoCarrinho.includes(p.id))
   .filter(p => {
 const idBase = obterIdBase(p.id);
-    const idBase = obterIdBase(p.id);
+  
 return (estoqueCache[idBase] ?? 0) > 0;
 })
   .map(p => ({ ...p, totalCompras: 0 }));
@@ -9264,7 +9269,6 @@ const todosSugeridos = [...sugeridos, ...maisVendidos]
 todosSugeridos
 .filter(p => {
   const idBase = obterIdBase(p.id);
-
   return (estoqueCache[idBase] ?? 0) > 0;
 })
   
