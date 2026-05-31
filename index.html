@@ -8171,40 +8171,44 @@ if (adminFab) adminFab.style.display = "none";
 });
 
   let ultimoCarrinhoHash = "";
-let estoque = {};
-let estoqueAnterior = {};
 
 if (!window._estoqueListener) {
   window._estoqueListener = true;
 
- db.collection("estoque").onSnapshot(snapshot => {
+let estoqueTimeout;
 
-  snapshot.forEach(doc => {
+if (!window._estoqueListener) {
+  window._estoqueListener = true;
 
-    const id = doc.id;
-    const quantidadeAtual = doc.data().quantidade || 0;
+  db.collection("estoque").onSnapshot(snapshot => {
 
-    const quantidadeAntes = estoqueAnterior[id] ?? quantidadeAtual;
+    snapshot.forEach(doc => {
+      const id = doc.id;
+      const quantidadeAtual = doc.data().quantidade || 0;
 
-    // 🚨 ALERTA SOMENTE SE REALMENTE ZEROU AGORA
-    if (
-      quantidadeAntes > 0 &&
-      quantidadeAtual === 0 &&
-      isAdmin()
-    ) {
-      alert("🚨 Estoque zerado: " + id);
-    }
+      const quantidadeAntes = estoqueAnterior[id] ?? quantidadeAtual;
 
-    estoque[id] = quantidadeAtual;
-    estoqueAnterior[id] = quantidadeAtual;
+      if (
+        quantidadeAntes > 0 &&
+        quantidadeAtual === 0 &&
+        isAdmin()
+      ) {
+        alert("🚨 Estoque zerado: " + id);
+      }
+
+      estoqueCache[id] = quantidadeAtual;
+      estoqueAnterior[id] = quantidadeAtual;
+    });
+
+    clearTimeout(estoqueTimeout);
+
+    estoqueTimeout = setTimeout(() => {
+      atualizarEstoqueTela();
+      bloquearBotoesZerados();
+    }, 100);
 
   });
-
-  atualizarEstoqueTela();
-  bloquearBotoesZerados();
-});
-
-  } 
+}
   
 function estoqueDisponivel(idBase) {
 
@@ -8284,7 +8288,7 @@ function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecion
 // FUNÇÃO PARA ATUALIZAR CARRINHO
 function atualizar() {
 
-const novoHash = JSON.stringify(carrinho);
+const novoHash = carrinho.length + "_" + totalGeral;
 
 if (novoHash === ultimoCarrinhoHash) return;
 
@@ -10446,12 +10450,11 @@ let renderTimeout;
 function safeUpdate() {
   clearTimeout(renderTimeout);
 
-  renderTimeout = setTimeout(() => {
-    atualizar();
-    bloquearBotoesZerados();
-    atualizarEstoqueTela();
-  }, 50);
-}
+  requestAnimationFrame(() => {
+  atualizar();
+  bloquearBotoesZerados();
+  atualizarEstoqueTela();
+});
   
 </script>
  <!-- 🔐 BOTÃO ADMIN FLUTUANTE -->
