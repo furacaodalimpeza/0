@@ -8204,7 +8204,8 @@ if (!window._estoqueListener) {
   } 
   
 function estoqueDisponivel(idBase) {
-  const estoqueAtual = Number(estoque[idBase] || 0);
+
+  const estoqueAtual = Number(estoqueCache[idBase] || 0);
 
   const quantidadeNoCarrinho = carrinho
     .filter(p => obterIdBase(p.id) === idBase)
@@ -8222,23 +8223,15 @@ let todasAvaliacoes = [];
 // FUNÇÃO PARA ADICIONAR PRODUTO
 function bloquearBotoesZerados() {
 
-  // pré-calcula carrinho por base UMA vez
-  const qtdPorBase = {};
-
-  for (const p of carrinho) {
-    const base = obterIdBase(p.id);
-    qtdPorBase[base] = (qtdPorBase[base] || 0) + Number(p.qtd || 0);
-  }
-
   document.querySelectorAll(".produto").forEach(produto => {
 
     const idBase = obterIdBase(produto.dataset.id);
-    const disponivel = (estoque vindo do Firestore (doc.data().quantidade) || 0) - (qtdPorBase[idBase] || 0);
+    const disponivel = estoqueDisponivel(idBase);
 
     const btn = produto.querySelector(".btn-add");
     if (!btn) return;
 
-    if (estoque.hasOwnProperty(idBase) && disponivel <= 0) {
+    if (disponivel <= 0) {
       btn.disabled = true;
       btn.innerText = "Esgotado";
       produto.classList.add("produto-esgotado");
@@ -8254,24 +8247,16 @@ function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecion
 
   const idBase = obterIdBase(id);
 
-  preco = Number(preco);
-  if (isNaN(preco)) return;
+  const estoqueAtual = Number(estoqueCache[idBase] || 0);
 
-  // 🔒 Quantidade total desse produto no carrinho
   const quantidadeNoCarrinho = carrinho
-.filter(p => obterIdBase(p.id) === idBase)
+    .filter(p => obterIdBase(p.id) === idBase)
     .reduce((soma, p) => soma + p.qtd, 0);
 
-  // 🔒 Bloqueia ao atingir o estoque
- const estoqueAtual = Number(estoque vindo do Firestore (doc.data().quantidade) || 0);
-
-if (
-  estoque.hasOwnProperty(idBase) &&
-  quantidadeNoCarrinho >= estoqueAtual
-) {
-  alert(`❌ Estoque máximo atingido (${estoqueAtual} unidades)`);
-  return;
-}
+  if (quantidadeNoCarrinho >= estoqueAtual) {
+    alert(`❌ Estoque máximo atingido (${estoqueAtual})`);
+    return;
+  }
 
   let item = carrinho.find(p => p.id === id);
 
@@ -8509,22 +8494,18 @@ function filtrarProdutos() {
 function alterarQtd(index, valor) {
 
   const item = carrinho[index];
+  const idBase = obterIdBase(item.id);
 
-  // 🔒 BLOQUEIA SE TENTAR PASSAR DO ESTOQUE
-const idBase = obterIdBase(item.id);
-if (valor > 0 && estoque.hasOwnProperty(idBase)) {
+  const estoqueAtual = Number(estoqueCache[idBase] || 0);
 
-    const quantidadeNoCarrinho = carrinho
-.filter(p => obterIdBase(p.id) === idBase)
-      .reduce((soma, p) => soma + p.qtd, 0);
+  const totalNoCarrinho = carrinho
+    .filter(p => obterIdBase(p.id) === idBase)
+    .reduce((soma, p) => soma + p.qtd, 0);
 
-    const estoqueAtual = Number(estoque vindo do Firestore (doc.data().quantidade) || 0);
-
-if (quantidadeNoCarrinho >= estoqueAtual) {
-        alert(`❌ Estoque máximo: ${estoque vindo do Firestore (doc.data().quantidade)} unidades`);
-        return;
-    }
-}
+  if (valor > 0 && totalNoCarrinho >= estoqueAtual) {
+    alert("❌ Estoque máximo atingido");
+    return;
+  }
 
   item.qtd += valor;
 
@@ -8533,7 +8514,7 @@ if (quantidadeNoCarrinho >= estoqueAtual) {
   }
 
   atualizar();
-  atualizarEstoqueTela(); // ✅ nome correto
+  atualizarEstoqueTela();
   bloquearBotoesZerados();
 }
 
@@ -8691,6 +8672,8 @@ const dadosPedido = {
 
 await finalizarPedidoComEstoque(dadosPedido);
 
+  await carregarEstoque();
+
   // 📊 ATUALIZAR MAIS VENDIDOS
   for (const item of carrinho) {
     const vendasRef = db.collection("maisVendidos").doc(item.id);
@@ -8773,7 +8756,10 @@ abaAtiva.querySelectorAll(".produto").forEach(produto => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+
+  await carregarEstoque(); // ou ouvirEstoque()
+
   mostrarCategoria("limpeza", document.querySelector(".abas button"));
   mostrarProdutosAbaAtiva();
   atualizarEstoqueTela();
@@ -8785,7 +8771,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function atualizarEstoqueTela() {
 
-  for (let id in estoque) {
+  for (let id in estoqueCache) {
 
     const el = document.getElementById("estoque-" + id);
     const card = document.querySelector(`.produto[data-id="${id}"]`);
@@ -8794,22 +8780,16 @@ function atualizarEstoqueTela() {
 
     const disponivel = estoqueDisponivel(id);
 
+    if (el) {
+      el.innerText = disponivel <= 0
+        ? "📦 Esgotado"
+        : "📦 Estoque: " + disponivel;
+    }
+
     if (disponivel <= 0) {
-
-      if (el) {
-        el.innerText = "📦 Esgotado";
-      }
-
       card.classList.add("produto-esgotado");
-
     } else {
-
-      if (el) {
-        el.innerText = "📦 Estoque: " + disponivel;
-      }
-
       card.classList.remove("produto-esgotado");
-
     }
   }
 }
@@ -10407,6 +10387,18 @@ if (!idBase || !Number.isFinite(qtd)) {
     });
 
   });
+}
+
+async function carregarEstoque() {
+  const snapshot = await db.collection("estoque").get();
+
+  estoqueCache = {}; // limpa antes
+
+  snapshot.forEach(doc => {
+    estoqueCache[doc.id] = Number(doc.data().quantidade || 0);
+  });
+
+  console.log("✔ Estoque carregado:", estoqueCache);
 }
   
 </script>
