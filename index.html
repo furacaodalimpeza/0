@@ -8368,9 +8368,16 @@ ${p.qtd}x • R$ ${(p.preco * p.qtd).toFixed(2)}
 lista.innerHTML = pedidosHTML;
   
 if (contador) {
-  contador.innerText = itens;
-}
 
+  if (itens > 0) {
+    contador.innerText = itens;
+    contador.style.display = "flex";
+  } else {
+    contador.style.display = "none";
+  }
+
+}
+  
 const btnCarrinho = document.getElementById("btnCarrinho");
 
 if (btnCarrinho) {
