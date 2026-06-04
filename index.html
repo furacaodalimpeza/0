@@ -8558,7 +8558,12 @@ if (btnConfirmar) btnConfirmar.disabled = true;
 if (carrinho.length === 0) {
   alert("Carrinho vazio!");
  window.enviandoPedido = false;
-if (btnConfirmar) btnConfirmar.disabled = false;
+  if (btnConfirmar) {
+    btnConfirmar.disabled = false;
+  }
+
+  return;
+}
   
 const cliNome = document.getElementById("cliNome");
 const cliTel = document.getElementById("cliTel");
@@ -8574,7 +8579,6 @@ if (!nome || !tel || !end || !pag) {
   alert("Preencha todos os campos!");
   if (btnConfirmar) btnConfirmar.disabled = false;
   window.enviandoPedido = false;
-  return;
 }
 
 for (const item of carrinho) {
@@ -8668,8 +8672,6 @@ const dadosPedido = {
 
 await finalizarPedidoComEstoque(dadosPedido);
 
-  await carregarEstoque();
-
   // 📊 ATUALIZAR MAIS VENDIDOS
   for (const item of carrinho) {
     const vendasRef = db.collection("maisVendidos").doc(item.id);
@@ -8703,11 +8705,12 @@ await finalizarPedidoComEstoque(dadosPedido);
 
   window.enviandoPedido = false;
   if (btnConfirmar) btnConfirmar.disabled = false;
-  return;
 }
 
 // ✅ AGORA SIM EXECUTA (ANTES NÃO EXECUTAVA)
 document.getElementById("telaSucesso").style.display = "flex";
+  document.getElementById("boxAvaliacao").style.display = "block";
+document.getElementById("msgObrigadoAvaliacao").style.display = "none";
 
 // ✅ WHATSAPP
 window.open(
@@ -8725,13 +8728,33 @@ window.enviandoPedido = false;
 if (btnConfirmar) btnConfirmar.disabled = false;
 }
   
-  function voltarComprar() {
+ function voltarComprar() {
+
   document.getElementById("telaSucesso").style.display = "none";
-  document.getElementById("carrinho").classList.remove("aberto");
 
-  mostrarCategoria("limpeza", document.querySelector(".abas button"));
+  fecharModal();
+
+  const carrinhoEl = document.getElementById("carrinho");
+
+  if (carrinhoEl) {
+    carrinhoEl.classList.remove("aberto");
+  }
+
+  document.body.style.overflow = "auto";
+  document.documentElement.style.overflow = "auto";
+
+  mostrarCategoria(
+    "limpeza",
+    document.querySelector(".abas button")
+  );
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
 }
-
+  
  function limparBusca() {
   const input = document.getElementById("pesquisaProduto");
   const limpar = document.getElementById("limparBusca");
@@ -8901,23 +8924,29 @@ function atualizarMedia() {
     });
 }
   
+let unsubscribeAvaliacoes = null;
+
 function mostrarAvaliacoes() {
+
+  if (unsubscribeAvaliacoes) {
+    unsubscribeAvaliacoes();
+  }
 
   let timeout;
 
-  db.collection("avaliacoes")
-    .orderBy("data", "desc")
-    .limit(20)
-    .onSnapshot(snapshot => {
+  unsubscribeAvaliacoes =
+    db.collection("avaliacoes")
+      .orderBy("data", "desc")
+      .limit(20)
+      .onSnapshot(snapshot => {
 
-      clearTimeout(timeout);
+        clearTimeout(timeout);
 
-      timeout = setTimeout(() => {
-        processarAvaliacoes(snapshot);
-      }, 200);
+        timeout = setTimeout(() => {
+          processarAvaliacoes(snapshot);
+        }, 200);
 
-    });
-
+      });
 }
 
 function escaparHTML(texto) {
