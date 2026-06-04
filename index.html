@@ -8183,12 +8183,9 @@ if (!window._estoqueListener) {
     estoqueCache[doc.id] = doc.data().quantidade || 0;
   });
 
-  requestAnimationFrame(() => {
-    atualizarEstoqueTela();
-    bloquearBotoesZerados();
-  });
-
+safeEstoqueUpdate();
 });
+}
   
 function estoqueDisponivel(idBase) {
 
