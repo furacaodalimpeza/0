@@ -38,16 +38,55 @@ header {
   position: fixed;
   top: 20px;
   right: 20px;
+
+  width: 60px;
+  height: 60px;
+
   background: #0a7cff;
-  color: #fff;
-  padding: 12px 18px;
-  border-radius: 50px;
+  color: white;
+
+  border-radius: 999px;
+
   display: flex;
-  gap: 8px;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
   cursor: pointer;
+
   box-shadow: 0 4px 10px rgba(0,0,0,.3);
+
   z-index: 3000;
-  transition: .2s;
+
+  transition: all .35s ease;
+}
+
+.carrinho-btn.expandido {
+  width: 170px;
+  justify-content: flex-start;
+  padding-left: 18px;
+  gap: 10px;
+}
+
+.texto-carrinho {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: .35s;
+}
+
+.carrinho-btn.expandido .texto-carrinho {
+  opacity: 1;
+  width: auto;
+}
+
+#contador {
+  background: #ff3d00;
+  border-radius: 50%;
+  padding: 4px 8px;
+  font-size: 12px;
+  margin-right: 4px;
 }
 .carrinho-btn.animar { transform: scale(1.15); }
 .carrinho-btn span {
@@ -1950,7 +1989,13 @@ input[type="search"]::-webkit-search-cancel-button {
 </div>
 
 <div id="btnCarrinho" class="carrinho-btn" onclick="toggleCarrinho()">
-🛒 Carrinho <span id="contador">0</span>
+
+  <span class="icone-carrinho">🛒</span>
+
+  <span class="texto-carrinho">
+    <span id="contador">0</span> itens
+  </span>
+
 </div>
   
 <div class="abas">
@@ -8313,7 +8358,19 @@ ${p.qtd}x • R$ ${(p.preco * p.qtd).toFixed(2)}
 lista.innerHTML = pedidosHTML;
   
 if (contador) {
-  contador.innerText = itens > 0 ? itens : "";
+  contador.innerText = itens;
+}
+
+const btnCarrinho = document.getElementById("btnCarrinho");
+
+if (btnCarrinho) {
+
+  if (itens > 0) {
+    btnCarrinho.classList.add("expandido");
+  } else {
+    btnCarrinho.classList.remove("expandido");
+  }
+
 }
 
   const nome = localStorage.getItem("nomeCliente") || "não informado";
