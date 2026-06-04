@@ -8703,13 +8703,11 @@ await finalizarPedidoComEstoque(dadosPedido);
   return;
 }
 
-  window.enviandoPedido = false;
-  if (btnConfirmar) btnConfirmar.disabled = false;
-}
+window.enviandoPedido = false;
+if (btnConfirmar) btnConfirmar.disabled = false;
 
-// ✅ AGORA SIM EXECUTA (ANTES NÃO EXECUTAVA)
 document.getElementById("telaSucesso").style.display = "flex";
-  document.getElementById("boxAvaliacao").style.display = "block";
+document.getElementById("boxAvaliacao").style.display = "block";
 document.getElementById("msgObrigadoAvaliacao").style.display = "none";
 
 // ✅ WHATSAPP
@@ -8720,12 +8718,13 @@ window.open(
 
 // LIMPA CARRINHO
 carrinho = [];
-  
+
 safeUpdate();
-  fecharModal();
+fecharModal();
 
 window.enviandoPedido = false;
 if (btnConfirmar) btnConfirmar.disabled = false;
+
 }
   
  function voltarComprar() {
