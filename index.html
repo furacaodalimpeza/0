@@ -8560,10 +8560,8 @@ if (btnConfirmar) btnConfirmar.disabled = true;
 
 if (carrinho.length === 0) {
   alert("Carrinho vazio!");
-  if (btnConfirmar) btnConfirmar.disabled = false;
-  window.enviandoPedido = false;
-  return;
-}
+ window.enviandoPedido = false;
+if (btnConfirmar) btnConfirmar.disabled = false;
   
 const cliNome = document.getElementById("cliNome");
 const cliTel = document.getElementById("cliTel");
@@ -8715,8 +8713,10 @@ await finalizarPedidoComEstoque(dadosPedido);
 document.getElementById("telaSucesso").style.display = "flex";
 
 // ✅ WHATSAPP
-window.location.href =
-  "https://wa.me/5515997138175?text=" + msgFinal;
+window.open(
+  "https://wa.me/5515997138175?text=" + msgFinal,
+  "_blank"
+);
 
 // LIMPA CARRINHO
 carrinho = [];
