@@ -10831,7 +10831,7 @@ function obterIdBase(id) {
   const sufixosTamanho = [
     "pequeno",
     "medio",
-    "grande",
+    "media",
     "1l",
     "2l",
     "5l",
@@ -10847,15 +10847,6 @@ function obterIdBase(id) {
   }
 
   return id;
-}
-  
-function totalPorBase() {
-  const map = {};
-  for (const p of carrinho) {
-    const base = obterIdBase(p.id);
-    map[base] = (map[base] || 0) + Number(p.qtd || 0);
-  }
-  return map;
 }
   
 </script>
