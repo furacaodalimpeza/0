@@ -10647,6 +10647,23 @@ function safeEstoqueUpdate() {
     });
   }, 150);
 }
+
+function renderProduto(produto) {
+  const div = document.createElement("div");
+
+  div.className = "produto";
+
+  if (produto.estoque <= 0) {
+    div.classList.add("produto-esgotado");
+  }
+
+  div.innerHTML = `
+    <h3>${produto.nome}</h3>
+    <img src="${produto.img}">
+  `;
+
+  return div;
+}
   
 </script>
   
