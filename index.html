@@ -8336,7 +8336,6 @@ function getProdutos() {
 
 // FUNÇÃO PARA ADICIONAR PRODUTO
 function bloquearBotoesZerados() {
-
   document.querySelectorAll(".produto").forEach(produto => {
 
     const idBase = obterIdBase(produto.dataset.id);
@@ -8344,26 +8343,29 @@ function bloquearBotoesZerados() {
     const btn = produto.querySelector(".btn-add");
     if (!btn) return;
 
-    // Produto sem estoque cadastrado = não controla estoque
-    if (estoqueCache[idBase] === undefined) {
+    const disponivel = estoqueDisponivel(idBase);
 
+    // SEM ESTOQUE CADASTRADO = normal
+    if (!estoqueCache.hasOwnProperty(idBase)) {
       btn.disabled = false;
       btn.innerText = "Adicionar";
-
       produto.classList.remove("produto-esgotado");
-
       return;
     }
 
-    const disponivel = estoqueDisponivel(idBase);
-
-    btn.disabled = disponivel <= 0;
-    btn.innerText = disponivel <= 0 ? "Esgotado" : "Adicionar";
-
-    produto.classList.toggle("produto-esgotado", disponivel <= 0);
+    // SEM ESTOQUE
+    if (disponivel <= 0) {
+      btn.disabled = true;
+      btn.innerText = "Esgotado";
+      produto.classList.add("produto-esgotado"); // 🔥 FORÇA A CLASSE
+    } else {
+      btn.disabled = false;
+      btn.innerText = "Adicionar";
+      produto.classList.remove("produto-esgotado");
+    }
   });
-
 }
+  
 function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecionado = "") {
 
   const idBase = obterIdBase(id);
@@ -8740,8 +8742,8 @@ const doc = await db.collection("estoque")
   .doc(idBase)
   .get();
 
- if (!doc.exists) {
-  continue; // produto sem controle de estoque
+if (!doc.exists) {
+  throw new Error(`Produto sem estoque cadastrado: ${item.nome}`);
 }
 
 const atual = doc.data().quantidade || 0;
@@ -10580,18 +10582,6 @@ console.log(
   });
 }
 
-async function carregarEstoque() {
-  const snapshot = await db.collection("estoque").get();
-
-  estoqueCache = {}; // limpa antes
-
-  snapshot.forEach(doc => {
-    estoqueCache[doc.id] = Number(doc.data().quantidade || 0);
-  });
-
-  console.log("✔ Estoque carregado:", estoqueCache);
-}
-
 function processarAvaliacoes(snapshot) {
 
   todasAvaliacoes = [];
@@ -10658,6 +10648,21 @@ function renderProduto(produto) {
   `;
 
   return div;
+}
+
+  function carregarEstoque() {
+  db.collection("estoque").onSnapshot(snapshot => {
+
+    const novoCache = {};
+
+    snapshot.forEach(doc => {
+      novoCache[doc.id] = doc.data().quantidade || 0;
+    });
+
+    estoqueCache = novoCache;
+
+    safeEstoqueUpdate();
+  });
 }
   
 </script>
