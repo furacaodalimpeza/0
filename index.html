@@ -10511,6 +10511,15 @@ async function finalizarPedidoComEstoque(dadosPedido) {
         throw new Error("Item inválido no carrinho");
       }
 
+console.log(
+  "ITEM:",
+  item.id,
+  "ID BASE:",
+  idBase,
+  "QTD:",
+  qtd
+);
+      
       const ref = db.collection("estoque").doc(idBase);
       const doc = await transaction.get(ref);
 
@@ -10537,6 +10546,16 @@ async function finalizarPedidoComEstoque(dadosPedido) {
         );
       }
 
+console.log(
+  "ATUALIZANDO:",
+  dados.ref.id,
+  "ESTOQUE ATUAL:",
+  atual,
+  "NOVA QTD:",
+  atual - dados.qtd
+);
+
+      
       transaction.update(dados.ref, {
         quantidade: atual - dados.qtd
       });
