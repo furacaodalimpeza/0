@@ -8701,6 +8701,7 @@ for (const item of carrinho) {
   if (!doc.exists) {
     alert(`Produto não encontrado no estoque: ${item.nome}`);
     window.enviandoPedido = false;
+    if (btnConfirmar) btnConfirmar.disabled = false;
     return;
   }
 
@@ -8709,32 +8710,15 @@ for (const item of carrinho) {
   if (atual < item.qtd) {
     alert(`${item.nome} sem estoque suficiente`);
     window.enviandoPedido = false;
+    if (btnConfirmar) btnConfirmar.disabled = false;
     return;
   }
 }
 
-if (!doc.exists) {
-  throw new Error(`Produto sem estoque cadastrado: ${item.nome}`);
-}
-
-const atual = doc.data().quantidade || 0;
-
-if (atual < item.qtd) {
-  alert(`${item.nome} não possui estoque suficiente`);
-
-  window.enviandoPedido = false;
-
-  if (btnConfirmar) {
-    btnConfirmar.disabled = false;
-  }
-
-  return;
-}
-
-  
+// ✔️ AQUI FALTAVA ISSO
 const numeroPedido = gerarNumeroPedido();
 localStorage.setItem("pedidoAtual", numeroPedido);
-
+  
 let msg = `
 ━━━━━━━━━━━━━━━━━━━
 *FURACAO DA LIMPEZA*
@@ -10477,7 +10461,7 @@ async function finalizarPedidoComEstoque(dadosPedido) {
 
     for (const item of dadosPedido.itens) {
 
-      const ref = db.collection("estoque").doc(item.id);
+      const ref = db.collection("estoque").doc(obterIdBase(item.id));
       const doc = await transaction.get(ref);
 
       if (!doc.exists) {
@@ -10780,7 +10764,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function obterIdBase(id) {
-  if (!id) return "";
+  if (!id) return id;
 
   const sufixosTamanho = [
     "pequeno",
@@ -10795,7 +10779,9 @@ function obterIdBase(id) {
 
   const partes = id.toLowerCase().split("-");
 
-  if (sufixosTamanho.includes(partes[partes.length - 1])) {
+  const ultimo = partes[partes.length - 1];
+
+  if (sufixosTamanho.includes(ultimo)) {
     partes.pop();
   }
 
