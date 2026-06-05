@@ -8632,7 +8632,7 @@ function filtrarProdutos() {
 function alterarQtd(index, valor) {
 
   const item = carrinho[index];
-  const idBase = obterIdBase(item.id);
+  const idBase = item.id;
 
  if (estoqueCache[idBase] !== undefined) {
 
@@ -8730,7 +8730,7 @@ if (!nome || !tel || !end || !pag) {
 
 for (const item of carrinho) {
 
-const idBase = obterIdBase(item.id);
+const idBase = item.id;
   
 const doc = await db.collection("estoque")
   .doc(idBase)
@@ -8818,6 +8818,9 @@ const dadosPedido = {
 };
 
 await finalizarPedidoComEstoque(dadosPedido);
+
+  await carregarEstoque();
+safeEstoqueUpdate();
 
   // 📊 ATUALIZAR MAIS VENDIDOS
   for (const item of carrinho) {
@@ -10504,7 +10507,7 @@ async function finalizarPedidoComEstoque(dadosPedido) {
     // 🔹 PRIMEIRO: LER TUDO
     for (const item of dadosPedido.itens) {
 
-      const idBase = String(obterIdBase(item.id)).trim();
+      const idBase = obterIdBase(item.id);
       const qtd = Number(item.qtd);
 
       if (!idBase || !Number.isFinite(qtd)) {
