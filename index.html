@@ -1658,22 +1658,28 @@ input[type="search"]::-webkit-search-cancel-button {
   display: none;
 
   position: fixed;
-  right: 10px;
-  left: 10px;      /* 🔥 permite ajustar no celular */
-  bottom: 80px;
 
-  max-width: 420px;
+  top: 10px;      /* fica preso no topo */
+  right: 10px;
+  left: 10px;
+
+  max-width: 500px;
   margin: auto;
 
-  max-height: 75vh;
-  overflow-y: auto;
+  height: 85vh;   /* altura fixa */
+  overflow: hidden; /* painel não rola */
 
   background: #f9fbff;
   border-radius: 20px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-  padding: 18px;
 
-  z-index: 9999;
+  z-index: 99999;
+}
+
+#miniAdminConteudo{
+  height: calc(85vh - 60px);
+  overflow-y: auto;
+  padding: 15px;
 }
   
 @keyframes slideUp {
@@ -1681,13 +1687,23 @@ input[type="search"]::-webkit-search-cancel-button {
   to { transform: translateY(0); opacity:1; }
 }
 
-.mini-admin-header {
+.mini-admin-header{
+  position: sticky;
+  top: 0;
+
+  background: white;
+
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:15px;
-}
 
+  padding:12px 15px;
+
+  border-bottom:1px solid #ddd;
+
+  z-index:9999;
+}
+  
 .mini-admin-header strong {
   font-size:18px;
 }
@@ -2016,6 +2032,15 @@ input[type="search"]::-webkit-search-cancel-button {
 
 #barraCarrinho.animar{
   animation: pulseCarrinho .35s ease;
+}
+
+.btn-fechar-admin{
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #ff4d4d;
+  font-weight: bold;
 }
   
 </style>
@@ -9426,10 +9451,9 @@ function abrirMiniAba(tipo) {
     "📊 Painel Executivo"}
 </strong>
 
-    <button onclick="fecharMiniAdmin()" 
-      style="background:none;border:none;font-size:18px;cursor:pointer;">
-      ❌
-    </button>
+   <button onclick="fecharMiniAdmin()" class="btn-fechar-admin">
+  ✕
+</button>
   </div>
 
   <div id="miniAdminConteudo"></div>
