@@ -8608,8 +8608,8 @@ function filtrarProdutos() {
 }
   
 // ALTERAR QUANTIDADE
-function alterarQtd(index, valor) {
-
+async function alterarQtd(index, valor) {
+  
   const item = carrinho[index];
   
 const doc = await db.collection("estoque").doc(item.id).get();
@@ -10554,6 +10554,8 @@ function safeUpdate() {
   });
 }
   
+let sugestoesCarregadas = false;
+
 function safeEstoqueUpdate() {
   clearTimeout(window._estoqueTimer);
 
@@ -10561,7 +10563,11 @@ function safeEstoqueUpdate() {
     requestAnimationFrame(() => {
       atualizarEstoqueTela();
       bloquearBotoesZerados();
-      mostrarSugestoesFixas();
+
+      if (!sugestoesCarregadas) {
+        mostrarSugestoesFixas();
+        sugestoesCarregadas = true;
+      }
     });
   }, 150);
 }
