@@ -8297,22 +8297,6 @@ if (adminFab) adminFab.style.display = "none";
 
 let estoqueTimeout;
 
-if (!window._estoqueListener) {
-  window._estoqueListener = true;
-
-db.collection("estoque").onSnapshot(snapshot => {
-  const novoCache = {};
-
-  snapshot.forEach(doc => {
-    novoCache[doc.id] = doc.data().quantidade || 0;
-  });
-
-  estoqueCache = novoCache;
-
-  safeEstoqueUpdate();
-});
-}
-  
 function estoqueDisponivel(idBase) {
 
   const estoqueAtual = Number(estoqueCache[idBase] || 0);
@@ -8609,24 +8593,21 @@ function filtrarProdutos() {
   
 // ALTERAR QUANTIDADE
 async function alterarQtd(index, valor) {
-  
+
   const item = carrinho[index];
-  
-const doc = await db.collection("estoque").doc(item.id).get();
+  if (!item) return;
 
-if (!doc.exists) {
-  throw new Error(`${item.nome} não existe no estoque`);
-}
+  const doc = await db.collection("estoque").doc(item.id).get();
 
-if (doc.data().quantidade < item.qtd) {
-  throw new Error(`${item.nome} sem estoque suficiente`);
-}
- if (estoqueCache[idBase] !== undefined) {
+  if (!doc.exists) {
+    alert(`${item.nome} não existe no estoque`);
+    return;
+  }
 
-  const estoqueAtual = Number(estoqueCache[idBase]);
+  const estoqueAtual = doc.data().quantidade || 0;
 
   const totalNoCarrinho = carrinho
-    .filter(p => obterIdBase(p.id) === idBase)
+    .filter(p => p.id === item.id)
     .reduce((soma, p) => soma + p.qtd, 0);
 
   if (valor > 0 && totalNoCarrinho >= estoqueAtual) {
@@ -8634,19 +8615,15 @@ if (doc.data().quantidade < item.qtd) {
     return;
   }
 
-}
-
   item.qtd += valor;
 
   if (item.qtd <= 0) {
     carrinho.splice(index, 1);
   }
 
-  requestAnimationFrame(() => {
- safeUpdate();
-});
+  safeUpdate();
 }
-
+  
 // REMOVER ITEM
 function remover(index) {
   carrinho.splice(index, 1);
@@ -8717,11 +8694,24 @@ if (!nome || !tel || !end || !pag) {
 
 for (const item of carrinho) {
 
+  const doc = await db.collection("estoque")
+    .doc(item.id)
+    .get();
 
-  
-const doc = await db.collection("estoque")
-  .doc(idBase)
-  .get();
+  if (!doc.exists) {
+    alert(`Produto não encontrado no estoque: ${item.nome}`);
+    window.enviandoPedido = false;
+    return;
+  }
+
+  const atual = doc.data().quantidade || 0;
+
+  if (atual < item.qtd) {
+    alert(`${item.nome} sem estoque suficiente`);
+    window.enviandoPedido = false;
+    return;
+  }
+}
 
 if (!doc.exists) {
   throw new Error(`Produto sem estoque cadastrado: ${item.nome}`);
@@ -8740,7 +8730,7 @@ if (atual < item.qtd) {
 
   return;
 }
-}
+
   
 const numeroPedido = gerarNumeroPedido();
 localStorage.setItem("pedidoAtual", numeroPedido);
