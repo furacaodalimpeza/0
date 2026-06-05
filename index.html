@@ -8769,15 +8769,13 @@ const dadosPedido = {
   endereco: String(end),
   pagamento: String(pag),
   itens: carrinho.map(i => ({
-    id: String(i.id),
-    nome: String(i.nome),
-    preco: Number(i.preco || 0),
-    qtd: Number(i.qtd || 0)
-  })),
-  total: Number(totalGeral || 0),
-  status: "novo"
-};
-
+  idBase: obterIdBase(i.id),
+  idCompleto: i.id,
+  nome: String(i.nome),
+  preco: Number(i.preco || 0),
+  qtd: Number(i.qtd || 0)
+})),
+  
 await finalizarPedidoComEstoque(dadosPedido);
 
   // 📊 ATUALIZAR MAIS VENDIDOS
@@ -10461,7 +10459,7 @@ async function finalizarPedidoComEstoque(dadosPedido) {
 
     for (const item of dadosPedido.itens) {
 
-      const ref = db.collection("estoque").doc(obterIdBase(item.id));
+      const ref = db.collection("estoque").doc(item.idBase);
       const doc = await transaction.get(ref);
 
       if (!doc.exists) {
@@ -10766,26 +10764,9 @@ document.addEventListener("DOMContentLoaded", () => {
 function obterIdBase(id) {
   if (!id) return id;
 
-  const sufixosTamanho = [
-    "pequeno",
-    "medio",
-    "media",
-    "grande",
-    "1l",
-    "2l",
-    "5l",
-    "500ml"
-  ];
-
-  const partes = id.toLowerCase().split("-");
-
-  const ultimo = partes[partes.length - 1];
-
-  if (sufixosTamanho.includes(ultimo)) {
-    partes.pop();
-  }
-
-  return partes.join("-");
+  return id
+    .toLowerCase()
+    .replace(/-(pequeno|medio|media|grande|1l|2l|5l|500ml)$/g, "");
 }
   
 </script>
