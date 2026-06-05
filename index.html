@@ -6766,13 +6766,13 @@ data-nomes="lysoform, desinfetante lysoform, lisoform">
     <div class="linha">
       <span>11L — R$ 15,00</span>
       <button onclick="addProduto(
-        'bacia-11l','Bacia 11L',15,'img/bacia.jpg',
+        'bacia-pequena','Bacia 11L',15,'img/bacia.jpg',
         [{tamanho:'11L', preco:15}],'11L')">Adicionar</button>
     </div>
     <div class="linha">
       <span>30L — R$ 30,00</span>
       <button onclick="addProduto(
-        'bacia-30l','Bacia 30L',30,'img/bacia.jpg',
+        'bacia-grande','Bacia 30L',30,'img/bacia.jpg',
         [{tamanho:'30L', preco:30}],'30L')">Adicionar</button>
     </div>
   </div>
@@ -10782,7 +10782,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
- function obterIdBase(id) {
+function obterIdBase(id) {
+
+  // Produtos com estoque separado por variação
+  if (
+    id.startsWith("balde-") ||
+    id.startsWith("bacia-")
+  ) {
+    return id;
+  }
 
   const sufixosTamanho = [
     "pequeno",
@@ -10804,7 +10812,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   return id;
 }
-
+  
 function totalPorBase() {
   const map = {};
   for (const p of carrinho) {
