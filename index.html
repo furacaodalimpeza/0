@@ -8719,8 +8719,13 @@ const pag = cliPag.value;
 
 if (!nome || !tel || !end || !pag) {
   alert("Preencha todos os campos!");
-  if (btnConfirmar) btnConfirmar.disabled = false;
+
+  if (btnConfirmar) {
+    btnConfirmar.disabled = false;
+  }
+
   window.enviandoPedido = false;
+  return;
 }
 
 for (const item of carrinho) {
@@ -8936,9 +8941,6 @@ function atualizarEstoqueTela() {
 
   for (const id in estoqueCache) {
 
-    const card = document.querySelector(`.produto[data-id="${id}"]`);
-    if (!card) continue;
-
     const disponivel = estoqueDisponivel(id);
 
     const el = document.getElementById("estoque-" + id);
@@ -8948,8 +8950,6 @@ function atualizarEstoqueTela() {
         ? "📦 Esgotado"
         : "📦 Estoque: " + disponivel;
     }
-
-    card.classList.toggle("produto-esgotado", disponivel <= 0);
   }
 }
   
@@ -10033,7 +10033,7 @@ let unsubscribePedidos = null;
 
   unsubscribePedidos = db.collection("pedidos")
     .orderBy("data", "desc")
-    .limit(20)
+    .limit(100)
    .onSnapshot(snapshot => {
 
   let pedidosHTML = "";
@@ -10617,6 +10617,7 @@ function safeEstoqueUpdate() {
     requestAnimationFrame(() => {
       atualizarEstoqueTela();
       bloquearBotoesZerados();
+      mostrarSugestoesFixas();
     });
   }, 150);
 }
@@ -10807,14 +10808,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function obterIdBase(id) {
-
-  // Produtos com estoque separado por variação
-  if (
-    id.startsWith("balde-") ||
-    id.startsWith("bacia-")
-  ) {
-    return id;
-  }
 
   const sufixosTamanho = [
     "pequeno",
