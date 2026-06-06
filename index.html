@@ -8346,13 +8346,16 @@ function bloquearBotoesZerados() {
   
 function addProduto(id, nome, preco, imagem = "", tamanhos = [], tamanhoSelecionado = "") {
 
+  const idBase = obterIdBase(id);
+
   let item = carrinho.find(p => p.id === id);
 
   if (item) {
     item.qtd++;
   } else {
     carrinho.push({
-      id,   // 👈 SEM idBase
+      id,
+      idBase, // 🔥 AGORA EXISTE
       nome,
       preco,
       qtd: 1,
@@ -10464,17 +10467,18 @@ async function finalizarPedidoComEstoque(dadosPedido) {
       const doc = await transaction.get(ref);
 
       if (!doc.exists) {
-        throw new Error("Produto sem estoque: " + item.nome);
+        throw new Error("Produto não existe: " + item.nome);
       }
 
-      const atual = Number(doc.data().quantidade || 0);
+      const atual = Number(doc.data().quantidade ?? 0);
+      const novaQtd = atual - Number(item.qtd || 0);
 
-      if (atual < item.qtd) {
+      if (novaQtd < 0) {
         throw new Error(item.nome + " sem estoque suficiente");
       }
 
       transaction.update(ref, {
-        quantidade: atual - item.qtd
+        quantidade: novaQtd
       });
     }
 
@@ -10485,9 +10489,7 @@ async function finalizarPedidoComEstoque(dadosPedido) {
       data: firebase.firestore.FieldValue.serverTimestamp()
     });
 
-  }, {
-    maxAttempts: 3 // 🔥 evita loop infinito de retry
-  });
+  }, { maxAttempts: 3 });
 }
   
 function processarAvaliacoes(snapshot) {
