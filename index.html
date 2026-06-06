@@ -8698,7 +8698,7 @@ if (!nome || !tel || !end || !pag) {
 for (const item of carrinho) {
 
   const doc = await db.collection("estoque")
-    .doc(item.id)
+    .doc(obterIdBase(item.id))
     .get();
 
   if (!doc.exists) {
