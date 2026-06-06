@@ -8697,27 +8697,31 @@ if (!nome || !tel || !end || !pag) {
 
 for (const item of carrinho) {
 
-const doc = await db.collection("estoque")
-  .doc(item.id)
-  .get();
+  const idBase = obterIdBase(item.id);
+
+  const doc = await db.collection("estoque")
+    .doc(idBase)
+    .get();
 
   if (!doc.exists) {
-    alert(`Produto não encontrado no estoque: ${item.nome}`);
-    window.enviandoPedido = false;
-    if (btnConfirmar) btnConfirmar.disabled = false;
-    return;
+    continue;
   }
 
-  const atual = doc.data().quantidade || 0;
+  const atual = Number(doc.data().quantidade || 0);
 
   if (atual < item.qtd) {
     alert(`${item.nome} sem estoque suficiente`);
+
     window.enviandoPedido = false;
-    if (btnConfirmar) btnConfirmar.disabled = false;
+
+    if (btnConfirmar) {
+      btnConfirmar.disabled = false;
+    }
+
     return;
   }
 }
-
+  
 // ✔️ AQUI FALTAVA ISSO
 const numeroPedido = gerarNumeroPedido();
 localStorage.setItem("pedidoAtual", numeroPedido);
@@ -8771,8 +8775,8 @@ const dadosPedido = {
   telefone: String(tel),
   endereco: String(end),
   pagamento: String(pag),
- itens: carrinho.map(i => ({
-  idBase: i.id,
+itens: carrinho.map(i => ({
+  idBase: obterIdBase(i.id),
   idCompleto: i.id,
   nome: String(i.nome),
   preco: Number(i.preco || 0),
@@ -10468,18 +10472,21 @@ async function finalizarPedidoComEstoque(dadosPedido) {
 
       const ref = db.collection("estoque").doc(item.idBase);
 
+      const doc = await transaction.get(ref);
+
       leituras.push({
         item,
         ref,
-        doc: await transaction.get(ref)
+        doc
       });
     }
 
-    // 2️⃣ Validar tudo
+    // 2️⃣ Validar somente produtos que possuem estoque
     for (const { item, doc } of leituras) {
 
       if (!doc.exists) {
-        throw new Error("Produto não existe: " + item.nome);
+        console.log("Sem controle de estoque:", item.nome);
+        continue;
       }
 
       const atual = Number(doc.data().quantidade ?? 0);
@@ -10490,8 +10497,12 @@ async function finalizarPedidoComEstoque(dadosPedido) {
       }
     }
 
-    // 3️⃣ Atualizar tudo
+    // 3️⃣ Atualizar somente produtos que possuem estoque
     for (const { item, ref, doc } of leituras) {
+
+      if (!doc.exists) {
+        continue;
+      }
 
       const atual = Number(doc.data().quantidade ?? 0);
       const novaQtd = atual - Number(item.qtd || 0);
