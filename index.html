@@ -8769,7 +8769,7 @@ const dadosPedido = {
   endereco: String(end),
   pagamento: String(pag),
   itens: carrinho.map(i => ({
-    idBase: obterIdBase(i.id),
+idBase: obterIdBase(i.id)
     idCompleto: i.id,
     nome: String(i.nome),
     preco: Number(i.preco || 0),
@@ -10473,9 +10473,11 @@ async function finalizarPedidoComEstoque(dadosPedido) {
         throw new Error(item.nome + " sem estoque suficiente");
       }
 
-      transaction.update(ref, {
-        quantidade: atual - item.qtd
-      });
+     const novo = Math.max(0, atual - item.qtd);
+
+transaction.update(ref, {
+  quantidade: novo
+});
     }
 
     const pedidoRef = db.collection("pedidos").doc();
