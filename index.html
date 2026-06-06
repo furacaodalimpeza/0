@@ -10466,7 +10466,7 @@ async function finalizarPedidoComEstoque(dadosPedido) {
     // 1️⃣ Ler tudo primeiro
     for (const item of dadosPedido.itens) {
 
-      const ref = db.collection("estoque").doc(item.idCompleto);
+      const ref = db.collection("estoque").doc(item.idBase);
 
       leituras.push({
         item,
