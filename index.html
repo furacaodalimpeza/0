@@ -10461,10 +10461,22 @@ async function finalizarPedidoComEstoque(dadosPedido) {
 
   return db.runTransaction(async (transaction) => {
 
+    const leituras = [];
+
+    // 1️⃣ Ler tudo primeiro
     for (const item of dadosPedido.itens) {
 
       const ref = db.collection("estoque").doc(item.idCompleto);
-      const doc = await transaction.get(ref);
+
+      leituras.push({
+        item,
+        ref,
+        doc: await transaction.get(ref)
+      });
+    }
+
+    // 2️⃣ Validar tudo
+    for (const { item, doc } of leituras) {
 
       if (!doc.exists) {
         throw new Error("Produto não existe: " + item.nome);
@@ -10476,12 +10488,20 @@ async function finalizarPedidoComEstoque(dadosPedido) {
       if (novaQtd < 0) {
         throw new Error(item.nome + " sem estoque suficiente");
       }
+    }
+
+    // 3️⃣ Atualizar tudo
+    for (const { item, ref, doc } of leituras) {
+
+      const atual = Number(doc.data().quantidade ?? 0);
+      const novaQtd = atual - Number(item.qtd || 0);
 
       transaction.update(ref, {
         quantidade: novaQtd
       });
     }
 
+    // 4️⃣ Salvar pedido
     const pedidoRef = db.collection("pedidos").doc();
 
     transaction.set(pedidoRef, {
@@ -10489,7 +10509,7 @@ async function finalizarPedidoComEstoque(dadosPedido) {
       data: firebase.firestore.FieldValue.serverTimestamp()
     });
 
-  }, { maxAttempts: 3 });
+  });
 }
   
 function processarAvaliacoes(snapshot) {
