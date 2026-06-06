@@ -8769,13 +8769,14 @@ const dadosPedido = {
   endereco: String(end),
   pagamento: String(pag),
   itens: carrinho.map(i => ({
-  idBase: obterIdBase(i.id),
-  idCompleto: i.id,
-  nome: String(i.nome),
-  preco: Number(i.preco || 0),
-  qtd: Number(i.qtd || 0)
-})),
-  
+    idBase: obterIdBase(i.id),
+    idCompleto: i.id,
+    nome: String(i.nome),
+    preco: Number(i.preco || 0),
+    qtd: Number(i.qtd || 0)
+  }))
+};
+
 await finalizarPedidoComEstoque(dadosPedido);
 
   // 📊 ATUALIZAR MAIS VENDIDOS
@@ -10516,14 +10517,14 @@ function processarAvaliacoes(snapshot) {
   filtrarEstrelas(0);
 }
 
-let renderTimeout;
-
+let updateTimer;
 function safeUpdate() {
-  requestAnimationFrame(() => {
+  clearTimeout(updateTimer);
+  updateTimer = setTimeout(() => {
     atualizar();
     bloquearBotoesZerados();
     atualizarEstoqueTela();
-  });
+  }, 100);
 }
   
 let sugestoesCarregadas = false;
