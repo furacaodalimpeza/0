@@ -8769,12 +8769,12 @@ const dadosPedido = {
   endereco: String(end),
   pagamento: String(pag),
   itens: carrinho.map(i => ({
-idBase: obterIdBase(i.id)
-    idCompleto: i.id,
-    nome: String(i.nome),
-    preco: Number(i.preco || 0),
-    qtd: Number(i.qtd || 0)
-  }))
+  idBase: obterIdBase(i.id),
+  idCompleto: i.id,
+  nome: String(i.nome),
+  preco: Number(i.preco || 0),
+  qtd: Number(i.qtd || 0)
+}))
 };
 
 await finalizarPedidoComEstoque(dadosPedido);
@@ -10473,11 +10473,9 @@ async function finalizarPedidoComEstoque(dadosPedido) {
         throw new Error(item.nome + " sem estoque suficiente");
       }
 
-     const novo = Math.max(0, atual - item.qtd);
-
-transaction.update(ref, {
-  quantidade: novo
-});
+      transaction.update(ref, {
+        quantidade: atual - item.qtd
+      });
     }
 
     const pedidoRef = db.collection("pedidos").doc();
@@ -10487,9 +10485,11 @@ transaction.update(ref, {
       data: firebase.firestore.FieldValue.serverTimestamp()
     });
 
+  }, {
+    maxAttempts: 3 // 🔥 evita loop infinito de retry
   });
 }
-
+  
 function processarAvaliacoes(snapshot) {
 
   todasAvaliacoes = [];
@@ -10575,7 +10575,15 @@ function renderProduto(produto) {
 
     estoqueCache = novoCache;
 
-    safeEstoqueUpdate();
+   requestIdleCallback(() => {
+  atualizarEstoqueTela();
+  bloquearBotoesZerados();
+
+  if (!sugestoesCarregadas) {
+    mostrarSugestoesFixas();
+    sugestoesCarregadas = true;
+  }
+});
   });
 }
   
